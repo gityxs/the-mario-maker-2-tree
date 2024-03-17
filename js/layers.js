@@ -168,7 +168,7 @@ addLayer("achievements", {
         },
         45: {
             name: "Bounce speed like light",
-            tooltip: "Get 299,792,458 Bouncy Ball Flowers. <br> Reward: 3.21e42 AP <br> Autobuy Invincible Star and it resets nothing, forever.",
+            tooltip: "Get 299,792,458 Bouncy Ball Flowers. <br> Reward: 3.21e42 AP",
             done() {return player.bouncy_ball_flower.points.gte("299792458")},
             onComplete() {
                 return player.achievements.points = player.achievements.points.add("3.21e42")
@@ -240,12 +240,6 @@ addLayer("achievements", {
             done() {return hasMilestone('super_leaf', 3)},
             onComplete() {
                 return player.achievements.points = player.achievements.points.add("5.10e541")
-            },
-            effect() {
-                return player.invincible_star.challenges[11] = new Decimal(1),
-                       player.invincible_star.challenges[12] = new Decimal(1),
-                       player.oneup_mushroom.challenges[11] = new Decimal(1),
-                       player.oneup_mushroom.challenges[12] = new Decimal(1)
             },
         },
         64: {
@@ -370,10 +364,138 @@ addLayer("achievements", {
         },
         94: {
             name: "For workers?",
-            tooltip: "Unlock Super Hammer layer. <br> Reward: 1.00e2400000 AP.",
+            tooltip: "Unlock Super Hammer layer. <br> Reward: 1.00e3600000 AP.",
             done() {return hasUpgrade('propeller_mushroom', 35)},
             onComplete() {
                 return player.achievements.points = player.achievements.points.add("1e3600000")
+            },
+        },
+        95: {
+            name: "Centipicillion clears",
+            tooltip: "Get e3e14 Cleared Courses. <br> Reward: 1.00e7250000 AP.",
+            done() {return player.points.gte("e3e14")},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("1e7250000")
+            },
+        },
+        101: {
+            name: "Create",
+            tooltip: "Unlock Super Hammer challenges. <br> Reward: 1.00e10000000 AP.",
+            done() {return hasUpgrade('super_bell', 35)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("1e10000000")
+            },
+        },
+        102: {
+            name: "Proof of the master",
+            tooltip: "Unlock Master Sword layer. <br> Reward: 1.00e19860221 AP.",
+            done() {return hasUpgrade('super_hammer', 35)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("1e19860221")
+            },
+        },
+        103: {
+            name: "Center area",
+            tooltip: "Aim the center area for explotion. <br> Reward: 1.00e31700000 AP.",
+            done() {return player.master_sword.links_bomb_random == 5},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("1e31700000")
+            },
+        },
+        104: {
+            name: "A lot of golden rupee!",
+            tooltip: "Get 300,000,000 Rupee. <br> Reward: 1.00e100,000,000 AP.",
+            done() {return player.master_sword.rupee.gte(300000000)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("1e100000000")
+            },
+        },
+        105: {
+            name: "You still remember this",
+            tooltip: "Get 1e258 Super Hammer. <br> Reward: e1.000e10 AP, unlock 33rd Master Sword upgrade.",
+            done() {return player.super_hammer.points.gte(1e258)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("ee10")
+            },
+        },
+        111: {
+            name: "SMB2?",
+            tooltip: "Unlock SMB2 Mushroom layer. <br> Reward: e1.111e11 AP.",
+            done() {return hasUpgrade('master_sword', 75)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e1.111e11")
+            },
+        },
+        112: {
+            name: "Grabbing is easier",
+            tooltip: "Buy 'Exa Grabbing' once. <br> Reward: e1.500e13 AP.",
+            done() {return player.usa_mushroom.buyables[31].gte(1)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e1.500e13")
+            },
+        },
+        113: {
+            name: "Quetta+",
+            tooltip: "Get 1e1000 Grabbing Enemies. <br> Reward: e5.500e15 AP.",
+            done() {return player.usa_mushroom.grabs.gte("1e1000")},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e2.500e15")
+            },
+        },
+        114: {
+            name: "Cat, raccoon and... Frog?",
+            tooltip: "Unlock Frog Suit layer. <br> Reward: e2.000e20 AP.",
+            done() {return hasMilestone('oneup_mushroom', 2)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e2.000e20")
+            },
+        },
+        115: {
+            name: "Physics does not exist!",
+            tooltip: "Make Frog Mario's swimming speed over than light speed (c). <br> Reward: e2.024e24 AP.",
+            done() {return player.frog_suit.swim_speed.gte(299792458)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e2.024e24")
+            },
+        },
+        121: {
+            name: "Why balloons can't wear helmets?",
+            tooltip: "Unlock Power Balloon layer. <br> Reward: e1e32 AP.",
+            done() {return hasUpgrade('frog_suit', 35)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("ee32")
+            },
+        },
+        122: {
+            name: "Newton's acorn",
+            tooltip: "Unlock Super Acorn layer. <br> Reward: e1e35 AP.",
+            done() {return hasUpgrade('power_balloon', 15)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("ee35")
+            },
+        },
+        123: {
+            name: "Infinite Space",
+            tooltip: "Get 1.79e308 Expansion Space. <br> Reward: e1e38 AP.",
+            done() {return player.power_balloon.space.gte("1.79e308")},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("ee38")
+            },
+        },
+        124: {
+            name: "Milestone^2",
+            tooltip: "Overpower your first milestone. <br> Reward: e1e41 AP.",
+            done() {return hasUpgrade('power_balloon', 45)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("ee41")
+            },
+        },
+        125: {
+            name: "The last power-up has arrived!",
+            tooltip: "Unlock Boomerang Flower layer. <br> Reward: e1e50 AP.",
+            done() {return hasUpgrade('super_acorn', 32)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("ee50")
             },
         },
     },
@@ -385,6 +507,56 @@ addLayer("achievements", {
         },
     },
 })
+// 特殊层：统计
+addLayer("stats", {
+    name: "Statistics",
+    symbol: "St",
+    points: new Decimal(0),
+    startData() { return {                  // startData is a function that returns default data for a layer. 
+        unlocked: true,                     // You can add more variables here to add them to your layer.
+        points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+    }},
+
+    color: "#FFFFFF",                       // The color for this layer, which affects many elements.
+    resource: "statistics",            // The name of this layer's main prestige resource.
+    row: "side",                                 // The row this layer is on (0 is the first row).
+
+    layerShown() { return true },          // Returns a bool for if this layer's node should be visible in the tree.
+    tabFormat: [
+        "main-display",
+        ["microtabs", "stuff"],
+        ["blank", "65px"],
+    ],
+    microtabs: {
+        stuff: {
+            "Statistics": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        return "You have <h2 style='color: #ffffff; text-shadow: 0 0 10px #ffffff'>" + format(player.points) + "</h2> Cleared Courses."
+                    }],
+                    ["display-text", function() {
+                        if (player.points.lte(836000))
+                        return "The number of Cleared Courses is "+ format(player.points.div(3000)) + " times of Rosalina's outfits' requirment."
+                        else if (player.points.lte(1e20))
+                        return "The number of Cleared Courses is "+ format(player.points.div(836000)) + " times of Total Clears Rank 1's (Feb. 2024) amount."
+                        else if (player.points.lte(1e180))
+                        return "If you wrote 3 numbers a second, it would take you "+ format(player.points.log(10).div(3)) + " seconds to write down your Cleared Courses amount.<br>"
+                        else if (player.points.lte("1e10800"))
+                        return "If you wrote 3 numbers a second, it would take you "+ format(player.points.log(10).div(180)) + " minutes to write down your Cleared Courses amount.<br>Also you can clear " + format(player.points.log(10).div(180).times(1.1)) + " courses in Easy Endless."
+                        else if (player.points.lte("1e259200"))
+                        return "If you wrote 3 numbers a second, it would take you "+ format(player.points.log(10).div(10800)) + " hours to write down your Cleared Courses amount.<br>Also you can clear " + format(player.points.log(10).div(180).times(1.1)) + " courses in Easy Endless."
+                        else if (player.points.lte("1e94608000"))
+                        return "If you wrote 3 numbers a second, it would take you "+ format(player.points.log(10).div(259200)) + " days to write down your Cleared Courses amount.<br>Also you can clear " + format(player.points.log(10).div(1440)) + " courses in Super Expert Endless."
+                        else
+                        return "If you wrote 3 numbers a second, it would take you "+ format(player.points.log(10).div(94608000)) + " years to write down your Cleared Courses amount.<br>Also you can get a " + format(player.points.log(10).div(540).log(4)) + "-win streak in Versus Mode."
+                    }],
+                ]
+            },
+        },
+    },
+}),
 // 第一层：金币
 addLayer("coin", {
     name: "coin", // This is optional, only used in a few places, If absent it just uses the layer id.
@@ -416,6 +588,7 @@ addLayer("coin", {
         if (hasUpgrade('invincible_star', 34)) mult = mult.times(1e100)
         if (hasMilestone('coin', 3)) mult = mult.times(1e50)
         if (hasUpgrade('yoshi_egg', 23)) mult = mult.times(Decimal.pow(1.1, player.yoshi_egg.yoshi.min(player.yoshi_egg.yoshi.max(100000000).log(100).sub(3).times(100000000)).max(1)))
+        if (hasUpgrade('yoshi_egg', 23) && inChallenge('super_hammer', 11)) mult = mult.div(Decimal.pow(1.1, player.yoshi_egg.yoshi.min(player.yoshi_egg.yoshi.max(100000000).log(100).sub(3).times(100000000)).max(1)))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -426,8 +599,14 @@ addLayer("coin", {
         if (hasUpgrade('propeller_mushroom', 31)) exp = exp.times(3)
         return exp
     },
-    softcap: new Decimal("e1.8e12"),
-    softcapPower: new Decimal(0.2),
+    softcap(){
+        let Csoftcap = new Decimal("e1.8e12")
+        if (hasUpgrade('super_hammer', 14)) Csoftcap = new Decimal("e3e13")
+        return new Decimal(Csoftcap)
+    },
+    softcapPower(){
+        return new Decimal(0.2)
+    },
     row: 0, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
         {key: "c", description: "C: Reset for Coins", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
@@ -442,9 +621,10 @@ addLayer("coin", {
         if (hasUpgrade('invincible_star', 24)) multPKC = multPKC.times(1e100)
         if (hasUpgrade('fire_flower', 22)) multPKC = multPKC.times(buyableEffect('coin', 13))
         if (hasUpgrade('oneup_mushroom', 25)) multPKC = multPKC.times(1e30)
-        if (player.oneup_mushroom.challenges[11].gte(1)) multPKC = multPKC.times(challengeEffect('oneup_mushroom', 11))
+        if (hasChallenge('oneup_mushroom', 11)) multPKC = multPKC.times(challengeEffect('oneup_mushroom', 11).max(1))
         if (inChallenge('invincible_star', 12)) multPKC = multPKC.times(0)
-		if (hasUpgrade("coin", 31)) player.coin.pink_key_coin = player.coin.pink_key_coin.add(multPKC)     
+		if (hasUpgrade("coin", 31)) player.coin.pink_key_coin = player.coin.pink_key_coin.add(multPKC)    
+        if (hasUpgrade('super_acorn', 101)) player.coin.points = player.coin.points.add("e9e45")
     },
     autoUpgrade() {return hasUpgrade('fire_flower', 12) || hasAchievement('achievements', 31)},
     effect(){return Decimal.pow(player[this.layer].pink_key_coin.max(0), 1.5).add(1)
@@ -459,6 +639,9 @@ addLayer("coin", {
             let kept = ["unlocked", "auto"]
                 if(hasMilestone('fire_flower', 1)) {
                 kept.push("milestones")
+                }
+                if(hasMilestone('master_sword', 8)) {
+                kept.push("upgrades")
                 }
             layerDataReset(this.layer, kept)
         }
@@ -475,9 +658,23 @@ addLayer("coin", {
             cost: new Decimal(5),
             unlocked() {return hasUpgrade('coin', 11)},
             effect() {
-                return player[this.layer].points.add(1).pow(0.5)
+                let CU2softcap = new Decimal("e1e16")
+                if (hasUpgrade('master_sword', 21)) CU2softcap = CU2softcap.pow(2)
+                if (hasUpgrade('master_sword', 25)) CU2softcap = CU2softcap.pow(player.super_hammer.characters_box.max(1).log(1e10).add(1).pow(2).times(2))
+                if (hasUpgrade('master_sword', 72)) CU2softcap = CU2softcap.pow(upgradeEffect('master_sword', 72))
+                if (hasUpgrade('power_balloon', 45)) CU2softcap = CU2softcap.pow(25)
+                if (player.coin.points.gte(CU2softcap))
+                return player[this.layer].points.add(1).pow(0.1).times(CU2softcap.pow(0.4))
+                else return player[this.layer].points.add(1).pow(0.5)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
+            effectDisplay() { 
+                let CU2softcap = new Decimal("e1e16")
+                if (hasUpgrade('master_sword', 21)) CU2softcap = CU2softcap.pow(2)
+                if (hasChallenge('super_hammer', 11)) CU2softcap = CU2softcap.pow(player.super_hammer.characters_box.max(1).log(1e10).add(1))
+                if (hasUpgrade('power_balloon', 45)) CU2softcap = CU2softcap.pow(25)
+                if (player.coin.points.gte(CU2softcap))
+                return format(upgradeEffect(this.layer, this.id))+"x (softcapped)"
+                else return format(upgradeEffect(this.layer, this.id))+"x"}, // Add formatting to the effect
         },
         13: {
             title: "Coin reward room",
@@ -487,7 +684,8 @@ addLayer("coin", {
             effect() {
                 return player.points.add(1).pow(0.2).times(1.5)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() {
+                return format(upgradeEffect(this.layer, this.id))+"x" },
         },
         14: {
             title: "You need a power-up!",
@@ -503,7 +701,8 @@ addLayer("coin", {
             effect() {
                 return player.points.add(10).log(10)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { 
+                return format(upgradeEffect(this.layer, this.id))+"x" },
         },
         21:{
             title: "From coins to 1-ups",
@@ -563,7 +762,7 @@ addLayer("coin", {
             cost: new Decimal("3.33e333"),
             unlocked() {return hasUpgrade('coin', 33)},
             effect() {
-                return player.coin.points.log(10).div(10)
+                return player.coin.points.max(1).log(10).div(10).max(1)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -650,14 +849,24 @@ addLayer("coin", {
     },
     milestones: {
         0: {
-            requirementDescription: "Reach 6871 cleared courses",
-            effectDescription: "x2.5 your coins gain.",
-            done() { return player.points.gte(6871) }
+            requirementDescription(){des = "Reach 6871 cleared courses"
+                if (hasUpgrade('power_balloon', 45)) des = des + " (Overpowered)"
+                return des},
+            effectDescription() {des = "x2.5 your coins gain."
+            if (hasUpgrade('power_balloon', 45)) des = des + "<br> Overpowered effect: Delay 2nd Coin upgrade's softcap by ^25."
+            return des},
+            done() { return player.points.gte(6871) },
+            style(){if (hasUpgrade('power_balloon', 45)) return{'background-color':'#ffad00'}}
         },
         1: {
-            requirementDescription: "Reach 74751 coins",
-            effectDescription: "Triple coin gain.",
+            requirementDescription(){des = "Reach 74751 coins"
+                if (hasUpgrade('super_acorn', 101)) des = des + " (Overpowered)"
+                return des},
+            effectDescription() {des = "Triple coin gain."
+            if (hasUpgrade('super_acorn', 101)) des = des + "<br> Overpowered effect: You start every reset with " + format(new Decimal("e9e45")) + " Coins."
+            return des},
             done() { return player.coin.points.gte(74751) },
+            style(){if (hasUpgrade('super_acorn', 101)) return{'background-color':'#ffad00'}}
         },
         2: {
             requirementDescription: "Reach 50,000,000 coins",
@@ -665,7 +874,7 @@ addLayer("coin", {
             done() { return player.coin.points.gte(50000000) },
         },
         3: {
-            requirementDescription: "Reach 1.000e175 coins",
+            requirementDescription(){return "Reach "+ format(new Decimal(1e175))+" coins"},
             effectDescription: "Cleared courses gain x1e50.",
             done() { return player.coin.points.gte(1e175) },
         },
@@ -751,6 +960,9 @@ addLayer("super_mushroom", {
                 if(hasMilestone('invincible_star', 2)) {
                 kept.push("milestones")
             }
+                if(hasMilestone('master_sword', 9)) {
+                kept.push("upgrades")
+                }
 
         layerDataReset(this.layer, kept)
     }
@@ -939,6 +1151,7 @@ effectDescription(){
         if (hasChallenge('invincible_star', 11)) mult = mult.times(challengeEffect('invincible_star', 11))
         if (hasUpgrade('super_leaf', 221)) mult = mult.times(4.89e166)
         if (hasMilestone('yoshi_egg', 0)) mult = mult.times(Decimal.pow(1e35, player.yoshi_egg.red_yoshi.min(player.yoshi_egg.red_yoshi.max(1000).log(10).sub(2).times(1000)).max(1)))
+        if (hasMilestone('yoshi_egg', 0) && inChallenge('super_hammer', 11)) mult = mult.div(Decimal.pow(1e35, player.yoshi_egg.red_yoshi.min(player.yoshi_egg.red_yoshi.max(1000).log(10).sub(2).times(1000)).max(1)))
         if (hasUpgrade('propeller_mushroom', 21)) mult = mult.times("1e10000000")
         return mult              // Factor in any bonuses multiplying gain here.
     },
@@ -952,6 +1165,12 @@ effectDescription(){
         if (hasUpgrade('oneup_mushroom', 24)) exp = exp.times(1.35)
         if (inChallenge('oneup_mushroom', 12)) exp = exp.times(0.05)
         return exp
+    },
+    softcap(){
+        return new Decimal("e3e39")
+    },
+    softcapPower(){
+        return new Decimal(1)
     },
     hotkeys: [
         {key: "f", description: "F: Reset for Fire Flowers", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
@@ -968,6 +1187,9 @@ effectDescription(){
             let kept = ["unlocked", "auto"]
                 if(hasMilestone('invincible_star', 3)) {
                 kept.push("milestones")
+                }
+                if(hasMilestone('master_sword', 10)) {
+                kept.push("upgrades")
                 }
 
         layerDataReset(this.layer, kept)
@@ -1015,7 +1237,7 @@ effectDescription(){
             cost: new Decimal(5e8),
             unlocked() {return hasUpgrade('fire_flower', 15)},
             effect() {
-                return player.super_mushroom.points.log(10).div(10)
+                return player.super_mushroom.points.max(1).log(10).div(10).max(1)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -1142,8 +1364,14 @@ addLayer("invincible_star", {
     doReset(resettingLayer) {
         if (layers[resettingLayer].row > layers[this.layer].row) {
             let kept = ["unlocked", "auto"]
+                if(hasAchievement('achievements', 63)) {
+                kept.push("challenges")
+                }
                 if(hasMilestone('super_leaf', 7)) {
                 kept.push("milestones")
+                }
+                if(hasMilestone('master_sword', 11)) {
+                kept.push("upgrades")
                 }
 
         layerDataReset(this.layer, kept)
@@ -1344,6 +1572,8 @@ addLayer("oneup_mushroom", {
     startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+        sacrifice: new Decimal(0),
+        rotten_mushroom: new Decimal(0),
     }},
 
     color: "#5BBF2F",                       // The color for this layer, which affects many elements.
@@ -1392,8 +1622,14 @@ addLayer("oneup_mushroom", {
     doReset(resettingLayer) {
         if (layers[resettingLayer].row > layers[this.layer].row) {
             let kept = ["unlocked", "auto"]
+                if(hasAchievement('achievements', 63)) {
+                kept.push("challenges")
+                }
                 if(hasMilestone('super_leaf', 7)) {
                 kept.push("milestones")
+                }
+                if(hasMilestone('master_sword', 13)) {
+                kept.push("upgrades")
                 }
 
         layerDataReset(this.layer, kept)
@@ -1402,6 +1638,14 @@ addLayer("oneup_mushroom", {
     hotkeys: [
         {key: "1", description: "1: Reset for 1UP Mushrooms", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
+    update(multRM) {     
+        multRM = new Decimal(1)
+        if (hasUpgrade('usa_mushroom', 35)) multRM = multRM.times(player.oneup_mushroom.sacrifice.max(1).log(10).max(1).log(10).max(0))
+        if (hasMilestone('oneup_mushroom', 1)) multRM = multRM.times(10)
+        if (hasUpgrade('frog_suit', 24)) multRM = multRM.pow(upgradeEffect('frog_suit', 24))
+		if (hasUpgrade('usa_mushroom', 35)) player.oneup_mushroom.rotten_mushroom = player.oneup_mushroom.rotten_mushroom.add(multRM.times(0.05))
+        if (hasMilestone('super_acorn', 1) && hasUpgrade('usa_mushroom', 35)) player.oneup_mushroom.sacrifice = player.oneup_mushroom.sacrifice.add(player.oneup_mushroom.points.times(0.05))
+    },
     upgrades: {
         11: {
             title: "Nice design in the end of a course",
@@ -1526,6 +1770,20 @@ addLayer("oneup_mushroom", {
             effectDescription: "Autobuy Super Mushroom buyable 1.",
             done() { return player.oneup_mushroom.points.gte(99) },
         },
+        1: {
+            requirementDescription: "Get 3000 Rotten Mushrooms",
+            effectDescription: "10x Rotten Mushroom gain.",
+            done() { return player.oneup_mushroom.rotten_mushroom.gte(3000) },
+            unlocked() {return hasUpgrade('usa_mushroom', 35)},
+            style() {if (hasMilestone('oneup_mushroom',1)) return {"background-color":"#9600b1"}}
+        },
+        2: {
+            requirementDescription: "Get 50000 Rotten Mushrooms",
+            effectDescription: "Finally, unlock the last layer on row 6.",
+            done() { return player.oneup_mushroom.rotten_mushroom.gte(50000) },
+            unlocked() {return hasUpgrade('usa_mushroom', 35)},
+            style() {if (hasMilestone('oneup_mushroom',2)) return {"background-color":"#9600b1"}}
+        },
     },
     challenges: {
         11: {
@@ -1552,6 +1810,20 @@ addLayer("oneup_mushroom", {
                 },
             rewardDescription: "x15 Bouncy Ball Flower and unlock 6th Bounce Ball upgrade.",
             unlocked() {return hasChallenge('oneup_mushroom', 11) || hasAchievement('achievements', 63)},
+        },
+    },
+    clickables: {
+        11: {
+            title: "Sacrifice",
+            display() {
+                return "Sacrifice your 1UP Mushroom to gain Rotten Mushrooms."
+            },
+            canClick() {return true},
+            onClick() {
+                return player.oneup_mushroom.sacrifice = player.oneup_mushroom.sacrifice.add(player.oneup_mushroom.points),
+                player.oneup_mushroom.points = new Decimal(0)
+            },
+            style: {'background-color':'#9600b1'},
         },
     },
     tabFormat: [
@@ -1584,6 +1856,25 @@ addLayer("oneup_mushroom", {
                     ["blank", "15px"],
                     "challenges"
                 ], 
+            },
+            "Rotten Mushroom": {
+                unlocked() {return hasUpgrade('usa_mushroom', 35)},
+                content: [
+                    ["blank", "15px"],
+                    ["raw-html", () => `<h4 style="opacity:.5">Rotten mushroom follows you and wants to hurt you. But if you are invincible, it will escape from you.`],
+                    ["display-text", function() {
+                        let RMpsec = format(player.oneup_mushroom.sacrifice.max(1).log(10).max(1).log(10).max(0))
+                        if (hasMilestone('oneup_mushroom', 1)) RMpsec = format(player.oneup_mushroom.sacrifice.max(1).log(10).max(1).log(10).max(0).times(10))
+                        if (hasUpgrade('frog_suit', 24)) RMpsec = format(player.oneup_mushroom.sacrifice.max(1).log(10).max(1).log(10).max(0).times(10).pow(upgradeEffect('frog_suit', 24)))
+                        return "You have sacrificed <h2 style='color: #5bbf2f; text-shadow: 0 0 10px #5bbf2f'>" + format(player.oneup_mushroom.sacrifice) + "</h2> 1UP Mushrooms, generating <h2 style='color: #9600b1; text-shadow: 0 0 10px #9600b1'>" + RMpsec + " </h2> Rotten Mushrooms every second."
+                    }],
+                    ["display-text", function() {
+                        let normal = "You have <h2 style='color: #9600b1; text-shadow: 0 0 10px #9600b1'>" + format(player.oneup_mushroom.rotten_mushroom) + "</h2> Rotten Mushrooms."
+                    return normal
+                    }],
+                    "clickables",
+                    "buyables",
+                ]              
             },
         },
     },
@@ -1643,6 +1934,9 @@ addLayer("bouncy_ball_flower", {
                 if(hasMilestone('super_leaf', 7)) {
                 kept.push("milestones")
                 }
+                if(hasMilestone('master_sword', 14)) {
+                    kept.push("upgrades")
+                    }
 
         layerDataReset(this.layer, kept)
         }
@@ -1794,6 +2088,7 @@ addLayer("bouncy_ball_flower", {
                 if (hasMilestone('invincible_star', 4)) clickBB = clickBB.times(1e20)
                 return  player.bouncy_ball_flower.bouncy_ball = player.bouncy_ball_flower.bouncy_ball.add(clickBB)
             },
+            style: {'background-color':'#e4e4b2'},
         },
     },
     buyables: {
@@ -1820,7 +2115,7 @@ addLayer("bouncy_ball_flower", {
                 if (hasUpgrade('cape_feather', 22)) BBFB1softcap = new Decimal(0.3)
                 if (player.bouncy_ball_flower.buyables[11].gte(1e30)) BBFB1effect = BBFB1effect.div(Decimal.pow(BBFB1effect.div(1e30), BBFB1softcap))
                 return BBFB1effect},
-            unlocked() {return true}
+            unlocked() {return true},
         },
         12: {
             title: "Bounce to touch keys",
@@ -1835,7 +2130,7 @@ addLayer("bouncy_ball_flower", {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             effect(x) {return new Decimal(2).pow(x).max(1)},
-            unlocked() {return hasMilestone('bouncy_ball_flower', 0)}
+            unlocked() {return hasMilestone('bouncy_ball_flower', 0)},
         },
         13: {
             title: "Bounce to touch P switches",
@@ -1850,7 +2145,7 @@ addLayer("bouncy_ball_flower", {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             effect(x) {return new Decimal(20).pow(x).max(1)},
-            unlocked() {return hasMilestone('bouncy_ball_flower', 1)}
+            unlocked() {return hasMilestone('bouncy_ball_flower', 1)},
         },
     },
     milestones: {
@@ -1974,6 +2269,9 @@ addLayer("big_mushroom", {
                 if(hasMilestone('super_leaf', 7)) {
                 kept.push("milestones")
                 }
+                if(hasMilestone('master_sword', 15)) {
+                    kept.push("upgrades")
+                    }
 
         layerDataReset(this.layer, kept)
         }
@@ -2036,7 +2334,7 @@ addLayer("big_mushroom", {
             cost: new Decimal(1000),
             unlocked() {return hasUpgrade('big_mushroom', 21)},
             effect() {
-                return player.big_mushroom.points.pow(0.6)
+                return player.big_mushroom.points.pow(0.6).max(1)
                     },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -2046,7 +2344,7 @@ addLayer("big_mushroom", {
             cost: new Decimal(3125),
             unlocked() {return hasUpgrade('big_mushroom', 22)},
             effect() {
-                return player.big_mushroom.points.pow(0.8)
+                return player.big_mushroom.points.pow(0.8).max(1)
                     },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -2309,6 +2607,9 @@ addLayer("super_leaf", {
                 if(hasMilestone('propeller_mushroom', 5)) {
                 kept.push("milestones")
                     }
+                    if(hasMilestone('master_sword', 16)) {
+                        kept.push("upgrades")
+                        }
 
         layerDataReset(this.layer, kept)
         }
@@ -2372,7 +2673,7 @@ addLayer("super_leaf", {
         },
         24: {
             title: "Reclaim with tail",
-            description: "x1.797e308 Bouncy Ball gain.",
+            description: "1.797e308x Bouncy Ball gain.",
             cost: new Decimal(4194304),
             unlocked() {return hasUpgrade('super_leaf', 23)},
         },
@@ -2538,7 +2839,7 @@ addLayer("super_leaf", {
         },
         242: {
             title: "Fly over the lava",
-            description: "Multiply SL Skill Points based on Pink Key Coin.<br>Lock 5,2",
+            description: "Multiply SL Skill Points based on Pink Key Coin.<br>Lock 5,1",
             currencyDisplayName: "SL Skill Points",
             currencyInternalName: "slsp",
             currencyLayer: "super_leaf",
@@ -2587,7 +2888,7 @@ addLayer("super_leaf", {
                 else return true
             },
             effect() {
-                return player.points.log(10).div(1000).max(1)
+                return player.points.max(1).log(10).div(1000).max(1)
                     },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -2733,6 +3034,9 @@ addLayer("super_leaf", {
                 }
                 if (canReset(this.layer)) doReset(this.layer)
             },
+            style: {'min-height':'30px',
+                    'width':'480px',
+                    'border-radius':'5%'},
         },
     },
     milestones: {
@@ -2861,6 +3165,9 @@ addLayer("cape_feather", {
             if(hasMilestone('propeller_mushroom', 7)) {
             kept.push("milestones")
             }
+            if(hasMilestone('master_sword', 17)) {
+                kept.push("upgrades")
+                }
 
         layerDataReset(this.layer, kept)
         }
@@ -2885,6 +3192,7 @@ addLayer("cape_feather", {
         if (hasMilestone('cape_feather', 2)) multCE = multCE.times(1e10)
         if (hasMilestone('propeller_mushroom', 0)) multCE = multCE.times(100)
         if (hasUpgrade('propeller_mushroom', 12)) multCE = multCE.times(player.yoshi_egg.red_yoshi.max(1).pow(0.75))
+        if (hasUpgrade('propeller_mushroom', 12) && inChallenge('super_hammer', 11)) multCE = multCE.div(player.yoshi_egg.red_yoshi.max(1).pow(0.75))
         if (inChallenge('propeller_mushroom', 11)) multCE = multCE.times(0)
         if (hasUpgrade('cape_feather', 15)) player.cape_feather.ce = player.cape_feather.ce.add(multCE)
     },
@@ -2902,7 +3210,7 @@ addLayer("cape_feather", {
                 else CFU1base = CFU1base.times(1e50) 
                 if (hasUpgrade('cape_feather', 31)) CFU1hardcap = new Decimal("1e5000")
                 if (hasUpgrade('propeller_mushroom', 13)) CFU1hardcap = new Decimal("1e30000")
-                if (hasUpgrade('propeller_mushroom', 23)) CFU1hardcap = new Decimal("10^^1.79e308")
+                if (hasUpgrade('propeller_mushroom', 23)) CFU1hardcap = new Decimal("e1.25e10")
                 return Decimal.pow(CFU1base, player.cape_feather.points).min(CFU1hardcap)
                     },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
@@ -2965,7 +3273,7 @@ addLayer("cape_feather", {
             cost: new Decimal(7),
             unlocked() {return hasUpgrade('cape_feather', 22)},
             effect() {
-                return player.points.log(10).max(1)
+                return player.points.max(1).log(10).max(1)
                     },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -3132,6 +3440,8 @@ addLayer("yoshi_egg", {
 
     requires: new Decimal("1e11341"),              // The amount of the base needed to  gain 1 of the prestige currency.
                                             // Also the amount required to unlock the layer.
+    softcap: new Decimal("1e60000000"),
+    softcapPower: new Decimal(0.25),
 
     type: "normal",                         // Determines the formula used for calculating prestige currency.
     exponent: 2.5e-4,                          // "normal" prestige gain is (currency^exponent).
@@ -3164,6 +3474,9 @@ addLayer("yoshi_egg", {
             if(hasMilestone('propeller_mushroom', 7)) {
             kept.push("milestones")
             }
+            if(hasMilestone('master_sword', 18)) {
+                kept.push("upgrades")
+                }
 
         layerDataReset(this.layer, kept)
         }
@@ -3316,6 +3629,7 @@ addLayer("yoshi_egg", {
                 return player.yoshi_egg.points = player.yoshi_egg.points.sub(1),
                        player.yoshi_egg.red_yoshi = player.yoshi_egg.red_yoshi.add(1)
             },
+            style() {if (player.yoshi_egg.points.gte(1)) return {'background-color':'#f70000'}},
         },
         21: {
             title: "Lick the key",
@@ -3338,6 +3652,7 @@ addLayer("yoshi_egg", {
                        player.yoshi_egg.red_yoshi = player.yoshi_egg.red_yoshi.add(10)
             },
             unlocked() {return hasUpgrade('yoshi_egg', 12)},
+            style() {if (player.yoshi_egg.points.gte(1)) return {'background-color':'#f70000'}},
         },
         31: {
             title: "Longest tongue",
@@ -3360,6 +3675,7 @@ addLayer("yoshi_egg", {
                 player.yoshi_egg.points = player.yoshi_egg.points.div(2).ceil()
             },
             unlocked() {return hasUpgrade('yoshi_egg', 14)},
+            style() {if (player.yoshi_egg.points.gte(1)) return {'background-color':'#f70000'}},
         },
         41: {
             title: "Licking through walls",
@@ -3381,12 +3697,14 @@ addLayer("yoshi_egg", {
                 return player.yoshi_egg.red_yoshi = player.yoshi_egg.red_yoshi.add(player.yoshi_egg.points),
                 player.yoshi_egg.points = new Decimal(0)
             },
-            unlocked() {return hasUpgrade('yoshi_egg', 14)}
+            unlocked() {return hasUpgrade('yoshi_egg', 14)},
+            style() {if (player.yoshi_egg.points.gte(1)) return {'background-color':'#f70000'}},
         },
     },
     tabFormat: [
         "main-display",
         "prestige-button",
+        ["display-text", () => "Softcap starts at 1e60,000,000 Yoshi Eggs"],
         ["microtabs", "stuff"],
         ["blank", "65px"],
     ],
@@ -3489,6 +3807,7 @@ addLayer("propeller_mushroom", {
         if (hasUpgrade('propeller_mushroom', 14)) mult = mult.times(upgradeEffect('propeller_mushroom', 14))
         if (hasUpgrade('yoshi_egg', 35)) mult = mult.times(1e10)
         if (hasUpgrade('super_bell', 14)) mult = mult.times(upgradeEffect('super_bell', 14))
+        if (hasMilestone('master_sword', 0)) mult = mult.times("1e1000")
         return mult
     },
     gainExp() {                             // Returns the exponent to your gain of the prestige resource.
@@ -3496,11 +3815,31 @@ addLayer("propeller_mushroom", {
         if (hasUpgrade('propeller_mushroom', 32)) exp = exp.times(1.05)
         if (hasUpgrade('propeller_mushroom', 33)) exp = exp.times(1.05)
         if (hasUpgrade('propeller_mushroom', 34)) exp = exp.times(1.05)
+        if (hasMilestone('super_hammer', 0)) exp = exp.times(1.1)
         return exp
+    },
+    directMult() {
+        mult = new Decimal(1)
+        if (hasUpgrade('super_hammer', 11)) mult = mult.times(upgradeEffect('super_hammer', 11))
+        return mult
+    },
+    doReset(resettingLayer) {
+        if (layers[resettingLayer].row > layers[this.layer].row) {
+            let kept = ["unlocked", "auto"]
+            if(hasMilestone('master_sword', 0)) {
+            kept.push("milestones")
+            }
+            if(hasMilestone('master_sword', 1)) {
+                kept.push("challenges")
+                }
+        layerDataReset(this.layer, kept)
+        }
     },
 
     layerShown() { return hasUpgrade('yoshi_egg', 25) || hasAchievement('achievements', 83) },          // Returns a bool for if this layer's node should be visible in the tree.
 
+    passiveGeneration() { return hasUpgrade('super_hammer', 31) || hasMilestone('master_sword', 2) },
+    autoUpgrade() { return hasMilestone('master_sword', 4) },
     upgrades: {
         11: {
             title: "Orange helmet",
@@ -3550,7 +3889,7 @@ addLayer("propeller_mushroom", {
         },
         23: {
             title: "Slow pownd in",
-            description: "Remove 1st CF upgrade's hardcap.",
+            description: "Delay 1st CF upgrade's hardcap to e1.25e10.",
             cost: new Decimal(2.22e49),
             unlocked() {return hasUpgrade('propeller_mushroom', 22)},
         },
@@ -3744,6 +4083,8 @@ addLayer("super_bell", {
         if (hasUpgrade('super_bell', 12)) mult = mult.times(upgradeEffect('super_bell', 12))
         if (hasUpgrade('super_bell', 15)) mult = mult.times(player.super_bell.dimone.pow(0.5).max(1))
         if (hasUpgrade('super_bell', 23)) mult = mult.times(1e15)
+        if (hasUpgrade('super_hammer', 12)) mult = mult.times(upgradeEffect('super_hammer', 12))
+        if (hasMilestone('master_sword', 0)) mult = mult.times(1e100)
         return mult
     },
     gainExp() {                             // Returns the exponent to your gain of the prestige resource.
@@ -3751,6 +4092,17 @@ addLayer("super_bell", {
     },
 
     layerShown() { return hasAchievement('achievements', 91) },          // Returns a bool for if this layer's node should be visible in the tree.
+    passiveGeneration() { return hasUpgrade('super_hammer', 32)  || hasMilestone('master_sword', 2)},
+    autoUpgrade() { return hasMilestone('master_sword', 4) },
+    doReset(resettingLayer) {
+        if (layers[resettingLayer].row > layers[this.layer].row) {
+            let kept = ["unlocked", "auto"]
+            if(hasMilestone('master_sword', 3)) {
+                kept.push("milestones")
+                }
+        layerDataReset(this.layer, kept)
+        }
+    },
     hotkeys: [
         {key: "s", description: "S: Reset for Super Bells", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
@@ -3827,6 +4179,46 @@ addLayer("super_bell", {
             cost: new Decimal(1e65),
             unlocked() {return hasUpgrade('super_bell', 24)},
         },
+        31: {
+            title: "Climb the semi-hitbox platform",
+            description: "Increase Super Hammer gain.",
+            cost: new Decimal("1e10000"),
+            unlocked() {return hasUpgrade('super_hammer', 15)},
+            effect() {
+                let SBU11eff = new Decimal(3)
+                if (hasUpgrade('super_bell', 34)) SBU11eff = SBU11eff.pow(upgradeEffect('super_bell', 34))
+                return SBU11eff
+                    },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        32: {
+            title: "Climb the tree faster",
+            description: "Autobuy Super Bell buyables.",
+            cost: new Decimal("1e11451"),
+            unlocked() {return hasUpgrade('super_bell', 31)},
+        },
+        33: {
+            title: "Scratch cancel",
+            description: "Raise 2nd Super Bell buyable's sffect base to 4.17.",
+            cost: new Decimal("1e11520"),
+            unlocked() {return hasUpgrade('super_bell', 32)},
+        },
+        34: {
+            title: "Scratch cancel with groundpounding",
+            description: "Make 11th Super Bell upgrade's effect based on 1st SBD.",
+            cost: new Decimal("1e11920"),
+            unlocked() {return hasUpgrade('super_bell', 33)},
+            effect() {
+                return player.super_bell.dimone.max(10).log(10).div(40).max(1)
+                    },
+            effectDisplay() { return "^"+format(upgradeEffect(this.layer, this.id)) },
+        },
+        35: {
+            title: "Scratch + long jump",
+            description: "Unlock a Super Hammer challenge.",
+            cost: new Decimal("7.77e30000"),
+            unlocked() {return hasUpgrade('super_bell', 34)},
+        },
         // Look in the upgrades docs to see what goes here!
     },
     milestones: {
@@ -3853,6 +4245,7 @@ addLayer("super_bell", {
             effect(x) {
                 let SBDmult8 = new Decimal(1)
                 if (hasUpgrade('super_bell', 22)) SBDmult8 = SBDmult8.times(upgradeEffect('super_bell', 22))
+                if (hasChallenge('super_hammer', 11)) SBDmult8 = SBDmult8.times(1e100)
                 return x.times(SBDmult8)
             },
             unlocked() {return hasUpgrade('super_bell', 15)}
@@ -3860,7 +4253,10 @@ addLayer("super_bell", {
         12: {
             title: "Super Bell Dimension shift",
             cost(x) { return new Decimal(100000).pow(x.add(1)) },
-            display() { return` Multiply each SB Dimension production by 2 per every level. <br>
+            display() { 
+                let SBB2base = new Decimal(2)
+                if (hasUpgrade('super_bell', 33)) SBB2base = new Decimal(4.17)
+                return` Multiply each SB Dimension production by ${format(SBB2base)} per every level. <br>
                 Effect: ${format(this.effect())}x <br>
                 Level: ${format(player[this.layer].buyables[this.id])}<br>
                 Cost: ${format(this.cost())} 1st Super Bell Dimensions`
@@ -3871,10 +4267,24 @@ addLayer("super_bell", {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             effect(x) {
-                return Decimal.pow(2, x)
+                let base = new Decimal(2)
+                if (hasUpgrade('super_bell', 33)) base = new Decimal(4.17)
+                return Decimal.pow(base, x).min("1e1000")
             },
             unlocked() {return hasUpgrade('super_bell', 21)}
         },
+    },
+    automate(){
+        if (player.super_bell.points.lte(0)) return
+        if (hasUpgrade('super_bell', 32)
+        ) {
+            if (player.super_bell.points) {
+                hasUpgrade('super_bell', 32) ? setBuyableAmount("super_bell",11,tmp.super_bell.buyables[11].canAfford?player.super_bell.points.log(2).floor().add(1):getBuyableAmount("super_bell",11)) : buyBuyable("super_bell",11)
+            }
+            if (player.super_bell.dimone) {
+                hasUpgrade('super_bell', 32) ? setBuyableAmount("super_bell",12,tmp.super_bell.buyables[12].canAfford?player.super_bell.dimone.log(100000).floor():getBuyableAmount("super_bell",12)) : buyBuyable("super_bell",12)
+            }
+        }
     },
     update(multSBD) {
         multSBD = new Decimal(0.05)
@@ -3935,6 +4345,7 @@ addLayer("super_hammer", {
     startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+        characters_box: new Decimal(0),
     }},
 
     color: "#403739",                       // The color for this layer, which affects many elements.
@@ -3946,31 +4357,371 @@ addLayer("super_hammer", {
     baseResource: "Super Leaves",                 // The name of the resource your prestige gain is based on.
     baseAmount() { return player.super_leaf.points },  // A function to return the current amount of baseResource.
 
-    requires: new Decimal("1e3000000"),              // The amount of the base needed to  gain 1 of the prestige currency.
+    requires: new Decimal("1e2039000"),              // The amount of the base needed to  gain 1 of the prestige currency.
                                             // Also the amount required to unlock the layer.
 
     type: "normal",                         // Determines the formula used for calculating prestige currency.                         // "normal" prestige gain is (currency^exponent).
-    exponent: 0.0001,
-
+    exponent: 0,
     gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
-        return new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        let SL = player.super_leaf.points
+        if (hasMilestone('super_hammer', 0)) mult = mult.times(SL.div("1e2039000").max(1).log(1e100).max(1).floor())
+        if (hasMilestone('super_hammer', 2)) mult = mult.times(2)
+        if (hasUpgrade('super_bell', 31)) mult = mult.times(upgradeEffect('super_bell', 31))
+        if (hasMilestone('master_sword', 0)) mult = mult.times(1e10)
+        return mult
     },
     gainExp() {                             // Returns the exponent to your gain of the prestige resource.
-        return new Decimal(1)
+        exp = new Decimal(1)
+        if (hasUpgrade('super_hammer', 22)) exp = exp.times(upgradeEffect('super_hammer', 13))
+        if (hasUpgrade('frog_suit', 32)) exp = exp.times(5)
+        if (hasUpgrade('super_acorn', 23)) exp = exp.times(22)
+        return exp
+    },
+    directMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        if (hasChallenge('super_hammer'), 12) mult = mult.times(challengeEffect('super_hammer', 12))
+        if (hasUpgrade('super_hammer', 34)) mult = mult.times(upgradeEffect('super_hammer', 34))
+        if (hasUpgrade('usa_mushroom', 11)) mult = mult.times(7000)
+        if (hasUpgrade('usa_mushroom', 12)) mult = mult.times(upgradeEffect('usa_mushroom', 12))
+        return mult
     },
 
-    layerShown() { return true },          // Returns a bool for if this layer's node should be visible in the tree.
+    layerShown() { return hasAchievement('achievements', 94) },          // Returns a bool for if this layer's node should be visible in the tree.
 
+    doReset(resettingLayer) {
+        if (layers[resettingLayer].row > layers[this.layer].row) {
+            let kept = ["unlocked", "auto"]
+            if(hasMilestone('master_sword', 1)) {
+                kept.push("challenges")
+                }
+            if(hasMilestone('master_sword', 3)) {
+                kept.push("milestones")
+            }
+            if(hasMilestone('master_sword', 4)) {
+                kept.push("buyables")
+        }
+        layerDataReset(this.layer, kept)
+        }
+    },
+    autoUpgrade() { return hasMilestone('master_sword', 5) },
+    passiveGeneration() { return hasMilestone('master_sword', 6) },
     hotkeys: [
         {key: "h", description: "H: Reset for Super Hammers", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-
+    
     upgrades: {
+        11: {
+            title: "40 40",
+            description: "Super Hammer affacts Propeller Mushroom.",
+            cost: new Decimal(4500),
+            unlocked() {return hasMilestone('super_hammer', 1)},
+            effect() {
+                return player.super_hammer.points.pow(450).max(1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        12: {
+            title: "80 80",
+            description: "Super Hammer affacts Super Bell.",
+            currencyDisplayName: "Propeller Mushrooms",
+            currencyInternalName: "points",
+            currencyLayer: "propeller_mushroom",
+            cost: new Decimal("1e9636"),
+            unlocked() {return hasUpgrade('super_hammer', 11)},
+            effect() {
+                return player.super_hammer.points.pow(40).max(1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        13: {
+            title: "Unlike hammer bros",
+            description: "Power Cleared Courses baesd on Super Hammer.<br>Formula: slog10(x)",
+            cost: new Decimal(28888),
+            unlocked() {return hasUpgrade('super_hammer', 12)},
+            effect() {
+                return player.super_hammer.points.slog(10)
+            },
+            effectDisplay() { return "^" + format(upgradeEffect(this.layer, this.id)) },
+        },
+        14: {
+            title: "Characters' symbol",
+            description: "Delay Coin's softcap to Decipicillion Coins. (e3e13 Coins)",
+            cost: new Decimal(1666390),
+            unlocked() {return hasUpgrade('super_hammer', 13)},
+        },
+        15: {
+            title: "On their hammers",
+            description: "Unlock 11th Super Bell upgrade.",
+            cost: new Decimal(12413170),
+            unlocked() {return hasUpgrade('super_hammer', 14)},
+        },
+        21: {
+            title: "Icicle breaker",
+            description: "Unlock a buyable for Characters' Box.",
+            currencyDisplayName: "Characters' Boxes",
+            currencyInternalName: "characters_box",
+            currencyLayer: "super_hammer",
+            cost: new Decimal(84600),
+            unlocked() {return hasChallenge('super_hammer', 11)},
+        },
+        22: {
+            title: "5 boxes",
+            description: "3rd Super Hammer upgrade also affacts Super Hammer.",
+            currencyDisplayName: "Characters' Boxes",
+            currencyInternalName: "characters_box",
+            currencyLayer: "super_hammer",
+            cost: new Decimal(200000000),
+            unlocked() {return hasUpgrade('super_hammer', 21)},
+        },
+        23: {
+            title: "5 different colors of boxes",
+            description: "+1 to 'Box Generator' base.",
+            cost: new Decimal(4e54),
+            unlocked() {return hasUpgrade('super_hammer', 22)},
+        },
+        24: {
+            title: "Put on a platform",
+            description: "If you get 5e11 Cleared Courses in 'Buzzy beetles', multiply CB gain based on CF.",
+            currencyDisplayName: "Characters' Boxes",
+            currencyInternalName: "characters_box",
+            currencyLayer: "super_hammer",
+            cost: new Decimal(5e12),
+            unlocked() {return hasUpgrade('super_hammer', 23)},
+            effect() {
+                return player.cape_feather.points.pow(2).max(1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+        },
+        25: {
+            title: "Cover a passage",
+            description: "+2 to 'Box generator' base.",
+            currencyDisplayName: "Characters' Boxes",
+            currencyInternalName: "characters_box",
+            currencyLayer: "super_hammer",
+            cost: new Decimal(9.99e17),
+            unlocked() {return hasUpgrade('super_hammer', 24)},
+        },
+        31: {
+            title: "Clear pipe cycling",
+            description: "Passively gain 100% Propeller Mushroom every second.",
+            currencyDisplayName: "Characters' Boxes",
+            currencyInternalName: "characters_box",
+            currencyLayer: "super_hammer",
+            cost: new Decimal(1.66e28),
+            unlocked() {return hasUpgrade('super_hammer', 25)},
+        },
+        32: {
+            title: "Block a pipe?",
+            description: "Passive gain 100% Super Bell every second.",
+            cost: new Decimal(5.55e55),
+            unlocked() {return hasUpgrade('super_hammer', 31)},
+        },
+        33: {
+            title: "It can only block yourself",
+            description: "Unlock another challenge in this layer.",
+            currencyDisplayName: "Characters' Boxes",
+            currencyInternalName: "characters_box",
+            currencyLayer: "super_hammer",
+            cost: new Decimal(4.89e28),
+            unlocked() {return hasUpgrade('super_hammer', 32)},
+        },
+        34: {
+            title: "Box drop",
+            description: "Multiply Super Hammer gain based on Characters' Box. (After the exponential calculation)",
+            cost: new Decimal(2.22e66),
+            unlocked() {return hasUpgrade('super_hammer', 33)},
+            effect() {
+                return player.super_hammer.characters_box.max(1).log(10).pow(5).max(1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+        },
+        35: {
+            title: "The hardcore LINKage",
+            description: "Unlock a new layer on row 6.",
+            cost: new Decimal(2.88e74),
+            unlocked() {return hasUpgrade('super_hammer', 34)},
+        },
+        41: {
+            title: "Better hammer",
+            description: "If you are in challenge 'Buzzy beetle', x100 Cleared Courses gain.",
+            currencyDisplayName: "Characters' Boxes",
+            currencyInternalName: "characters_box",
+            currencyLayer: "super_hammer",
+            cost: new Decimal(1e38),
+            unlocked() {return hasUpgrade('super_hammer', 35)},
+        },
         // Look in the upgrades docs to see what goes here!
+    },
+    milestones: {
+        0: {
+            requirementDescription: "Get 10 Super Hammers",
+            effectDescription: "You are able to gain multiple of Super Hammers with one SH reset. Gain ^1.1 Propeller Mushroom.",
+            done() { return player.super_hammer.points.gte(10) },
+        },
+        1: {
+            requirementDescription: "Get 3500 Super Hammers",
+            effectDescription: "Unlock 1st Super Hammer upgrade.",
+            done() { return player.super_hammer.points.gte(3500) },
+        },
+        2: {
+            requirementDescription: "Get 501761 Super Hammers",
+            effectDescription: "Double Super Hammer gain.",
+            done() { return player.super_hammer.points.gte(501761) },
+        },
+    },
+    challenges: {
+        11: {
+            name: "Buzzy beetles",
+            challengeDescription: "log 10 Cleared Courses gain and disable effect in subtab Yoshi except 1st Yoshi effect.",
+            goalDescription: "Get 1.66e12 Cleared Courses",
+            canComplete: function() {
+                return player.points.gte(1.66e12)
+                },
+            rewardDescription: "Boost 8th SBD gain.",
+            rewardEffect() {
+                let SHC1eff = new Decimal(1e100)
+                return SHC1eff
+            },
+            rewardDisplay() { return format(challengeEffect(this.layer, this.id))+"x" },
+            unlocked() {return hasUpgrade('super_bell', 35)},
+        },
+        12: {
+            name: "Magikoopas",
+            challengeDescription: "Nothing changed.",
+            completionLimit: new Decimal (10),
+            goalDescription() {
+            return "Get 10^10^(17+x) Cleared Courses"
+            },
+            canComplete: function() {
+                return player.points.gte(Decimal.pow("e1e17", Decimal.pow(10, challengeCompletions('super_hammer', 12))))
+                },
+            rewardDescription: "x1e10 Super Hammer per every completion.",
+            rewardEffect() {
+                let base = new Decimal(1e10)
+                return base.pow(challengeCompletions('super_hammer', 12)).max(1)
+            },
+            rewardDisplay() { 
+                return format(challengeEffect(this.layer, this.id))+"x<br>Completions: " 
+                + format(challengeCompletions('super_hammer', 12))
+                + "/10<br>Current Goal: "
+                + format(Decimal.pow("e1e17", Decimal.pow(10, challengeCompletions('super_hammer', 12))))},
+            unlocked() {return hasUpgrade('super_hammer', 33)},
+        },
+    },
+    buyables: {
+        11: {
+            title: "Box generator",
+            cost(x) { return new Decimal(2).pow(Decimal.pow(x, 1.35).add(1)) },
+            display() { let SHB1base = new Decimal(2)
+                if (hasUpgrade('super_hammer', 23)) SHB1base = SHB1base.add(1)
+                if (hasUpgrade('super_hammer', 25)) SHB1base = SHB1base.add(2)
+                if (hasUpgrade('master_sword', 11)) SHB1base = SHB1base.add(buyableEffect('super_hammer', 12))
+                if (hasAchievement('achievements', 121)) SHB1base = SHB1base.times(tmp.power_balloon.effect)
+                if (hasUpgrade('power_balloon', 33)) SHB1base = SHB1base.pow(buyableEffect('super_hammer', 13))
+                return ` Multiply Characters' Box gain by ${format(SHB1base)} per every level. (After the exponential calculation) <br>
+                Effect: x${format(this.effect())} <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Characters' Boxes`}, 
+            canAfford() { return player[this.layer].characters_box.gte(this.cost()) },
+            buy() {
+                player[this.layer].characters_box = player[this.layer].characters_box.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                let SHB1base = new Decimal(2)
+                if (hasUpgrade('super_hammer', 23)) SHB1base = SHB1base.add(1)
+                if (hasUpgrade('super_hammer', 25)) SHB1base = SHB1base.add(2)
+                if (hasUpgrade('master_sword', 11)) SHB1base = SHB1base.add(buyableEffect('super_hammer', 12))
+                if (hasAchievement('achievements', 121)) SHB1base = SHB1base.times(tmp.power_balloon.effect)
+                if (hasUpgrade('power_balloon', 33)) SHB1base = SHB1base.pow(buyableEffect('super_hammer', 13))
+                return new Decimal(SHB1base).pow(x)},
+            unlocked() {return hasUpgrade('super_hammer', 21)}
+        },
+        12: {
+            title: "Box accelerator",
+            cost(x) { return new Decimal(5).pow(Decimal.pow(x, 1.75).add(1)).times(3.3333e33) },
+            display() { let SHB2base = new Decimal(0.5)
+                if (hasUpgrade('master_sword', 14)) SHB2base = SHB2base.add(0.25)
+                if (hasUpgrade('master_sword', 24)) SHB2base = SHB2base.add(upgradeEffect('master_sword', 24))
+                if (hasUpgrade('master_sword', 54) && player.master_sword.links_bomb_random == 2 || 
+                    hasUpgrade('master_sword', 54) && player.master_sword.links_bomb_random == 4 ||
+                    hasUpgrade('master_sword', 54) && player.master_sword.links_bomb_random == 6 ||
+                    hasUpgrade('master_sword', 54) && player.master_sword.links_bomb_random == 8 ||
+                    hasMilestone('usa_mushroom', 0)) SHB2base = SHB2base.add(15)
+                if (hasUpgrade('master_sword', 61)) SHB2base = SHB2base.add(upgradeEffect('master_sword', 61))
+                if (hasUpgrade('frog_suit', 45)) SHB2base = SHB2base.pow(1.5)
+                return `Increase "Box generator" base by +${format(SHB2base)} per every level.<br>
+                Effect: +${format(this.effect())} <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Characters' Boxes`}, 
+            canAfford() { return player[this.layer].characters_box.gte(this.cost()) },
+            buy() {
+                player[this.layer].characters_box = player[this.layer].characters_box.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                let SHB2base = new Decimal(0.5)
+                if (hasUpgrade('master_sword', 14)) SHB2base = SHB2base.add(0.25)
+                if (hasUpgrade('master_sword', 24)) SHB2base = SHB2base.add(upgradeEffect('master_sword', 24))
+                if (hasUpgrade('master_sword', 54) && player.master_sword.links_bomb_random == 2 || 
+                    hasUpgrade('master_sword', 54) && player.master_sword.links_bomb_random == 4 ||
+                    hasUpgrade('master_sword', 54) && player.master_sword.links_bomb_random == 6 ||
+                    hasUpgrade('master_sword', 54) && player.master_sword.links_bomb_random == 8 ) SHB2base = SHB2base.add(15)
+                if (hasUpgrade('master_sword', 61)) SHB2base = SHB2base.add(upgradeEffect('master_sword', 61))
+                if (hasUpgrade('frog_suit', 45)) SHB2base = SHB2base.pow(1.5)
+                return new Decimal(SHB2base).times(x)},
+            unlocked() {return hasUpgrade('master_sword', 11)}
+        },
+        13: {
+            title: "Box transcender",
+            cost(x) { return new Decimal("1e10000").pow(Decimal.pow(x, 1.5).add(1)) },
+            display() { let SHB3base = new Decimal(0.05)
+                return ` Power 'Box generator' base by +^${format(SHB3base)} per every level.<br>
+                Effect: ^${format(this.effect())} <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Characters' Boxes`}, 
+            canAfford() { return player[this.layer].characters_box.gte(this.cost()) },
+            buy() {
+                player[this.layer].characters_box = player[this.layer].characters_box.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            purchaseLimit() {
+                limit = new Decimal(75)
+                if (hasUpgrade('super_acorn', 14)) limit = limit.add(upgradeEffect('super_acorn', 14))
+                return limit},
+            effect(x) {
+                let SHB3base = new Decimal(0.05)
+                return new Decimal(1).add(SHB3base.times(x))},
+            unlocked() {return hasUpgrade('power_balloon', 33)}
+        },
+    },
+    automate(){
+        if (player.super_hammer.characters_box.lte(0)) return
+        if (hasMilestone('master_sword', 6)
+        ) {
+            if (player.super_hammer.characters_box) {
+                (hasMilestone('master_sword', 6)) ? setBuyableAmount("super_hammer",11,tmp.super_hammer.buyables[11].canAfford?player.super_hammer.characters_box.log(2).sub(1).root(1.35).floor().add(1):getBuyableAmount("super_hammer",11)) : buyBuyable("super_hammer",11)
+            }
+            if (player.super_hammer.characters_box) {
+                (hasMilestone('master_sword', 6)) ? setBuyableAmount("super_hammer",12,tmp.super_hammer.buyables[12].canAfford?player.super_hammer.characters_box.div(3.3333e33).log(5).sub(1).root(1.75).floor().add(1):getBuyableAmount("super_hammer",12)) : buyBuyable("super_hammer",12)
+            }
+        }
+    },
+    update(multCB) {
+        multCB = new Decimal(0.05)
+        if (hasUpgrade('super_hammer', 21)) multCB = multCB.times(buyableEffect('super_hammer', 11))
+        if (hasUpgrade('super_hammer', 24) && inChallenge('super_hammer', 11) && player.points.gte(5e11)) multCB = multCB.times(upgradeEffect("super_hammer", 24))
+        if (hasMilestone('master_sword', 2)) multCB = multCB.times(100000)
+        if (hasUpgrade('master_sword', 12)) multCB = multCB.times(upgradeEffect('master_sword', 12))
+        if (hasUpgrade('usa_mushroom', 14)) multCB = multCB.times(upgradeEffect('usa_mushroom', 14))
+        if (inChallenge('super_hammer', 11) && hasChallenge('super_hammer', 11) || hasMilestone('master_sword', 7) && hasChallenge('super_hammer', 11)) player.super_hammer.characters_box = player.super_hammer.characters_box.add(player.invincible_star.points.times(multCB))
     },
     tabFormat: [
         "main-display",
         "prestige-button",
+        ["display-text", () => `Your have ` +format(player.super_leaf.points) + ` Super Leaves`],
+        ["display-text", () => `Reset for Super Hammers gain's formula is 1e2039000·1e100^x`],
         ["microtabs", "stuff"],
         ["blank", "65px"],
     ],
@@ -3991,6 +4742,3007 @@ addLayer("super_hammer", {
                     "milestones",
                 ]    
             },   
+            "Characters' Box": {
+                unlocked() {return hasAchievement('achievements', 101)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text",  function () {
+                        let CBeffmult = new Decimal(1)
+                        if (hasUpgrade('master_sword', 21)) CBeffmult = CBeffmult.times(2)
+                        if (hasUpgrade('master_sword', 25)) CBeffmult = CBeffmult.times(player.super_hammer.characters_box.max(1).log(1e10).add(1).times(CBeffmult))
+                        return "You have <h2 style='color: #a0733c; text-shadow: 0 0 10px #a0733c'>" + format(player.super_hammer.characters_box) + "</h2> Characters' Boxes, delaying 2nd Coin upgrade effect's softcap by <h2 style='color: #a0733c; text-shadow: 0 0 10px #a0733c'> ^" + format(player.super_hammer.characters_box.max(1).log(1e10).add(1).times(CBeffmult)) + "</h2>"
+                    }],
+                    ["display-text", () => "You can gain Characters' Boxes based on IS in challenge Buzzy beetles."],
+                    ["display-text", function () {
+                        let CBeffmult = new Decimal(1)
+                        if (hasUpgrade('master_sword', 21)) CBeffmult = CBeffmult.times(2)
+                        if (hasUpgrade('master_sword', 25)) CBeffmult = CBeffmult.times(player.super_hammer.characters_box.max(1).log(1e10).add(1).times(CBeffmult))
+                        if (hasUpgrade('power_balloon', 45)) return "2nd Coin upgrade's softcap is at " + format(Decimal.pow("e5e15", player.super_hammer.characters_box.max(1).log(1e10).add(1)).pow(CBeffmult).pow(upgradeEffect('master_sword', 72)).pow(25)) + "x"
+                        else if (hasUpgrade('master_sword', 72)) return "2nd Coin upgrade's softcap is at " + format(Decimal.pow("e5e15", player.super_hammer.characters_box.max(1).log(1e10).add(1)).pow(CBeffmult).pow(upgradeEffect('master_sword', 72))) + "x"
+                        else return "2nd Coin upgrade's softcap is at " + format(Decimal.pow("e5e15", player.super_hammer.characters_box.max(1).log(1e10).add(1)).pow(CBeffmult)) + "x"
+                        
+                    }],
+                    "challenges",
+                    "buyables",
+                ]    
+            },   
         },
     },
 })
+// 第十四层：大师之剑
+addLayer("master_sword", {
+    startData() { return {                  // startData is a function that returns default data for a layer. 
+        unlocked: true,                     // You can add more variables here to add them to your layer.
+        points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+        links_bomb: new Decimal(0),         // 林克炸弹
+        links_bomb_clicks: new Decimal(9),   //林克炸弹可点击数
+        links_bomb_random: new Decimal(1),  //林克炸弹随机数
+        defeats_by_explosion: new Decimal(0), //炸死敌人数
+        hyrule_shield: new Decimal(0),      //海拉鲁盾
+        links_bow: new Decimal(0),          //林克弓
+        ranged_kills: new Decimal(0),       //远程击杀数
+        ranged_kills_mult: new Decimal(1),  //远程击杀动态倍数
+        array: new Decimal(0),              //箭
+        container_of_heart: new Decimal(0), //心之容器
+        container_of_energy: new Decimal(0), //精力容器
+        container_total: new Decimal(0),    //容器总数
+        container_assignable: new Decimal(0),    //容器可分配数
+        rupee: new Decimal(0),              //卢比
+        array_status: new Decimal(0),        //箭的消耗状态
+    }},
+
+    color: "#2730B8",                       // The color for this layer, which affects many elements.
+    resource: "Master Swords",            // The name of this layer's main prestige resource.
+    row: 5,                                 // The row this layer is on (0 is the first row).
+    position: 0,
+    symbol: "MS",
+    branches: ["super_bell"],
+
+
+    baseResource: "Super Bells",                 // The name of the resource your prestige gain is based on.
+    baseAmount() { return player.super_bell.points },  // A function to return the current amount of baseResource.
+
+    requires() {
+        base = new Decimal("1e300000")
+        if (hasUpgrade('master_sword', 13)) base = new Decimal("1e615000")
+        return base},              // The amount of the base needed to  gain 1 of the prestige currency.
+                                            // Also the amount required to unlock the layer.
+
+    type: "static",                         // Determines the formula used for calculating prestige currency.
+    exponent: 15,                          // "normal" prestige gain is (currency^exponent).
+
+    gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        return new Decimal(1)               // Factor in any bonuses multiplying gain here.
+    },
+    gainExp() {                             // Returns the exponent to your gain of the prestige resource.
+        return new Decimal(1)
+    },
+    directMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        if (hasUpgrade('master_sword', 15)) mult = mult.times(player.master_sword.defeats_by_explosion.add(2).log(2).root(4).max(1))
+        if (hasMilestone('power_balloon', 1)) mult = mult.times(1.25)
+        if (hasUpgrade('frog_suit', 44)) mult = mult.times(1.05)
+        return mult
+    },
+
+    canBuyMax() {
+        return (hasMilestone('master_sword', 12))
+    },
+
+    layerShown() { return hasAchievement('achievements', 102) },          // Returns a bool for if this layer's node should be visible in the tree.
+
+    hotkeys: [
+        {key: "M", description: "Shift+M: Reset for Master Swords", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    doReset(resettingLayer) {
+        if (layers[resettingLayer].row > layers[this.layer].row) {
+            let kept = ["unlocked", "auto"]
+            if(hasMilestone('power_balloon', 0)) {
+            kept.push("milestones")
+                }
+            if(hasMilestone('super_acorn', 0)) {
+                kept.push("upgrades")
+                }
+        layerDataReset(this.layer, kept)
+        }
+    },
+
+    autoPrestige() {return hasMilestone('power_balloon', 4)},
+
+    upgrades: {
+        11: {
+            title: "Get the sword!",
+            description: "Unlock 2nd buyable for Characters' Box.",
+            cost: new Decimal(3),
+            unlocked() {return true},
+        },
+        12: {
+            title: "Link's adventure",
+            description: "Multiply Characters' Box based on Invincible Star and Master Sword.",
+            currencyDisplayName: "Characters' Boxes",
+            currencyInternalName: "characters_box",
+            currencyLayer: "super_hammer",
+            cost: new Decimal(4e65),
+            unlocked() {return hasUpgrade('master_sword', 11)},
+            effect() {
+                return player.invincible_star.points.max(1).pow(player.master_sword.points).max(1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x"},
+        },
+        13: {
+            title: "Green hat symbol",
+            description: "Multiply Cleared Courses based on best Master Sword, but MS gain formula base is raised to 1e615000.",
+            currencyDisplayName: "Characters' Boxes",
+            currencyInternalName: "characters_box",
+            currencyLayer: "super_hammer",
+            cost: new Decimal(9.99e109),
+            unlocked() {return hasUpgrade('master_sword', 12)},
+            effect() {
+                if (inChallenge('master_sword', 11)) return new Decimal(1)
+                else return Decimal.pow("e2e17", player.master_sword.best)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x"},
+        },
+        14: {
+            title: "Awakening",
+            description: "+0.25 to 'Box accelerator' base.",
+            cost: new Decimal(4),
+            unlocked() {return hasUpgrade('master_sword', 13)},
+        },
+        15: {
+            title: "Link's battle",
+            description: "Unlock subtab Link's Bomb.",
+            currencyDisplayName: "Characters' Boxes",
+            currencyInternalName: "characters_box",
+            currencyLayer: "super_hammer",
+            cost: new Decimal(1.11e171),
+            unlocked() {return hasUpgrade('master_sword', 14)},
+        },
+        21: {
+            title: "Bomb skills",
+            description: "Double Characters' Box effect.",
+            cost: new Decimal(6),
+            unlocked() {return hasUpgrade('master_sword', 15)},
+        },
+        22: {
+            title: "Auto bombs",
+            description: "Passive gain Link's Bomb based on current amount of Master Sword.",
+            cost: new Decimal(6),
+            unlocked() {return hasUpgrade('master_sword', 21)},
+            effect() {
+                let multLB = player.master_sword.points.div(10)
+                if (hasUpgrade('master_sword', 44)) multLB = multLB.times(upgradeEffect('master_sword', 44))
+                if (hasUpgrade('power_balloon', 12)) multLB = multLB.times(100)
+                return multLB
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "/sec"},
+        },
+        23: {
+            title: "Denser enemy",
+            description: "Square Explosion Defeats gain.",
+            currencyDisplayName: "Link's Bombs",
+            currencyInternalName: "links_bomb",
+            currencyLayer: "master_sword",
+            cost: new Decimal(150),
+            unlocked() {return hasUpgrade('master_sword', 22)},
+        },
+        24: {
+            title: "Throw, explode!",
+            description: "Increase 'Box accelerator' base based on Master Sword.",
+            cost: new Decimal(7),
+            unlocked() {return hasUpgrade('master_sword', 23)},
+            effect() {
+                return player.master_sword.points.times(0.07)
+            },
+            effectDisplay() { return "+" + format(upgradeEffect(this.layer, this.id))},
+        },
+        25: {
+            title: "Huge explode",
+            description: "Square Characters' Box effect.",
+            currencyDisplayName: "Characters' Boxes",
+            currencyInternalName: "characters_box",
+            currencyLayer: "super_hammer",
+            cost: new Decimal("5e338"),
+            unlocked() {return hasUpgrade('master_sword', 24)},
+        },
+        31: {
+            title: "Denser enemy, farm lives",
+            description: "Multiply Explosion Defeats based on Master Sword. (Before exp. cal.)",
+            cost: new Decimal(8),
+            unlocked() {return hasUpgrade('master_sword', 25)},
+            effect() {
+                return player.master_sword.points.add(1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x"},
+        },
+        32: {
+            title: "Denser enemy, deatroy all",
+            description: "Multiply Explosion Defeats based on Link's Bomb. (After exp. cal.)",
+            cost: new Decimal(9),
+            unlocked() {return hasUpgrade('master_sword', 31)},
+            effect() {
+                return player.master_sword.links_bomb.add(1).sqrt()
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x"},
+        },
+        33: {
+            title: "Master challenge",
+            description: "Unlock a new subtab Temples with a challenge.",
+            cost: new Decimal(10),
+            unlocked() {return hasUpgrade('master_sword', 32)},
+        },
+        34: {
+            title: "Make it better",
+            description: "Unlock a buyable for Rupee.",
+            currencyDisplayName: "Rupee",
+            currencyInternalName: "rupee",
+            currencyLayer: "master_sword",
+            cost: new Decimal(24000),
+            unlocked() {return hasUpgrade('master_sword', 33)},
+        },
+        35: {
+            title: "Instantaneous explode",
+            description: "Unlock a new buyable to increase Explotion Defeats.",
+            currencyDisplayName: "Rupee",
+            currencyInternalName: "rupee",
+            currencyLayer: "master_sword",
+            cost: new Decimal(374501761),
+            unlocked() {return hasUpgrade('master_sword', 34)},
+        },
+        41: {
+            title: "Defense is necessary",
+            description: "Unlock a new subtab Hyrule Shield.",
+            cost: new Decimal(12),
+            unlocked() {return hasUpgrade('master_sword', 35)},
+            effect() {
+                return player.master_sword.hyrule_shield.max(1).log(5).max(1)
+            },
+        },
+        42: {
+            title: "Block it!",
+            description: "Multiply Hyrule Shield gain based on Characters' Box",
+            currencyDisplayName: "Hyrule Shields",
+            currencyInternalName: "hyrule_shield",
+            currencyLayer: "master_sword",
+            cost: new Decimal(1000),
+            unlocked() {return hasUpgrade('master_sword', 41)},
+            effect() {
+                return player.super_hammer.characters_box.max(1).log(10).max(1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x"},
+        },
+        43: {
+            title: "Block a spike ball",
+            description: "Hyrule Shield also affacts 'Rupee efficiency'.",
+            cost: new Decimal(13),
+            unlocked() {return hasUpgrade('master_sword', 42)},
+        },
+        44: {
+            title: "Block a bomb",
+            description: "Multiply Link's Bomb based on Hyrule Shield.",
+            cost: new Decimal(14),
+            unlocked() {return hasUpgrade('master_sword', 43)},
+            effect() {
+                return player.master_sword.hyrule_shield.max(1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x"},
+        },
+        45: {
+            title: "Better environment",
+            description: "^1e-9 Cleared Courses gain in Temple of Meckakoopas, not ^1e-10.",
+            currencyDisplayName: "Explosion Defeats",
+            currencyInternalName: "defeats_by_explosion",
+            currencyLayer: "master_sword",
+            cost: new Decimal(1e23),
+            unlocked() {return hasUpgrade('master_sword', 44)},
+        },
+        51: {
+            title: "Block the Bowser's fire",
+            description: "Cube Hyrule Shields gain.",
+            cost: new Decimal(15),
+            unlocked() {return hasUpgrade('master_sword', 45)},
+        },
+        52: {
+            title: "Rotten mushrooms",
+            description: "Unlock a buyable for hyrule Shield.",
+            cost: new Decimal(16),
+            unlocked() {return hasUpgrade('master_sword', 51)},
+        },
+        53: {
+            title: "Link's drop delay",
+            description: "If you aim the corners (1,3,7,9) of explosion area, x1e20 Rupee gain.",
+            cost: new Decimal(19),
+            unlocked() {return hasUpgrade('master_sword', 52)},
+        },
+        54: {
+            title: "Rush attack",
+            description: "If you aim the sides (2,4,6,8) of explosion area, +15 'Box accelerator' base.",
+            currencyDisplayName: "Rupee",
+            currencyInternalName: "rupee",
+            currencyLayer: "master_sword",
+            cost: new Decimal(5e89),
+            unlocked() {return hasUpgrade('master_sword', 53)},
+        },
+        55: {
+            title: "Down strike",
+            description: "If you aim the center (5) of explosion area, auto gain 1000% Hyrule Shields per second.",
+            currencyDisplayName: "Super Hammers",
+            currencyInternalName: "points",
+            currencyLayer: "super_hammer",
+            cost: new Decimal(3.33e183),
+            unlocked() {return hasUpgrade('master_sword', 54)},
+        },
+        61: {
+            title: "An archer",
+            description: "Unlock a new subtab Link's Bow.",
+            currencyDisplayName: "Hyrule Shields",
+            currencyInternalName: "hyrule_shield",
+            currencyLayer: "master_sword",
+            cost: new Decimal(1e62),
+            unlocked() {return hasUpgrade('master_sword', 55)},
+            effect() {
+                return player.master_sword.links_bow.max(1).log(15).max(0)
+            },
+        },
+        62: {
+            title: "Use the arrays",
+            description: "Auto craft arrays per second (Based on Master Sword).",
+            currencyDisplayName: "Link's Bows",
+            currencyInternalName: "links_bow",
+            currencyLayer: "master_sword",
+            cost: new Decimal(50),
+            unlocked() {return hasUpgrade('master_sword', 61)},
+            effect() {
+                let Arrmult = new Decimal(1)
+                Arrmult = Arrmult.times(player.master_sword.points)
+                if (player.master_sword.array_status.gte(0.5)) Arrmult = new Decimal(0)
+                return Arrmult
+            },
+            effectDisplay() { 
+                let main = format(upgradeEffect(this.layer, this.id)) + "/sec"
+                if (player.master_sword.array_status.gte(0.5)) main = main + "<br>('Snipe' current active)"
+                return main},
+        },
+        63: {
+            title: "Ranged attack!",
+            description: "Unlock a button that can spend arrays to get boost for Link's Bow.",
+            currencyDisplayName: "Arrays",
+            currencyInternalName: "array",
+            currencyLayer: "master_sword",
+            cost: new Decimal(1000),
+            unlocked() {return hasUpgrade('master_sword', 62)},
+            effect() {
+                return player.master_sword.ranged_kills.max(1).pow(2)
+            },
+        },
+        64: {
+            title: "Up, middle, down",
+            description: "Unlock a buyable for arrays.",
+            currencyDisplayName: "Ranged Kills",
+            currencyInternalName: "ranged_kills",
+            currencyLayer: "master_sword",
+            cost: new Decimal(10000),
+            unlocked() {return hasUpgrade('master_sword', 63)},
+        },
+        65: {
+            title: "Element arrays",
+            description: "Increase 'Meckakoopa' Cleared Courses base to ^1e-7.",
+            cost: new Decimal(29),
+            unlocked() {return hasUpgrade('master_sword', 64)},
+        },
+        71: {
+            title: "Best ways",
+            description: "'Snipe' efficiency is 20x faster.",
+            cost: new Decimal(30),
+            unlocked() {return hasUpgrade('master_sword', 65)},
+        },
+        72: {
+            title: "Better health and power",
+            description: "Unlock the last subtab 'container' this layer.",
+            currencyDisplayName: "Ranged Kills",
+            currencyInternalName: "ranged_kills",
+            currencyLayer: "master_sword",
+            cost: new Decimal(1e18),
+            unlocked() {return hasUpgrade('master_sword', 71)},
+            effect() {
+                if (hasUpgrade('frog_suit', 13)) return player.master_sword.container_of_heart.add(1).pow(7.2).max(1)
+                else return player.master_sword.container_of_heart.add(1).pow(4.8).max(1)
+            },
+        },
+        73: {
+            title: "More energy, more power",
+            description: "Unlock Containers of Energy.",
+            cost: new Decimal(80),
+            unlocked() {return hasAchievement('achievements', 105) && hasUpgrade('master_sword', 72)},
+            effect() {
+                return player.master_sword.container_of_energy.add(1).pow(1.5).max(1)
+            },
+        },
+        74: {
+            title: "The bettle God",
+            description: "'Snipe' efficiency is 5x faster.",
+            cost: new Decimal(120),
+            unlocked() {return hasUpgrade('master_sword', 73)},
+        },
+        75: {
+            title: "American mushroom",
+            description: "Unlock a new layer.",
+            currencyDisplayName: "Rupee",
+            currencyInternalName: "rupee",
+            currencyLayer: "master_sword",
+            cost: new Decimal(1e187),
+            unlocked() {return hasUpgrade('master_sword', 74)},
+        },
+        81: {
+            title: "Spike ball jump",
+            description: "Total Containers provides a boost to Grabbing Enemies.",
+            cost: new Decimal(212),
+            unlocked() {return hasUpgrade('usa_mushroom', 31)},
+            effect() {
+                return Decimal.pow(10, player.master_sword.container_total)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x"},
+        },
+        82: {
+            title: "Longest snipe",
+            description: "Passive gain 100% Ranged Kills every second and disable 'Snipe'.",
+            cost: new Decimal(237),
+            unlocked() {return hasUpgrade('master_sword', 81)},
+            effect() {
+                return player.master_sword.array
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "/sec"},
+        },
+        83: {
+            title: "Rupee tycoon",
+            description: "You can gain Rupee out of the temple.",
+            cost: new Decimal(238),
+            unlocked() {return hasUpgrade('master_sword', 82)},
+        },
+        84: {
+            title: "Auto explotion",
+            description: "Passive gain 100% of Explotion Defeats in corner area (1,3,7,9) every second.",
+            cost: new Decimal(238),
+            unlocked() {return hasUpgrade('master_sword', 83)},
+        },
+        85: {
+            title: "The 40th MS upgrade",
+            description: "Unlock 12th SMB2 Mushroom upgrade. That's closer to next layer!",
+            cost: new Decimal(238),
+            unlocked() {return hasUpgrade('master_sword', 84)},
+        },
+        // Look in the upgrades docs to see what goes here!
+    },
+    milestones: {
+        0: {
+            requirementDescription: "Get 1 Master Sword",
+            effectDescription: "x1e1000 Propeller Mushroom, x1e100 Super Bell and x1e10 Super Hammer gain. Keep Propeller Mushroom milestones on row 6 reset.",
+            done() { return player.master_sword.points.gte(1) },
+        },
+        1: {
+            requirementDescription: "Get 2 Master Swords",
+            effectDescription: "Keep row 5 challenges on row 6 resets.",
+            done() { return player.master_sword.points.gte(2) },
+        },
+        2: {
+            requirementDescription: "Get 3 Master Swords",
+            effectDescription: "x100000 Characters' Box gain and passive gain 100% Propeller Mushroom and Super Bells every second.",
+            done() { return player.master_sword.points.gte(3) },
+        },
+        3: {
+            requirementDescription: "Get 4 Master Swords",
+            effectDescription: "Keep Super Bell and Super Hammer milestones on row 6 resets.",
+            done() { return player.master_sword.points.gte(4) },
+        },
+        4: {
+            requirementDescription: "Get 5 Master Swords",
+            effectDescription: "Autobuy Propeller Mushroom and Super Bell upgrades and keep Super Hammer buyables on row 6 reset.",
+            done() { return player.master_sword.points.gte(5) },
+        },
+        5: {
+            requirementDescription: "Get 6 Master Swords",
+            effectDescription: "Autobuy Super Hammer buyables.",
+            done() { return player.master_sword.points.gte(6) },
+        },
+        6: {
+            requirementDescription: "Get 9 Master Swords",
+            effectDescription: "Passive gain 100% Super Hammer every second and autobuy Super Hammer buyables.",
+            done() { return player.master_sword.points.gte(9) },
+        },
+        7: {
+            requirementDescription: "Get 11 Master Swords",
+            effectDescription: "You can gain Characters' Box out of the challenge 'Buzzy beetles'.",
+            done() { return player.master_sword.points.gte(11) },
+        },
+        8: {
+            requirementDescription: "Get 14 Master Swords",
+            effectDescription: "Keep Coin upgrades on reset.",
+            done() { return player.master_sword.points.gte(14) },
+        },
+        9: {
+            requirementDescription: "Get 19 Master Swords",
+            effectDescription: "Keep Super Mushroom upgrades on reset.",
+            done() { return player.master_sword.points.gte(19) },
+        },
+        10: {
+            requirementDescription: "Get 23 Master Swords",
+            effectDescription: "Keep Fire Flower upgrades on reset.",
+            done() { return player.master_sword.points.gte(23) },
+        },
+        11: {
+            requirementDescription: "Get 28 Master Swords",
+            effectDescription: "Keep Invincible Star upgrades on reset.",
+            done() { return player.master_sword.points.gte(28) },
+        },
+        12: {
+            requirementDescription: "Get 7 Containers of Heart",
+            effectDescription: "You can buy max Master Swords.",
+            done() { return player.master_sword.container_of_heart.gte(7) },
+        },
+        13: {
+            requirementDescription: "Get 40 Master Swords",
+            effectDescription: "Keep 1UP Mushroom upgrades on reset.",
+            done() { return player.master_sword.points.gte(40) },
+        },
+        14: {
+            requirementDescription: "Get 52 Master Swords",
+            effectDescription: "Keep Bouncy Ball Flower upgrades on reset.",
+            done() { return player.master_sword.points.gte(52) },
+        },
+        15: {
+            requirementDescription: "Get 65 Master Swords",
+            effectDescription: "Keep Big Mushroom upgrades on reset.",
+            done() { return player.master_sword.points.gte(65) },
+        },
+        16: {
+            requirementDescription: "Get 77 Master Swords",
+            effectDescription: "Keep Super Leaf upgrades and SLST on reset.",
+            done() { return player.master_sword.points.gte(77) },
+        },
+        17: {
+            requirementDescription: "Get 95 Master Swords",
+            effectDescription: "Keep Cape Feather upgrades on reset.",
+            done() { return player.master_sword.points.gte(95) },
+        },
+        18: {
+            requirementDescription: "Get 101 Master Swords",
+            effectDescription: "Keep Yoshi Egg upgrades on reset.",
+            done() { return player.master_sword.points.gte(101) },
+        },
+    },
+    clickables: {
+        11: {
+            title: "Create a bomb",
+            display() {
+                return "Spend a Master Sword to create a Link's Bomb."},
+            canClick() {return player.master_sword.points.gte(1)},
+            onClick() {
+                return player.master_sword.points = player.master_sword.points.sub(1),
+                       player.master_sword.links_bomb = player.master_sword.links_bomb.add(1)
+            },
+            unlocked() {return hasUpgrade('master_sword', 15)},
+        },
+        21: {
+            title: "Detonate a bomb (top left)",
+            display() {
+                let DE = new Decimal(1)
+                if (hasUpgrade('master_sword', 31)) DE = DE.times(upgradeEffect('master_sword', 31))
+                if (hasUpgrade('master_sword', 23)) DE = DE.pow(2)
+                if (hasUpgrade('master_sword', 32)) DE = DE.times(upgradeEffect('master_sword', 32))
+                if (hasUpgrade('master_sword', 35)) DE = DE.times(buyableEffect('master_sword', 12))
+                if (hasUpgrade('power_balloon', 12)) DE = DE.times(100)
+                return "Defeat " + format(DE) + " enemy by explosion."},            
+            canClick() {return player.master_sword.links_bomb.gte(1) && player.master_sword.links_bomb_random == 1},
+            onClick() {
+                let DE = new Decimal(1)
+                if (hasUpgrade('master_sword', 31)) DE = DE.times(upgradeEffect('master_sword', 31))
+                if (hasUpgrade('master_sword', 23)) DE = DE.pow(2)
+                if (hasUpgrade('master_sword', 32)) DE = DE.times(upgradeEffect('master_sword', 32))
+                if (hasUpgrade('master_sword', 35)) DE = DE.times(buyableEffect('master_sword', 12))
+                if (hasUpgrade('power_balloon', 12)) DE = DE.times(100)
+                return player.master_sword.links_bomb = player.master_sword.links_bomb.sub(1),
+                       player.master_sword.defeats_by_explosion = player.master_sword.defeats_by_explosion.add(DE),
+                       player.master_sword.links_bomb_random = new Decimal(Math.random()).times(player.master_sword.links_bomb_clicks).floor().add(1)
+            },
+            unlocked() {return hasUpgrade('master_sword', 15)},
+        },
+        22: {
+            title: "Detonate a bomb (top)",
+            display() {
+                let DE = new Decimal(3)
+                if (hasUpgrade('master_sword', 31)) DE = DE.times(upgradeEffect('master_sword', 31))
+                if (hasUpgrade('master_sword', 23)) DE = DE.pow(2)
+                if (hasUpgrade('master_sword', 32)) DE = DE.times(upgradeEffect('master_sword', 32))
+                if (hasUpgrade('master_sword', 35)) DE = DE.times(buyableEffect('master_sword', 12))
+                if (hasUpgrade('power_balloon', 12)) DE = DE.times(100)
+                return "Defeat " + format(DE) + " enemy by explosion."},
+            canClick() {return player.master_sword.links_bomb.gte(1) && player.master_sword.links_bomb_random == 2},
+            onClick() {
+                let DE = new Decimal(3)
+                if (hasUpgrade('master_sword', 31)) DE = DE.times(upgradeEffect('master_sword', 31))
+                if (hasUpgrade('master_sword', 23)) DE = DE.pow(2)
+                if (hasUpgrade('master_sword', 32)) DE = DE.times(upgradeEffect('master_sword', 32))
+                if (hasUpgrade('master_sword', 35)) DE = DE.times(buyableEffect('master_sword', 12))
+                if (hasUpgrade('power_balloon', 12)) DE = DE.times(100)
+                return player.master_sword.links_bomb = player.master_sword.links_bomb.sub(1),
+                       player.master_sword.defeats_by_explosion = player.master_sword.defeats_by_explosion.add(DE),
+                       player.master_sword.links_bomb_random = new Decimal(Math.random()).times(player.master_sword.links_bomb_clicks).floor().add(1)
+            },
+            unlocked() {return hasUpgrade('master_sword', 15)},
+        },
+        23: {
+            title: "Detonate a bomb (top right)",
+            display() {
+                let DE = new Decimal(1)
+                if (hasUpgrade('master_sword', 31)) DE = DE.times(upgradeEffect('master_sword', 31))
+                if (hasUpgrade('master_sword', 23)) DE = DE.pow(2)
+                if (hasUpgrade('master_sword', 32)) DE = DE.times(upgradeEffect('master_sword', 32))
+                if (hasUpgrade('master_sword', 35)) DE = DE.times(buyableEffect('master_sword', 12))
+                if (hasUpgrade('power_balloon', 12)) DE = DE.times(100)
+                return "Defeat " + format(DE) + " enemy by explosion."},
+            canClick() {return player.master_sword.links_bomb.gte(1) && player.master_sword.links_bomb_random == 3},
+            onClick() {
+                let DE = new Decimal(1)
+                if (hasUpgrade('master_sword', 31)) DE = DE.times(upgradeEffect('master_sword', 31))
+                if (hasUpgrade('master_sword', 23)) DE = DE.pow(2)
+                if (hasUpgrade('master_sword', 32)) DE = DE.times(upgradeEffect('master_sword', 32))
+                if (hasUpgrade('master_sword', 35)) DE = DE.times(buyableEffect('master_sword', 12))
+                if (hasUpgrade('power_balloon', 12)) DE = DE.times(100)
+                return player.master_sword.links_bomb = player.master_sword.links_bomb.sub(1),
+                       player.master_sword.defeats_by_explosion = player.master_sword.defeats_by_explosion.add(DE),
+                       player.master_sword.links_bomb_random = new Decimal(Math.random()).times(player.master_sword.links_bomb_clicks).floor().add(1)
+            },
+            unlocked() {return hasUpgrade('master_sword', 15)},
+        },
+        31: {
+            title: "Detonate a bomb (left)",
+            display() {
+                let DE = new Decimal(3)
+                if (hasUpgrade('master_sword', 31)) DE = DE.times(upgradeEffect('master_sword', 31))
+                if (hasUpgrade('master_sword', 23)) DE = DE.pow(2)
+                if (hasUpgrade('master_sword', 32)) DE = DE.times(upgradeEffect('master_sword', 32))
+                if (hasUpgrade('master_sword', 35)) DE = DE.times(buyableEffect('master_sword', 12))
+                if (hasUpgrade('power_balloon', 12)) DE = DE.times(100)
+                return "Defeat " + format(DE) + " enemies by explosion."},
+            canClick() {return player.master_sword.links_bomb.gte(1) && player.master_sword.links_bomb_random == 4},
+            onClick() {
+                let DE = new Decimal(3)
+                if (hasUpgrade('master_sword', 31)) DE = DE.times(upgradeEffect('master_sword', 31))
+                if (hasUpgrade('master_sword', 23)) DE = DE.pow(2)
+                if (hasUpgrade('master_sword', 32)) DE = DE.times(upgradeEffect('master_sword', 32))
+                if (hasUpgrade('master_sword', 35)) DE = DE.times(buyableEffect('master_sword', 12))
+                if (hasUpgrade('power_balloon', 12)) DE = DE.times(100)
+                return player.master_sword.links_bomb = player.master_sword.links_bomb.sub(1),
+                       player.master_sword.defeats_by_explosion = player.master_sword.defeats_by_explosion.add(DE),
+                       player.master_sword.links_bomb_random = new Decimal(Math.random()).times(player.master_sword.links_bomb_clicks).floor().add(1)
+            },
+            unlocked() {return hasUpgrade('master_sword', 15)},
+        },
+        32: {
+            title: "Detonate a bomb (center)",
+            display() {
+                let DE = new Decimal(9)
+                if (hasUpgrade('master_sword', 31)) DE = DE.times(upgradeEffect('master_sword', 31))
+                if (hasUpgrade('master_sword', 23)) DE = DE.pow(2)
+                if (hasUpgrade('master_sword', 32)) DE = DE.times(upgradeEffect('master_sword', 32))
+                if (hasUpgrade('master_sword', 35)) DE = DE.times(buyableEffect('master_sword', 12))
+                if (hasUpgrade('power_balloon', 12)) DE = DE.times(100)
+                return "Defeat " + format(DE) + " enemies by explosion."},
+            canClick() {return player.master_sword.links_bomb.gte(1) && player.master_sword.links_bomb_random == 5},
+            onClick() {
+                let DE = new Decimal(9)
+                if (hasUpgrade('master_sword', 31)) DE = DE.times(upgradeEffect('master_sword', 31))
+                if (hasUpgrade('master_sword', 23)) DE = DE.pow(2)
+                if (hasUpgrade('master_sword', 32)) DE = DE.times(upgradeEffect('master_sword', 32))
+                if (hasUpgrade('master_sword', 35)) DE = DE.times(buyableEffect('master_sword', 12))
+                if (hasUpgrade('power_balloon', 12)) DE = DE.times(100)
+                return player.master_sword.links_bomb = player.master_sword.links_bomb.sub(1),
+                       player.master_sword.defeats_by_explosion = player.master_sword.defeats_by_explosion.add(DE),
+                       player.master_sword.links_bomb_random = new Decimal(Math.random()).times(player.master_sword.links_bomb_clicks).floor().add(1)
+            },
+            unlocked() {return hasUpgrade('master_sword', 15)},
+        },
+        33: {
+            title: "Detonate a bomb (right)",
+            display() {
+                let DE = new Decimal(3)
+                if (hasUpgrade('master_sword', 31)) DE = DE.times(upgradeEffect('master_sword', 31))
+                if (hasUpgrade('master_sword', 23)) DE = DE.pow(2)
+                if (hasUpgrade('master_sword', 32)) DE = DE.times(upgradeEffect('master_sword', 32))
+                if (hasUpgrade('master_sword', 35)) DE = DE.times(buyableEffect('master_sword', 12))
+                if (hasUpgrade('power_balloon', 12)) DE = DE.times(100)
+                return "Defeat " + format(DE) + " enemies by explosion."},
+            canClick() {return player.master_sword.links_bomb.gte(1) && player.master_sword.links_bomb_random == 6},
+            onClick() {
+                let DE = new Decimal(3)
+                if (hasUpgrade('master_sword', 31)) DE = DE.times(upgradeEffect('master_sword', 31))
+                if (hasUpgrade('master_sword', 23)) DE = DE.pow(2)
+                if (hasUpgrade('master_sword', 32)) DE = DE.times(upgradeEffect('master_sword', 32))
+                if (hasUpgrade('master_sword', 35)) DE = DE.times(buyableEffect('master_sword', 12))
+                if (hasUpgrade('power_balloon', 12)) DE = DE.times(100)
+                return player.master_sword.links_bomb = player.master_sword.links_bomb.sub(1),
+                       player.master_sword.defeats_by_explosion = player.master_sword.defeats_by_explosion.add(DE),
+                       player.master_sword.links_bomb_random = new Decimal(Math.random()).times(player.master_sword.links_bomb_clicks).floor().add(1)
+            },
+            unlocked() {return hasUpgrade('master_sword', 15)},
+        },
+        41: {
+            title: "Detonate a bomb (bottom left)",
+            display() {
+                let DE = new Decimal(1)
+                if (hasUpgrade('master_sword', 31)) DE = DE.times(upgradeEffect('master_sword', 31))
+                if (hasUpgrade('master_sword', 23)) DE = DE.pow(2)
+                if (hasUpgrade('master_sword', 32)) DE = DE.times(upgradeEffect('master_sword', 32))
+                if (hasUpgrade('master_sword', 35)) DE = DE.times(buyableEffect('master_sword', 12))
+                if (hasUpgrade('power_balloon', 12)) DE = DE.times(100)
+                return "Defeat " + format(DE) + " enemy by explosion."},
+            canClick() {return player.master_sword.links_bomb.gte(1) && player.master_sword.links_bomb_random == 7},
+            onClick() {
+                let DE = new Decimal(1)
+                if (hasUpgrade('master_sword', 31)) DE = DE.times(upgradeEffect('master_sword', 31))
+                if (hasUpgrade('master_sword', 23)) DE = DE.pow(2)
+                if (hasUpgrade('master_sword', 32)) DE = DE.times(upgradeEffect('master_sword', 32))
+                if (hasUpgrade('master_sword', 35)) DE = DE.times(buyableEffect('master_sword', 12))
+                if (hasUpgrade('power_balloon', 12)) DE = DE.times(100)
+                return player.master_sword.links_bomb = player.master_sword.links_bomb.sub(1),
+                       player.master_sword.defeats_by_explosion = player.master_sword.defeats_by_explosion.add(DE),
+                       player.master_sword.links_bomb_random = new Decimal(Math.random()).times(player.master_sword.links_bomb_clicks).floor().add(1)
+            },
+            unlocked() {return hasUpgrade('master_sword', 15)},
+        },
+        42: {
+            title: "Detonate a bomb (bottom)",
+            display() {
+                let DE = new Decimal(3)
+                if (hasUpgrade('master_sword', 31)) DE = DE.times(upgradeEffect('master_sword', 31))
+                if (hasUpgrade('master_sword', 23)) DE = DE.pow(2)
+                if (hasUpgrade('master_sword', 32)) DE = DE.times(upgradeEffect('master_sword', 32))
+                if (hasUpgrade('master_sword', 35)) DE = DE.times(buyableEffect('master_sword', 12))
+                if (hasUpgrade('power_balloon', 12)) DE = DE.times(100)
+                return "Defeat " + format(DE) + " enemies by explosion."},
+            canClick() {return player.master_sword.links_bomb.gte(1) && player.master_sword.links_bomb_random == 8},
+            onClick() {
+                let DE = new Decimal(3)
+                if (hasUpgrade('master_sword', 31)) DE = DE.times(upgradeEffect('master_sword', 31))
+                if (hasUpgrade('master_sword', 23)) DE = DE.pow(2)
+                if (hasUpgrade('master_sword', 32)) DE = DE.times(upgradeEffect('master_sword', 32))
+                if (hasUpgrade('master_sword', 35)) DE = DE.times(buyableEffect('master_sword', 12))
+                if (hasUpgrade('power_balloon', 12)) DE = DE.times(100)
+                return player.master_sword.links_bomb = player.master_sword.links_bomb.sub(1),
+                       player.master_sword.defeats_by_explosion = player.master_sword.defeats_by_explosion.add(DE),
+                       player.master_sword.links_bomb_random = new Decimal(Math.random()).times(player.master_sword.links_bomb_clicks).floor().add(1)
+            },
+            unlocked() {return hasUpgrade('master_sword', 15)},
+        },
+        43: {
+            title: "Detonate a bomb (bottom right)",
+            display() {
+                let DE = new Decimal(1)
+                if (hasUpgrade('master_sword', 31)) DE = DE.times(upgradeEffect('master_sword', 31))
+                if (hasUpgrade('master_sword', 23)) DE = DE.pow(2)
+                if (hasUpgrade('master_sword', 32)) DE = DE.times(upgradeEffect('master_sword', 32))
+                if (hasUpgrade('master_sword', 35)) DE = DE.times(buyableEffect('master_sword', 12))
+                if (hasUpgrade('power_balloon', 12)) DE = DE.times(100)
+                return "Defeat " + format(DE) + " enemy by explosion."},
+            canClick() {return player.master_sword.links_bomb.gte(1) && player.master_sword.links_bomb_random == 9},
+            onClick() {
+                let DE = new Decimal(1)
+                if (hasUpgrade('master_sword', 31)) DE = DE.times(upgradeEffect('master_sword', 31))
+                if (hasUpgrade('master_sword', 23)) DE = DE.pow(2)
+                if (hasUpgrade('master_sword', 32)) DE = DE.times(upgradeEffect('master_sword', 32))
+                if (hasUpgrade('master_sword', 35)) DE = DE.times(buyableEffect('master_sword', 12))
+                if (hasUpgrade('power_balloon', 12)) DE = DE.times(100)
+                return player.master_sword.links_bomb = player.master_sword.links_bomb.sub(1),
+                       player.master_sword.defeats_by_explosion = player.master_sword.defeats_by_explosion.add(DE),
+                       player.master_sword.links_bomb_random = new Decimal(Math.random()).times(player.master_sword.links_bomb_clicks).floor().add(1)
+            },
+            unlocked() {return hasUpgrade('master_sword', 15)},
+        },
+        51: {
+            title: "Equip the shield",
+            display() {
+                let HSmult = new Decimal(1)
+                HSmult = HSmult.times(player.master_sword.points.max(1))
+                if (hasUpgrade('master_sword', 73)) HSmult = HSmult.pow(upgradeEffect('master_sword', 73))
+                if (hasUpgrade('master_sword', 42)) HSmult = HSmult.times(upgradeEffect('master_sword', 42))
+                if (hasUpgrade('master_sword', 51)) HSmult = HSmult.pow(3)
+                if (hasUpgrade('master_sword', 52)) HSmult = HSmult.times(buyableEffect('master_sword', 13))
+                return "Block enemies' attack, you need more shields. Click to gain " + format(HSmult) + " Hyrule Shields."},
+            canClick() {return player.master_sword.points.gte(1)},
+            onClick() {
+                let HSmult = new Decimal(1)
+                HSmult = HSmult.times(player.master_sword.points.max(1))
+                if (hasUpgrade('master_sword', 73)) HSmult = HSmult.pow(upgradeEffect('master_sword', 73))
+                if (hasUpgrade('master_sword', 42)) HSmult = HSmult.times(upgradeEffect('master_sword', 42))
+                if (hasUpgrade('master_sword', 51)) HSmult = HSmult.pow(3)
+                if (hasUpgrade('master_sword', 52)) HSmult = HSmult.times(buyableEffect('master_sword', 13))
+                return player.master_sword.hyrule_shield = player.master_sword.hyrule_shield.add(HSmult)
+            },
+            unlocked() {return hasUpgrade('master_sword', 41)},
+        },
+        61: {
+            title: "Ranged",
+            display() {
+                let LBowmult = new Decimal(1)
+                if (hasUpgrade('master_sword', 63)) LBowmult = LBowmult.times(upgradeEffect('master_sword', 63))
+                if (hasUpgrade('power_balloon', 12)) LBowmult = LBowmult.times(100)
+                return "Ranged attack is a necessary ability for Link. Click to gain " + format(LBowmult) + " Link's Bows."},
+            canClick() {return player.master_sword.points.gte(1)},
+            onClick() {
+                let LBowmult = new Decimal(1)
+                if (hasUpgrade('master_sword', 63)) LBowmult = LBowmult.times(upgradeEffect('master_sword', 63))
+                if (hasUpgrade('power_balloon', 12)) LBowmult = LBowmult.times(100)
+                return player.master_sword.links_bow = player.master_sword.links_bow.add(LBowmult)
+            },
+            unlocked() {return hasUpgrade('master_sword', 61)},
+        },
+        62: {
+            title: "Snipe",
+            display() {
+                let ArDivpsec = new Decimal(1.1)
+                return "Pause gaining arrays, start to divide Arrays by " + format(ArDivpsec) + " per second.<br>If your Arrays are decreased to 1, resume gaining arrays, stop dividing Arrays.<br>You'll gain Ranged Kills when this button activated."},
+            canClick() {
+                if (hasUpgrade("master_sword", 82)) return false
+                else if (player.master_sword.array.gte(1) && player.master_sword.array_status.lte(0.5))
+                return true},
+            onClick() {
+                return player.master_sword.array_status = new Decimal(1)
+            },
+            unlocked() {return hasUpgrade('master_sword', 63)},
+            effect() {
+            if (player.master_sword.array.lte(1)) player.master_sword.array_status = new Decimal(0)
+            },
+        },
+    },
+    challenges: {
+        11: {
+            name: "Temple of Meckakoopas",
+            challengeDescription: "Disable 3rd Master Sword upgrade's effect, ^1e-10 Cleared Courses gain.",
+            goalDescription: "Get Cleared Courses as more as you can.",
+            canComplete: function() {
+                return player.points.gte(0)
+                },
+            rewardDescription: "You can get Rupee in this temple.",
+            rewardEffect() {
+                return player.points.max(1).log(10).pow(player.points.max(10).slog(10).max(1))
+            },
+            rewardDisplay() { return format(challengeEffect(this.layer, this.id)) + " base Rupee" },
+            unlocked() {return hasUpgrade('master_sword', 33)},
+        },
+    },
+    buyables: {
+        11: {
+            title: "Rupee efficiency",
+            cost(x) { return new Decimal(5).pow(x.pow(1.4)).times(10) },
+            display() { 
+                let MSB1base = new Decimal(5)
+                if (hasUpgrade('master_sword', 41)) MSB1base = MSB1base.add(upgradeEffect('master_sword', 41))
+                return` Multiply Rupee gain by ${format(MSB1base)} per every level. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Rupee`
+            },
+            canAfford() { return player[this.layer].rupee.gte(this.cost()) },
+            buy() {
+                player[this.layer].rupee = player[this.layer].rupee.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                let MSB1base = new Decimal(5)
+                if (hasUpgrade('master_sword', 41)) MSB1base = MSB1base.add(upgradeEffect('master_sword', 41))
+                return Decimal.pow(MSB1base,x)
+            },
+            unlocked() {return hasUpgrade('master_sword', 34)}
+        },
+        12: {
+            title: "Precise bomb",
+            cost(x) { return new Decimal(3).pow(x.pow(1.3)).times(1000) },
+            display() { 
+                let MSB2base = new Decimal(7.5)
+                if (hasUpgrade('master_sword', 41)) MSB2base = MSB2base.add(upgradeEffect('master_sword', 41))
+                return` Multiply Explotion Defeats by ${format(MSB2base)} per every level. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Rupee`
+            },
+            canAfford() { return player[this.layer].rupee.gte(this.cost()) },
+            buy() {
+                player[this.layer].rupee = player[this.layer].rupee.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                let MSB2base = new Decimal(7.5)
+                if (hasUpgrade('master_sword', 41)) MSB2base = MSB2base.add(upgradeEffect('master_sword', 41))
+                return Decimal.pow(MSB2base,x)
+            },
+            unlocked() {return hasUpgrade('master_sword', 34)}
+        },
+        13: {
+            title: "Zonau alloy shield",
+            cost(x) { return new Decimal(6.66).pow(x.pow(1.33)).times(1000) },
+            display() { 
+                let MSB3base = new Decimal(20)
+                return` Multiply Hyrule Shields by ${format(MSB3base)} per every level. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Rupee`
+            },
+            canAfford() { return player[this.layer].rupee.gte(this.cost()) },
+            buy() {
+                player[this.layer].rupee = player[this.layer].rupee.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                let MSB3base = new Decimal(20)
+                return Decimal.pow(MSB3base,x)
+            },
+            unlocked() {return hasUpgrade('master_sword', 52)}
+        },
+        21: {
+            title: "Array rain",
+            cost(x) { return new Decimal(5).pow(x.pow(1.4)).times(1e33) },
+            display() { 
+                let MSB4base = new Decimal(3.1415926535)
+                return` Multiply Array by ${format(MSB4base)}(π) per every level. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Rupee`
+            },
+            canAfford() { return player[this.layer].rupee.gte(this.cost()) },
+            buy() {
+                player[this.layer].rupee = player[this.layer].rupee.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                let MSB4base = new Decimal(3.1415926535)
+                return Decimal.pow(MSB4base,x)
+            },
+            unlocked() {return hasUpgrade('master_sword', 64)}
+        },
+        31: {
+            title: "Increase the maximum HP limit",
+            cost(x) { return Decimal.pow(x.add(1), 1.5).floor().max(1) },
+            display() { 
+                return` Spend Master Swords to buy Containers of Heart <br>
+                Containers of Heart Bought: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Master Swords`
+            },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                return x
+            },
+            unlocked() {return hasUpgrade('master_sword', 72)}
+        },
+        32: {
+            title: "Increase the maximum Energy limit",
+            cost(x) { return Decimal.pow(x.add(1), 1.75).floor().max(1) },
+            display() { 
+                return` Spend Master Swords to buy Containers of Energy <br>
+                Containers of Energy Bought: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Master Swords`
+            },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                return x
+            },
+            unlocked() {return hasUpgrade('master_sword', 72)}
+        },
+    },
+    automate(){
+    },
+    update(multLB) {
+        //常规资源
+        tick = new Decimal(0.05)
+        if (hasUpgrade('master_sword', 22)) player.master_sword.links_bomb = player.master_sword.links_bomb.add(upgradeEffect('master_sword', 22).times(tick))
+        let multRup = new Decimal(1)
+        if (hasUpgrade('master_sword', 34)) multRup = multRup.times(buyableEffect('master_sword', 11))
+        if (hasUpgrade('master_sword', 53) && player.master_sword.links_bomb_random == 1 || 
+            hasUpgrade('master_sword', 53) && player.master_sword.links_bomb_random == 3 ||
+            hasUpgrade('master_sword', 53) && player.master_sword.links_bomb_random == 7 ||
+            hasUpgrade('master_sword', 53) && player.master_sword.links_bomb_random == 9 ||
+            hasMilestone('usa_mushroom', 0) ) multRup = multRup.times(1e20)
+        if (hasMilestone('usa_mushroom', 1)) multRup = multRup.times(player.usa_mushroom.points.add(1).pow(7.5))
+        if (inChallenge('master_sword', 11) || hasUpgrade('master_sword', 83) || hasUpgrade('power_balloon', 14)) player.master_sword.rupee = challengeEffect('master_sword', 11).times(multRup)
+        let HSmult = new Decimal(1)
+        HSmult = HSmult.times(player.master_sword.points.max(1))
+        if (hasUpgrade('master_sword', 73)) HSmult = HSmult.pow(upgradeEffect('master_sword', 73))
+        if (hasUpgrade('master_sword', 42)) HSmult = HSmult.times(upgradeEffect('master_sword', 42))
+        if (hasUpgrade('master_sword', 51)) HSmult = HSmult.pow(3)
+        if (hasUpgrade('master_sword', 52)) HSmult = HSmult.times(buyableEffect('master_sword', 13))
+        if (hasUpgrade('master_sword', 55) && player.master_sword.links_bomb_random == 5 || hasMilestone('usa_mushroom', 0)) player.master_sword.hyrule_shield = player.master_sword.hyrule_shield.add(HSmult.times(0.5))
+        let Armult = upgradeEffect('master_sword', 62).times(0.05)
+        if (hasUpgrade('master_sword', 64)) Armult = Armult.times(buyableEffect('master_sword', 21))
+        if (hasUpgrade('master_sword', 62)) player.master_sword.array = player.master_sword.array.add(Armult)  
+        let multRK = new Decimal(1)
+        multRK = multRK.times(1.1)
+        if (hasUpgrade('master_sword', 71)) multRK = multRK.pow(20)
+        if (hasUpgrade('master_sword', 74)) multRK = multRK.pow(5)
+        if (player.master_sword.array_status.gte(0.5)) player.master_sword.ranged_kills_mult = player.master_sword.ranged_kills_mult.times(multRK.root(20))
+        if (player.master_sword.array_status.gte(0.5)) player.master_sword.ranged_kills = player.master_sword.ranged_kills.add(player.master_sword.ranged_kills_mult.times(0.05))
+        if (player.master_sword.array_status.gte(0.5)) player.master_sword.array = player.master_sword.array.div(multRK.root(20))
+        if (player.master_sword.array_status.lte(0.5)) player.master_sword.ranged_kills_mult = new Decimal(1)
+        if (hasUpgrade('master_sword', 72)) player.master_sword.container_of_heart = player.master_sword.buyables[31]
+        if (hasUpgrade('master_sword', 72)) player.master_sword.container_total = player.master_sword.container_of_heart.add(player.master_sword.container_of_energy)
+        if (hasUpgrade('master_sword', 73)) player.master_sword.container_of_energy = player.master_sword.buyables[32]
+        if (hasUpgrade('master_sword', 82) || hasMilestone('power_balloon', 2))player.master_sword.ranged_kills = player.master_sword.ranged_kills.add(player.master_sword.array.times(0.05))
+        let DE = new Decimal(1)
+        if (hasUpgrade('master_sword', 31)) DE = DE.times(upgradeEffect('master_sword', 31))
+        if (hasUpgrade('master_sword', 23)) DE = DE.pow(2)
+        if (hasUpgrade('master_sword', 32)) DE = DE.times(upgradeEffect('master_sword', 32))
+        if (hasUpgrade('master_sword', 35)) DE = DE.times(buyableEffect('master_sword', 12))
+        if (hasUpgrade('power_balloon', 12)) DE = DE.times(100)
+        if (hasUpgrade('master_sword', 84) || hasMilestone('power_balloon', 2)) player.master_sword.defeats_by_explosion = player.master_sword.defeats_by_explosion.add(DE.times(0.05))
+        let LBowmult = new Decimal(1)
+        if (hasUpgrade('master_sword', 63)) LBowmult = LBowmult.times(upgradeEffect('master_sword', 63))
+        if (hasUpgrade('power_balloon', 12)) LBowmult = LBowmult.times(100)
+        if (hasMilestone('frog_suit', 2)) player.master_sword.links_bow = player.master_sword.links_bow.add(LBowmult.div(2))
+        //购买项自动化
+        if (hasMilestone('frog_suit', 0) && player.master_sword.rupee.gte(new Decimal(5).pow(player.master_sword.buyables[11].pow(1.4)).times(10))) player.master_sword.buyables[11]=player.master_sword.rupee.div(10).log(5).root(1.4).floor().add(1)
+        if (hasMilestone('frog_suit', 0) && player.master_sword.rupee.gte(new Decimal(3).pow(player.master_sword.buyables[12].pow(1.3)).times(1000))) player.master_sword.buyables[12]=player.master_sword.rupee.div(1000).log(3).root(1.3).floor().add(1)
+        if (hasMilestone('frog_suit', 0) && player.master_sword.rupee.gte(new Decimal(6.66).pow(player.master_sword.buyables[13].pow(1.33)).times(1000))) player.master_sword.buyables[13]=player.master_sword.rupee.div(1000).log(6.66).root(1.33).floor().add(1)
+        if (hasMilestone('frog_suit', 0) && player.master_sword.rupee.gte(new Decimal(5).pow(player.master_sword.buyables[21].pow(1.4)).times(1e33))) player.master_sword.buyables[21]=player.master_sword.rupee.div(1e33).log(5).root(1.4).floor().add(1)
+        if (hasMilestone('frog_suit', 0) && player.master_sword.points.gte(Decimal.pow(player.master_sword.buyables[31].add(1),1.5).floor().max(1))) player.master_sword.buyables[31]=player.master_sword.points.root(1.5).sub(1).floor().add(1).max(0)
+        if (hasMilestone('frog_suit', 0) && player.master_sword.points.gte(Decimal.pow(player.master_sword.buyables[32].add(1),1.75).floor().max(1))) player.master_sword.buyables[32]=player.master_sword.points.root(1.75).sub(1).floor().add(1).max(0)
+    },
+    resetsNothing() {
+        return (hasUpgrade('usa_mushroom', 15) || hasMilestone('power_balloon', 3))
+    },
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        ["display-text", () => "Your best amount of Master Sword is " + format(player.master_sword.best)],
+        ["microtabs", "stuff"],
+        ["blank", "65px"],
+    ],
+    microtabs: {
+        stuff: {
+            "Upgrades": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    ["raw-html", () => `<h4 style="opacity:.5">Master Sword is from The Legend of Zelda (1986). <br>It's available in course editor after SMM2 v2.0.0 update. `],
+                    ["upgrades", [1,2,3,4,5,6,7,8,9]]
+                ]
+            },
+            "Milestones": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    "milestones",
+                ]    
+            },  
+            "Link's Bomb": {
+                unlocked() {return hasUpgrade('master_sword', 15)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        return "You have <h2 style='color: #2730b8; text-shadow: 0 0 10px #2730b8'>" + format(player.master_sword.links_bomb) + "</h2> Link's Bombs."
+                    }],
+                    ["display-text", function() {
+                        return "You have defeated <h2 style='color: #2730b8; text-shadow: 0 0 10px #2730b8'>" + format(player.master_sword.defeats_by_explosion) + "</h2> Enemies by Explosion, multiply Master Sword gain by <h2 style='color: #2730b8; text-shadow: 0 0 10px #2730b8'>" + format(player.master_sword.defeats_by_explosion.add(2).log(2).root(4).max(1)) + "x</h2>"
+                    }],
+                    ["display-text", function() {
+                        return "You can detonate your bomb on Area " + format(player.master_sword.links_bomb_random)
+                    }],
+                    ["clickables", [1,2,3,4]]
+                ]    
+            },    
+            "Temples": {
+                unlocked() {return hasUpgrade('master_sword', 33)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        return "You have <h2 style='color: #107010; text-shadow: 0 0 10px #107010'>" + format(player.master_sword.rupee) + "</h2> Rupee."
+                    }],
+                    "challenges",
+                    ["buyables", [1,2]],
+                ]    
+            },  
+            "Hyrule Shield": {
+                unlocked() {return hasUpgrade('master_sword', 41)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        return "You have <h2 style='color: #2730b8; text-shadow: 0 0 10px #2730b8'>" + format(player.master_sword.hyrule_shield) + "</h2> Hyrule Shields, increase 'Precise bomb' base by <h2 style='color: #2730b8; text-shadow: 0 0 10px #2730b8'>+" + format(upgradeEffect('master_sword', 41) + "</h2>")
+                    }],
+                    ["clickables", [5]],
+                ]    
+            },   
+            "Link's Bow": {
+                unlocked() {return hasUpgrade('master_sword', 61)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        return "You have <h2 style='color: #2730b8; text-shadow: 0 0 10px #2730b8'>" + format(player.master_sword.links_bow) + "</h2> Link's Bows, increase 'Box accelerator' base by <h2 style='color: #2730b8; text-shadow: 0 0 10px #2730b8'>+" + format(upgradeEffect('master_sword', 61) + "</h2>")
+                    }],
+                    ["display-text", function() {
+                        return "You have <h2 style='color: #42b2fa; text-shadow: 0 0 10px #42b2fa'>" + format(player.master_sword.array) + "</h2> Arrays"
+                    }],
+                    ["display-text", function() {
+                        return "You have <h2 style='color: #2730b8; text-shadow: 0 0 10px #2730b8'>" + format(player.master_sword.ranged_kills) + "</h2> Ranged Kills, multiply Link's Bow gain by <h2 style='color: #2730b8; text-shadow: 0 0 10px #2730b8'>" + format(upgradeEffect('master_sword', 63)) + "x</h2>"
+                    }],
+                    ["clickables", [6]],
+                ]    
+            },   
+            "Container": {
+                unlocked() {return hasUpgrade('master_sword', 72)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        return "You have <h2 style='color: #2730b8; text-shadow: 0 0 10px #2730b8'>" + format(player.master_sword.container_total) + "</h2> Total Containers"
+                    }],
+                    ["display-text", function() {
+                        return "You have <h2 style='color: #ff2a32; text-shadow: 0 0 10px #ff2a32'>" + format(player.master_sword.container_of_heart) + "</h2> Containers of Heart, delay 2nd Coin upgrade effect's softcap again by <h2 style='color: #ff2a32; text-shadow: 0 0 10px #ff2a32'>^" + format(upgradeEffect('master_sword', 72))
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('master_sword', 73))
+                        return "You have <h2 style='color: #00dd00; text-shadow: 0 0 10px #00dd00'>" + format(player.master_sword.container_of_energy) + "</h2> Containers of Energy, power base Hyrule Shield gain by <h2 style='color: #00dd00; text-shadow: 0 0 10px #00dd00'>^" + format(upgradeEffect('master_sword', 73))
+                    }],
+                    ["clickables", [7,8]],
+                    ["buyables", [3,4]],
+                ]    
+            }, 
+        },
+    },
+})
+// 第十五层：马力欧USA的蘑菇
+addLayer("usa_mushroom", {
+    startData() { return {                  // startData is a function that returns default data for a layer. 
+        unlocked: true,                     // You can add more variables here to add them to your layer.
+        points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+        grabs: new Decimal(0),
+    }},
+
+    color: "#F93414",                       // The color for this layer, which affects many elements.
+    resource: "SMB2 Mushrooms",            // The name of this layer's main prestige resource.
+    row: 5,                                 // The row this layer is on (0 is the first row).
+    position: 1,
+    symbol: "SM2",
+    baseResource: "Super Hammers",                 // The name of the resource your prestige gain is based on.
+    branches: ["super_hammer"],
+    
+    
+    baseAmount() { return player.super_hammer.points },  // A function to return the current amount of baseResource.
+
+    requires: new Decimal(1e264),              // The amount of the base needed to  gain 1 of the prestige currency.
+                                            // Also the amount required to unlock the layer.
+
+    type: "normal",                         // Determines the formula used for calculating prestige currency.
+    exponent: 0.005,                          // "normal" prestige gain is (currency^exponent).
+
+    gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        if (hasUpgrade('usa_mushroom', 32)) mult = mult.times(1000)
+        if (hasUpgrade('frog_suit', 14)) mult = mult.times(upgradeEffect('frog_suit', 14))
+        if (hasUpgrade('power_balloon', 12)) mult = mult.times(100)
+        if (hasAchievement('achievements', 122)) mult = mult.times(tmp.super_acorn.effect)
+        if (hasUpgrade('super_acorn', 15)) mult = mult.times(upgradeEffect('super_acorn', 15))
+        return mult
+    },
+    gainExp() {                             // Returns the exponent to your gain of the prestige resource.
+        return new Decimal(1)
+    },
+
+    layerShown() { return hasAchievement('achievements', 111) },          // Returns a bool for if this layer's node should be visible in the tree.
+
+    doReset(resettingLayer) {
+        if (layers[resettingLayer].row > layers[this.layer].row) {
+            let kept = ["unlocked", "auto"]
+            if(hasMilestone('power_balloon', 2)) {
+            kept.push("milestones")
+            }
+            if(hasMilestone('power_balloon', 5)) {
+            kept.push("upgrades")
+            }
+        layerDataReset(this.layer, kept)
+        }
+    },
+
+    update(multGE){
+        multGE = new Decimal(1)
+        multGE = multGE.times(player.usa_mushroom.points.max(0))
+        multGE = multGE.times(buyableEffect('usa_mushroom', 11))
+        multGE = multGE.times(buyableEffect('usa_mushroom', 12))
+        multGE = multGE.times(buyableEffect('usa_mushroom', 13))
+        multGE = multGE.times(buyableEffect('usa_mushroom', 21))
+        multGE = multGE.times(buyableEffect('usa_mushroom', 22))
+        multGE = multGE.times(buyableEffect('usa_mushroom', 23))
+        multGE = multGE.times(buyableEffect('usa_mushroom', 32))
+        multGE = multGE.times(buyableEffect('usa_mushroom', 33))
+        multGE = multGE.times(buyableEffect('usa_mushroom', 41))
+        multGE = multGE.times(buyableEffect('usa_mushroom', 42))
+        multGE = multGE.times(buyableEffect('usa_mushroom', 43))
+        if (hasUpgrade('usa_mushroom', 21)) multGE = multGE.times(upgradeEffect('usa_mushroom', 21))
+        if (hasUpgrade('usa_mushroom', 25)) multGE = multGE.times(upgradeEffect('usa_mushroom', 25))
+        if (hasUpgrade('master_sword', 81)) multGE = multGE.times(upgradeEffect('master_sword', 81))
+        if (hasUpgrade('usa_mushroom', 32)) multGE = multGE.times(1e25)
+        if (hasUpgrade('usa_mushroom', 34)) multGE = multGE.times(upgradeEffect('usa_mushroom', 34))
+        if (hasUpgrade('frog_suit', 34)) multGE = multGE.pow(upgradeEffect('frog_suit', 34))
+        if (hasUpgrade('power_balloon', 42)) multGE = multGE.times(upgradeEffect('power_balloon', 42))
+        if (hasUpgrade('usa_mushroom', 12)) player.usa_mushroom.grabs = player.usa_mushroom.grabs.add(multGE.times(0.05)) 
+        if (hasUpgrade('power_balloon', 11)) player.usa_mushroom.buyables[11] = player.usa_mushroom.grabs.times(buyableEffect('usa_mushroom', 31)).max(1).log(5.55).floor()
+        if (hasUpgrade('power_balloon', 11)) player.usa_mushroom.buyables[12] = player.usa_mushroom.grabs.times(buyableEffect('usa_mushroom', 31)).max(1).log(12).floor()
+        if (hasUpgrade('power_balloon', 11)) player.usa_mushroom.buyables[13] = player.usa_mushroom.grabs.times(buyableEffect('usa_mushroom', 31)).max(1).log(25.6).floor()
+        if (hasUpgrade('power_balloon', 11)) player.usa_mushroom.buyables[21] = player.usa_mushroom.grabs.times(buyableEffect('usa_mushroom', 31)).div(10000000).max(1).log(77.77).floor().add(1)
+        if (hasUpgrade('power_balloon', 11)) player.usa_mushroom.buyables[22] = player.usa_mushroom.grabs.times(buyableEffect('usa_mushroom', 31)).div(1e9).max(1).log(145.14).floor().add(1)
+        if (hasUpgrade('power_balloon', 11)) player.usa_mushroom.buyables[23] = player.usa_mushroom.grabs.times(buyableEffect('usa_mushroom', 31)).div(1e17).max(1).log(514.114).floor().add(1)
+        if (hasUpgrade('power_balloon', 11)) player.usa_mushroom.buyables[31] = player.usa_mushroom.grabs.times(buyableEffect('usa_mushroom', 31)).div(5e25).max(1).log(1e10).root(1.35).floor().add(1)
+        if (hasUpgrade('power_balloon', 11)) player.usa_mushroom.buyables[32] = player.usa_mushroom.grabs.times(buyableEffect('usa_mushroom', 31)).div(1e20).max(1).log(1e10).root(1.25).floor().add(1)
+        if (hasUpgrade('power_balloon', 11)) player.usa_mushroom.buyables[33] = player.usa_mushroom.grabs.times(buyableEffect('usa_mushroom', 31)).div(1e25).max(1).log(1e15).root(1.25).floor().add(1)
+        if (hasUpgrade('power_balloon', 11)) player.usa_mushroom.buyables[41] = player.usa_mushroom.grabs.times(buyableEffect('usa_mushroom', 31)).div("1e360").max(1).log(1e13).root(1.5).floor().add(1)
+        if (hasUpgrade('power_balloon', 11)) player.usa_mushroom.buyables[42] = player.usa_mushroom.grabs.times(buyableEffect('usa_mushroom', 31)).div("1e425").max(1).log(1e30).root(1.6).floor().add(1)
+        if (hasUpgrade('power_balloon', 11)) player.usa_mushroom.buyables[43] = player.usa_mushroom.grabs.times(buyableEffect('usa_mushroom', 31)).div("1e917").max(1).log(1e100).root(3).floor().add(1)
+    },
+
+    passiveGeneration() {return hasMilestone('super_acorn', 2)},
+
+    hotkeys: [
+        {key: "2", description: "2: Reset for SMB2 Mushrooms", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    upgrades: {
+        11: {
+            title: "Standing",
+            description: "7000x Super Hammer gain.",
+            cost: new Decimal(3),
+            unlocked() {return true},
+        },
+        12: {
+            title: "On enemies",
+            description: "Unlock subtab 'Grabbing'.",
+            cost: new Decimal(5),
+            unlocked() {return hasUpgrade('usa_mushroom', 11)},
+            effect() {
+                return player.usa_mushroom.grabs.max(1).pow(5).times(1e-10).max(1)
+            }
+        },
+        13: {
+            title: "Grab more",
+            description: "Unlock 3 more buyables in 'Grabbing'.",
+            currencyDisplayName: "Grabbing Enemies",
+            currencyInternalName: "grabs",
+            currencyLayer: "usa_mushroom",
+            cost: new Decimal(10000000),
+            unlocked() {return hasUpgrade('usa_mushroom', 12)},
+        },
+        14: {
+            title: "Snowballs",
+            description: "Multiply Characters' Box based on Super Hammer.",
+            currencyDisplayName: "Grabbing Enemies",
+            currencyInternalName: "grabs",
+            currencyLayer: "usa_mushroom",
+            cost: new Decimal(24000000),
+            unlocked() {return hasUpgrade('usa_mushroom', 13)},
+            effect() {
+                return player.super_hammer.points.max(1).pow(33.33)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        15: {
+            title: "Then throw",
+            description: "Master Sword resets nothing.",
+            currencyDisplayName: "Master Swords",
+            currencyInternalName: "points",
+            currencyLayer: "master_sword",
+            cost: new Decimal(153),
+            unlocked() {return hasUpgrade('usa_mushroom', 14)},
+        },
+        21: {
+            title: "Then throw",
+            description: "Multiply Grabbing Enemies based on Master Sword.",
+            currencyDisplayName: "Master Swords",
+            currencyInternalName: "points",
+            currencyLayer: "master_sword",
+            cost: new Decimal(178),
+            unlocked() {return hasUpgrade('usa_mushroom', 15)},
+            effect() {
+                return player.master_sword.points.max(1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        22: {
+            title: "On bullet bills",
+            description: "Unlock a new buyables in 'Grabbing'.",
+            currencyDisplayName: "Grabbing Enemies",
+            currencyInternalName: "grabs",
+            currencyLayer: "usa_mushroom",
+            cost: new Decimal(1e25),
+            unlocked() {return hasUpgrade('usa_mushroom', 21)},
+        },
+        23: {
+            title: "On shells",
+            description: "Unlock a new buyables in 'Grabbing'.",
+            currencyDisplayName: "Grabbing Enemies",
+            currencyInternalName: "grabs",
+            currencyLayer: "usa_mushroom",
+            cost: new Decimal(1e30),
+            unlocked() {return hasUpgrade('usa_mushroom', 22)},
+        },
+        24: {
+            title: "On magikoopas",
+            description: "Unlock a new buyables in 'Grabbing'.",
+            currencyDisplayName: "Grabbing Enemies",
+            currencyInternalName: "grabs",
+            currencyLayer: "usa_mushroom",
+            cost: new Decimal(1e39),
+            unlocked() {return hasUpgrade('usa_mushroom', 23)},
+        },
+        25: {
+            title: "Grab a big enemy",
+            description: "Multiply Grabbing Enemies based on itself. (Hardcap at 1.79e308x)",
+            currencyDisplayName: "Grabbing Enemies",
+            currencyInternalName: "grabs",
+            currencyLayer: "usa_mushroom",
+            cost: new Decimal(1e50),
+            unlocked() {return hasUpgrade('usa_mushroom', 24)},
+            effect() {
+                return player.usa_mushroom.grabs.max(1).pow(0.5).min("1.79e308")
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        31: {
+            title: "6-block jump",
+            description: "Unlock 36th Master Sword upgrade.",
+            currencyDisplayName: "Grabbing Enemies",
+            currencyInternalName: "grabs",
+            currencyLayer: "usa_mushroom",
+            cost: new Decimal(1e142),
+            unlocked() {return hasUpgrade('usa_mushroom', 25)},
+            
+        },
+        32: {
+            title: "Chain hit goomba",
+            description: "1000x SMB2 Mushroom, 1e25x Grabbing Enemies.",
+            cost: new Decimal(234567890),
+            unlocked() {return hasUpgrade('master_sword', 85)},           
+        },
+        33: {
+            title: "Chain hit koopa",
+            description: "Unlock the last 3 buyables in 'Grabbing'.",
+            cost: new Decimal(1.66e13),
+            unlocked() {return hasUpgrade('usa_mushroom', 32)},           
+        },
+        34: {
+            title: "Chain hit monty mole",
+            description: "Multiply Grabbing Enemies based on itself, but weaker.",
+            currencyDisplayName: "Grabbing Enemies",
+            currencyInternalName: "grabs",
+            currencyLayer: "usa_mushroom",
+            cost: new Decimal("3.33e686"),
+            unlocked() {return hasUpgrade('usa_mushroom', 33)},      
+            effect() {
+                return player.usa_mushroom.grabs.max(1).log(10).pow(10).max(1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },     
+        },
+        35: {
+            title: "Mushroom's dark side",
+            description: "Unlock a new subtab in 1UP Mushroom layer.",
+            currencyDisplayName: "Grabbing Enemies",
+            currencyInternalName: "grabs",
+            currencyLayer: "usa_mushroom",
+            cost: new Decimal("5.1e747"),
+            unlocked() {return hasUpgrade('usa_mushroom', 34)},      
+        },
+        // Look in the upgrades docs to see what goes here!
+    },
+    milestones: {
+        0: {
+            requirementDescription: "Get 1 SMB2 Mushroom",
+            effectDescription: "23rd, 24th and 25th Master Sword upgrsdes' effects are always activated.",
+            done() { return player.usa_mushroom.points.gte(1) },
+        },
+        1: {
+            requirementDescription: "Get 2 SMB2 Mushrooms",
+            effectDescription(){ return "Multiply Rupee gain based on SMB2 Mushrooms. <br>Currently: " + format(player.usa_mushroom.points.add(1).pow(7.5)) + "x"},
+            done() { return player.usa_mushroom.points.gte(2) },
+        },
+    },
+    buyables: {
+        11: {
+            title: "Normal Grabbing",
+            cost(x) { return new Decimal(5.55).pow(x.add(1)).div(buyableEffect('usa_mushroom', 31)) },
+            display() { return` Multiply Grabbing Enemies gain. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Grabbing Enemies`
+            },
+            canAfford() { return player[this.layer].grabs.gte(this.cost()) },
+            buy() {
+                player[this.layer].grabs = player[this.layer].grabs.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                return x.add(1).max(1)
+            },
+            unlocked() {return true}
+        },
+        12: {
+            title: "Kilo Grabbing",
+            cost(x) { return new Decimal(12).pow(x.add(1)).div(buyableEffect('usa_mushroom', 31)) },
+            display() { return` Multiply Grabbing Enemies gain. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Grabbing Enemies`
+            },
+            canAfford() { return player[this.layer].grabs.gte(this.cost()) },
+            buy() {
+                player[this.layer].grabs = player[this.layer].grabs.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                return x.pow(2).add(1).max(1)
+            },
+            unlocked() {return true}
+        },
+        13: {
+            title: "Mega Grabbing",
+            cost(x) { return new Decimal(25.6).pow(x.add(1)).div(buyableEffect('usa_mushroom', 31)) },
+            display() { return` Multiply Grabbing Enemies gain. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Grabbing Enemies`
+            },
+            canAfford() { return player[this.layer].grabs.gte(this.cost()) },
+            buy() {
+                player[this.layer].grabs = player[this.layer].grabs.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                return x.pow(3).add(1).max(1)
+            },
+            unlocked() {return true}
+        },
+        21: {
+            title: "Giga Grabbing",
+            cost(x) { return new Decimal(77.77).pow(x).times(10000000).div(buyableEffect('usa_mushroom', 31)) },
+            display() { return` Multiply Grabbing Enemies gain. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Grabbing Enemies`
+            },
+            canAfford() { return player[this.layer].grabs.gte(this.cost()) },
+            buy() {
+                player[this.layer].grabs = player[this.layer].grabs.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                return x.pow(4).add(1).max(1)
+            },
+            unlocked() {return hasUpgrade('usa_mushroom', 13)}
+        },
+        22: {
+            title: "Tera Grabbing",
+            cost(x) { return new Decimal(145.14).pow(x).times(1e9).div(buyableEffect('usa_mushroom', 31)) },
+            display() { return` Multiply Grabbing Enemies gain. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Grabbing Enemies`
+            },
+            canAfford() { return player[this.layer].grabs.gte(this.cost()) },
+            buy() {
+                player[this.layer].grabs = player[this.layer].grabs.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                return x.pow(5).add(1).max(1)
+            },
+            unlocked() {return hasUpgrade('usa_mushroom', 13)}
+        },
+        23: {
+            title: "Peta Grabbing",
+            cost(x) { return new Decimal(514.114).pow(x).times(1e17).div(buyableEffect('usa_mushroom', 31)) },
+            display() { return` Multiply Grabbing Enemies gain. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Grabbing Enemies`
+            },
+            canAfford() { return player[this.layer].grabs.gte(this.cost()) },
+            buy() {
+                player[this.layer].grabs = player[this.layer].grabs.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                return x.pow(6).add(1).max(1)
+            },
+            unlocked() {return hasUpgrade('usa_mushroom', 13)}
+        },
+        31: {
+            title: "Exa Grabbing",
+            cost(x) { return new Decimal(1e10).pow(x.pow(1.35)).times(5e25) },
+            display() { return` Divide 1~6 SMB2 buyables' cost. <br>
+                Effect: /${format(this.effect())} <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Grabbing Enemies`
+            },
+            canAfford() { return player[this.layer].grabs.gte(this.cost()) },
+            buy() {
+                player[this.layer].grabs = player[this.layer].grabs.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                return Decimal.pow(100000, x).max(1)
+            },
+            unlocked() {return hasUpgrade('usa_mushroom', 22)}
+        },
+        32: {
+            title: "Zetta Grabbing",
+            cost(x) { return new Decimal(1e10).pow(x.pow(1.25)).times(1e20) },
+            display() { return` Multiply Grabbing Enemies gain, but stronger. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Grabbing Enemies`
+            },
+            canAfford() { return player[this.layer].grabs.gte(this.cost()) },
+            buy() {
+                player[this.layer].grabs = player[this.layer].grabs.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                return x.add(1).pow(10).max(1)
+            },
+            unlocked() {return hasUpgrade('usa_mushroom', 23)}
+        },
+        33: {
+            title: "Yotta Grabbing",
+            cost(x) { return new Decimal(1e15).pow(x.pow(1.25)).times(1e25) },
+            display() { return` Multiply Grabbing Enemies gain, but stronger. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Grabbing Enemies`
+            },
+            canAfford() { return player[this.layer].grabs.gte(this.cost()) },
+            buy() {
+                player[this.layer].grabs = player[this.layer].grabs.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                return x.add(1).pow(15).max(1)
+            },
+            unlocked() {return hasUpgrade('usa_mushroom', 24)}
+        },
+        41: {
+            title: "Ronna Grabbing",
+            cost(x) { return new Decimal("1e360").times(Decimal.pow(1e13,x.pow(1.5))) },
+            display() { return` Multiply Grabbing Enemies gain, but much stronger. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Grabbing Enemies`
+            },
+            canAfford() { return player[this.layer].grabs.gte(this.cost()) },
+            buy() {
+                player[this.layer].grabs = player[this.layer].grabs.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                return Decimal.pow(1e10,x).max(1)
+            },
+            unlocked() {return hasUpgrade('usa_mushroom', 33)}
+        },
+        42: {
+            title: "Quetta Grabbing",
+            cost(x) { return new Decimal("1e425").times(Decimal.pow(1e30,x.pow(1.6))) },
+            display() { return` Multiply Grabbing Enemies gain, but super stronger. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Grabbing Enemies`
+            },
+            canAfford() { return player[this.layer].grabs.gte(this.cost()) },
+            buy() {
+                player[this.layer].grabs = player[this.layer].grabs.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                return Decimal.pow(1e20,x).max(1)
+            },
+            unlocked() {return hasUpgrade('usa_mushroom', 33)}
+        },
+        43: {
+            title: "Henda Grabbing",
+            cost(x) { return new Decimal("1e917").times(Decimal.pow(1e100,x.pow(3))) },
+            display() { return` Multiply Grabbing Enemies gain, but insanely stronger. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Grabbing Enemies`
+            },
+            canAfford() { return player[this.layer].grabs.gte(this.cost()) },
+            buy() {
+                player[this.layer].grabs = player[this.layer].grabs.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                return Decimal.pow(1e100,x).max(1)
+            },
+            unlocked() {return hasUpgrade('usa_mushroom', 33)}
+        },
+    },
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        ["display-text", () => `You have ` +format(player.super_hammer.points) + ` Super Hammers`],
+        ["microtabs", "stuff"],
+        ["blank", "65px"],
+    ],
+    microtabs: {
+        stuff: {
+            "Upgrades": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    ["raw-html", () => `<h4 style="opacity:.5">With SMB2 Mushroom, you can stand on enemies, even grab and throw them.`],
+                    ["upgrades", [1,2,3,4,5,6,7,8,9]]
+                ]
+            },
+            "Milestones": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    "milestones",
+                ]    
+            },  
+            "Grabbing": {
+                unlocked() {return hasUpgrade('usa_mushroom', 12)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        return "You are grabbing <h2 style='color: #f93414; text-shadow: 0 0 10px #f93414'>" + format(player.usa_mushroom.grabs) + "</h2> Enemies, multiply Super Hammer gain by <h2 style='color: #f93414; text-shadow: 0 0 10px #f93414'>" + format(upgradeEffect('usa_mushroom', 12)) + "x</h2><br>Base Grabbing Enemy gain is based on SMB2 Mushroom. If your SMB2 Mushroom is 0, you can't gain any Grabbing Enemies."
+                    }],
+                    "buyables",
+                ]    
+            }, 
+        },
+    },
+})
+// 第十六层：青蛙装
+addLayer("frog_suit", {
+    startData() { return {                  // startData is a function that returns default data for a layer. 
+        unlocked: true,                     // You can add more variables here to add them to your layer.
+        points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+        swim_speed: new Decimal(0),
+        swim_calculations: new Decimal(0),
+        swim_calculations_max: new Decimal(5),
+    }},
+
+    color: "#24AA0C",                       // The color for this layer, which affects many elements.
+    resource: "Frog Suits",            // The name of this layer's main prestige resource.
+    row: 5,                                 // The row this layer is on (0 is the first row).
+    position: 2,
+    branches: ["propeller_mushroom"],
+    symbol: "FS",
+
+    baseResource: "Invincible Stars",                 // The name of the resource your prestige gain is based on.
+    baseAmount() { return player.invincible_star.points },  // A function to return the current amount of baseResource.
+
+    requires: new Decimal(1.35e13),              // The amount of the base needed to  gain 1 of the prestige currency.
+                                            // Also the amount required to unlock the layer.
+
+    type: "normal",                         // Determines the formula used for calculating prestige currency.
+    exponent: 0.7,                          // "normal" prestige gain is (currency^exponent).
+
+    gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        if (hasUpgrade('frog_suit', 11)) mult = mult.times(3)
+        if (hasUpgrade('frog_suit', 12)) mult = mult.times(upgradeEffect('frog_suit', 12))
+        if (hasUpgrade('frog_suit', 15)) mult = mult.times(upgradeEffect('frog_suit', 15))
+        if (hasMilestone('frog_suit', 1)) mult = mult.times(player.achievements.points.max(1).log(10).max(1).log(10).max(1))
+        if (hasUpgrade('power_balloon', 13)) mult = mult.times(100)
+        if (hasUpgrade('frog_suit', 41)) mult = mult.times(upgradeEffect('frog_suit', 41))
+        if (hasUpgrade('power_balloon', 44)) mult = mult.times(upgradeEffect('power_balloon', 44))
+        return mult
+    },
+    gainExp() {                             // Returns the exponent to your gain of the prestige resource.
+        return new Decimal(1)
+    },
+
+    layerShown() { return hasMilestone('oneup_mushroom', 2) || hasAchievement('achievements', 114) },          // Returns a bool for if this layer's node should be visible in the tree.
+
+    hotkeys: [
+        {key: "q", description: "Q: Reset for Frog Suits", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+
+    doReset(resettingLayer) {
+        if (layers[resettingLayer].row > layers[this.layer].row) {
+            let kept = ["unlocked", "auto"]
+            if(hasMilestone('power_balloon', 2)) {
+            kept.push("milestones")
+            }
+            if(hasMilestone('power_balloon', 5)) {
+                kept.push("upgrades")
+            }
+            if(hasUpgrade('super_acorn', 22)) {
+                kept.push("buyables"),
+                kept.push("swim_calculations"),
+                kept.push("swim_calculations_max")
+            }
+        layerDataReset(this.layer, kept)
+        }
+    },
+
+    passiveGeneration() {return hasMilestone('power_balloon', 6)},
+
+    upgrades: {
+        11: {
+            title: "Why Mario has a green suit?",
+            description: "Triple Frog Suit gain",
+            cost: new Decimal(5),
+            unlocked() {return true},
+        },
+        12: {
+            title: "He actually has a red one",
+            description: "Rotten Mushroom boosts Frog Suit gain (Hardcap at 1000000x)",
+            cost: new Decimal(25),
+            unlocked() {return hasUpgrade('frog_suit', 11)},
+            effect() {
+                return player.oneup_mushroom.rotten_mushroom.max(1).root(4).min(1000000)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        13: {
+            title: "But only in multiplayer mode",
+            description: "^1.5 Container of Heart effect.",
+            cost: new Decimal(236),
+            unlocked() {return hasUpgrade('frog_suit', 12)},
+        },
+        14: {
+            title: "Walk? Jump?",
+            description: "Multiply SMB2 Mushroom gain based on Frog Suit. (Hardcap at 1e100x)",
+            cost: new Decimal(24000),
+            unlocked() {return hasUpgrade('frog_suit', 13)},
+            effect() {
+                return player.frog_suit.points.max(1).pow(5).min(1e100)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        15: {
+            title: "Free swim",
+            description: "Unlock a subtab 'Swimming'.",
+            cost: new Decimal(32000),
+            unlocked() {return hasUpgrade('frog_suit', 14)},
+            effect() {
+                dilateexp = new Decimal(0.5)
+                if (hasUpgrade('frog_suit', 43)) dilateexp = new Decimal(0.25)                
+                swimfact = player.frog_suit.swim_speed
+                if (hasUpgrade('power_balloon', 24)) swimfact = player.power_balloon.SSbest
+                rootfact = player.frog_suit.swim_speed.log(10).max(1).pow(dilateexp)
+                if (hasUpgrade('power_balloon', 24)) rootfact = player.power_balloon.SSbest.log(10).max(1).pow(dilateexp)
+                return swimfact.root(rootfact).max(1)
+            },
+        },
+        21: {
+            title: "Best solution",
+            description: "Unlock accelerator 3.<br>*Cost is 6.75 Swim speed actually",
+            currencyDisplayName: "Swimming speed",
+            currencyInternalName: "swim_speed",
+            currencyLayer: "frog_suit",
+            cost: new Decimal(6.75),
+            unlocked() {return hasUpgrade('frog_suit', 15)},
+        },
+        22: {
+            title: "Frog precision",
+            description: "You can click accelerators max 10 times.",
+            cost: new Decimal(3250000),
+            unlocked() {return hasUpgrade('frog_suit', 21)},
+        },
+        23: {
+            title: "Jump on water",
+            description: "Unlock 3 new buyables for 3 accelerators.",
+            cost: new Decimal(9402011),
+            unlocked() {return hasUpgrade('frog_suit', 22)},
+        },
+        24: {
+            title: "1f frog jump",
+            description: "Frog Suit powers Rotten Mushroom gain.",
+            cost: new Decimal(124131700),
+            unlocked() {return hasUpgrade('frog_suit', 23)},
+            effect() {
+                return player.frog_suit.points.max(1).log(2.5).root(2.5)
+            },
+            effectDisplay() { return "^"+format(upgradeEffect(this.layer, this.id)) },
+        },
+        25: {
+            title: "Frog's shell jump",
+            description: "'Tradaka swimming' gives free level to 'Doka swimming'.",
+            cost: new Decimal(3e9),
+            unlocked() {return hasUpgrade('frog_suit', 24)},
+            effect() {
+                return player.frog_suit.buyables[12]
+            },
+            effectDisplay() { return "+"+format(upgradeEffect(this.layer, this.id))+" free levels" },
+        },
+        31: {
+            title: "Water, donut and frog",
+            description: "Unlock a new buyables for accelerator click counts.",
+            cost: new Decimal(5e9),
+            unlocked() {return hasUpgrade('frog_suit', 25)},
+        },
+        32: {
+            title: "Harder door entering",
+            description: "^5 base Super Hammer gain.",
+            cost: new Decimal(5e11),
+            unlocked() {return hasUpgrade('frog_suit', 31)},
+        },
+        33: {
+            title: "Limited running",
+            description: "Accelerator 3's exponential base is raised to 0.8.",
+            cost: new Decimal(6e11),
+            unlocked() {return hasUpgrade('frog_suit', 32)},
+        },
+        34: {
+            title: "In the night of the castle",
+            description: "Power Grabbing Enemies based on unspent accelerator clicks",
+            cost: new Decimal(2.33e12),
+            unlocked() {return hasUpgrade('frog_suit', 33)},
+            effect() {
+                return player.frog_suit.swim_calculations.div(100).add(1)
+            },
+            effectDisplay() { return "^"+format(upgradeEffect(this.layer, this.id)) },
+        },
+        35: {
+            title: "P fly",
+            description: "Unlock a new layer on row 7.",
+            currencyDisplayName: "Grabbing Enemies",
+            currencyInternalName: "grabs",
+            currencyLayer: "usa_mushroom",
+            cost: new Decimal("2.22e2077"),
+            unlocked() {return hasUpgrade('frog_suit', 34)},
+        },
+        41: {
+            title: "Expand the frog ocean",
+            description: "Boost Frog Suit gain based on Balloon Space but weaker.",
+            cost: new Decimal(3e14),
+            unlocked() {return hasUpgrade('power_balloon', 22)},
+            effect() {
+                return upgradeEffect('power_balloon', 21).root(2).max(1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        42: {
+            title: "Frog swimming race",
+            description: "Unlock accelerator 4.",
+            cost: new Decimal(2e15),
+            unlocked() {return hasUpgrade('frog_suit', 41)},
+        },
+        43: {
+            title: "5-block jump",
+            description: "Make swimming speed effect stronger.",
+            cost: new Decimal(2e18),
+            unlocked() {return hasUpgrade('frog_suit', 42)},
+        },
+        44: {
+            title: "SMM1 mystery mushroom",
+            description: "1.05x Master Sword gain.",
+            cost: new Decimal(1e36),
+            unlocked() {return hasUpgrade('frog_suit', 43)},
+        },
+        45: {
+            title: "No frog challenge",
+            description: "^1.5 'Box accelerator' base.",
+            cost: new Decimal(1e39),
+            unlocked() {return hasUpgrade('frog_suit', 44)},
+        },
+        // Look in the upgrades docs to see what goes here!
+    },
+    milestones: {
+        0: {
+            requirementDescription: "Get 5 Frog Suits",
+            effectDescription: "Automate buyables in Master Sword layer.",
+            done() { return player.frog_suit.points.gte(5) },
+        },
+        1: {
+            requirementDescription: "11.69m/s Frog Mario's swimming speed",
+            effectDescription() {
+                return "Frog Suit gain is boosted based on OoM^2s of AP. (Finally it affacts something T_T) <br>Currently: " + format(player.achievements.points.max(1).log(10).max(1).log(10).max(1)) + "x"},
+            done() { return player.frog_suit.swim_speed.gte(11.69) },
+        },
+        2: {
+            requirementDescription(){return "Get " + format(new Decimal(1e18)) + " Frog Suits"},
+            effectDescription() {
+                return "Passive gain 1000% Link's Bow every second."},
+            done() { return player.frog_suit.points.gte(1e18) },
+        },
+    },
+    clickables: {
+        11: {
+            title: "Speed reset",
+            display() {
+                return "Reset Frog Mario's swimming speed to 0m/s. And you'll regain all your accelerator click counts."
+                },
+            canClick() {return true},
+            onClick() {
+                return player.frog_suit.swim_speed = new Decimal(0),
+                player.frog_suit.swim_calculations = player.frog_suit.swim_calculations_max
+            },
+            unlocked() {return hasUpgrade('frog_suit', 15)}
+        },
+        21: {
+            title: "Accelerator 1",
+            display() {
+                let acc1 = new Decimal(1)
+                if (hasUpgrade('frog_suit', 23)) acc1 = acc1.add(buyableEffect('frog_suit', 11))
+                return "Swim Speed +" + format(acc1) + "<br>Formula: x+" + format(acc1)
+                },
+            canClick() {return player.frog_suit.swim_calculations.gte(0.5)},
+            onClick() {
+                let acc1 = new Decimal(1)
+                if (hasUpgrade('frog_suit', 23)) acc1 = acc1.add(buyableEffect('frog_suit', 11))
+                return player.frog_suit.swim_calculations = player.frog_suit.swim_calculations.sub(1),
+                player.frog_suit.swim_speed = player.frog_suit.swim_speed.add(acc1)
+            },
+            unlocked() {return hasUpgrade('frog_suit', 15)}
+        },
+        22: {
+            title: "Accelerator 2",
+            display() {
+                let acc2 = new Decimal(1.5)
+                if (hasUpgrade('frog_suit', 23)) acc2 = acc2.add(buyableEffect('frog_suit', 12))
+                return format(acc2) + "x Swim speed<br>Formula: " + format(acc2) + "x"
+                },
+            canClick() {return player.frog_suit.swim_calculations.gte(0.5)},
+            onClick() {
+                let acc2 = new Decimal(1.5)
+                if (hasUpgrade('frog_suit', 23)) acc2 = acc2.add(buyableEffect('frog_suit', 12))
+                return player.frog_suit.swim_calculations = player.frog_suit.swim_calculations.sub(1),
+                player.frog_suit.swim_speed = player.frog_suit.swim_speed.times(acc2)
+            },
+            unlocked() {return hasUpgrade('frog_suit', 15)}
+        },
+        23: {
+            title: "Accelerator 3",
+            display() {
+                let acc3a = new Decimal(0.5)
+                let acc3b = new Decimal(3)
+                if (hasUpgrade('frog_suit', 23)) acc3b = acc3b.add(buyableEffect('frog_suit', 13))
+                if (hasUpgrade('super_acorn', 11)) acc3a = new Decimal(0.95)
+                else if (hasUpgrade('frog_suit', 33)) acc3a = new Decimal(0.8)
+                return "Swim Speed ^" + format(acc3a) + " then x" + format(acc3b) + "<br>Formula: (x^" + format(acc3a) + ")·" + format(acc3b)
+                },
+            canClick() {return player.frog_suit.swim_calculations.gte(0.5)},
+            onClick() {
+                let acc3a = new Decimal(0.5)
+                let acc3b = new Decimal(3)
+                if (hasUpgrade('frog_suit', 23)) acc3b = acc3b.add(buyableEffect('frog_suit', 13))
+                if (hasUpgrade('super_acorn', 11)) acc3a = new Decimal(0.95)
+                else if (hasUpgrade('frog_suit', 33)) acc3a = new Decimal(0.8)
+                return player.frog_suit.swim_calculations = player.frog_suit.swim_calculations.sub(1),
+                player.frog_suit.swim_speed = player.frog_suit.swim_speed.pow(acc3a).times(acc3b)
+            },
+            unlocked() {return hasUpgrade('frog_suit', 15)}
+        },
+        24: {
+            title: "Accelerator 4",
+            display() {
+                let acc4 = new Decimal(2)
+                if (hasUpgrade('power_balloon', 41)) acc4 = acc4.add(upgradeEffect('power_balloon', 41))
+                return "Swim Speed ^" + format(acc4) + "<br>Formula: x^" + format(acc4) + "<br>You can only click this accelerator once. (Set click count to 0)"
+                },
+            canClick() {return player.frog_suit.swim_calculations.gte(0.5)},
+            onClick() {
+                let acc4 = new Decimal(2)
+                if (hasUpgrade('power_balloon', 41)) acc4 = acc4.add(upgradeEffect('power_balloon', 41))
+                return player.frog_suit.swim_calculations = new Decimal(0),
+                player.frog_suit.swim_speed = player.frog_suit.swim_speed.pow(acc4)
+            },
+            unlocked() {return hasUpgrade('frog_suit', 42)}
+        },
+    },
+    buyables: {
+        11: {
+            title: "Doka swimming",
+            cost(x) { return new Decimal(10).pow(Decimal.pow(x, 1.35).add(1)) },
+            display() { let FRB1base = new Decimal(1)
+                let FRB1free = upgradeEffect('frog_suit', 25)
+                if (hasUpgrade('super_acorn', 21)) FRB1base = FRB1base.times(upgradeEffect('super_acorn', 22))
+                let display = ` Increase accelerator 1's base by ${format(FRB1base)} per every level. <br>
+                Effect: +${format(this.effect())} <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Frog Suits`
+                if (hasUpgrade('frog_suit', 25)) display = ` Increase accelerator 1's base by ${format(FRB1base)} per every level. <br>
+                Effect: +${format(this.effect())} <br>
+                Level: ${format(player[this.layer].buyables[this.id]) + "+" + format(FRB1free)}<br>
+                Cost: ${format(this.cost())} Frog Suits`
+                return display}, 
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                let FRB1base = new Decimal(1)
+                let effect = new Decimal(x.times(FRB1base))
+                let FRB1free = upgradeEffect('frog_suit', 25)
+                if (hasUpgrade('super_acorn', 21)) FRB1base = FRB1base.times(upgradeEffect('super_acorn', 22))
+                if (hasUpgrade('frog_suit', 25)) effect = new Decimal(x.add(FRB1free)).times(FRB1base)
+                return effect},
+            unlocked() {return hasUpgrade('frog_suit', 23)}
+        },
+        12: {
+            title: "Tradaka swimming",
+            cost(x) { return new Decimal(10).pow(Decimal.pow(x, 1.45).add(1)) },
+            display() { let FRB2base = new Decimal(0.5)
+                return ` Increase accelerator 2's base by ${format(FRB2base)} per every level. <br>
+                Effect: +${format(this.effect())} <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Frog Suits`}, 
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                let FRB2base = new Decimal(0.5)
+                return new Decimal(x.times(FRB2base))},
+            unlocked() {return hasUpgrade('frog_suit', 23)}
+        },
+        13: {
+            title: "Tedaka swimming",
+            cost(x) { return new Decimal(10).pow(Decimal.pow(x, 1.6).add(1)) },
+            display() { let FRB3base = new Decimal(3)
+                if (hasUpgrade('power_balloon', 32)) FRB3base = FRB3base.add(upgradeEffect('power_balloon', 32))
+                return ` Increase accelerator 3's multiplication base by ${format(FRB3base)} per every level. <br>
+                Effect: +${format(this.effect())} <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Frog Suits`}, 
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                let FRB3base = new Decimal(3)
+                if (hasUpgrade('power_balloon', 32)) FRB3base = FRB3base.add(upgradeEffect('power_balloon', 32))
+                return new Decimal(x.times(FRB3base))},
+            unlocked() {return hasUpgrade('frog_suit', 23)}
+        },
+        21: {
+            title: "Pedaka swimming",
+            cost(x) { return new Decimal(1.8).tetrate(x) },
+            display() { let FRB4base = new Decimal(1.2)
+                return ` Multiply max accelerator clicks by ${format(FRB4base)} per every level. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Frog Suits`}, 
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                let FRB4base = new Decimal(1.2)
+                return new Decimal.pow(FRB4base,x)},
+            unlocked() {return hasUpgrade('frog_suit', 31)}
+        },
+    },
+    update(Frog){
+        if (hasUpgrade("frog_suit", 22)) player.frog_suit.swim_calculations_max = new Decimal(10)
+        if (hasUpgrade("frog_suit", 31)) player.frog_suit.swim_calculations_max = new Decimal(10).times(buyableEffect("frog_suit", 21)).floor()
+    },
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        ["display-text", () => `You have ` +format(player.invincible_star.points) + ` Invincible Stars`],
+        ["microtabs", "stuff"],
+        ["blank", "65px"],
+    ],
+    microtabs: {
+        stuff: {
+            "Upgrades": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    ["raw-html", () => `<h4 style="opacity:.5">Frog Mario can swim faster, walk like a real frog, even run on the water.`],
+                    ["upgrades", [1,2,3,4,5,6,7,8,9]]
+                ]
+            },
+            "Milestones": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    "milestones",
+                ]                
+            },  
+            "Swimming": {
+                unlocked() {return hasUpgrade('frog_suit', 15)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        dis = "Frog Mario's swimming speed is <h2 style='color: #24aa0c; text-shadow: 0 0 10px #24aa0c'>" + format(player.frog_suit.swim_speed) + "m/s</h2>. It multiplies Frog Suit gain by <h2 style='color: #24aa0c; text-shadow: 0 0 10px #24aa0c'>" + format(upgradeEffect('frog_suit', 15)) + "x</h2>"
+                        if (hasUpgrade('power_balloon', 24)) dis = "Frog Mario's swimming speed is <h2 style='color: #24aa0c; text-shadow: 0 0 10px #24aa0c'>" + format(player.frog_suit.swim_speed) + "m/s</h2>."
+                        return dis
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('power_balloon', 24))
+                        return "Your best Frog Mario's swimming speed is <h2 style='color: #24aa0c; text-shadow: 0 0 10px #24aa0c'>" + format(player.power_balloon.SSbest) + "m/s</h2>. It multiplies Frog Suit gain by <h2 style='color: #24aa0c; text-shadow: 0 0 10px #24aa0c'>" + format(upgradeEffect('frog_suit', 15)) + "x</h2> (You bought 9th Power Balloon upgrade!)"
+                    }],
+                    ["display-text", function() {
+                        return "You can click the accelerator " + format(player.frog_suit.swim_calculations) + "/" + format(player.frog_suit.swim_calculations_max) + " times"
+                    }],
+                    "clickables",
+                    "buyables",
+                ]    
+            }, 
+        },
+    },
+})
+// 第十七层：力量气球
+addLayer("power_balloon", {
+    startData() { return {                  // startData is a function that returns default data for a layer. 
+        unlocked: true,                     // You can add more variables here to add them to your layer.
+        points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+        resistance: new Decimal(1000000),
+        space: new Decimal(1),
+        space_hardcap: new Decimal(0),
+        expansion_a: new Decimal(0),
+        expansion_b: new Decimal(0),
+        expansion_c: new Decimal(0),
+        expbs: new Decimal(0),
+        MSbest: new Decimal(0),
+        SSbest: new Decimal(0),
+    }},
+    effect(){
+        eff = player[this.layer].best.add(1).log(2).add(1)
+        if (hasUpgrade('power_balloon', 14)) eff = eff.pow(2)
+        return eff
+        /*
+        you should use this.layer instead of <layerID>
+        Decimal.pow(num1, num2) is an easier way to do
+        num1.pow(num2)
+        */
+    },
+        effectDescription(){
+        return "multiplying 'Box generator' base by x" + format(tmp[this.layer].effect)
+        /*
+        use format(num) whenever displaying a number
+        */
+    },
+    color: "#FFFF6E",                       // The color for this layer, which affects many elements.
+    resource: "Power Balloons",            // The name of this layer's main prestige resource.
+    row: 6,                                 // The row this layer is on (0 is the first row).
+    position: 0,
+    branches: ["usa_mushroom"],
+    symbol: "PB",
+
+    baseResource: "SMB2 Mushrooms",                 // The name of the resource your prestige gain is based on.
+    baseAmount() { return player.usa_mushroom.points },  // A function to return the current amount of baseResource.
+
+    requires: new Decimal(1e125),              // The amount of the base needed to  gain 1 of the prestige currency.
+                                            // Also the amount required to unlock the layer.
+
+    type: "normal",                         // Determines the formula used for calculating prestige currency.
+    exponent: 0.04,                          // "normal" prestige gain is (currency^exponent).
+
+    gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        if (hasUpgrade('power_balloon', 11)) mult = mult.times(2)
+        if (hasUpgrade('power_balloon', 21)) mult = mult.times(upgradeEffect('power_balloon', 21))
+        if (hasUpgrade('power_balloon', 43)) mult = mult.times(upgradeEffect('power_balloon', 43))
+        return mult
+    },
+    gainExp() {                             // Returns the exponent to your gain of the prestige resource.
+        return new Decimal(1)
+    },
+
+    layerShown() { return hasAchievement("achievements", 121) },          // Returns a bool for if this layer's node should be visible in the tree.
+
+    hotkeys: [
+        {key: "P", description: "Shift+P: Reset for Power Balloons", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+
+    upgrades: {
+        11: {
+            title: "UFO",
+            description: "Autobuy SMB2 Mushroom buyables and double Power Balloon gain.",
+            cost: new Decimal(2),
+            unlocked() {return hasMilestone('power_balloon', 1)},
+        },
+        12: {
+            title: "Helium balloon?",
+            description: "100x Link's Bombs, Explosion Defeats, Link's Bow and SMB2 Mushroom gain.",
+            cost: new Decimal(4),
+            unlocked() {return hasUpgrade('power_balloon', 11)},
+        },
+        13: {
+            title: "Infinite gas?",
+            description: "100x Frog Suit gain.",
+            cost: new Decimal(4),
+            unlocked() {return hasUpgrade('power_balloon', 12)},
+        },
+        14: {
+            title: "The night sky",
+            description: "Square Power Balloon effect and keep 38th MS upgrade effect.",
+            cost: new Decimal(12),
+            unlocked() {return hasUpgrade('power_balloon', 13)},
+        },
+        15: {
+            title: "Be a squirrel",
+            description: "Unlock a new layer on row 7.",
+            cost: new Decimal(12),
+            unlocked() {return hasUpgrade('power_balloon', 14)},
+        },
+        21: {
+            title: "Balloon Expansion",
+            description: "Unlock a subtab in this layer.",
+            cost: new Decimal(60),
+            unlocked() {return hasUpgrade('power_balloon', 15)},
+            effect() {
+                space = player.power_balloon.space
+                eff = space.max(1).log(10).root(1.25)
+                if (hasUpgrade('power_balloon', 31)) eff = Decimal.pow(10, space.max(1).log(10).pow(0.5)).max(1).root(5)
+                return eff
+            }
+        },
+        22: {
+            title: "Same speed",
+            description: "Unlock 16th Frog Suit upgrade.",
+            cost: new Decimal(1775),
+            unlocked() {return hasUpgrade('power_balloon', 21)},
+            effect() {
+                resistance = player.power_balloon.resistance
+                eff = new Decimal(1).div(resistance).times(1000000).add(1).pow(1024)
+                return eff
+            }
+        },
+        23: {
+            title: "Ring shaped flying",
+            description: "Decrease Explosion Resistance based on best Master Sword. (It won't reset on row 7 reset)",
+            cost: new Decimal(1825600),
+            unlocked() {return hasUpgrade('power_balloon', 22)},
+            effect() {
+                return player.power_balloon.MSbest.max(1).log(10).max(1)
+            },
+            effectDisplay() { return "/"+format(upgradeEffect(this.layer, this.id)) },
+        },
+        24: {
+            title: "You need this!",
+            description: "You can keep your best swimming speed. And the effect is now based on best swimming speed instead of your current one.",
+            currencyDisplayName: "Balloon Space",
+            currencyInternalName: "space",
+            currencyLayer: "power_balloon",
+            cost: new Decimal("1e660"),
+            unlocked() {return hasUpgrade('power_balloon', 23)},
+        },
+        25: {
+            title: "Gas gas gas (Power balloon race)",
+            description: "Unlock a buyable for increasing expansion speed.",
+            cost: new Decimal(10000000),
+            unlocked() {return hasUpgrade('power_balloon', 24)},
+        },
+        31: {
+            title: "Two ballons' collision",
+            description: "Balloon Space is stronger.",
+            cost: new Decimal(12413170),
+            unlocked() {return hasUpgrade('power_balloon', 25)},
+        },
+        32: {
+            title: "Luigi ballon",
+            description: "'Tedaka swimming' base is increased based on Power Balloon.",
+            cost: new Decimal(1e15),
+            unlocked() {return hasUpgrade('power_balloon', 31)},
+            effect() {
+                return player.power_balloon.points.max(10000).log(10000)
+            },
+            effectDisplay() { return "+"+format(upgradeEffect(this.layer, this.id)) },
+        },
+        33: {
+            title: "Toad ballon",
+            description: "Unlock a stronger buyable in SH layer.",
+            cost: new Decimal(3e15),
+            unlocked() {return hasUpgrade('power_balloon', 32)},
+        },
+        34: {
+            title: "Toadette ballon",
+            description: "Divide Expansion Resistance based on OoM^2's of coins.",
+            cost: new Decimal(1e17),
+            unlocked() {return hasUpgrade('power_balloon', 33)},
+            effect() {
+                return player.coin.points.max(1e10).log(10).log(10)
+            },
+            effectDisplay() { return "/"+format(upgradeEffect(this.layer, this.id)) },
+        },
+        35: {
+            title: "Thunder balloon running",
+            description: "'Zedaka expanding' gives free levels to 'Exdaka expanding'.",
+            cost: new Decimal(4.8e19),
+            unlocked() {return hasUpgrade('power_balloon', 34)},
+            effect() {
+                return player.power_balloon.buyables[12].times(2)
+            },
+            effectDisplay() { return "+" +format(upgradeEffect(this.layer, this.id))+ " free levels" },
+        },
+        41: {
+            title: "Mario Kart?",
+            description: "Increase FS accelerator 4's base based on Balloon Space.",
+            cost: new Decimal(7.77e26),
+            unlocked() {return hasUpgrade('power_balloon', 35)},
+            effect() {
+                return player.power_balloon.space.max(1).log(10).max(1).log(10).div(2.33).max(0)
+            },
+            effectDisplay() { return "+" +format(upgradeEffect(this.layer, this.id))},
+        },
+        42: {
+            title: "No blue shell here",
+            description: "Multiply Grabbing Enemies based on Power Balloons.",
+            cost: new Decimal(1e43),
+            unlocked() {return hasUpgrade('power_balloon', 41)},
+            effect() {
+                return player.power_balloon.points.max(1).pow(33.33)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
+        },
+        43: {
+            title: "Cheesable balloon",
+            description: "Multiply Power Balloon and Super Acorn gain based on expansion resistance.",
+            cost: new Decimal(1e47),
+            unlocked() {return hasUpgrade('power_balloon', 42)},
+            effect() {
+                return new Decimal(0).sub(player.power_balloon.resistance.log(10)).max(1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
+        },
+        44: {
+            title: "Resistance to motivation",
+            description: "Multiply Frog Suit gain by reciporcal of expansion resistance.",
+            cost: new Decimal(1e49),
+            unlocked() {return hasUpgrade('power_balloon', 43)},
+            effect() {
+                return new Decimal(1).div(player.power_balloon.resistance).max(1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
+        },
+        45: {
+            title: "Overpowered balloon",
+            description: "Make 1st Coin milestone overpowered. (Check the effect on that milestone)",
+            cost: new Decimal(5e61),
+            unlocked() {return hasUpgrade('power_balloon', 44)},
+        },
+        51: {
+            title: "Back to the oak forest",
+            description: "Unlock 14th Super Acorn upgrade.",
+            cost: new Decimal(5e63),
+            unlocked() {return hasUpgrade('power_balloon', 45)},
+        },
+        // Look in the upgrades docs to see what goes here!
+    },
+    milestones: {
+        0: {
+            requirementDescription: "Get 1 Power Balloon",
+            effectDescription: "Keep Master Sword milestones on row 7 reset.",
+            done() { return player.power_balloon.points.gte(1) },
+        },
+        1: {
+            requirementDescription: "Get 2 Power Balloons",
+            effectDescription: "1.25x Master Sword gain, unlock 1st Power Balloon upgrade.",
+            done() { return player.power_balloon.points.gte(2) },
+        },
+        2: {
+            requirementDescription: "Get 4 Power Balloons",
+            effectDescription: "Keep SMB2 Mushroom and Frog Suit milestones on row 7 reset and 37th and 39th MS upgrade's effects are always activated.",
+            done() { return player.power_balloon.points.gte(4) },
+        },
+        3: {
+            requirementDescription: "Get 40 Power Balloons",
+            effectDescription: "5th SMB2 Mushroom upgrade's effect is always activated.",
+            done() { return player.power_balloon.points.gte(40) },
+        },
+        4: {
+            requirementDescription: "Get 2024 Power Balloons",
+            effectDescription: "You can autobuy Master Swords.",
+            done() { return player.power_balloon.points.gte(2024) },
+        },
+        5: {
+            requirementDescription: "Get 2000000 Power Balloons",
+            effectDescription: "Keep SMB2 Mushroom and Frog Suit upgrades.",
+            done() { return player.power_balloon.points.gte(2000000) },
+        },
+        6: {
+            requirementDescription() {return "Get "+format(new Decimal(1e20))+" Power Balloons"},
+            effectDescription: "Passive gain 100% Frog Suits every second.",
+            done() { return player.power_balloon.points.gte(1e20) },
+        },
+    },
+    buyables: {
+        11: {
+            title: "Exdaka expanding",
+            cost(x) { return new Decimal(19.9).pow(Decimal.pow(x, 1.05).add(1)) },
+            display() { let PBB1base = new Decimal(2.65)
+                let display = ` Multiply expanding speed by ${format(PBB1base)} per every level. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Power Balloons`
+                if (hasUpgrade("power_balloon", 35)) 
+                display = ` Multiply expanding speed by ${format(PBB1base)} per every level. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}+${format(upgradeEffect('power_balloon', 35))}<br>
+                Cost: ${format(this.cost())} Power Balloons`
+                return display}, 
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                let PBB1base = new Decimal(2.65)
+                let free = upgradeEffect('power_balloon', 35)
+                effect = Decimal.pow(PBB1base,x).max(1)
+                if (hasUpgrade("power_balloon", 35)) effect = Decimal.pow(PBB1base,x.add(free)).max(1)
+                return effect},
+            unlocked() {return hasUpgrade('power_balloon', 25)}
+        },
+        12: {
+            title: "Zedaka expanding",
+            cost(x) { return new Decimal(11.45).pow(Decimal.pow(x, 1.05).add(1)) },
+            display() { let PBB2base = new Decimal(1.414213562373)
+                if (hasUpgrade('super_acorn', 21)) PBB2base = PBB2base.add(upgradeEffect('super_acorn', 23))
+                let display = ` Divide Explosion Resistance by ${format(PBB2base)} per every level. <br>
+                Effect: /${format(this.effect())} <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Power Balloons`
+                return display}, 
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                let PBB2base = new Decimal(1.414213562373)
+                if (hasUpgrade('super_acorn', 21)) PBB2base = PBB2base.add(upgradeEffect('super_acorn', 23))
+                effect = Decimal.pow(PBB2base,x).max(1)
+                return effect},
+            unlocked() {return hasUpgrade('power_balloon', 25)}
+        },
+    },
+    update(expBS){
+        tick = new Decimal(0.05)
+        expBS = new Decimal(10)
+        if (hasUpgrade('power_balloon', 25)) expBS = expBS.times(buyableEffect('power_balloon', 11))
+        if (hasUpgrade('power_balloon', 21)) player.power_balloon.expbs = expBS
+        if (hasUpgrade('power_balloon', 21)) player.power_balloon.space_hardcap = upgradeEffect('power_balloon', 22)
+        if (player.power_balloon.space.lte(1)) player.power_balloon.space = new Decimal(1)
+        if (hasUpgrade('power_balloon', 21) && player.power_balloon.space.lte(player.power_balloon.space_hardcap.div(1.001))) player.power_balloon.space = player.power_balloon.space.times(expBS.pow(tick))
+        else if (player.power_balloon.space.gte(player.power_balloon.space_hardcap)) player.power_balloon.space = player.power_balloon.space_hardcap
+        resist = new Decimal(1000000)
+        if (hasUpgrade('power_balloon', 23)) resist = resist.div(upgradeEffect('power_balloon', 23))
+        if (hasUpgrade('power_balloon', 25)) resist = resist.div(buyableEffect('power_balloon', 12))
+        if (hasUpgrade('power_balloon', 34)) resist = resist.div(upgradeEffect('power_balloon', 34))
+        if (player.power_balloon.MSbest.lte(player.master_sword.best)) player.power_balloon.MSbest = player.master_sword.best
+        if (player.power_balloon.SSbest.lte(player.frog_suit.swim_speed)) player.power_balloon.SSbest = player.frog_suit.swim_speed
+        player.power_balloon.resistance = resist
+    },
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        ["display-text", () => `You have ` +format(player.usa_mushroom.points) + ` SMB2 Mushrooms`],
+        ["display-text", () => `Your best amount of Power Balloon is ` +format(player.power_balloon.best)],
+        ["microtabs", "stuff"],
+        ["blank", "65px"],
+    ],
+    microtabs: {
+        stuff: {
+            "Upgrades": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    ["raw-html", () => `<h4 style="opacity:.5">Power Balloon is added in v3.0.0 update. Let's fly infinitely!`],
+                    ["upgrades", [1,2,3,4,5,6,7,8,9]]
+                ]
+            },
+            "Milestones": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    "milestones",
+                ]                
+            },  
+            "Balloon Expansion": {
+                unlocked() {return hasUpgrade('power_balloon', 21)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        return "You have <h2 style='color: #ffff6e; text-shadow: 0 0 10px #ffff6e'>" + format(player.power_balloon.space) + "</h2> Balloon Space. Multipliying Power Balloon gain by <h2 style='color: #ffff6e; text-shadow: 0 0 10px #ffff6e'>" + format(upgradeEffect('power_balloon', 21)) + "x</h2>"
+                    }],
+                    ["display-text", function() {
+                        return "You gain Ballon Space <h2 style='color: #ffff6e; text-shadow: 0 0 10px #ffff6e'>" + format(player.power_balloon.expbs) + "x </h2> per second"
+                    }],
+                    ["display-text", function() {
+                        return "Your expansion resistance is <h2 style='color: #ffff6e; text-shadow: 0 0 10px #ffff6e'>" + format(player.power_balloon.resistance) + "</h2>, the hardcap of Balloon Space is <h2 style='color: #ffff6e; text-shadow: 0 0 10px #ffff6e'>" + format(upgradeEffect('power_balloon', 22)) + "</h2>"
+                    }],
+                    "clickables",
+                    "buyables",
+                ]    
+            }, 
+        },
+    },
+})
+// 第十八层：超级橡栗
+addLayer("super_acorn", {
+    startData() { return {                  // startData is a function that returns default data for a layer. 
+        unlocked: true,                     // You can add more variables here to add them to your layer.
+        points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+        strength: new Decimal(0),
+        SMBsan: new Decimal(0),
+        SMWorld: new Decimal(0),
+        NSMBrosU: new Decimal(0),
+    }},
+
+    effect(){
+        softcap = new Decimal(1e100)
+        if (hasUpgrade('super_acorn', 25)) softcap = new Decimal("1e1000")
+        eff1 = player[this.layer].best.add(1).pow(10)
+        eff2 = eff1.div(softcap).max(1).pow(0.2).times(softcap) //超级橡栗效果软上限
+        eff = eff1
+        if (eff1.gte(softcap)) eff = eff2
+        return eff
+        /*
+        you should use this.layer instead of <layerID>
+        Decimal.pow(num1, num2) is an easier way to do
+        num1.pow(num2)
+        */
+    },
+        effectDescription(){
+        softcap = new Decimal(1e100)
+        if (hasUpgrade('super_acorn', 25)) softcap = new Decimal("1e1000")
+        dis = "multiplying SMB2 Mushroom gain by x" + format(tmp[this.layer].effect)
+        if (tmp[this.layer].effect.gte(softcap)) dis = dis + "(softcapped)"
+        return dis
+        /*
+        use format(num) whenever displaying a number
+        */
+    },
+
+    color: "#D74A19",                       // The color for this layer, which affects many elements.
+    resource: "Super Acorns",            // The name of this layer's main prestige resource.
+    row: 6,                                 // The row this layer is on (0 is the first row).
+    position: 1,
+    symbol: "SA",
+    branches: ["frog_suit"],
+
+
+    baseResource: "Frog Suits",                 // The name of the resource your prestige gain is based on.
+    baseAmount() { return player.frog_suit.points },  // A function to return the current amount of baseResource.
+
+    requires: new Decimal(1e15),              // The amount of the base needed to  gain 1 of the prestige currency.
+                                            // Also the amount required to unlock the layer.
+
+    type: "normal",                         // Determines the formula used for calculating prestige currency.
+    exponent: 1/3,                          // "normal" prestige gain is (currency^exponent).
+
+    softcap() {
+        return new Decimal(200000)
+    },
+
+    softcapPower() {
+        power = new Decimal(0.4)
+        if (hasUpgrade('super_acorn', 24)) power = new Decimal(0.8)
+        else if (hasUpgrade('super_acorn', 13)) power = new Decimal(0.6)
+        return power
+    },
+
+    gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        if (hasUpgrade('super_acorn', 21)) mult = mult.times(upgradeEffect('super_acorn', 21))
+        if (hasUpgrade('power_balloon', 43)) mult = mult.times(upgradeEffect('power_balloon', 43))
+        return mult
+    },
+    gainExp() {                             // Returns the exponent to your gain of the prestige resource.
+        exp = new Decimal(1)
+        return exp
+    },
+    directMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        return mult
+    },
+
+    layerShown() { return hasAchievement('achievements', 122) },          // Returns a bool for if this layer's node should be visible in the tree.
+
+    hotkeys: [
+        {key: "a", description: "A: Reset for Super Acorns", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+
+    upgrades: {
+        11: {
+            title: "Air slide",
+            description: "Raise FS accelerator 3's exponential base to 0.95.",
+            cost: new Decimal(2),
+            unlocked() {return true},
+        },
+        12: {
+            title: "6-block spin jump",
+            description() {return format(new Decimal("e3e36")) + "x Cleared Courses gain. (Resets will be faster!)"},
+            cost: new Decimal(20),
+            unlocked() {return hasUpgrade('super_acorn', 11)},
+        },
+        13: {
+            title: "Toad's different head",
+            description() {return "Weaken Super Acorn softcap: softcap power from 0.4 to 0.6."},
+            cost: new Decimal(50176100),
+            unlocked() {return hasUpgrade('super_acorn', 12)},
+        },
+        14: {
+            title: "From dots to lines",
+            description: "Power Balloon can increase 'Box transcender' max level",
+            cost: new Decimal(1e9),
+            unlocked() {return hasUpgrade('super_acorn', 13)},
+            effect() {
+                return player.power_balloon.points.max(1).log(10).div(5).round()
+            },
+            effectDisplay() { return "+"+format(upgradeEffect(this.layer, this.id)) },
+        },
+        15: {
+            title: "Adorable",
+            description: "Power Balloon boosts SMB2 Mushroom gain. (Hardcap at 1.79e308)",
+            cost: new Decimal(1.5e9),
+            unlocked() {return hasUpgrade('super_acorn', 14)},
+            effect() {
+                return player.power_balloon.points.pow(4).max(1).min("1.79e308")
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        21: {
+            title: "Flying all-stars",
+            description: "Unlock a new subtab and buyables this layer.",
+            cost: new Decimal(2.233e12),
+            unlocked() {return hasUpgrade('super_acorn', 15)},
+            effect() {
+                return Decimal.pow(10, player.super_acorn.strength.max(1).log(10).pow(0.75)).max(1)
+            },
+        },
+        22: {
+            title: "Which is best?",
+            description: "Keep buyables, click counts in FS layer.",
+            cost: new Decimal(7e16),
+            unlocked() {return hasUpgrade('super_acorn', 21)},
+            effect() {
+                return player.super_acorn.SMBsan.max(1).root(3)
+            },
+        },
+        23: {
+            title: "Faster!",
+            description: "^22 base Super Hammer gain, bind resources better.",
+            cost: new Decimal(1e21),
+            unlocked() {return hasUpgrade('super_acorn', 22)},
+            effect() {
+                return player.super_acorn.SMWorld.max(1).log(10).pow(0.66).div(5).max(0)
+            },
+        },
+        24: {
+            title: "Acorn boost I",
+            description: "Weaken Super Acorn's softcap again. (Power from 0.6 to 0.8)",
+            cost: new Decimal(2.888e23),
+            unlocked() {return hasUpgrade('power_balloon', 51)},
+            effect() {
+                return player.super_acorn.NSMBrosU.max(1).root(5)
+            },
+        },
+        25: {
+            title: "Acorn boost II",
+            description: "Delay Super Acorn effect's softcap. (From 1e100 to 1e1000)",
+            cost: new Decimal(7.777e29),
+            unlocked() {return hasUpgrade('super_acorn', 24)},
+        },
+        31: {
+            title: "The overpwered",
+            description: "Unlock a new subtab for overpowering more milestones.",
+            cost: new Decimal(1e32),
+            unlocked() {return hasUpgrade('super_acorn', 25)},
+        },
+        32: {
+            title: "The last power-up",
+            description: "Unlock a new layer on row 8.",
+            cost: new Decimal(1.5e33),
+            unlocked() {return hasUpgrade('super_acorn', 31)},
+        },
+        101: {
+            title: "SA-OPU1",
+            tooltip: "Overpower 2nd Coin milestone",
+            currencyDisplayName: "Coins",
+            currencyInternalName: "points",
+            currencyLayer:"coin",
+            cost: new Decimal("e6.7e55"),
+            unlocked() {return hasUpgrade('super_acorn', 31)},
+            style(){style = {'min-height':'180px',
+                            'width':'180px',
+                            'font-size':'18px',
+                            'border-radius':'0%'}
+                    if (hasUpgrade(this.layer, 101)) 
+                    style = {'min-height':'180px',
+                    'width':'180px','font-size':'18px',
+                    'border-radius':'0%',
+                    'background-color':'#feb252'}
+                return style}
+        },
+        // Look in the upgrades docs to see what goes here!
+    },
+    update(multFlS){
+        tick = new Decimal(0.05)
+        multFlS = new Decimal(1)
+        multSMB3 = new Decimal(1)
+        multSMW = new Decimal(1)
+        multNSMBU = new Decimal(1)
+        if (hasUpgrade('super_acorn', 21)) multSMB3 = multSMB3.times(buyableEffect('super_acorn', 11)),
+        multSMW = multSMW.times(buyableEffect('super_acorn', 21)).times(buyableEffect('super_acorn', 22)),
+        multNSMBU = multNSMBU.times(buyableEffect('super_acorn', 31)).times(buyableEffect('super_acorn', 32)),
+        multFlS = multFlS.times(upgradeEffect('super_acorn', 24)),
+        player.super_acorn.SMBsan = player.super_acorn.SMBsan.add(multSMB3.times(tick)),
+        player.super_acorn.SMWorld = player.super_acorn.SMWorld.add(multSMW.times(tick)),
+        player.super_acorn.NSMBrosU = player.super_acorn.NSMBrosU.add(multNSMBU.times(tick)),
+        player.super_acorn.strength = player.super_acorn.strength.add(multFlS.times(tick))
+    },
+    milestones: {
+        0: {
+            requirementDescription: "Get 1 Super Acorn",
+            effectDescription: "Keep Master Sword upgrades on reset.",
+            done() { return player.super_acorn.points.gte(1) },
+        },
+        1: {
+            requirementDescription: "Get 200,000 Super Acorns",
+            effectDescription: "Auto sacrifice 1UP Mushrooms to gain Rotten Mushrooms.",
+            done() { return player.super_acorn.points.gte(200000) },
+        },
+        2: {
+            requirementDescription: "Get 9,402,011 Super Acorns",
+            effectDescription: "Passive gain SMB2 Mushroom every second.",
+            done() { return player.super_acorn.points.gte(9402011) },
+        },
+    },
+    buyables: {
+        11: {
+            title: "SMB3 power: Tail Mario",
+            cost(x) { return new Decimal("ee30").pow(Decimal.pow(15, x).add(1)) },
+            display() { let SAB1base = new Decimal(5)
+                let display = ` Multiply SMB3 flying power by ${format(SAB1base)} per every level. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Super Leaves`
+                return display}, 
+            canAfford() { return player.super_leaf.points.gte(this.cost()) },
+            buy() {
+                player.super_leaf.points = player.super_leaf.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                let SAB1base = new Decimal(5)
+                effect = Decimal.pow(SAB1base,x).max(1)
+                return effect},
+            unlocked() {return hasUpgrade('super_acorn', 21)},
+            style(){if (canBuyBuyable('super_acorn', 11) == true) return {"background-color":"#f83c11"}}
+        },
+        21: {
+            title: "SMW power: Cape Mario",
+            cost(x) { return new Decimal(1000000).times(Decimal.pow(1.35,x)) },
+            display() { let SAB2base = new Decimal(3)
+                let display = ` Multiply SMW flying power by ${format(SAB2base)} per every level. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Cape Feathers`
+                return display}, 
+            canAfford() { return player.cape_feather.points.gte(this.cost()) },
+            buy() {
+                player.cape_feather.points = player.cape_feather.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                let SAB2base = new Decimal(3)
+                effect = Decimal.pow(SAB2base,x).max(1)
+                return effect},
+            unlocked() {return hasUpgrade('super_acorn', 21)},
+            style(){if (canBuyBuyable('super_acorn', 21) == true) return {"background-color":"#fcbf02"}}
+        },
+        22: {
+            title: "SMW power: Balloon Mario",
+            cost(x) { return new Decimal(100).pow(Decimal.pow(x,1.3)) },
+            display() { let SAB3base = new Decimal(3.5)
+                let display = ` Multiply SMW flying power by ${format(SAB3base)} per every level. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Power Balloons`
+                return display}, 
+            canAfford() { return player.power_balloon.points.gte(this.cost()) },
+            buy() {
+                player.power_balloon.points = player.power_balloon.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                let SAB3base = new Decimal(3.5)
+                effect = Decimal.pow(SAB3base,x).max(1)
+                return effect},
+            unlocked() {return hasUpgrade('super_acorn', 21)},
+            style(){if (canBuyBuyable('super_acorn', 22) == true) return {"background-color":"#ffff6e"}}
+        },
+        31: {
+            title: "NSMBU power: Propeller Mario",
+            cost(x) { return new Decimal("ee28").pow(Decimal.pow(14,x)) },
+            display() { let SAB4base = new Decimal(3)
+                let display = ` Multiply SMW flying power by ${format(SAB4base)} per every level. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Propeller Mushrooms`
+                return display}, 
+            canAfford() { return player.propeller_mushroom.points.gte(this.cost()) },
+            buy() {
+                player.propeller_mushroom.points = player.propeller_mushroom.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                let SAB4base = new Decimal(3)
+                effect = Decimal.pow(SAB4base,x).max(1)
+                return effect},
+            unlocked() {return hasUpgrade('super_acorn', 21)},
+            style(){if (canBuyBuyable('super_acorn', 31) == true) return {"background-color":"#f45b00"}}
+        },
+        32: {
+            title: "NSMBU power: Squirrel Mario",
+            cost(x) { return new Decimal(1000).pow(Decimal.pow(x,1.3)) },
+            display() { let SAB5base = new Decimal(3.5)
+                let display = ` Multiply SMW flying power by ${format(SAB5base)} per every level. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Super Acorns`
+                return display}, 
+            canAfford() { return player.super_acorn.points.gte(this.cost()) },
+            buy() {
+                player.super_acorn.points = player.super_acorn.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                let SAB5base = new Decimal(3.5)
+                effect = Decimal.pow(SAB5base,x).max(1)
+                return effect},
+            unlocked() {return hasUpgrade('super_acorn', 21)},
+        },
+    },
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        ["display-text", () => `You have ` +format(player.frog_suit.points) + ` Frog Suits`],
+        ["display-text", () => `Your best amount of Super Acorn is ` +format(player.super_acorn.best)],
+        ["display-text", () => `Super Acorn softcap starts at 200,000`],
+        ["microtabs", "stuff"],
+        ["blank", "65px"],
+    ],
+    microtabs: {
+        stuff: {
+            "Upgrades": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    ["raw-html", () => `<h4 style="opacity:.5">Super Acorn is added in v3.0.0 update. It's in NSMBU style. Squirrel Mario is so cute!`],
+                    ["upgrades", [1,2,3,4,5,6,7,8,9]]
+                ]
+            },
+            "Milestones": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    "milestones",
+                ]                
+            },  
+            "SMM2 Fly All-stars": {
+                unlocked() {return hasUpgrade('super_acorn', 21)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        return "You have is <h2 style='color: #d74a19; text-shadow: 0 0 10px #d74a19'>" + format(player.super_acorn.strength) + "</h2> Flying Strength, which boosting Super Acorn gain by <h2 style='color: #d74a19; text-shadow: 0 0 10px #d74a19'>" + format(upgradeEffect('super_acorn', 21)) + "x</h2>"
+                    }],
+                    ["display-text", function() {
+                        return "You have is <h2 style='color: #d74a19; text-shadow: 0 0 10px #d74a19'>" + format(player.super_acorn.SMBsan) + "</h2> SMB3 Flying Power, which boosting 'Doka swimming' base by <h2 style='color: #d74a19; text-shadow: 0 0 10px #d74a19'>" + format(upgradeEffect('super_acorn', 22)) + "x</h2>"
+                    }],
+                    ["display-text", function() {
+                        return "You have is <h2 style='color: #d74a19; text-shadow: 0 0 10px #d74a19'>" + format(player.super_acorn.SMWorld) + "</h2> SMW Flying Power, which increasing 'Zedaka expanding base' by <h2 style='color: #d74a19; text-shadow: 0 0 10px #d74a19'>+" + format(upgradeEffect('super_acorn', 23)) + "</h2>"
+                    }],
+                    ["display-text", function() {
+                        return "You have is <h2 style='color: #d74a19; text-shadow: 0 0 10px #d74a19'>" + format(player.super_acorn.NSMBrosU) + "</h2> NSMBU Flying Power, which boosting Flying Strength gain by <h2 style='color: #d74a19; text-shadow: 0 0 10px #d74a19'>" + format(upgradeEffect('super_acorn', 24)) + "x</h2>"
+                    }],
+                    "buyables",
+                ]                
+            }, 
+            "SA Overpowers": {
+                unlocked() {return hasUpgrade('super_acorn', 31)},
+                content: [
+                    ["blank", "15px"],
+                    ["upgrades", [10,11,12]]
+                ]
+            }, 
+        },
+    },
+})
+// 第十九层：回旋镖之花
+addLayer("boomerang_flower", {
+    startData() { return {                  // startData is a function that returns default data for a layer. 
+        unlocked: true,                     // You can add more variables here to add them to your layer.
+        points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+    }},
+
+    color: "#0097EF",                       // The color for this layer, which affects many elements.
+    resource: "Boomerang Flowers",            // The name of this layer's main prestige resource.
+    row: 7,                                 // The row this layer is on (0 is the first row).
+    position: 0,
+    branches: ["power_balloon"],
+    symbol: "BF",
+
+
+    baseResource: "Power Balloons",                 // The name of the resource your prestige gain is based on.
+    baseAmount() { return player.power_balloon.points },  // A function to return the current amount of baseResource.
+
+    requires: new Decimal("ee56"),              // The amount of the base needed to  gain 1 of the prestige currency.
+    //v0.8版本改成4.5e79
+                                            // Also the amount required to unlock the layer.
+
+    type: "normal",                         // Determines the formula used for calculating prestige currency.
+    exponent: 0.166666667,                          // "normal" prestige gain is (currency^exponent).
+
+    gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        return new Decimal(1)               // Factor in any bonuses multiplying gain here.
+    },
+    gainExp() {                             // Returns the exponent to your gain of the prestige resource.
+        return new Decimal(1)
+    },
+
+    layerShown() { return hasAchievement('achievements', 125) },          // Returns a bool for if this layer's node should be visible in the tree.
+
+    hotkeys: [
+        {key: "x", description: "X: Reset for Boomerang Flowers", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+
+    upgrades: {
+        // Look in the upgrades docs to see what goes here!
+    },
+})
+//剧透警告！！！SPOILER ALERT!!!
+//剧透警告！！！SPOILER ALERT!!!
+//剧透警告！！！SPOILER ALERT!!!
+//剧透警告！！！SPOILER ALERT!!!
+//剧透警告！！！SPOILER ALERT!!!
+//剧透警告！！！SPOILER ALERT!!!
+//剧透警告！！！SPOILER ALERT!!!
+//剧透警告！！！SPOILER ALERT!!!
+//剧透警告！！！SPOILER ALERT!!!
+//剧透警告！！！SPOILER ALERT!!!
+//剧透警告！！！SPOILER ALERT!!!
+//剧透警告！！！SPOILER ALERT!!!
+//剧透警告！！！SPOILER ALERT!!!
+//剧透警告！！！SPOILER ALERT!!!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 第二十层：马力欧
+// 第二十一层：路易吉
+// 第二十二层：奇诺比奥
+// 第二十三层：奇诺比珂
+// 第二十四层：简单耐力挑战
+// 第二十五层：普通耐力挑战
+// 第二十六层：困难耐力挑战
+// 第二十七层：超难耐力挑战
+// 第二十八层：多人过关
+// 第二十九层：多人对战
+// 第三十层：标准风格关卡
+// 第三十一层：跑酷关卡
+// 第三十二层：微操关卡
+// 第三十三层：Kaizo关卡
+// 第三十四层：时间杀关卡
+// 第三十五层：解谜关卡
+// 第三十六层：工艺关卡
+// 第三十七层：热垃圾关卡
+// 第三十八层：Maker Teams
+// 第三十九层：马造速通活动
+// 第四十层：谁是多人闸总王
+// 第四十一层：The End?
