@@ -8,6 +8,16 @@
 	overflow: visible;
 }
 
+.respecClick {
+	min-height: 60px;
+	width: 480px;
+	border-radius: 5%;
+	border: 2px solid;
+	border-color: rgba(0, 0, 0, 0.125);
+	font-size: 15px;
+	overflow: visible;
+}
+
 .achievement {
 	height: 90px;
 	width: 90px;
