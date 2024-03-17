@@ -13,11 +13,21 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.6 (2024/01/01)",
-	name: "Propellers and cats, and happy new year 2024!",
+	num: "0.7 (2024/03/17)",
+	name: "Link, SMB2, Balloon and...",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>v0.7 (2024/03/17)</h3><br>
+		- Endgame: e1.79e56 cleared courses with boomerang flower layer unlocked.<br>
+		- Added 6 different layers.<br>
+		- Added 124 upgrades.<br>
+		- More buyables, challenges, milestones and clickables.<br>
+		- You can now overpower 2 milestones!<br>
+		- You can change notations now.<br>
+		- Added statistics.<br>
+		- Fixed IS and 1UP challenges.<br>
+		- Added 16 achievements.<br>
     <h3>v0.6 (2024/01/01)</h3><br>
 	    - Endgame: e2.338e12 cleared courses.<br>
 		- Added Yoshi Egg in Yoshi Egg layer.<br>
@@ -102,6 +112,14 @@ function getPointGen() {
 	if (player.super_leaf.points.gte(1)) gain = gain.times(tmp.super_leaf.effect)
 	if (inChallenge('super_mushroom', 11)) gain = gain.pow(0.5)
 	if (hasUpgrade('fire_flower', 23)) gain = gain.pow(1.05)
+	if (hasUpgrade('super_hammer', 13)) gain = gain.pow(upgradeEffect('super_hammer', 13))
+	if (hasUpgrade('master_sword', 13)) gain = gain.times(upgradeEffect('master_sword', 13))
+	if (inChallenge('super_hammer', 11)) gain = gain.log(10).max(1)
+	if (hasUpgrade('super_acorn', 12)) gain = gain.times("e3e36")
+	if (hasUpgrade('super_hammer', 41) && inChallenge('super_hammer', 11)) gain = gain.times(100)
+	if (inChallenge('master_sword', 11) && hasUpgrade('master_sword', 65)) gain = gain.max(1).pow(1e-7).max(1)
+	else if (inChallenge('master_sword', 11) && hasUpgrade('master_sword', 45)) gain = gain.max(1).pow(1e-9).max(1)
+	else if (inChallenge('master_sword', 11)) gain = gain.max(1).pow(1e-10).max(1)
 	return gain
 }
 
@@ -115,7 +133,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("e2.338e12"))
+	return player.points.gte(new Decimal("e1.79e56") && hasAchievement('achievements', 125))
 }
 
 
