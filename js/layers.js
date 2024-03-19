@@ -973,7 +973,7 @@ addLayer("super_mushroom", {
             description: "Multiply cleared courses gain based on super mushrooms.",
             cost: new Decimal(1),
             effect() {
-                return player.super_mushroom.points.add(1).pow(1.25)
+                return player.super_mushroom.points.add(2).pow(1.25)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -4477,7 +4477,7 @@ addLayer("super_hammer", {
         23: {
             title: "5 different colors of boxes",
             description: "+1 to 'Box Generator' base.",
-            cost: new Decimal(4e54),
+            cost: new Decimal(4e53),
             unlocked() {return hasUpgrade('super_hammer', 22)},
         },
         24: {
@@ -4514,7 +4514,7 @@ addLayer("super_hammer", {
         32: {
             title: "Block a pipe?",
             description: "Passive gain 100% Super Bell every second.",
-            cost: new Decimal(5.55e55),
+            cost: new Decimal(1.23e54),
             unlocked() {return hasUpgrade('super_hammer', 31)},
         },
         33: {
@@ -4591,10 +4591,10 @@ addLayer("super_hammer", {
             challengeDescription: "Nothing changed.",
             completionLimit: new Decimal (10),
             goalDescription() {
-            return "Get 10^10^(17+x) Cleared Courses"
+            return "Get e3.6e16^(10^x) Cleared Courses"
             },
             canComplete: function() {
-                return player.points.gte(Decimal.pow("e1e17", Decimal.pow(10, challengeCompletions('super_hammer', 12))))
+                return player.points.gte(Decimal.pow("e3.6e16", Decimal.pow(10, challengeCompletions('super_hammer', 12))))
                 },
             rewardDescription: "x1e10 Super Hammer per every completion.",
             rewardEffect() {
@@ -4605,7 +4605,7 @@ addLayer("super_hammer", {
                 return format(challengeEffect(this.layer, this.id))+"x<br>Completions: " 
                 + format(challengeCompletions('super_hammer', 12))
                 + "/10<br>Current Goal: "
-                + format(Decimal.pow("e1e17", Decimal.pow(10, challengeCompletions('super_hammer', 12))))},
+                + format(Decimal.pow("e3.6e16", Decimal.pow(10, challengeCompletions('super_hammer', 12))))},
             unlocked() {return hasUpgrade('super_hammer', 33)},
         },
     },
@@ -6713,7 +6713,7 @@ addLayer("frog_suit", {
                 return player.frog_suit.swim_calculations = player.frog_suit.swim_calculations.sub(1),
                 player.frog_suit.swim_speed = player.frog_suit.swim_speed.pow(acc3a).times(acc3b)
             },
-            unlocked() {return hasUpgrade('frog_suit', 15)}
+            unlocked() {return hasUpgrade('frog_suit', 21)}
         },
         24: {
             title: "Accelerator 4",
