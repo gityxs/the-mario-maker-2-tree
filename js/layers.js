@@ -4529,7 +4529,7 @@ addLayer("super_hammer", {
         34: {
             title: "Box drop",
             description: "Multiply Super Hammer gain based on Characters' Box. (After the exponential calculation)",
-            cost: new Decimal(2.22e66),
+            cost: new Decimal(5.43e64),
             unlocked() {return hasUpgrade('super_hammer', 33)},
             effect() {
                 return player.super_hammer.characters_box.max(1).log(10).pow(5).max(1)
@@ -4539,7 +4539,7 @@ addLayer("super_hammer", {
         35: {
             title: "The hardcore LINKage",
             description: "Unlock a new layer on row 6.",
-            cost: new Decimal(2.88e74),
+            cost: new Decimal(2.88e72),
             unlocked() {return hasUpgrade('super_hammer', 34)},
         },
         41: {
