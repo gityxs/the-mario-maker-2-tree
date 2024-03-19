@@ -13,11 +13,14 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.7 (2024/03/17)",
+	num: "0.7a (2024/03/20)",
 	name: "Link, SMB2, Balloon and...",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>v0.7a (2024/03/20)</h3><br>
+	    - Balanced 1st SM upgrade's effect. The effect with 0 super mushrooms is x2.378 coin gain instead of x1.<br>
+		- Make 8th and 12th SH upgrades' costs lower, 2nd SH challenge's goal is also lower.<br>
 	<h3>v0.7 (2024/03/17)</h3><br>
 		- Endgame: e1.79e56 cleared courses with boomerang flower layer unlocked.<br>
 		- Added 6 different layers.<br>
