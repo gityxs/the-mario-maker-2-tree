@@ -1145,6 +1145,7 @@ effectDescription(){
     gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
         mult = new Decimal(1) 
         if (hasUpgrade('coin', 34)) mult = mult.times(upgradeEffect('coin', 34))
+        if (hasUpgrade('fire_flower', 14)) mult = mult.times(1.5)
         if (hasUpgrade('fire_flower', 15)) mult = mult.times(upgradeEffect('fire_flower', 15))
         if (hasUpgrade('fire_flower', 21)) mult = mult.times(upgradeEffect('fire_flower', 21))
         if (hasUpgrade('invincible_star', 21)) mult = mult.times(upgradeEffect('invincible_star', 21))
@@ -4361,7 +4362,8 @@ addLayer("super_hammer", {
                                             // Also the amount required to unlock the layer.
 
     type: "normal",                         // Determines the formula used for calculating prestige currency.                         // "normal" prestige gain is (currency^exponent).
-    exponent: 0,
+    exponent() {if (hasMilestone('super_hammer', 0)) return 0
+                else return 1e-100},
     gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
         mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
         let SL = player.super_leaf.points
@@ -5733,7 +5735,7 @@ addLayer("master_sword", {
             effect(x) {
                 return x
             },
-            unlocked() {return hasUpgrade('master_sword', 72)}
+            unlocked() {return hasUpgrade('master_sword', 73)}
         },
     },
     automate(){
