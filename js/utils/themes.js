@@ -1,5 +1,5 @@
 // ************ Themes ************
-var themes = ["default", "aqua"]
+var themes = ["default", "aqua", "emerald"]
 
 var colors = {
 	default: {
@@ -22,6 +22,36 @@ var colors = {
 		background: "#001f3f",
 		background_tooltip: "rgba(0, 15, 31, 0.75)",
 	},
+	emerald: {
+		1: "#bfffb3",
+		2: "#ffffff",
+		3: "#7f7f7f",
+		color: "#bfffb3",
+		points: "#bfffd3",
+		locked: "#c4a7b3",
+		background: "#0f2400",
+		background_tooltip: "rgba(0, 31, 0, 0.75)",
+	},
+	castle: {
+		1: "#ffffff",
+		2: "#ffffff",
+		3: "#7f7f7f",
+		color: "#ffffff",
+		points: "#ffffff",
+		locked: "#bf8f8f",
+		background: "#1e1506",
+		background_tooltip: "rgba(31, 26, 0, 0.75)",
+	},
+	galaxy: {
+		1: "#d8cfff",
+		2: "#ffffff",
+		3: "#7f7f7f",
+		color: "#d8cfff",
+		points: "#ffffff",
+		locked: "#bf8f8f",
+		background: "#120024",
+		background_tooltip: "rgba(15, 0, 31, 0.75)",
+	},
 }
 function changeTheme() {
 
@@ -37,14 +67,13 @@ function getThemeName() {
 }
 
 function switchTheme() {
-	let index = themes.indexOf(options.theme)
-	if (options.theme === null || index >= themes.length-1 || index < 0) {
-		options.theme = themes[0];
+	let index = Object.keys(colors).indexOf(options.theme)
+	if (options.theme === null || index >= Object.keys(colors).length-1 || index < 0) {
+		options.theme = Object.keys(colors)[0];
 	}
 	else {
 		index ++;
-		options.theme = themes[index];
-		options.theme = themes[1];
+		options.theme = Object.keys(colors)[index];
 	}
 	changeTheme();
 	resizeCanvas();
