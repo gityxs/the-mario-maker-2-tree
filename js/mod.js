@@ -13,11 +13,14 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.7a (2024/03/20)",
+	num: "0.7b (2024/03/21)",
 	name: "Link, SMB2, Balloon and...",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>v0.7b (2024/03/21)</h3><br>
+		- Fixed 4th FF upgrade.<br>
+		- Added 3 styles.<br>
 	<h3>v0.7a (2024/03/20)</h3><br>
 	    - Balanced 1st SM upgrade's effect. The effect with 0 super mushrooms is x2.378 cleared courses gain instead of x1.<br>
 		- Make some SH upgrades' costs lower, 2nd SH challenge's goal is also lower.<br>
