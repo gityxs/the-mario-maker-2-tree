@@ -52,6 +52,16 @@ var colors = {
 		background: "#120024",
 		background_tooltip: "rgba(15, 0, 31, 0.75)",
 	},
+	athletic: {
+		1: "#202020",
+		2: "#202020",
+		3: "#404040",
+		color: "#202020",
+		points: "#202020",
+		locked: "#bf8f8f",
+		background: "#007eff",
+		background_tooltip: "rgba(220, 235, 255, 0.75)",
+	},
 }
 function changeTheme() {
 
