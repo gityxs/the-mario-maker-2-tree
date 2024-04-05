@@ -498,6 +498,86 @@ addLayer("achievements", {
                 return player.achievements.points = player.achievements.points.add("ee50")
             },
         },
+        131: {
+            name: "Loyal object",
+            tooltip: "Get your 1st Boomerang. <br> Reward: e5e55 AP.",
+            done() {return player.boomerang_flower.boomerang.gte(1)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e5e55")
+            },
+        },
+        132: {
+            name: "Loyal II",
+            tooltip: "Unlock 1st Boomerang's effect. <br> Reward: e4e57 AP.",
+            done() {return player.boomerang_flower.boomerang.gte(500)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e4e57")
+            },
+        },
+        133: {
+            name: "Loyal III",
+            tooltip: "Unlock all 3 Boomerang's effects. <br> Reward: e3e59 AP.",
+            done() {return player.boomerang_flower.boomerang.gte(1e21)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e3e59")
+            },
+        },
+        134: {
+            name: "The last power-up showtime!",
+            tooltip: "Have 4 overpowered milestones. <br> Reward: e3e63 AP.",
+            done() {return hasUpgrade('super_acorn', 103)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e3e63")
+            },
+        },
+        135: {
+            name: "Mario time!",
+            tooltip: "Unlock Mario layer. <br> Reward: e3e66 AP.",
+            done() {return hasUpgrade('boomerang_flower', 35)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e3e66")
+            },
+        },
+        141: {
+            name: "Mario's great adventure",
+            tooltip: "Mario cleared his first course. <br> Reward: e5e70 AP.",
+            done() {return player.mario.c_re.gte(1)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e5e70")
+            },
+        },
+        142: {
+            name: "Mario is a hero",
+            tooltip: "Mario cleared his first imaginary course. <br> Reward: e3e80 AP.",
+            done() {return player.mario.c_im.gte(1)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e3e80")
+            },
+        },
+        143: {
+            name: "Mansion cleaner",
+            tooltip: "Unlock Luigi layer. <br> Reward: e1e90 AP.",
+            done() {return hasUpgrade('mario', 51)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e1e90")
+            },
+        },
+        144: {
+            name: "Different journey",
+            tooltip: "Mario cleared his first course. <br> Reward: e1e115 AP.",
+            done() {return player.luigi.c.gte(1)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e1e115")
+            },
+        },
+        145: {
+            name: "Hey! Where's the captain?",
+            tooltip: "Unlock Toad layer. <br> Reward: e1e145 AP.",
+            done() {return hasMilestone('luigi', 3)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e1e145")
+            },
+        },
     },
     upgrades: {
         11: {
@@ -522,6 +602,9 @@ addLayer("stats", {
     row: "side",                                 // The row this layer is on (0 is the first row).
 
     layerShown() { return true },          // Returns a bool for if this layer's node should be visible in the tree.
+    update(lgpoints) {
+        player.lgpoints = player.points.max(1).log(10)
+    },
     tabFormat: [
         "main-display",
         ["microtabs", "stuff"],
@@ -826,24 +909,24 @@ addLayer("coin", {
         if (player.coin.pink_key_coin.lte(0)) return
         if (hasMilestone('fire_flower', 0)) {
             if (player.coin.pink_key_coin) {
-                hasMilestone("fire_flower", 0) ? setBuyableAmount("coin",11,tmp.coin.buyables[11].canAfford?player.coin.pink_key_coin.log(2).subtract(1).pow(1/1.5).floor().add(1):getBuyableAmount("coin",11)) : buyBuyable("coin",11)
+                hasMilestone("fire_flower", 0) ? setBuyableAmount("coin",11,tmp.coin.buyables[11].canAfford?player.coin.pink_key_coin.max(2).log(2).subtract(1).pow(1/1.5).floor().add(1):getBuyableAmount("coin",11)) : buyBuyable("coin",11)
             }
             if (player.coin.pink_key_coin) {
-                hasMilestone("fire_flower", 0) ? setBuyableAmount("coin",12,tmp.coin.buyables[12].canAfford?player.coin.pink_key_coin.log(5).subtract(1).pow(1/1.75).floor().add(1):getBuyableAmount("coin",12)) : buyBuyable("coin",12)
+                hasMilestone("fire_flower", 0) ? setBuyableAmount("coin",12,tmp.coin.buyables[12].canAfford?player.coin.pink_key_coin.max(5).log(5).subtract(1).pow(1/1.75).floor().add(1):getBuyableAmount("coin",12)) : buyBuyable("coin",12)
             }
             if (player.coin.pink_key_coin) {
-                hasMilestone("invincible_star", 0) ? setBuyableAmount("coin",13,tmp.coin.buyables[13].canAfford?player.coin.pink_key_coin.log(8).subtract(1).pow(1/2).floor().add(1):getBuyableAmount("coin",13)) : buyBuyable("coin",13)
+                hasMilestone("invincible_star", 0) ? setBuyableAmount("coin",13,tmp.coin.buyables[13].canAfford?player.coin.pink_key_coin.max(8).log(8).subtract(1).pow(1/2).floor().add(1):getBuyableAmount("coin",13)) : buyBuyable("coin",13)
             }
         }
         if (hasAchievement('achievements', 33)) {
             if (player.coin.pink_key_coin) {
-                hasAchievement('achievements', 33) ? setBuyableAmount("coin",11,tmp.coin.buyables[11].canAfford?player.coin.pink_key_coin.log(2).subtract(1).pow(1/1.5).floor().add(1):getBuyableAmount("coin",11)) : buyBuyable("coin",11)
+                hasAchievement('achievements', 33) ? setBuyableAmount("coin",11,tmp.coin.buyables[11].canAfford?player.coin.pink_key_coin.max(2).log(2).subtract(1).pow(1/1.5).floor().add(1):getBuyableAmount("coin",11)) : buyBuyable("coin",11)
             }
             if (player.coin.pink_key_coin) {
-                hasAchievement('achievements', 33) ? setBuyableAmount("coin",12,tmp.coin.buyables[12].canAfford?player.coin.pink_key_coin.log(5).subtract(1).pow(1/1.75).floor().add(1):getBuyableAmount("coin",12)) : buyBuyable("coin",12)
+                hasAchievement('achievements', 33) ? setBuyableAmount("coin",12,tmp.coin.buyables[12].canAfford?player.coin.pink_key_coin.max(5).log(5).subtract(1).pow(1/1.75).floor().add(1):getBuyableAmount("coin",12)) : buyBuyable("coin",12)
             }
             if (player.coin.pink_key_coin) {
-                hasAchievement('achievements', 33) ? setBuyableAmount("coin",13,tmp.coin.buyables[13].canAfford?player.coin.pink_key_coin.log(8).subtract(1).pow(1/2).floor().add(1):getBuyableAmount("coin",13)) : buyBuyable("coin",13)
+                hasAchievement('achievements', 33) ? setBuyableAmount("coin",13,tmp.coin.buyables[13].canAfford?player.coin.pink_key_coin.max(8).log(8).subtract(1).pow(1/2).floor().add(1):getBuyableAmount("coin",13)) : buyBuyable("coin",13)
             }
         }
     },
@@ -1009,9 +1092,16 @@ addLayer("super_mushroom", {
     },
     milestones: {
         0: {
-            requirementDescription: "Reach 125138 super mushrooms",
-            effectDescription: "Gain coins 100% of your reset every second passively.",
+            requirementDescription() {
+                dis = "Reach 125138 super mushrooms"
+                if (hasUpgrade('super_acorn', 102)) dis = dis + " (Overpowered)"  
+                return dis},
+            effectDescription() {
+                dis = "Gain coins 100% of your reset every second passively."
+                if (hasUpgrade('super_acorn', 102)) dis = dis + "<br>Overpowered effect: Boost Boomerang gain based on Super Mushroom.<br>Currently: " + format(upgradeEffect('super_acorn', 102)) + "x"
+                return dis},
             done() { return player.super_mushroom.points.gte(125138) },
+            style(){if (hasUpgrade('super_acorn', 102)) return{'background-color':'#ffad00'}}
         },
         1: {
             requirementDescription: "Reach 1.5267e105 super mushrooms",
@@ -1228,7 +1318,7 @@ effectDescription(){
             cost: new Decimal(20190628),
             unlocked() {return hasUpgrade('fire_flower', 14)},
             effect() {
-                return player.coin.pink_key_coin.add(100).log(10).div(2)
+                return player.coin.pink_key_coin.add(100).max(100).log(10).div(2)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -1270,9 +1360,17 @@ effectDescription(){
     },
     milestones: {
         0: {
-            requirementDescription: "Get 1920000 Fire Flowers",
-            effectDescription: "Autobuy coin buyables 1 and 2.",
+            requirementDescription() {
+                dis = "Get 1920000 Fire Flowers"
+            if (hasUpgrade('super_acorn', 103)) dis = dis+" (Overpowered)"
+            return dis},
+            effectDescription() {
+                dis = "Autobuy coin buyables 1 and 2."
+                if (hasUpgrade('super_acorn', 103)) dis = dis + "<br>Overpowered effect: 14th BF upgrade also affacts Boomerang."
+                return dis
+            },
             done() { return player.fire_flower.points.gte(1920000) },
+            style(){if (hasUpgrade('super_acorn', 102)) return{'background-color':'#ffad00'}}
         },
         1: {
             requirementDescription: "Get 1e51 Fire Flowers",
@@ -1312,6 +1410,7 @@ addLayer("invincible_star", {
     startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+        opmtime: new Decimal(0),
     }},
     symbol: "IS",
     color: "#FFB15A",                       // The color for this layer, which affects many elements.
@@ -1350,6 +1449,11 @@ addLayer("invincible_star", {
     gainExp() {                             // Returns the exponent to your gain of the prestige resource.
         return new Decimal(1)
     },
+    directMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        if (hasUpgrade('boomerang_flower', 32)) mult = mult.times(1e19)
+        return mult
+    },
 
     layerShown() { return hasUpgrade('fire_flower', 25) || hasAchievement('achievements', 25)},          // Returns a bool for if this layer's node should be visible in the tree.
 
@@ -1374,6 +1478,7 @@ addLayer("invincible_star", {
                 if(hasMilestone('master_sword', 11)) {
                 kept.push("upgrades")
                 }
+                kept.push("opmtime")
 
         layerDataReset(this.layer, kept)
         }
@@ -1416,7 +1521,7 @@ addLayer("invincible_star", {
             unlocked() {return hasUpgrade('invincible_star', 15)},
             effect() {
                 let ISBest = player.invincible_star.best
-                return Decimal.ln(ISBest.add(2.71828)).times(100)
+                return Decimal.ln(ISBest.add(2.71828)).times(100).max(1)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -1483,9 +1588,16 @@ addLayer("invincible_star", {
             done() { return player.invincible_star.points.gte(1) },
         },
         1: {
-            requirementDescription: "Get 2 Invincible Stars",
-            effectDescription: "6879x Super Mushroom gain.",
+            requirementDescription() {
+                dis = "Get 2 Invincible Stars"
+                if (hasUpgrade('super_acorn', 111)) dis = dis + " (Overpowered)"
+                return dis},
+            effectDescription() {
+                dis = "6879x Super Mushroom gain."
+                if (hasUpgrade('super_acorn', 111)) dis = dis + "<br>Overpowered effect: Root Mario gain cost based on IS and time since you overpowered this milestone. (hardcap at 1h) <br>Time: "+formatTime(player[this.layer].opmtime)+" Currently: " + format(upgradeEffect('super_acorn', 111)) + "√"
+                return dis},
             done() { return player.invincible_star.points.gte(2) },
+            style(){if (hasUpgrade('super_acorn', 111)) return{'background-color':'#ffad00'}}
         },
         2: {
             requirementDescription: "Get 4 Invincible Stars",
@@ -1530,10 +1642,15 @@ addLayer("invincible_star", {
             canComplete: function() {
                 return player.points.gte("1e730")
                 },
+            onEnter() {return player.coin.pink_key_coin=new Decimal(0)},
             rewardDescription: "^1.1 Super Mushroom gain",
             unlocked() {return hasChallenge('invincible_star', 11) || hasAchievement('achievements', 63)},
         },
     },
+        update(t) {
+            tick = new Decimal(0.05)
+            if (hasUpgrade('super_acorn', 111) && player[this.layer].opmtime.lt(3600)) player[this.layer].opmtime = player[this.layer].opmtime.add(tick)
+        },
     tabFormat: [
         "main-display",
         "prestige-button",
@@ -1953,6 +2070,14 @@ addLayer("bouncy_ball_flower", {
 		if (hasMilestone('invincible_star', 4)) multBB = multBB.times(1e20)
         if (hasUpgrade('super_leaf', 24)) multBB = multBB.times("1.797e308")
         if (hasUpgrade('bouncy_ball_flower', 32) || hasAchievement('achievements', 62)) player.bouncy_ball_flower.bouncy_ball = player.bouncy_ball_flower.bouncy_ball.add(multBB)     
+        //购买项自动化
+        bb = player.bouncy_ball_flower.bouncy_ball
+        x1 = player.bouncy_ball_flower.buyables[11]
+        x2 = player.bouncy_ball_flower.buyables[12]
+        x3 = player.bouncy_ball_flower.buyables[13]
+        if ((hasUpgrade("bouncy_ball_flower", 13) || hasMilestone('super_leaf', 2) || hasAchievement('achievements', 63)) && bb.gte(new Decimal(20).times(Decimal.pow(x1, 1.05).add(1)))) player.bouncy_ball_flower.buyables[11]=player.bouncy_ball_flower.bouncy_ball.div(20).subtract(1).pow(1/1.05).floor().add(1)
+        if ((hasUpgrade("bouncy_ball_flower", 33) || hasMilestone('super_leaf', 2) || hasAchievement('achievements', 63)) && bb.gte(new Decimal(10).pow(Decimal.pow(x2, 1.05).add(1)))) player.bouncy_ball_flower.buyables[12]=player.bouncy_ball_flower.bouncy_ball.log(10).subtract(1).pow(1/1.05).floor().add(1)
+        if ((hasUpgrade("bouncy_ball_flower", 33) || hasMilestone('super_leaf', 2) || hasAchievement('achievements', 63)) && bb.gte(new Decimal(10).pow(Decimal.pow(x3, 1.24).add(1)))) player.bouncy_ball_flower.buyables[13]=player.bouncy_ball_flower.bouncy_ball.log(10).subtract(1).pow(1/1.24).floor().add(1)
     },
     upgrades: {
         11: {
@@ -2165,21 +2290,6 @@ addLayer("bouncy_ball_flower", {
             effectDescription: "Unlock 2nd Bouncy Ball Flower upgrade.",
             done() { return player.bouncy_ball_flower.bouncy_ball.gte(1e30) },
         },
-    },
-    automate(){
-        if (player.bouncy_ball_flower.bouncy_ball.lte(0)) return
-        if (hasUpgrade('bouncy_ball_flower', 13) || hasMilestone('super_leaf', 2) || hasAchievement('achievements', 63)
-        ) {
-            if (player.bouncy_ball_flower.bouncy_ball) {
-                hasUpgrade("bouncy_ball_flower", 13) || hasMilestone('super_leaf', 2) || hasAchievement('achievements', 63) ? setBuyableAmount("bouncy_ball_flower",11,tmp.bouncy_ball_flower.buyables[11].canAfford?player.bouncy_ball_flower.bouncy_ball.div(20).subtract(1).pow(1/1.05).floor().add(1):getBuyableAmount("bouncy_ball_flower",11)) : buyBuyable("bouncy_ball_flower",11)
-            }
-        }
-        if (hasUpgrade('bouncy_ball_flower', 33)) {
-            if (player.bouncy_ball_flower.bouncy_ball) {
-                hasUpgrade("bouncy_ball_flower", 33) || hasMilestone('super_leaf', 2) || hasAchievement('achievements', 63) ? setBuyableAmount("bouncy_ball_flower",12,tmp.bouncy_ball_flower.buyables[12].canAfford?player.bouncy_ball_flower.bouncy_ball.log(10).subtract(1).pow(1/1.05).floor().add(1):getBuyableAmount("bouncy_ball_flower",12)) : buyBuyable("bouncy_ball_flower",12)
-                hasUpgrade("bouncy_ball_flower", 33) || hasMilestone('super_leaf', 2) || hasAchievement('achievements', 63)? setBuyableAmount("bouncy_ball_flower",13,tmp.bouncy_ball_flower.buyables[13].canAfford?player.bouncy_ball_flower.bouncy_ball.log(10).subtract(1).pow(1/1.24).floor().add(1):getBuyableAmount("bouncy_ball_flower",13)) : buyBuyable("bouncy_ball_flower",13)
-            }
-        }
     },
     tabFormat: [
         "main-display",
@@ -3146,6 +3256,11 @@ addLayer("cape_feather", {
     },
     gainExp() {                             // Returns the exponent to your gain of the prestige resource.
         return new Decimal(1)
+    },
+    directMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        if (hasUpgrade('boomerang_flower', 32)) mult = mult.times(1e9)
+        return mult
     },
 
     hotkeys: [
@@ -4378,6 +4493,7 @@ addLayer("super_hammer", {
         if (hasUpgrade('super_hammer', 22)) exp = exp.times(upgradeEffect('super_hammer', 13))
         if (hasUpgrade('frog_suit', 32)) exp = exp.times(5)
         if (hasUpgrade('super_acorn', 23)) exp = exp.times(22)
+        if (hasUpgrade('boomerang_flower', 24)) exp = exp.times(upgradeEffect('boomerang_flower', 24))
         return exp
     },
     directMult() {                            // Returns your multiplier to your gain of the prestige resource.
@@ -4442,7 +4558,7 @@ addLayer("super_hammer", {
             cost: new Decimal(28888),
             unlocked() {return hasUpgrade('super_hammer', 12)},
             effect() {
-                return player.super_hammer.points.slog(10)
+                return player.super_hammer.points.max(10).slog(10)
             },
             effectDisplay() { return "^" + format(upgradeEffect(this.layer, this.id)) },
         },
@@ -4679,9 +4795,11 @@ addLayer("super_hammer", {
             title: "Box transcender",
             cost(x) { return new Decimal("1e10000").pow(Decimal.pow(x, 1.5).add(1)) },
             display() { let SHB3base = new Decimal(0.05)
+                if (hasAchievement('achievements', 135)) SHB3base = SHB3base.add(tmp.mario.effect)
                 return ` Power 'Box generator' base by +^${format(SHB3base)} per every level.<br>
                 Effect: ^${format(this.effect())} <br>
                 Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Level limit: ${format(limitBoxtranscender)} <br>
                 Cost: ${format(this.cost())} Characters' Boxes`}, 
             canAfford() { return player[this.layer].characters_box.gte(this.cost()) },
             buy() {
@@ -4689,13 +4807,16 @@ addLayer("super_hammer", {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             purchaseLimit() {
-                limit = new Decimal(75)
-                if (hasUpgrade('super_acorn', 14)) limit = limit.add(upgradeEffect('super_acorn', 14))
-                return limit},
+                limitBoxtranscender = new Decimal(75)
+                if (hasUpgrade('super_acorn', 14)) limitBoxtranscender = limitBoxtranscender.add(upgradeEffect('super_acorn', 14))
+                return limitBoxtranscender},
             effect(x) {
                 let SHB3base = new Decimal(0.05)
-                return new Decimal(1).add(SHB3base.times(x))},
-            unlocked() {return hasUpgrade('power_balloon', 33)}
+                if (hasAchievement('achievements', 135)) SHB3base = SHB3base.add(tmp.mario.effect)
+                eff = new Decimal(1).add(SHB3base.times(x))
+                if (inChallenge('boomerang_flower', 11)) eff = new Decimal(1)
+                return eff},
+            unlocked() {return hasUpgrade('luigi', 22)}
         },
     },
     automate(){
@@ -4718,6 +4839,7 @@ addLayer("super_hammer", {
         if (hasUpgrade('master_sword', 12)) multCB = multCB.times(upgradeEffect('master_sword', 12))
         if (hasUpgrade('usa_mushroom', 14)) multCB = multCB.times(upgradeEffect('usa_mushroom', 14))
         if (inChallenge('super_hammer', 11) && hasChallenge('super_hammer', 11) || hasMilestone('master_sword', 7) && hasChallenge('super_hammer', 11)) player.super_hammer.characters_box = player.super_hammer.characters_box.add(player.invincible_star.points.times(multCB))
+        if (hasMilestone('mario', 3) && player.super_hammer.buyables[13].lt(limitBoxtranscender)) player.super_hammer.buyables[13]=limitBoxtranscender
     },
     tabFormat: [
         "main-display",
@@ -4824,6 +4946,7 @@ addLayer("master_sword", {
         if (hasUpgrade('master_sword', 15)) mult = mult.times(player.master_sword.defeats_by_explosion.add(2).log(2).root(4).max(1))
         if (hasMilestone('power_balloon', 1)) mult = mult.times(1.25)
         if (hasUpgrade('frog_suit', 44)) mult = mult.times(1.05)
+        if (hasUpgrade('boomerang_flower', 23)) mult = mult.times(1.1)
         return mult
     },
 
@@ -5745,6 +5868,7 @@ addLayer("master_sword", {
         tick = new Decimal(0.05)
         if (hasUpgrade('master_sword', 22)) player.master_sword.links_bomb = player.master_sword.links_bomb.add(upgradeEffect('master_sword', 22).times(tick))
         let multRup = new Decimal(1)
+        multRup = multRup.times(challengeEffect('master_sword', 11))
         if (hasUpgrade('master_sword', 34)) multRup = multRup.times(buyableEffect('master_sword', 11))
         if (hasUpgrade('master_sword', 53) && player.master_sword.links_bomb_random == 1 || 
             hasUpgrade('master_sword', 53) && player.master_sword.links_bomb_random == 3 ||
@@ -5752,7 +5876,8 @@ addLayer("master_sword", {
             hasUpgrade('master_sword', 53) && player.master_sword.links_bomb_random == 9 ||
             hasMilestone('usa_mushroom', 0) ) multRup = multRup.times(1e20)
         if (hasMilestone('usa_mushroom', 1)) multRup = multRup.times(player.usa_mushroom.points.add(1).pow(7.5))
-        if (inChallenge('master_sword', 11) || hasUpgrade('master_sword', 83) || hasUpgrade('power_balloon', 14)) player.master_sword.rupee = challengeEffect('master_sword', 11).times(multRup)
+        if (player.boomerang_flower.boomerang.gte(1e9)) multRup = multRup.pow(upgradeEffect('boomerang_flower', 22))
+        if (inChallenge('master_sword', 11) || hasUpgrade('master_sword', 83) || hasUpgrade('power_balloon', 14)) player.master_sword.rupee = multRup
         let HSmult = new Decimal(1)
         HSmult = HSmult.times(player.master_sword.points.max(1))
         if (hasUpgrade('master_sword', 73)) HSmult = HSmult.pow(upgradeEffect('master_sword', 73))
@@ -6410,6 +6535,7 @@ addLayer("frog_suit", {
         swim_speed: new Decimal(0),
         swim_calculations: new Decimal(0),
         swim_calculations_max: new Decimal(5),
+        swim_calculations_auto: new Decimal(0),
     }},
 
     color: "#24AA0C",                       // The color for this layer, which affects many elements.
@@ -6437,6 +6563,8 @@ addLayer("frog_suit", {
         if (hasUpgrade('power_balloon', 13)) mult = mult.times(100)
         if (hasUpgrade('frog_suit', 41)) mult = mult.times(upgradeEffect('frog_suit', 41))
         if (hasUpgrade('power_balloon', 44)) mult = mult.times(upgradeEffect('power_balloon', 44))
+        if (hasMilestone('boomerang_flower', 0)) mult = mult.times(100)
+        if (hasUpgrade('mario', 12)) mult = mult.times(upgradeEffect('mario', 12))
         return mult
     },
     gainExp() {                             // Returns the exponent to your gain of the prestige resource.
@@ -6511,9 +6639,9 @@ addLayer("frog_suit", {
                 dilateexp = new Decimal(0.5)
                 if (hasUpgrade('frog_suit', 43)) dilateexp = new Decimal(0.25)                
                 swimfact = player.frog_suit.swim_speed
-                if (hasUpgrade('power_balloon', 24)) swimfact = player.power_balloon.SSbest
+                if (hasUpgrade('power_balloon', 24) || hasMilestone('boomerang_flower', 2)) swimfact = player.power_balloon.SSbest
                 rootfact = player.frog_suit.swim_speed.log(10).max(1).pow(dilateexp)
-                if (hasUpgrade('power_balloon', 24)) rootfact = player.power_balloon.SSbest.log(10).max(1).pow(dilateexp)
+                if (hasUpgrade('power_balloon', 24) || hasMilestone('boomerang_flower', 2)) rootfact = player.power_balloon.SSbest.log(10).max(1).pow(dilateexp)
                 return swimfact.root(rootfact).max(1)
             },
         },
@@ -6582,7 +6710,8 @@ addLayer("frog_suit", {
             cost: new Decimal(2.33e12),
             unlocked() {return hasUpgrade('frog_suit', 33)},
             effect() {
-                return player.frog_suit.swim_calculations.div(100).add(1)
+                if (hasUpgrade('mario', 24)) return player.frog_suit.swim_calculations_max.div(100).add(1)
+                else return player.frog_suit.swim_calculations.div(100).add(1)
             },
             effectDisplay() { return "^"+format(upgradeEffect(this.layer, this.id)) },
         },
@@ -6677,6 +6806,11 @@ addLayer("frog_suit", {
                 return player.frog_suit.swim_calculations = player.frog_suit.swim_calculations.sub(1),
                 player.frog_suit.swim_speed = player.frog_suit.swim_speed.add(acc1)
             },
+            effect() {
+                let acc1 = new Decimal(1)
+                if (hasUpgrade('frog_suit', 23)) acc1 = acc1.add(buyableEffect('frog_suit', 11))
+                return acc1
+            },
             unlocked() {return hasUpgrade('frog_suit', 15)}
         },
         22: {
@@ -6693,6 +6827,11 @@ addLayer("frog_suit", {
                 return player.frog_suit.swim_calculations = player.frog_suit.swim_calculations.sub(1),
                 player.frog_suit.swim_speed = player.frog_suit.swim_speed.times(acc2)
             },
+            effect() {
+                let acc2 = new Decimal(1.5)
+                if (hasUpgrade('frog_suit', 23)) acc2 = acc2.add(buyableEffect('frog_suit', 12))
+                return acc2
+            },
             unlocked() {return hasUpgrade('frog_suit', 15)}
         },
         23: {
@@ -6701,7 +6840,8 @@ addLayer("frog_suit", {
                 let acc3a = new Decimal(0.5)
                 let acc3b = new Decimal(3)
                 if (hasUpgrade('frog_suit', 23)) acc3b = acc3b.add(buyableEffect('frog_suit', 13))
-                if (hasUpgrade('super_acorn', 11)) acc3a = new Decimal(0.95)
+                if (hasUpgrade('boomerang_flower', 13)) acc3a = new Decimal(1)
+                else if (hasUpgrade('super_acorn', 11)) acc3a = new Decimal(0.95)
                 else if (hasUpgrade('frog_suit', 33)) acc3a = new Decimal(0.8)
                 return "Swim Speed ^" + format(acc3a) + " then x" + format(acc3b) + "<br>Formula: (x^" + format(acc3a) + ")·" + format(acc3b)
                 },
@@ -6710,10 +6850,20 @@ addLayer("frog_suit", {
                 let acc3a = new Decimal(0.5)
                 let acc3b = new Decimal(3)
                 if (hasUpgrade('frog_suit', 23)) acc3b = acc3b.add(buyableEffect('frog_suit', 13))
-                if (hasUpgrade('super_acorn', 11)) acc3a = new Decimal(0.95)
+                if (hasUpgrade('boomerang_flower', 13)) acc3a = new Decimal(1)
+                else if (hasUpgrade('super_acorn', 11)) acc3a = new Decimal(0.95)
                 else if (hasUpgrade('frog_suit', 33)) acc3a = new Decimal(0.8)
                 return player.frog_suit.swim_calculations = player.frog_suit.swim_calculations.sub(1),
                 player.frog_suit.swim_speed = player.frog_suit.swim_speed.pow(acc3a).times(acc3b)
+            },
+            effect() {
+                let acc3a = new Decimal(0.5)
+                let acc3b = new Decimal(3)
+                if (hasUpgrade('frog_suit', 23)) acc3b = acc3b.add(buyableEffect('frog_suit', 13))
+                if (hasUpgrade('boomerang_flower', 13)) acc3a = new Decimal(1)
+                else if (hasUpgrade('super_acorn', 11)) acc3a = new Decimal(0.95)
+                else if (hasUpgrade('frog_suit', 33)) acc3a = new Decimal(0.8)
+                return acc3b
             },
             unlocked() {return hasUpgrade('frog_suit', 21)}
         },
@@ -6730,6 +6880,11 @@ addLayer("frog_suit", {
                 if (hasUpgrade('power_balloon', 41)) acc4 = acc4.add(upgradeEffect('power_balloon', 41))
                 return player.frog_suit.swim_calculations = new Decimal(0),
                 player.frog_suit.swim_speed = player.frog_suit.swim_speed.pow(acc4)
+            },
+            effect() {
+                let acc4 = new Decimal(2)
+                if (hasUpgrade('power_balloon', 41)) acc4 = acc4.add(upgradeEffect('power_balloon', 41))
+                return acc4
             },
             unlocked() {return hasUpgrade('frog_suit', 42)}
         },
@@ -6817,13 +6972,20 @@ addLayer("frog_suit", {
             },
             effect(x) {
                 let FRB4base = new Decimal(1.2)
-                return new Decimal.pow(FRB4base,x)},
+                eff = new Decimal.pow(FRB4base,x)
+                if (eff.gte(3)) eff=new Decimal(2.99)
+                return eff},
             unlocked() {return hasUpgrade('frog_suit', 31)}
         },
     },
     update(Frog){
         if (hasUpgrade("frog_suit", 22)) player.frog_suit.swim_calculations_max = new Decimal(10)
         if (hasUpgrade("frog_suit", 31)) player.frog_suit.swim_calculations_max = new Decimal(10).times(buyableEffect("frog_suit", 21)).floor()
+        if (hasMilestone('mario', 1)) player.frog_suit.swim_calculations_auto = clickableEffect('frog_suit', 21).times(clickableEffect('frog_suit', 23).pow(27)).pow(clickableEffect('frog_suit', 24))
+        //购买项自动化
+        if (hasMilestone('mario', 2) && player.frog_suit.points.gte(new Decimal(10).pow(Decimal.pow(player.frog_suit.buyables[11], 1.35).add(1)))) player.frog_suit.buyables[11]=player.frog_suit.points.max(1).log(10).sub(1).root(1.35).floor().add(1)
+        if (hasMilestone('mario', 2) && player.frog_suit.points.gte(new Decimal(10).pow(Decimal.pow(player.frog_suit.buyables[12], 1.45).add(1)))) player.frog_suit.buyables[12]=player.frog_suit.points.max(1).log(10).sub(1).root(1.45).floor().add(1)
+        if (hasMilestone('mario', 2) && player.frog_suit.points.gte(new Decimal(10).pow(Decimal.pow(player.frog_suit.buyables[13], 1.6).add(1)))) player.frog_suit.buyables[13]=player.frog_suit.points.max(1).log(10).sub(1).root(1.6).floor().add(1)
     },
     tabFormat: [
         "main-display",
@@ -6855,12 +7017,16 @@ addLayer("frog_suit", {
                     ["blank", "15px"],
                     ["display-text", function() {
                         dis = "Frog Mario's swimming speed is <h2 style='color: #24aa0c; text-shadow: 0 0 10px #24aa0c'>" + format(player.frog_suit.swim_speed) + "m/s</h2>. It multiplies Frog Suit gain by <h2 style='color: #24aa0c; text-shadow: 0 0 10px #24aa0c'>" + format(upgradeEffect('frog_suit', 15)) + "x</h2>"
-                        if (hasUpgrade('power_balloon', 24)) dis = "Frog Mario's swimming speed is <h2 style='color: #24aa0c; text-shadow: 0 0 10px #24aa0c'>" + format(player.frog_suit.swim_speed) + "m/s</h2>."
+                        if (hasUpgrade('power_balloon', 24) || hasMilestone('boomerang_flower', 2)) dis = "Frog Mario's swimming speed is <h2 style='color: #24aa0c; text-shadow: 0 0 10px #24aa0c'>" + format(player.frog_suit.swim_speed) + "m/s</h2>."
                         return dis
                     }],
                     ["display-text", function() {
-                        if (hasUpgrade('power_balloon', 24))
+                        if (hasUpgrade('power_balloon', 24) || hasMilestone('boomerang_flower', 2))
                         return "Your best Frog Mario's swimming speed is <h2 style='color: #24aa0c; text-shadow: 0 0 10px #24aa0c'>" + format(player.power_balloon.SSbest) + "m/s</h2>. It multiplies Frog Suit gain by <h2 style='color: #24aa0c; text-shadow: 0 0 10px #24aa0c'>" + format(upgradeEffect('frog_suit', 15)) + "x</h2> (You bought 9th Power Balloon upgrade!)"
+                    }],
+                    ["display-text", function() {
+                        if (hasMilestone('mario', 1))
+                        return "Your best solution of swimming speed is <h2 style='color: #24aa0c; text-shadow: 0 0 10px #24aa0c'>" + format(player.frog_suit.swim_calculations_auto) + "m/s</h2>"
                     }],
                     ["display-text", function() {
                         return "You can click the accelerator " + format(player.frog_suit.swim_calculations) + "/" + format(player.frog_suit.swim_calculations_max) + " times"
@@ -6924,6 +7090,8 @@ addLayer("power_balloon", {
         if (hasUpgrade('power_balloon', 11)) mult = mult.times(2)
         if (hasUpgrade('power_balloon', 21)) mult = mult.times(upgradeEffect('power_balloon', 21))
         if (hasUpgrade('power_balloon', 43)) mult = mult.times(upgradeEffect('power_balloon', 43))
+        if (hasMilestone('boomerang_flower', 0)) mult = mult.times(1000)
+        if (hasUpgrade('mario', 13)) mult = mult.times(upgradeEffect('mario', 13))
         return mult
     },
     gainExp() {                             // Returns the exponent to your gain of the prestige resource.
@@ -6931,6 +7099,20 @@ addLayer("power_balloon", {
     },
 
     layerShown() { return hasAchievement("achievements", 121) },          // Returns a bool for if this layer's node should be visible in the tree.
+
+    doReset(resettingLayer) {
+        if (layers[resettingLayer].row > layers[this.layer].row) {
+            let kept = ["unlocked", "auto"]
+            if(hasMilestone('boomerang_flower', 0)) {
+            kept.push("milestones")
+            kept.push("SSbest")
+            }
+        layerDataReset(this.layer, kept)
+        }
+    },
+
+    passiveGeneration() {return hasMilestone('boomerang_flower', 3)},
+    autoUpgrade() {return hasMilestone('boomerang_flower', 6)},
 
     hotkeys: [
         {key: "P", description: "Shift+P: Reset for Power Balloons", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
@@ -6975,7 +7157,9 @@ addLayer("power_balloon", {
             effect() {
                 space = player.power_balloon.space
                 eff = space.max(1).log(10).root(1.25)
-                if (hasUpgrade('power_balloon', 31)) eff = Decimal.pow(10, space.max(1).log(10).pow(0.5)).max(1).root(5)
+                dilbase = new Decimal(5)
+                if (hasUpgrade('boomerang_flower', 21)) dilbase = new Decimal(4)
+                if (hasUpgrade('power_balloon', 31)) eff = Decimal.pow(10, space.max(1).log(10).pow(0.5)).max(1).root(dilbase)
                 return eff
             }
         },
@@ -7153,6 +7337,7 @@ addLayer("power_balloon", {
             title: "Exdaka expanding",
             cost(x) { return new Decimal(19.9).pow(Decimal.pow(x, 1.05).add(1)) },
             display() { let PBB1base = new Decimal(2.65)
+                if (player.boomerang_flower.boomerang.gte(1e21)) PBB1base = PBB1base.add(upgradeEffect('boomerang_flower', 23))
                 let display = ` Multiply expanding speed by ${format(PBB1base)} per every level. <br>
                 Effect: ${format(this.effect())}x <br>
                 Level: ${format(player[this.layer].buyables[this.id])}<br>
@@ -7170,6 +7355,7 @@ addLayer("power_balloon", {
             },
             effect(x) {
                 let PBB1base = new Decimal(2.65)
+                if (player.boomerang_flower.boomerang.gte(1e21)) PBB1base = PBB1base.add(upgradeEffect('boomerang_flower', 23))
                 let free = upgradeEffect('power_balloon', 35)
                 effect = Decimal.pow(PBB1base,x).max(1)
                 if (hasUpgrade("power_balloon", 35)) effect = Decimal.pow(PBB1base,x.add(free)).max(1)
@@ -7203,18 +7389,26 @@ addLayer("power_balloon", {
         tick = new Decimal(0.05)
         expBS = new Decimal(10)
         if (hasUpgrade('power_balloon', 25)) expBS = expBS.times(buyableEffect('power_balloon', 11))
+        if (hasMilestone('boomerang_flower', 1)) expBS = expBS.pow(3)
         if (hasUpgrade('power_balloon', 21)) player.power_balloon.expbs = expBS
         if (hasUpgrade('power_balloon', 21)) player.power_balloon.space_hardcap = upgradeEffect('power_balloon', 22)
-        if (player.power_balloon.space.lte(1)) player.power_balloon.space = new Decimal(1)
+        if (hasUpgrade('boomerang_flower', 12)) leastBS = player.power_balloon.space_hardcap.max(1).pow(0.8)
+        else leastBS = new Decimal(1)
+        if (player.power_balloon.space.lte(leastBS)) player.power_balloon.space = leastBS
         if (hasUpgrade('power_balloon', 21) && player.power_balloon.space.lte(player.power_balloon.space_hardcap.div(1.001))) player.power_balloon.space = player.power_balloon.space.times(expBS.pow(tick))
         else if (player.power_balloon.space.gte(player.power_balloon.space_hardcap)) player.power_balloon.space = player.power_balloon.space_hardcap
         resist = new Decimal(1000000)
         if (hasUpgrade('power_balloon', 23)) resist = resist.div(upgradeEffect('power_balloon', 23))
         if (hasUpgrade('power_balloon', 25)) resist = resist.div(buyableEffect('power_balloon', 12))
         if (hasUpgrade('power_balloon', 34)) resist = resist.div(upgradeEffect('power_balloon', 34))
+        if (hasUpgrade('boomerang_flower', 15)) resist = resist.div(upgradeEffect('boomerang_flower', 15))
         if (player.power_balloon.MSbest.lte(player.master_sword.best)) player.power_balloon.MSbest = player.master_sword.best
         if (player.power_balloon.SSbest.lte(player.frog_suit.swim_speed)) player.power_balloon.SSbest = player.frog_suit.swim_speed
+        if (player.power_balloon.SSbest.lte(player.frog_suit.swim_calculations_auto)) player.power_balloon.SSbest = player.frog_suit.swim_calculations_auto
         player.power_balloon.resistance = resist
+        //购买项自动化
+        if (hasMilestone('boomerang_flower', 4) && player.power_balloon.points.gte(new Decimal(19.9).pow(Decimal.pow(player.power_balloon.buyables[11], 1.05).add(1)))) player.power_balloon.buyables[11]=player.power_balloon.points.max(1).log(19.9).sub(1).root(1.05).floor().add(1)
+        if (hasMilestone('boomerang_flower', 4) && player.power_balloon.points.gte(new Decimal(11.45).pow(Decimal.pow(player.power_balloon.buyables[12], 1.05).add(1)))) player.power_balloon.buyables[12]=player.power_balloon.points.max(1).log(11.45).sub(1).root(1.05).floor().add(1)
     },
     tabFormat: [
         "main-display",
@@ -7329,6 +7523,7 @@ addLayer("super_acorn", {
         mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
         if (hasUpgrade('super_acorn', 21)) mult = mult.times(upgradeEffect('super_acorn', 21))
         if (hasUpgrade('power_balloon', 43)) mult = mult.times(upgradeEffect('power_balloon', 43))
+        if (hasMilestone('boomerang_flower', 0)) mult = mult.times(100)
         return mult
     },
     gainExp() {                             // Returns the exponent to your gain of the prestige resource.
@@ -7341,6 +7536,21 @@ addLayer("super_acorn", {
     },
 
     layerShown() { return hasAchievement('achievements', 122) },          // Returns a bool for if this layer's node should be visible in the tree.
+
+    doReset(resettingLayer) {
+        if (layers[resettingLayer].row > layers[this.layer].row) {
+            let kept = ["unlocked", "auto"]
+            if(hasMilestone('boomerang_flower', 2)) {
+            kept.push("milestones")
+            }
+            if(hasUpgrade('boomerang_flower', 11)) {
+                kept.push("upgrades")
+                }
+        layerDataReset(this.layer, kept)
+        }
+    },
+
+    passiveGeneration() {return hasMilestone('boomerang_flower', 5)},
 
     hotkeys: [
         {key: "a", description: "A: Reset for Super Acorns", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
@@ -7391,7 +7601,9 @@ addLayer("super_acorn", {
             cost: new Decimal(2.233e12),
             unlocked() {return hasUpgrade('super_acorn', 15)},
             effect() {
-                return Decimal.pow(10, player.super_acorn.strength.max(1).log(10).pow(0.75)).max(1)
+                eff = Decimal.pow(10, player.super_acorn.strength.max(1).log(10).pow(0.75)).max(1)
+                if (hasUpgrade('mario', 13)) eff = Decimal.pow(10, player.super_acorn.strength.max(1).log(10).pow(0.75).times(75)).max(1)
+                return eff
             },
         },
         22: {
@@ -7446,7 +7658,7 @@ addLayer("super_acorn", {
             currencyInternalName: "points",
             currencyLayer:"coin",
             cost: new Decimal("e6.7e55"),
-            unlocked() {return hasUpgrade('super_acorn', 31)},
+            unlocked() {return hasUpgrade('super_acorn', 31) || hasUpgrade('boomerang_flower', 11)},
             style(){style = {'min-height':'180px',
                             'width':'180px',
                             'font-size':'18px',
@@ -7456,6 +7668,73 @@ addLayer("super_acorn", {
                     'width':'180px','font-size':'18px',
                     'border-radius':'0%',
                     'background-color':'#feb252'}
+                return style}
+        },
+        102: {
+            title: "SA-OPU2",
+            tooltip: "Overpower 1st Super Mushroom milestone",
+            currencyDisplayName: "Super Mushrooms",
+            currencyInternalName: "points",
+            currencyLayer:"super_mushroom",
+            cost: new Decimal("e2e56"),
+            unlocked() {return hasUpgrade('super_acorn', 101)},
+            effect() {
+                return player.super_mushroom.points.max(1e10).log(10).log(10).pow(2)
+            },
+            style(){style = {'min-height':'180px',
+                            'width':'180px',
+                            'font-size':'18px',
+                            'border-radius':'0%'}
+                    if (hasUpgrade(this.layer, 102)) 
+                    style = {'min-height':'180px',
+                    'width':'180px','font-size':'18px',
+                    'border-radius':'0%',
+                    'background-color':'#c42533'}
+                return style}
+        },
+        103: {
+            title: "SA-OPU3",
+            tooltip: "Overpower 1st Fire Flower milestone",
+            currencyDisplayName: "Fire Flowers",
+            currencyInternalName: "points",
+            currencyLayer:"fire_flower",
+            cost: new Decimal("e1.37e60"),
+            unlocked() {return hasUpgrade('super_acorn', 102)},
+            effect() {
+                return player.super_mushroom.points.max(1e10).log(10).log(10).pow(2)
+            },
+            style(){style = {'min-height':'180px',
+                            'width':'180px',
+                            'font-size':'18px',
+                            'border-radius':'0%'}
+                    if (hasUpgrade(this.layer, 103)) 
+                    style = {'min-height':'180px',
+                    'width':'180px','font-size':'18px',
+                    'border-radius':'0%',
+                    'background-color':'#ff8d00'}
+                return style}
+        },
+        111: {
+            title: "SA-OPU4",
+            tooltip: "Overpower 2nd Invinsible Star milestone",
+            currencyDisplayName: "Invinsible Stars",
+            currencyInternalName: "points",
+            currencyLayer:"invincible_star",
+            cost: new Decimal("2.4e69"),
+            unlocked() {return hasMilestone('luigi', 0)
+            },
+            effect() {
+                return player.invincible_star.points.max(1).root(6.666).times(player.invincible_star.opmtime.max(1).pow(2))
+            },
+            style(){style = {'min-height':'180px',
+                            'width':'180px',
+                            'font-size':'18px',
+                            'border-radius':'0%'}
+                    if (hasUpgrade(this.layer, 111)) 
+                    style = {'min-height':'180px',
+                    'width':'180px','font-size':'18px',
+                    'border-radius':'0%',
+                    'background-color':'#ffb15a'}
                 return style}
         },
         // Look in the upgrades docs to see what goes here!
@@ -7474,6 +7753,12 @@ addLayer("super_acorn", {
         player.super_acorn.SMWorld = player.super_acorn.SMWorld.add(multSMW.times(tick)),
         player.super_acorn.NSMBrosU = player.super_acorn.NSMBrosU.add(multNSMBU.times(tick)),
         player.super_acorn.strength = player.super_acorn.strength.add(multFlS.times(tick))
+        //购买项自动化
+        if (hasMilestone('boomerang_flower', 7) && player.super_leaf.points.gte(new Decimal("ee30").pow(Decimal.pow(15, player.super_acorn.buyables[11]).add(1)))) player.super_acorn.buyables[11]=player.super_leaf.points.max(1).log("ee30").max(2).sub(1).log(15).max(0).floor().add(1)
+        if (hasMilestone('boomerang_flower', 7) && player.cape_feather.points.gte(new Decimal(1000000).times(Decimal.pow(1.35,player.super_acorn.buyables[21])))) player.super_acorn.buyables[21]=player.cape_feather.points.div(1000000).max(1).log(1.35).floor().add(1)
+        if (hasMilestone('boomerang_flower', 7) && player.power_balloon.points.gte(new Decimal(100).pow(Decimal.pow(player.super_acorn.buyables[22],1.3)))) player.super_acorn.buyables[22]=player.power_balloon.points.max(1).log(100).root(1.3).floor().add(1)
+        if (hasMilestone('boomerang_flower', 7) && player.propeller_mushroom.points.gte(new Decimal("ee28").pow(Decimal.pow(14,player.super_acorn.buyables[31])))) player.super_acorn.buyables[31]=player.propeller_mushroom.points.max(1).log("ee28").max(1).log(14).max(0).floor().add(1)
+        if (hasMilestone('boomerang_flower', 7) && player.super_acorn.points.gte(new Decimal(1000).pow(Decimal.pow(player.super_acorn.buyables[32],1.3)))) player.super_acorn.buyables[32]=player.super_acorn.points.max(1).log(1000).root(1.3).floor().add(1)
     },
     milestones: {
         0: {
@@ -7644,7 +7929,7 @@ addLayer("super_acorn", {
                 ]                
             }, 
             "SA Overpowers": {
-                unlocked() {return hasUpgrade('super_acorn', 31)},
+                unlocked() {return hasUpgrade('super_acorn', 31) || hasUpgrade('boomerang_flower', 11)},
                 content: [
                     ["blank", "15px"],
                     ["upgrades", [10,11,12]]
@@ -7658,6 +7943,8 @@ addLayer("boomerang_flower", {
     startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+        boomerang: new Decimal(0),
+        boomerang_persec: new Decimal(0),
     }},
 
     color: "#0097EF",                       // The color for this layer, which affects many elements.
@@ -7671,12 +7958,1167 @@ addLayer("boomerang_flower", {
     baseResource: "Power Balloons",                 // The name of the resource your prestige gain is based on.
     baseAmount() { return player.power_balloon.points },  // A function to return the current amount of baseResource.
 
-    requires: new Decimal("ee56"),              // The amount of the base needed to  gain 1 of the prestige currency.
-    //v0.8版本改成4.5e79
+    requires: new Decimal(4.5e79),              // The amount of the base needed to  gain 1 of the prestige currency.
                                             // Also the amount required to unlock the layer.
 
     type: "normal",                         // Determines the formula used for calculating prestige currency.
-    exponent: 0.166666667,                          // "normal" prestige gain is (currency^exponent).
+    exponent: 0.1,                          // "normal" prestige gain is (currency^exponent).
+
+    gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        if (hasUpgrade('boomerang_flower', 14)) mult = mult.times(upgradeEffect('boomerang_flower', 14))
+        if (player.boomerang_flower.boomerang.gte(500)) mult = mult.times(upgradeEffect('boomerang_flower', 21))
+        if (hasUpgrade('boomerang_flower', 34)) mult = mult.times(upgradeEffect('boomerang_flower', 34))
+        if (hasUpgrade('mario', 11)) mult = mult.times(upgradeEffect('mario', 11))
+        return mult
+    },
+    gainExp() {                             // Returns the exponent to your gain of the prestige resource.
+        return new Decimal(1)
+    },
+
+    passiveGeneration() {return hasMilestone('mario', 0)},
+
+    layerShown() { return hasAchievement('achievements', 125) },          // Returns a bool for if this layer's node should be visible in the tree.
+
+    hotkeys: [
+        {key: "x", description: "X: Reset for Boomerang Flowers", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+
+    upgrades: {
+        11: {
+            title: "Fly back",
+            description: "Keep 'SA Overpowers' subtab and SA upgrades on reset. (Not instantly)",
+            cost: new Decimal(5),
+            unlocked() {return true},
+        },
+        12: {
+            title: "Throw into clear pipes",
+            description: "Keep your Balloon Space at least ^0.8 of hardcap.",
+            cost: new Decimal(6),
+            unlocked() {return hasUpgrade('boomerang_flower', 11)},
+        },
+        13: {
+            title: "Damage entire row of enemies",
+            description: "Raise accelerator 3's exponential base to 1.",
+            cost: new Decimal(8),
+            unlocked() {return hasUpgrade('boomerang_flower', 12)},
+        },
+        14: {
+            title: "Boomerang can't infinite fly",
+            description: "Boost Boomerang Flower gain based on itself.",
+            cost: new Decimal(25),
+            unlocked() {return hasUpgrade('boomerang_flower', 13)},
+            effect() {
+                return player.boomerang_flower.points.max(1).add(1.71829).ln().max(1).pow(2)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        15: {
+            title: "Break in clear pipes",
+            description: "Divide expansion resistance based on Boomerang Flower.",
+            cost: new Decimal(888),
+            unlocked() {return hasUpgrade('boomerang_flower', 14)},
+            effect() {
+                return player.boomerang_flower.points.max(1).root(3)
+            },
+            effectDisplay() { return "/"+format(upgradeEffect(this.layer, this.id)) },
+        },
+        21: {
+            title: "1 Damage per throw",
+            description: "Balloon Space's effect is better.",
+            cost: new Decimal(2024),
+            unlocked() {return hasUpgrade('boomerang_flower', 15)},
+            effect() {
+                eff = player.boomerang_flower.boomerang.max(2.71829).ln().pow(1.5)
+                if (hasUpgrade('boomerang_flower', 31)) eff = player.boomerang_flower.boomerang.max(10).log(10).pow(player.boomerang_flower.boomerang.max(10).log(10).pow(0.6))
+                return eff
+            },
+        },
+        22: {
+            title: "20 throws to defeat a Bowser",
+            description: "Unlock a new subtab.",
+            cost: new Decimal(555555),
+            unlocked() {return hasUpgrade('boomerang_flower', 21)},
+            effect() {
+                return player.boomerang_flower.boomerang.max(10).log(10).root(2)
+            },
+        },
+        23: {
+            title: "40 throws to defeat a big Bowser",
+            description: "1.1x Master Sword gain.",
+            cost: new Decimal(40000000),
+            unlocked() {return hasUpgrade('boomerang_flower', 22)},
+            effect() {
+                return player.boomerang_flower.boomerang.max(10).log(10).root(1.77)
+            },
+        },
+        24: {
+            title: "Dash block faster than a boomerang",
+            description: "Power SH gain based on BF.",
+            cost: new Decimal(50000000),
+            unlocked() {return hasUpgrade('boomerang_flower', 23)},
+            effect() {
+                return player.boomerang_flower.points.max(8000).log(8000)
+            },
+            effectDisplay() { return "^"+format(upgradeEffect(this.layer, this.id)) },
+        },
+        25: {
+            title: "Hit spike balls",
+            description: "Boomerang boost itself gain but stronger.",
+            cost: new Decimal(3e10),
+            unlocked() {return hasUpgrade('boomerang_flower', 24)},
+            effect() {
+                return player.boomerang_flower.boomerang.max(1).root(3.5)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        31: {
+            title: "Hit snow balls",
+            description: "Improve 1st Boomerang's effect formula.",
+            cost: new Decimal(1e11),
+            unlocked() {return hasUpgrade('boomerang_flower', 25)},
+        },
+        32: {
+            title: "Hit Bowser's fire",
+            description: "1e19x Invincible Star and 1e9x Cape Feather gain.",
+            cost: new Decimal(5e21),
+            unlocked() {return hasUpgrade('boomerang_flower', 31)},
+        },
+        33: {
+            title: "Another flying object",
+            description: "Flying Strength amount now boost Boomerang gain.",
+            cost: new Decimal(1e24),
+            unlocked() {return hasUpgrade('boomerang_flower', 32)},
+            effect() {
+                return player.super_acorn.strength
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        34: {
+            title: "Power-ups' ENDGAME",
+            description: "Boost Boomerang Flower gain based on EVERY KIND OF POWER-UPS.",
+            cost: new Decimal(1e31),
+            unlocked() {return hasUpgrade('boomerang_flower', 33)},
+            effect() {
+                SM=player.super_mushroom.points.max(10).slog(10)
+                FF=player.fire_flower.points.max(10).slog(10)
+                IS=player.invincible_star.points.max(10).slog(10)
+                UP1=player.oneup_mushroom.points.max(10).slog(10)
+                BBF=player.bouncy_ball_flower.points.max(10).slog(10)
+                BM=player.big_mushroom.points.max(10).slog(10)
+                SL=player.super_leaf.points.max(10).slog(10)
+                CF=player.cape_feather.points.max(10).slog(10)
+                YE=player.yoshi_egg.points.max(10).slog(10)
+                PM=player.propeller_mushroom.points.max(10).slog(10)
+                SB=player.super_bell.points.max(10).slog(10)
+                SH=player.super_hammer.points.max(10).slog(10)
+                MS=player.master_sword.points.max(10).slog(10)
+                SMB2=player.usa_mushroom.points.max(10).slog(10)
+                FS=player.frog_suit.points.max(10).slog(10)
+                PB=player.power_balloon.points.max(10).slog(10)
+                SA=player.super_acorn.points.max(10).slog(10)
+                BF=player.boomerang_flower.points.max(10).slog(10)
+                return SM.times(FF).times(IS).times(UP1).times(BBF).times(BM).times(SL).times(CF).times(YE).times(PM).times(SB).times(SH).times(MS).times(SMB2).times(FS).times(PB).times(SA).times(BF).pow(5)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        35: {
+            title: "It's-a me!",
+            description: "Unlock a new layer at row 9.",
+            cost: new Decimal(1.24e124),
+            unlocked() {return hasUpgrade('boomerang_flower', 34)},
+        },
+        // Look in the upgrades docs to see what goes here!
+    },
+    challenges: {
+        11: {
+            name: "Piranhas",
+            challengeDescription: "'Box transcender' effect is always 1x.",
+            goalDescription() {return "Get "+format("e5e148")+" Cleared Courses. Then ^1e10 per each completion."},
+            completionLimit() {
+                let FBCCL = new Decimal(10)
+                return FBCCL},
+            canComplete: function() {
+                let FBC1C = player[this.layer].challenges[11]
+                return player.points.gte(new Decimal("e5e148").pow(new Decimal(1e10).pow(new Decimal(new Decimal(FBC1C))).max(1)))
+                },
+            rewardDescription() {let base = new Decimal(2)
+                if (hasUpgrade('luigi', 23)) base = new Decimal(10)
+                return "Delay Luigi's effect hardcap by "+format(base)+"x per each completion."},
+            rewardEffect() {
+                let base = new Decimal(2)
+                if (hasUpgrade('luigi', 23)) base = new Decimal(10)
+                let FBC1C = player[this.layer].challenges[11]
+                return Decimal.pow(base, new Decimal (FBC1C))
+            },
+            rewardDisplay() { let FBC1C = player[this.layer].challenges[11]
+                return format(challengeEffect(this.layer, this.id))+"x<br>Completions: "
+                + format(FBC1C)
+                + "/10<br>Current Goal: "
+                + format(new Decimal("e5e148").pow(new Decimal(1e10).pow(new Decimal(FBC1C)).max(1)))
+            },
+            unlocked() {return hasUpgrade('luigi', 22)},
+        },
+    },
+    resetsNothing() {return hasUpgrade('luigi', 31)},
+    milestones: {
+        0: {
+            requirementDescription: "Get 1 Boomerang Flower",
+            effectDescription: "x100 Frog Suit and Super Acorn gain, x1000 Power Balloon gain. Keep Power Balloon milestones and best swimming speed on row 8 reset.",
+            done() { return player.boomerang_flower.points.gte(1) },
+        },
+        1: {
+            requirementDescription: "Get 1.79e308 Balloon Space with at least 1 Boomerang Flower",
+            effectDescription: "Cube Balloon Space's expansion speed.",
+            done() { return player.boomerang_flower.points.gte(1) && player.power_balloon.space.gte("1.79e308")},
+        },
+        2: {
+            requirementDescription: "Get 3 Boomerang Flowers",
+            effectDescription: "Keep Super Acorn milestones and 9th Power Balloon upgrade's effect on row 8 reset.",
+            done() { return player.boomerang_flower.points.gte(3)},
+        },
+        3: {
+            requirementDescription: "Get 5 Boomerang Flowers",
+            effectDescription: "Passive gain 100% Power Balloon every second.",
+            done() { return player.boomerang_flower.points.gte(5)},
+        },
+        4: {
+            requirementDescription: "Get 15 Boomerang Flowers",
+            effectDescription: "Autobuy Power Balloon buyables.",
+            done() { return player.boomerang_flower.points.gte(15)},
+        },
+        5: {
+            requirementDescription: "Get 50 Boomerang Flowers",
+            effectDescription: "Passive gain 100% Super Acorn every second.",
+            done() { return player.boomerang_flower.points.gte(50)},
+        },
+        6: {
+            requirementDescription: "Get 501 Boomerang Flowers",
+            effectDescription: "Autobuy Power Balloon upgrades.",
+            done() { return player.boomerang_flower.points.gte(501)},
+        },
+        7: {
+            requirementDescription: "Get 202404 Boomerang Flowers",
+            effectDescription: "Autobuy Super Acorn buyables.",
+            done() { return player.boomerang_flower.points.gte(202404)},
+        },
+    },
+    bars: {
+        eff1: {
+            direction: RIGHT,
+            width: 333,
+            height: 50,
+            display() {return "Unlock 1st Boomerang's effect<br> Req: " + format(player.boomerang_flower.boomerang) + "/" + format(new Decimal(500)) + " Boomerangs"},
+            progress() { return player.boomerang_flower.boomerang.div(500).min(1).max(0) },
+            unlocked() {return hasUpgrade('boomerang_flower', 22)},
+            fillStyle() {return {"background-color":"#0097ef"}}
+        },
+        eff2: {
+            direction: RIGHT,
+            width: 333,
+            height: 50,
+            display() {return "Unlock 2nd Boomerang's effect<br> Req: " + format(player.boomerang_flower.boomerang) + "/" + format(new Decimal(1e9)) + " Boomerangs"},
+            progress() { return player.boomerang_flower.boomerang.div(1e9).min(1).max(0) },
+            unlocked() {return player.boomerang_flower.boomerang.gte(500)},
+            fillStyle() {return {"background-color":"#0097ef"}}
+        },
+        eff3: {
+            direction: RIGHT,
+            width: 333,
+            height: 50,
+            display() {return "Unlock 3rd Boomerang's effect<br> Req: " + format(player.boomerang_flower.boomerang) + "/" + format(new Decimal(1e21)) + " Boomerangs"},
+            progress() { return player.boomerang_flower.boomerang.max(1).log(1e21).min(1).max(0) },
+            unlocked() {return player.boomerang_flower.boomerang.gte(1e9)},
+            fillStyle() {return {"background-color":"#0097ef"}}
+        },
+    },
+    update(multB){
+        tick = new Decimal(0.05)
+        multB = new Decimal(1)
+        if (hasUpgrade('boomerang_flower', 22)) multB = multB.times(player.boomerang_flower.points.max(1).log(10))
+        if (player.boomerang_flower.boomerang.gte(500)) multB = multB.times(upgradeEffect('boomerang_flower', 21))
+        if (hasUpgrade('super_acorn', 102)) multB = multB.times(upgradeEffect('super_acorn', 102))
+        if (hasUpgrade('boomerang_flower', 25)) multB = multB.times(upgradeEffect('boomerang_flower', 25))
+        if (hasUpgrade('boomerang_flower', 33)) multB = multB.times(upgradeEffect('boomerang_flower', 33))
+        if (hasUpgrade('super_acorn', 103)) multB = multB.times(upgradeEffect('boomerang_flower', 34))
+        if (hasUpgrade('boomerang_flower', 22)) player.boomerang_flower.boomerang_persec = multB
+        if (hasUpgrade('boomerang_flower', 22)) player.boomerang_flower.boomerang = player.boomerang_flower.boomerang.add(multB.times(tick))
+    },
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        ["display-text", () => `You have ` +format(player.power_balloon.points) + ` Power Balloons`],
+        ["display-text", () => `Your best amount of Boomerang Flower is ` +format(player.boomerang_flower.best)],
+        ["microtabs", "stuff"],
+        ["blank", "65px"],
+    ],
+    microtabs: {
+        stuff: {
+            "Upgrades": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    ["raw-html", () => `<h4 style="opacity:.5">Boomerang Flower is added in v3.0.0 update. It's in SM3DW style. Boomerang Mario looks like a hammer bro!`],
+                    ["upgrades", [1,2,3,4,5,6,7,8,9]]
+                ]
+            },
+            "Milestones": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    "milestones",
+                ]                
+            },  
+            "Boomerang": {
+                unlocked() {return hasUpgrade('boomerang_flower', 22)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        return "You have <h2 style='color: #0097ef; text-shadow: 0 0 10px #0097ef'>" + format(player.boomerang_flower.boomerang) + "</h2> Boomerangs."
+                        + "(+" + format(player.boomerang_flower.boomerang_persec) + "/sec)"
+                    }],
+                    ["bar","eff1"],
+                    ["display-text", function() {
+                        if (player.boomerang_flower.boomerang.gte(500)) return "You have unlocked 1st Boomerang effect, it multiplies <h2 style='color: #0097ef; text-shadow: 0 0 10px #0097ef'>" + format(upgradeEffect('boomerang_flower', 21)) +"x </h2> to Boomerang Flower and Boomerang gain"
+                    }],
+                    ["bar","eff2"],
+                    ["display-text", function() {
+                        if (player.boomerang_flower.boomerang.gte(1e9)) return "You have unlocked 2nd Boomerang effect, it powers <h2 style='color: #0097ef; text-shadow: 0 0 10px #0097ef'>^" + format(upgradeEffect('boomerang_flower', 22)) +" </h2> to Rupee gain"
+                    }],
+                    ["bar","eff3"],
+                    ["display-text", function() {
+                        if (player.boomerang_flower.boomerang.gte(1e21)) return "You have unlocked 3rd Boomerang effect, it increases 'Exdaka expanding' base by <h2 style='color: #0097ef; text-shadow: 0 0 10px #0097ef'>+" + format(upgradeEffect('boomerang_flower', 23))
+                    }],
+                    "buyables",
+                ]                
+            }, 
+            "Challenges": {
+                unlocked() {return hasUpgrade('luigi', 22)},
+                content: [
+                    ["blank", "15px"],
+                    "challenges",
+                ]    
+            }, 
+        },
+    },
+})
+// 第二十层：马力欧
+addLayer("mario", {
+    startData() { return {                  // startData is a function that returns default data for a layer. 
+        unlocked: true,                     // You can add more variables here to add them to your layer.
+        points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+        c_re: new Decimal(0),
+        c_re_hardcap: new Decimal("1e1000"),
+        c_re_psec: new Decimal(0),
+        c_im: new Decimal(0),
+        iMcap: new Decimal(0),
+    }},
+
+    color: "#FF0018",                       // The color for this layer, which affects many elements.
+    resource: "Mario",            // The name of this layer's main prestige resource.
+    row: 0,                                 // The row this layer is on (0 is the first row).
+    displayRow: 8,
+    position: 0,
+    symbol: "M",
+
+    effect(){
+        Mstrength = new Decimal(300)
+        Msoftcap = new Decimal(30)
+        MsoftcapPower = new Decimal(3)
+        if (hasUpgrade('mario', 32)) MsoftcapPower = new Decimal(1.25)
+        if (hasUpgrade('mario', 22)) Msoftcap = Msoftcap.add(upgradeEffect('mario', 22))
+        if (hasUpgrade('mario', 35)) Mstrength = new Decimal(200)
+        if (hasUpgrade('mario', 41)) Mstrength = new Decimal(100)
+        if (hasUpgrade('mario', 45)) Mstrength = Mstrength.div(upgradeEffect('mario', 45))
+        eff = player[this.layer].points.max(0).div(Mstrength)
+        if (player[this.layer].points.gte(Msoftcap)) eff = Msoftcap.div(Mstrength).add(player[this.layer].points.max(Msoftcap).sub(Msoftcap).root(MsoftcapPower).div(300))
+        return eff
+        /*
+        you should use this.layer instead of <layerID>
+        Decimal.pow(num1, num2) is an easier way to do
+        num1.pow(num2)
+        */
+    },
+    effectDescription(){
+        dis = "increasing 'Box transcender' base by +" + format(tmp[this.layer].effect)
+        if (player[this.layer].points.gte(Msoftcap)) dis = dis + " (softcapped)"
+        return dis
+        /*
+        use format(num) whenever displaying a number
+        */
+    },
+
+    baseResource: "OoMs of Cleared Courses",                 // The name of the resource your prestige gain is based on.
+    baseAmount() { return player.lgpoints },  // A function to return the current amount of baseResource.
+
+    requires: new Decimal("8e63"),              // The amount of the base needed to  gain 1 of the prestige currency.
+                                            // Also the amount required to unlock the layer.
+
+    type: "static",                         // Determines the formula used for calculating prestige currency.
+    exponent() {
+        exp = 1
+        return exp
+    },                          // "normal" prestige gain is (currency^exponent).
+    base: new Decimal(1.75),
+
+    gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        if (hasUpgrade(this.layer, 33)) mult = mult.times(upgradeEffect(this.layer, 33))
+        if (hasUpgrade("super_acorn", 111)) mult = mult.times(upgradeEffect("super_acorn", 111))
+        return new Decimal(1).div(mult)
+    },
+    gainExp() {                             // Returns the exponent to your gain of the prestige resource.
+        return new Decimal(1)
+    },
+    directMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        if (hasUpgrade('luigi', 24)) mult = mult.times(upgradeEffect('luigi', 24))
+        return mult
+    },
+
+    layerShown() { return hasAchievement('achievements', 135) },          // Returns a bool for if this layer's node should be visible in the tree.
+
+    doReset(resettingLayer) {
+        if (player.points.gte(0)) {
+            let kept = ["unlocked", "auto"]
+            kept.push("milestones")
+            kept.push("upgrades")
+            kept.push("buyables")
+            kept.push("challenges")
+            kept.push("points")
+            kept.push("best")
+            kept.push("total")
+            kept.push("c_re")
+            kept.push("c_re_psec")
+            kept.push("c_im")
+        layerDataReset(this.layer, kept)
+        }
+    },
+    resetsNothing() {return hasMilestone(this.layer, 5)},
+    autoPrestige() {return hasMilestone(this.layer, 5)},
+
+    hotkeys: [
+        {key: "3", description: "3: Reset for Mario", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+
+    upgrades: {
+        11: {
+            title: "Oh yeah",
+            description: "1e10x BF gain per each Mario you have",
+            cost: new Decimal(2),
+            unlocked() {return true},
+            effect() {
+                return Decimal.pow(1e10, player.mario.points.max(0))
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
+        },
+        12: {
+            title: "Mario time",
+            description: "1e15x FS gain per each Mario you have",
+            cost: new Decimal(58),
+            unlocked() {return hasUpgrade('mario', 11)},
+            effect() {
+                return Decimal.pow(1e15, player.mario.points.max(0))
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
+        },
+        13: {
+            title: "Tomato spaghetti",
+            description: "1e15x PB gain per each Mario you have",
+            cost: new Decimal(59),
+            unlocked() {return hasUpgrade('mario', 12)},
+            effect() {
+                return Decimal.pow(1e15, player.mario.points.max(0))
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
+        },
+        14: {
+            title: "Mushroom spaghetti",
+            description: "Flying Strength is much powerful.",
+            cost: new Decimal(68),
+            unlocked() {return hasUpgrade('mario', 13)},
+        },
+        15: {
+            title: "Story mode",
+            description: "Unlock a subtab.",
+            cost: new Decimal(69),
+            unlocked() {return hasUpgrade('mario', 14)},
+        },
+        21: {
+            title: "Red flag",
+            description: "Unlock boosters for the new subtab.",
+            currencyDisplayName: "Mario's clears",
+            currencyInternalName: "c_re",
+            currencyLayer: "mario",
+            cost: new Decimal(9000),
+            unlocked() {return hasUpgrade('mario', 15)},
+        },
+        22: {
+            title: "Super jumper",
+            description: "Mario cleared courses delay Mario's effect's softcap.",
+            currencyDisplayName: "Mario's clears",
+            currencyInternalName: "c_re",
+            currencyLayer: "mario",
+            cost: new Decimal(2345678),
+            unlocked() {return hasUpgrade('mario', 15)},
+            effect() {
+                let base = new Decimal(5)
+                if (hasUpgrade('mario', 25)) base = new Decimal(3)
+                return player.mario.c_re.max(1).log(base).floor().max(0)
+            },
+            effectDisplay() { return "+"+format(upgradeEffect(this.layer, this.id))},
+        },
+        23: {
+            title: "Letter M symbol",
+            description: "Unlock a buyable for 1st Mario booster.",
+            cost: new Decimal(74),
+            unlocked() {return hasUpgrade('mario', 22)},
+        },
+        24: {
+            title: "The famous plumber",
+            description: "14th FS upgrade's effect is always maxed and it also affacts Mario cleared courses.",
+            cost: new Decimal(77),
+            unlocked() {return hasUpgrade('mario', 23)},
+        },
+        25: {
+            title: "Mario bros plumbers",
+            description: "Improve 7th Mario upgrade's formula.",
+            cost: new Decimal(79),
+            unlocked() {return hasUpgrade('mario', 24)},
+        },
+        31: {
+            title: "Balanced character",
+            description: "Unlock Mario booster 2.",
+            cost: new Decimal(83),
+            unlocked() {return hasUpgrade('mario', 25)},
+        },
+        32: {
+            title: "Adventure with Cappy",
+            description: "Weaken Mario effect's softcap.",
+            cost: new Decimal(88),
+            unlocked() {return hasUpgrade('mario', 31)},
+        },
+        33: {
+            title: "Two different main characters",
+            description: "Root Mario's gain cost based on Mario cleared courses.",
+            currencyDisplayName: "Mario's clears",
+            currencyInternalName: "c_re",
+            currencyLayer: "mario",
+            cost: new Decimal(5e22),
+            unlocked() {return hasUpgrade('mario', 32)},
+            effect() {
+                return player.mario.c_re.max(2).log(2).pow(3)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"√"},
+        },
+        34: {
+            title: "Mushroom Kingdom traveller",
+            description: "Unlock a buyable for 2nd Mario booster.",
+            cost: new Decimal(124),
+            unlocked() {return hasUpgrade('mario', 33)},
+        },
+        35: {
+            title: "Away from softcap",
+            description: "Make Mario effect before softcap stronger. (x/300 to x/200)",
+            cost: new Decimal(145),
+            unlocked() {return hasUpgrade('mario', 34)},
+        },
+        41: {
+            title: "Away from softcap^2",
+            description: "Make Mario effect before softcap stronger^2. (x/200 to x/100)",
+            cost: new Decimal(160),
+            unlocked() {return hasUpgrade('mario', 35)},
+        },
+        42: {
+            title: "Fight against with Bowser",
+            description: "1.5x 'Nedaka jumping' base.",
+            cost: new Decimal(185),
+            unlocked() {return hasUpgrade('mario', 41)},
+        },
+        43: {
+            title: "Dashing Mario",
+            description: "Unlock Mario cleared imaginary courses.",
+            currencyDisplayName: "Mario's clears",
+            currencyInternalName: "c_re",
+            currencyLayer: "mario",
+            cost: new Decimal("1e1000"),
+            unlocked() {return hasUpgrade('mario', 42)},
+        },
+        44: {
+            title: "Dashing Mario",
+            description: "Unlock Mario booster 3.",
+            currencyDisplayName: "imaginary Mario's clears",
+            currencyInternalName: "c_im",
+            currencyLayer: "mario",
+            cost: new Decimal(900000),
+            unlocked() {return hasUpgrade('mario', 43)},
+        },
+        45: {
+            title: "Mario yeah!",
+            description: "Imaginary Mario cleared courses multiplies Mario's effect base before softcap.",
+            cost: new Decimal(196),
+            unlocked() {return hasUpgrade('mario', 44)},
+            effect() {
+                return player.mario.c_im.max(1).root(7.5)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+ "x"},
+        },
+        51: {
+            title: "We are the Mario Brothers...",
+            description: "Unlock a new layer on row 9",
+            cost: new Decimal(265),
+            unlocked() {return hasUpgrade('mario', 45)},
+        },
+    },
+milestones: {
+    0: {
+        requirementDescription: "Get 52 Mario",
+        effectDescription: "Passive gain 100% Boomerang Flower every second.",
+        done() { return player.mario.points.gte(52) },
+    },
+    1: {
+        requirementDescription: "Get 58 Mario",
+        effectDescription: "Auto update your swimming speed for best solution. (accelerator1 1x, accelerator3 27x, accelerator 4 1x)",
+        done() { return player.mario.points.gte(58) },
+    },
+    2: {
+        requirementDescription: "Get 68 Mario",
+        effectDescription: "Autobuy Frog Suit buyables except 'Pedaka swiming'.",
+        done() { return player.mario.points.gte(68) },
+    },
+    3: {
+        requirementDescription: "Box transcender level 1000",
+        effectDescription: "Autobuy 'Box transcender'.",
+        done() { return player.super_hammer.buyables[13].gte(1000) },
+    },
+    4: {
+        requirementDescription: "Mario cleared 10000 courses",
+        effectDescription: "You can buy max Mario.",
+        done() { return player.mario.c_re.gte(10000) },
+    },
+    5: {
+        requirementDescription: "Get 1000 Mario",
+        effectDescription: "Mario resets nothing and autobuy Mario.",
+        done() { return player.mario.points.gte(1000) },
+    },
+},
+buyables: {
+    11: {
+        title: "Yodaka jumping",
+        cost(x) { return new Decimal(10).pow(Decimal.pow(x, 1.1)).times(10) },
+        display() { let MB1base = new Decimal(0.25)
+            if (hasUpgrade(this.layer, 31)) MB1base = MB1base.add(clickableEffect(this.layer, 12))
+            if (hasUpgrade('luigi', 25)) MB1base = MB1base.times(2)
+            let display = ` Increase Mario booster 1 base by +${format(MB1base)} per every level. <br>
+            Effect: +${format(this.effect())} <br>
+            Level: ${format(player[this.layer].buyables[this.id])}<br>
+            Cost: ${format(this.cost())} Mario's cleared courses`
+            return display}, 
+        canAfford() { return player[this.layer].c_re.gte(this.cost()) },
+        buy() {
+            let bulk = new Decimal(1)
+            if (hasUpgrade('luigi', 32)) bulk = new Decimal(10)
+            player[this.layer].c_re = player[this.layer].c_re.sub(this.cost())
+            setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(bulk))
+        },
+        effect(x) {
+            let MB1base = new Decimal(0.25)
+            if (hasUpgrade(this.layer, 31)) MB1base = MB1base.add(clickableEffect(this.layer, 12))
+            if (hasUpgrade('luigi', 25)) MB1base = MB1base.times(2)
+            effect = MB1base.times(x).max(0)
+            return effect},
+        unlocked() {return hasUpgrade('mario', 23)},
+    },
+    12: {
+        title: "Nedaka jumping",
+        cost(x) { return new Decimal(10).pow(Decimal.pow(1.2, x)).times(1e24) },
+        display() { let MB2base = new Decimal(0.018)
+            if (hasUpgrade(this.layer, 42)) MB2base = MB2base.times(1.5)
+            let display = ` Increase Mario booster 1 base by +${format(MB2base)} per every level before level 5, and ${format(MB2base)}·((x-5)^0.2+10) after level 5.<br>
+            Effect: +${format(this.effect())} <br>
+            Level: ${format(player[this.layer].buyables[this.id])}<br>
+            Cost: ${format(this.cost())} Mario's cleared courses`
+            return display}, 
+        canAfford() { return player[this.layer].c_re.gte(this.cost()) },
+        buy() {
+            player[this.layer].c_re = player[this.layer].c_re.sub(this.cost())
+            setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+        },
+        effect(x) {
+            let MB2base = new Decimal(0.018)
+            if (hasUpgrade(this.layer, 42)) MB2base = MB2base.times(1.5)
+            effect = MB2base.times(x).max(0)
+            if (x.gte(5)) effect = MB2base.times(x.sub(5).root(5).add(10)).max(0)
+            return effect},
+        unlocked() {return hasUpgrade('mario', 34)},
+    },
+    13: {
+        title: "Ika jumping",
+        cost(x) { return new Decimal(10).pow(x.pow(1.05)) },
+        display() { let MB3base = new Decimal(1e100)
+            if (hasUpgrade('luigi', 13)) MB3base = MB3base.times(upgradeEffect('luigi', 13))
+            let display = ` Multiply Mario booster 3 base by +${format(MB3base)} per every level
+            Effect: +${format(this.effect())} <br>
+            Level: ${format(player[this.layer].buyables[this.id])}<br>
+            Cost: ${format(this.cost())} imaginary Mario's cleared courses`
+            return display}, 
+        canAfford() { return player[this.layer].c_im.gte(this.cost()) },
+        buy() {
+            player[this.layer].c_im = player[this.layer].c_im.sub(this.cost())
+            setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+        },
+        effect(x) {
+            let MB3base = new Decimal(1e100)
+            if (hasUpgrade('luigi', 13)) MB3base = MB3base.times(upgradeEffect('luigi', 13))
+            effect = MB3base.pow(x).max(1)
+            return effect},
+        unlocked() {return hasUpgrade('mario', 44)},
+    },
+},
+clickables: {
+    11: {
+        title: "Mario boost 1 activator",
+        display() {
+            MM1a = new Decimal(2.35)
+            if (hasUpgrade('mario', 23)) MM1a = MM1a.add(buyableEffect('mario', 11))
+            dis = "Power Mario's clearing courses speed by ^" + format(MM1a) +".<br>Effect condition: Have 0 Pink Key Coins."
+            if (player.coin.pink_key_coin.lt(1)) dis = dis + "<br>Activated!"
+            return dis
+            },
+        tooltip: "Hint: Enter a challenge that disables PKC gain",
+        canClick() {return false},
+        effect() {
+            MM1a = new Decimal(2.35)
+            if (hasUpgrade('mario', 23)) MM1a = MM1a.add(buyableEffect('mario', 11))
+            return MM1a
+        },
+        unlocked() {return hasUpgrade('mario', 21)},
+        style() {return {"width":"200px",
+                         "border-radius":"5%",
+                        "font-size":"12px",
+                        "background":"linear-gradient(#ff0018, #ff4064)"}}
+    },
+    12: {
+        title: "Mario boost 2 activator",
+        display() {
+            MM2a = new Decimal(0.1)
+            if (hasUpgrade('mario', 34)) MM2a = MM2a.add(buyableEffect('mario', 12))
+            dis = "Increase 'Yodaka jumping' base by +" + format(MM2a) +".<br>Effect condition: Have 0 Cape Essence."
+            if (player.cape_feather.ce.lt(1)) dis = dis + "<br>Activated!"
+            return dis
+            },
+        tooltip: "Hint: Enter a challenge that disables CE gain",
+        canClick() {return false},
+        effect() {
+            MM2a = new Decimal(0.1)
+            if (hasUpgrade('mario', 34)) MM2a = MM2a.add(buyableEffect('mario', 12))
+            return MM2a
+        },
+        unlocked() {return hasUpgrade('mario', 31)},
+        style() {return {"width":"200px",
+                         "border-radius":"5%",
+                        "font-size":"12px",
+                        "background":"linear-gradient(#ff0018, #ff4064)"}}
+    },
+    13: {
+        title: "Mario boost 3 activator",
+        display() {
+            MM3a = new Decimal(1)
+            if (hasUpgrade('mario', 44)) MM3a = MM3a.times(buyableEffect('mario', 13))
+            dis = "Multiply Mario cleared courses by " + format(MM3a) + " every level.<br>Effect condition: 0 FS swimming click counts."
+            if (player.frog_suit.swim_calculations.lt(1)) dis = dis + "<br>Activated!"
+            return dis
+            },
+        tooltip: "Hint: Run out FS click counts",
+        canClick() {return false},
+        effect() {
+            MM3a = new Decimal(1)
+            if (hasUpgrade('mario', 44)) MM3a = MM3a.times(buyableEffect('mario', 13))
+            return MM3a
+        },
+        unlocked() {return hasUpgrade('mario', 44)},
+        style() {return {"width":"200px",
+                         "border-radius":"5%",
+                        "font-size":"12px",
+                        "background":"linear-gradient(#ff0018, #ff4064)"}}
+    },
+},
+    canBuyMax() {return hasMilestone('mario', 4)},
+    update(M) {
+        tick = new Decimal(0.05)
+        Mmult = player.mario.points
+        iMcap = player.lgpoints.max(10).log(10).pow(3)
+        if (hasAchievement('achievements', 143)) iMcap = iMcap.times(tmp.luigi.effect)
+        player.mario.iMcap = iMcap
+        rMcap = new Decimal("1e1000")
+        rMcapPow = new Decimal(1/3)
+        if (player.coin.pink_key_coin.lt(1)) Mmult = Mmult.pow(clickableEffect('mario', 11))
+        if (hasUpgrade('mario', 24)) Mmult = Mmult.pow(upgradeEffect('frog_suit', 34))
+        if (hasUpgrade('mario', 44) && player.frog_suit.swim_calculations.lt(1)) player.mario.c_re_hardcap = rMcap.times(clickableEffect('mario', 13))
+        else player.mario.c_re_hardcap = new Decimal("1e1000")
+        player.mario.c_re_psec = Mmult
+        if (hasUpgrade('mario', 15) && player.mario.c_re.lt(player.mario.c_re_hardcap)) player.mario.c_re = player.mario.c_re.add(Mmult.times(tick))
+        if (player.mario.c_re.gte(player.mario.c_re_hardcap) && (hasUpgrade('luigi', 14) == false)) player.mario.c_re = player.mario.c_re_hardcap
+        MmultCapped = Mmult.div(player.mario.c_re_hardcap).pow(rMcapPow).times(player.mario.c_re_hardcap).max(1)
+        if (player.mario.c_re.gte(player.mario.c_re_hardcap) && hasUpgrade('luigi', 14)) player.mario.c_re = player.mario.c_re.add(MmultCapped.times(tick))
+        if (player.mario.c_re.gte(player.mario.c_re_hardcap) && hasUpgrade('luigi', 14)) player.mario.c_re_psec = MmultCapped
+        iMhalftime = new Decimal(60)
+        if (hasUpgrade('luigi', 11)) iMhalftime = iMhalftime.div(3)
+        if (hasUpgrade('mario', 43)) player.mario.c_im = player.mario.c_im.add((iMcap.sub(player.mario.c_im).div(2)).div(iMhalftime.div(tick))).max(0)
+        if (hasUpgrade('mario', 44)) player.mario.c_re_hardcap = player.mario.c_re_hardcap
+    },
+        // Look in the upgrades docs to see what goes here!
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        ["display-text", () => `You have ` +format(player.points) + ` Cleared Courses`],
+        ["display-text", () => `Your best amount of Mario is ` +format(player.mario.best)],
+        ["display-text", () => `Mario's effect softcap is at ` +format(Msoftcap)],
+        ["microtabs", "stuff"],
+        ["blank", "65px"],
+    ],
+    microtabs: {
+        stuff: {
+            "Upgrades": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    ["raw-html", () => `<h4 style="opacity:.5">You finally reached layers for characters! There will be 4 layers for characters. Mario is the most famous character is Mario series. His first appear is in over 40 years from now!`],
+                    ["upgrades", [1,2,3,4,5,6,7,8,9]]
+                ]
+            },
+            "Milestones": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    ["raw-html", () => `<h4 style="opacity:.5">Mario layer only resets Cleared Courses, like coin layer did.`],
+                    "milestones",
+                ]                
+            }, 
+            "Mario's Journey": {
+                unlocked() {return hasUpgrade('mario', 15)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        dis = "Mario cleared <h2 style='color: #ff0018; text-shadow: 0 0 10px #ff0018'>" + format(player.mario.c_re) +" </h2> courses (+" +format(player.mario.c_re_psec) +"/sec)"
+                        if (player.mario.c_re.gte(player.mario.c_re_hardcap)) dis = dis + " (hardcapped)"
+                        if (hasUpgrade(this.layer, 43)) dis = "Mario cleared <h2 style='color: #ff0018; text-shadow: 0 0 10px #ff0018'>" + format(player.mario.c_re) +" + "+format(player.mario.c_im)+"i </h2> courses (+" +format(player.mario.c_re_psec) +"/sec)"
+                        if (hasUpgrade(this.layer, 43) && player.mario.c_re.gte(player.mario.c_re_hardcap)) dis = dis + " (real side hardcapped)"
+                        return dis
+                    }],
+                    ["display-text", function() {
+                        if (player.mario.c_re.gte("1e1000")) return "Mario cleared courses have a hardcap of <h2 style='color: #ff0018; text-shadow: 0 0 10px #ff0018'>" +format(player.mario.c_re_hardcap) +"</h2>"
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade(this.layer, 43)) return "Imaginary Mario cleared courses' hardcap is based on Cleared Courses. Now that's at <h2 style='color: #ff0018; text-shadow: 0 0 10px #ff0018'>" +format(player.mario.iMcap) +"i</h2>"
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade(this.layer, 43)) return "You can auto gain imaginary Mario cleared courses, but it'll be slower while closer to the cap."
+                    }],
+                    "blank",
+                    "clickables",
+                    "buyables",
+                ]                
+            },           
+        },
+    },
+})
+// 第二十一层：路易吉
+addLayer("luigi", {
+    startData() { return {                  // startData is a function that returns default data for a layer. 
+        unlocked: true,                     // You can add more variables here to add them to your layer.
+        points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+        c: new Decimal(0),
+        c_psec: new Decimal(0),
+        cheesed: new Decimal(0),
+    }},
+
+    color: "#5CB73D",                       // The color for this layer, which affects many elements.
+    resource: "Luigi",            // The name of this layer's main prestige resource.
+    row: 0,                                 // The row this layer is on (0 is the first row).
+    displayRow: 8,
+    position: 1,
+    branches: ['mario'],
+    symbol: "L",
+
+    baseResource: "Boomerang Flowers",                 // The name of the resource your prestige gain is based on.
+    baseAmount() { return player.boomerang_flower.points },  // A function to return the current amount of baseResource.
+
+    requires: new Decimal("1e4859"),              // The amount of the base needed to  gain 1 of the prestige currency.
+                                            // Also the amount required to unlock the layer.
+
+    type: "static",                         // Determines the formula used for calculating prestige currency.
+    exponent: 1.15,                          // "normal" prestige gain is (currency^exponent).
+    base: new Decimal(1e75),
+
+    effect() {
+        eff = player[this.layer].points.add(1).max(1).pow(2)
+        if (hasUpgrade(this.layer, 21)) eff = eff.pow(upgradeEffect(this.layer, 21))
+        let hardcap = new Decimal(2e10)
+        if (hasChallenge('boomerang_flower', 11)) hardcap = hardcap.times(challengeEffect('boomerang_flower', 11))
+        if (eff.gte(hardcap)) eff = hardcap
+        return eff
+    },
+    effectDescription(){
+        dis = "multiplying imaginary Mario cleared courses hardcap by " + format(tmp[this.layer].effect + "x")
+        let hardcap = new Decimal(2e10)
+        if (hasChallenge('boomerang_flower', 11)) hardcap = hardcap.times(challengeEffect('boomerang_flower', 11))
+        if (tmp[this.layer].effect.gte(hardcap)) dis = dis + " (hardcapped)"
+        return dis
+        /*
+        use format(num) whenever displaying a number
+        */
+    },
+
+    gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        return new Decimal(1).div(mult)
+    },
+    gainExp() {                             // Returns the exponent to your gain of the prestige resource.
+        return new Decimal(1)
+    },
+
+    canBuyMax() {return hasMilestone(this.layer, 1)},
+
+    doReset(resettingLayer) {
+        if (player.points.gte(0)) {
+            let kept = ["unlocked", "auto"]
+            kept.push("milestones")
+            kept.push("upgrades")
+            kept.push("buyables")
+            kept.push("challenges")
+            kept.push("points")
+            kept.push("best")
+            kept.push("total")
+            kept.push("c")
+            kept.push("c_psec")
+            kept.push("cheesed")
+        layerDataReset(this.layer, kept)
+        }
+    },
+
+    resetsNothing(){return hasMilestone(this.layer, 2)},
+    autoPrestige(){return hasMilestone(this.layer, 2)},
+
+    layerShown() { return hasAchievement('achievements', 143) },          // Returns a bool for if this layer's node should be visible in the tree.
+
+    hotkeys: [
+        {key: "L", description: "Shift+L: Reset for Luigi", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+
+    upgrades: {
+        11: {
+            title: "Brothers!",
+            description: "3x speed of gaining imaginary Mario cleared courses",
+            cost: new Decimal(10),
+            unlocked() {return true},
+        },
+        12: {
+            title: "Smart Luigi",
+            description: "Unlock a subtab this layer",
+            cost: new Decimal(60),
+            unlocked() {return hasUpgrade(this.layer, 11)},
+        },
+        13: {
+            title: "Good brothers",
+            description: "'Ika jumping' increase its base.",
+            currencyDisplayName: "Luigi cleared courses",
+            currencyInternalName: "c",
+            currencyLayer: "luigi",
+            cost: new Decimal(10000),
+            unlocked() {return hasUpgrade(this.layer, 12)},
+            effect() {
+                return Decimal.pow(100000, player.mario.buyables[13].max(0))
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        14: {
+            title: "Ghost house",
+            description: "You can pass Mario cleared courses hardcap but softcapped. ",
+            cost: new Decimal(85),
+            unlocked() {return hasUpgrade(this.layer, 13)},
+        },
+        15: {
+            title: "Luigi jumps higher",
+            description: "Unlock a buyable for Luigi cleared courses. ",
+            cost: new Decimal(96),
+            unlocked() {return hasUpgrade(this.layer, 14)},
+        },
+        21: {
+            title: "Luigi wins by doing nothing",
+            description: "Power Luigi's effect based on Luigi cleared courses. ",
+            currencyDisplayName: "Luigi cleared courses",
+            currencyInternalName: "c",
+            currencyLayer: "luigi",
+            cost: new Decimal(1e10),
+            unlocked() {return hasUpgrade(this.layer, 15)},
+            effect() {
+                return player[this.layer].c.max(0).add(100000).log(100000).root(1.5)
+            },
+            effectDisplay() { return "^"+format(upgradeEffect(this.layer, this.id)) },
+        },
+        22: {
+            title: "Greater than Mario?",
+            description: "Unlock a new challenge in Boomerang Flower layer. ",
+            cost: new Decimal(4120),
+            unlocked() {return hasUpgrade(this.layer, 21)},
+        },
+        23: {
+            title: "The super winner",
+            description: "Piranha effect base is 10. ",
+            cost: new Decimal(8000),
+            unlocked() {return hasUpgrade(this.layer, 22)},
+        },
+        24: {
+            title: "Cross boost",
+            description: "Luigi boost Mario gain. ",
+            cost: new Decimal(12000),
+            unlocked() {return hasUpgrade(this.layer, 23)},
+            effect() {
+                return player[this.layer].points.max(10).log(10).root(3)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        25: {
+            title: "Lucky Luigi",
+            description: "'Yodaka jumping' is twice as strong. ",
+            cost: new Decimal(50000),
+            unlocked() {return hasUpgrade(this.layer, 24)},
+        },
+        31: {
+            title: "Best plumber team!",
+            description: "Boomerang Flower layer fesets nothing. ",
+            cost: new Decimal(123456),
+            unlocked() {return hasUpgrade(this.layer, 25)},
+        },
+        32: {
+            title: "They need efficiency!",
+            description: "Bulk buy 10x 'Yodaka jumping'. ",
+            cost: new Decimal(1e9),
+            unlocked() {return hasUpgrade(this.layer, 31)},
+        },
+        // Look in the upgrades docs to see what goes here!
+    },
+    milestones: {
+        0: {
+            requirementDescription: "Get 22 Luigi",
+            effectDescription: "More overpower upgrades appeared in Super Acorn layer.",
+            done() { return player.luigi.points.gte(22) },
+        },
+        1: {
+            requirementDescription: "Get 80 Luigi",
+            effectDescription: "You can buy max Luigi.",
+            done() { return player.luigi.points.gte(80) },
+        },
+        2: {
+            requirementDescription: "Get 10000 Luigi",
+            effectDescription: "Luigi resets nothing and autobuy Luigi.",
+            done() { return player.luigi.points.gte(10000) },
+        },
+        3: {
+            requirementDescription: "Get e1.798e308 Cleared Courses",
+            effectDescription: "Unlock a new layer on row 10.",
+            done() { return player.points.gte("e1.798e308") },
+        },
+    },
+    buyables: {
+        11: {
+            title: "Ikena jumping",
+            cost(x) { return new Decimal(10).pow(Decimal.pow(x, 1.35)) },
+            display() { let LB1base = new Decimal(12)
+                let display = ` Multiply Luigi clearing courses speed by ${format(LB1base)} per every level. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Luigi's cleared courses`
+                return display}, 
+            canAfford() { return player[this.layer].c.gte(this.cost()) },
+            buy() {
+                player[this.layer].c = player[this.layer].c.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            effect(x) {
+                let LB1base = new Decimal(12)
+                effect = LB1base.pow(x).max(1)
+                return effect},
+            unlocked() {return hasUpgrade('luigi', 15)},
+            style() {
+                if (player[this.layer].c.gte(this.cost())) 
+                return {"background":"linear-gradient(45deg, #5cb73d, #8cd46e)"}
+            },
+        },
+    },
+    update(L) {
+        tick = new Decimal(0.05)
+        Lcmult = player[this.layer].points
+        if (hasUpgrade(this.layer, 15)) Lcmult = Lcmult.times(buyableEffect(this.layer, 11))
+        player[this.layer].c_psec = Lcmult
+        if (hasUpgrade(this.layer, 12)) player[this.layer].c = player[this.layer].c.add(Lcmult.times(tick))
+    },
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        ["display-text", () => `You have ` +format(player.boomerang_flower.points) + ` Boomerang Flowers`],
+        ["display-text", () => `Your best amount of Luigi is ` +format(player.luigi.best)],
+        ["microtabs", "stuff"],
+        ["blank", "65px"],
+    ],
+    microtabs: {
+        stuff: {
+            "Upgrades": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    ["raw-html", () => `<h4 style="opacity:.5">Mario and Luigi are called Mario Bros. Luigi is taller than Mario. The green letter "L" is his symbol!`],
+                    ["upgrades", [1,2,3,4,5,6,7,8,9]]
+                ]
+            },
+            "Milestones": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    ["raw-html", () => `<h4 style="opacity:.5">Luigi layer also only resets Cleared Courses, like coin and Mario layers did.`],
+                    "milestones",
+                ]                
+            }, 
+            "Luigi's Journey": {
+                unlocked() {return hasUpgrade('luigi', 12)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        dis = "Luigi cleared <h2 style='color: #5cb730; text-shadow: 0 0 10px #5cb730'>" + format(player.luigi.c) +" </h2> courses (+" +format(player.luigi.c_psec) +"/sec)"
+                        return dis}
+                    ],
+                    "clickables",
+                    "buyables",
+                ]                
+            },           
+        },
+    },
+})
+// 第二十二层：奇诺比奥
+addLayer("toad", {
+    startData() { return {                  // startData is a function that returns default data for a layer. 
+        unlocked: true,                     // You can add more variables here to add them to your layer.
+        points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+    }},
+
+    color: "#0047ff",                       // The color for this layer, which affects many elements.
+    resource: "Toad",            // The name of this layer's main prestige resource.
+    symbol: "To",
+    branches: ["mario"],
+    row: 1,                                 // The row this layer is on (0 is the first row).
+    displayRow: 9,
+    position: 0,
+
+    baseResource: "Mario cleared courses",                 // The name of the resource your prestige gain is based on.
+    baseAmount() { return player.mario.c_re },  // A function to return the current amount of baseResource.
+
+    requires: new Decimal("10^^10"),              // The amount of the base needed to  gain 1 of the prestige currency.
+    //v0.9改成1e21160
+                                            // Also the amount required to unlock the layer.
+
+    type: "normal",                         // Determines the formula used for calculating prestige currency.
+    exponent: 0.00075,                          // "normal" prestige gain is (currency^exponent).
 
     gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
         return new Decimal(1)               // Factor in any bonuses multiplying gain here.
@@ -7685,11 +9127,104 @@ addLayer("boomerang_flower", {
         return new Decimal(1)
     },
 
-    layerShown() { return hasAchievement('achievements', 125) },          // Returns a bool for if this layer's node should be visible in the tree.
+    doReset(resettingLayer) {
+        if (player.points.gte(0)) {
+            let kept = ["unlocked", "auto"]
+            kept.push("milestones")
+            kept.push("upgrades")
+            kept.push("buyables")
+            kept.push("challenges")
+            kept.push("points")
+            kept.push("best")
+            kept.push("total")
+        layerDataReset(this.layer, kept)
+        }
+    },
+
+    layerShown() { return hasAchievement('achievements', 145) },          // Returns a bool for if this layer's node should be visible in the tree.
 
     hotkeys: [
-        {key: "x", description: "X: Reset for Boomerang Flowers", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "t", description: "T: Reset for Toad", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
+
+    upgrades: {
+        11: {
+            title: "TBD",
+            description: "coming in v0.9",
+            cost: new Decimal("10^^10"),
+            unlocked() {return true},
+        },
+        // Look in the upgrades docs to see what goes here!
+    },
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        ["display-text", () => `Mario cleared ` +format(player.mario.c_re) + ` courses (real)`],
+        ["display-text", () => `Your best amount of Toad is ` +format(player.toad.best)],
+        ["microtabs", "stuff"],
+        ["blank", "65px"],
+    ],
+    microtabs: {
+        stuff: {
+            "Upgrades": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    ["raw-html", () => `<h4 style="opacity:.5">In Mario Maker 2, only blue Toad that you can control in Toads. They are citizens of Mushroom Kingdom.<br>(Oh where is the Captain Toad?)`],
+                    ["upgrades", [1,2,3,4,5,6,7,8,9]]
+                ]
+            },
+            "Milestones": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    ["raw-html", () => `<h4 style="opacity:.5">Luigi layer also only resets Cleared Courses, like coin and Mario layers did.`],
+                    "milestones",
+                ]                
+            }, 
+            "Toad's Journey": {
+                unlocked() {return false},
+                content: [
+                    ["blank", "15px"],
+                    "clickables",
+                    "buyables",
+                ]                
+            },           
+        },
+    },
+})
+// 第二十三层：奇诺比珂
+addLayer("toadette", {
+    startData() { return {                  // startData is a function that returns default data for a layer. 
+        unlocked: true,                     // You can add more variables here to add them to your layer.
+        points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+    }},
+
+    color: "#ff4899",                       // The color for this layer, which affects many elements.
+    resource: "Toadette",            // The name of this layer's main prestige resource.
+    symbol: "Te",
+    branches: ["luigi","toad"],
+    row: 1,                                 // The row this layer is on (0 is the first row).
+    displayRow: 9,
+    position: 1,
+
+    baseResource: "Mario cleared courses",                 // The name of the resource your prestige gain is based on.
+    baseAmount() { return player.mario.c_re },  // A function to return the current amount of baseResource.
+
+    requires: new Decimal("10^^10"),              // The amount of the base needed to  gain 1 of the prestige currency.
+                                            // Also the amount required to unlock the layer.
+
+    type: "normal",                         // Determines the formula used for calculating prestige currency.
+    exponent: 0.00075,                          // "normal" prestige gain is (currency^exponent).
+
+    gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        return new Decimal(1)               // Factor in any bonuses multiplying gain here.
+    },
+    gainExp() {                             // Returns the exponent to your gain of the prestige resource.
+        return new Decimal(1)
+    },
+
+    layerShown() { return false },          // Returns a bool for if this layer's node should be visible in the tree.
 
     upgrades: {
         // Look in the upgrades docs to see what goes here!
@@ -7726,10 +9261,6 @@ addLayer("boomerang_flower", {
 
 
 
-// 第二十层：马力欧
-// 第二十一层：路易吉
-// 第二十二层：奇诺比奥
-// 第二十三层：奇诺比珂
 // 第二十四层：简单耐力挑战
 // 第二十五层：普通耐力挑战
 // 第二十六层：困难耐力挑战
