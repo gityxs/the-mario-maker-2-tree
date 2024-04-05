@@ -13,11 +13,17 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.7b (2024/03/21)",
-	name: "Link, SMB2, Balloon and...",
+	num: "0.8 (2024/04/06)",
+	name: "Let's go! Plumbers!",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>v0.8 (2024/04/06)</h3><br>
+		- Endgame: e1.798e308 cleared courses.<br>
+		- Added 3 layers and resources for them.<br>
+		- More upgrades, buyables, overpowers... etc.<br>
+		- Added 1 style.<br>
+		- Added 10 achievemnets.<br>
 	<h3>v0.7b (2024/03/21)</h3><br>
 		- Fixed 4th FF upgrade.<br>
 		- Added 3 styles.<br>
@@ -126,11 +132,13 @@ function getPointGen() {
 	if (inChallenge('master_sword', 11) && hasUpgrade('master_sword', 65)) gain = gain.max(1).pow(1e-7).max(1)
 	else if (inChallenge('master_sword', 11) && hasUpgrade('master_sword', 45)) gain = gain.max(1).pow(1e-9).max(1)
 	else if (inChallenge('master_sword', 11)) gain = gain.max(1).pow(1e-10).max(1)
+	if (gain.gte("e1.798e308")) gain = new Decimal("e1.798e308")
 	return gain
 }
 
 // You can add non-layer related variables that should to into "player" and be saved here, along with default values
 function addedPlayerData() { return {
+	lgpoints: new Decimal (0)
 }}
 
 // Display extra things at the top of the page
@@ -139,7 +147,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("e1.79e56")) && hasAchievement('achievements', 125)
+	return player.points.gte(new Decimal("e1.798e308"))
 }
 
 
