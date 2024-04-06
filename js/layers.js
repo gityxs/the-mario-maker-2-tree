@@ -4816,7 +4816,7 @@ addLayer("super_hammer", {
                 eff = new Decimal(1).add(SHB3base.times(x))
                 if (inChallenge('boomerang_flower', 11)) eff = new Decimal(1)
                 return eff},
-            unlocked() {return hasUpgrade('luigi', 22)}
+            unlocked() {return hasUpgrade('power_balloon', 33))}
         },
     },
     automate(){
