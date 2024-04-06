@@ -564,7 +564,7 @@ addLayer("achievements", {
         },
         144: {
             name: "Different journey",
-            tooltip: "Mario cleared his first course. <br> Reward: e1e115 AP.",
+            tooltip: "Luigi cleared his first course. <br> Reward: e1e115 AP.",
             done() {return player.luigi.c.gte(1)},
             onComplete() {
                 return player.achievements.points = player.achievements.points.add("e1e115")
@@ -4816,7 +4816,7 @@ addLayer("super_hammer", {
                 eff = new Decimal(1).add(SHB3base.times(x))
                 if (inChallenge('boomerang_flower', 11)) eff = new Decimal(1)
                 return eff},
-            unlocked() {return hasUpgrade('power_balloon', 33))}
+            unlocked() {return hasUpgrade('power_balloon', 33)}
         },
     },
     automate(){
