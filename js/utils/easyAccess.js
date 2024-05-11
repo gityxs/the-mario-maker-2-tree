@@ -73,3 +73,35 @@ function achievementEffect(layer, id) {
 function gridEffect(layer, id) {
 	return (gridRun(layer, 'getEffect', player[layer].grid[id], id))
 }
+
+function milestoneEffect(layer, id) {
+	return (tmp[layer].milestones[id].effect)
+}
+
+function layerEffect(layer) {
+	return (tmp[layer].effect)
+}
+
+function resourceEffect(layer, res) {
+	return (tmp[layer][res].effect)
+}
+
+function buyableCost(layer, id) {
+	return (tmp[layer].buyables[id].cost)
+}
+
+function completionLimit(layer, id) {
+	return (tmp[layer].challenges[id].completionLimit)
+}
+
+function buyableBuyMax(layer, id) {
+	return (tmp[layer].buyables[id].buyMax)
+}
+
+function buyableCanAfford(layer, id) {
+	return (tmp[layer].buyables[id].canAfford)
+}
+
+function buyableAuto(layer, id) {
+	return (tmp[layer].buyables[id].canAuto)
+}
