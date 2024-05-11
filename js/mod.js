@@ -8,25 +8,34 @@ let modInfo = {
 	discordName: "AngryStar6K",
 	discordLink: "https://smm2.wizul.us/smm2/maker/1J8-NNB-GHG",
 	initialStartPoints: new Decimal (1), // Used for hard resets and new players
-	offlineLimit: 6,  // In hours
+	offlineLimit: 1,  // In hours
 }
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.8 (2024/04/06)",
-	name: "Let's go! Plumbers!",
+	num: "0.9 (2024/05/12)",
+	name: "So Cute! Toadette!",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>v0.9 (2024/05/12)</h3><br>
+		- Endgame: e1.000e500,000 cleared courses.<br>
+		- Added 3 layers and resources for them.<br>
+		- More upgrades, buyables, minigames... etc.<br>
+		- Added 1 theme.<br>
+		- Added 15 achievemnets.<br>
+		- Added secret achievements, here is 7 secret achievements now.<br>
+		- Support hyper-E and letter notations.<br>
+		- Extend Standard notation to 999th tier-8 illion.<br>
 	<h3>v0.8 (2024/04/06)</h3><br>
 		- Endgame: e1.798e308 cleared courses.<br>
 		- Added 3 layers and resources for them.<br>
 		- More upgrades, buyables, overpowers... etc.<br>
-		- Added 1 style.<br>
+		- Added 1 theme.<br>
 		- Added 10 achievemnets.<br>
 	<h3>v0.7b (2024/03/21)</h3><br>
 		- Fixed 4th FF upgrade.<br>
-		- Added 3 styles.<br>
+		- Added 3 themes.<br>
 	<h3>v0.7a (2024/03/20)</h3><br>
 	    - Balanced 1st SM upgrade's effect. The effect with 0 super mushrooms is x2.378 cleared courses gain instead of x1.<br>
 		- Make some SH upgrades' costs lower, 2nd SH challenge's goal is also lower.<br>
@@ -128,26 +137,34 @@ function getPointGen() {
 	if (hasUpgrade('master_sword', 13)) gain = gain.times(upgradeEffect('master_sword', 13))
 	if (inChallenge('super_hammer', 11)) gain = gain.log(10).max(1)
 	if (hasUpgrade('super_acorn', 12)) gain = gain.times("e3e36")
+	if (hasMilestone('easy', 11)) gain = gain.pow(1000)
+	if (hasMilestone('easy', 13)) gain = gain.pow(1000000)
+	if (hasAchievement('achievements', 174)) gain = gain.pow(layerEffect('normal'))
 	if (hasUpgrade('super_hammer', 41) && inChallenge('super_hammer', 11)) gain = gain.times(100)
 	if (inChallenge('master_sword', 11) && hasUpgrade('master_sword', 65)) gain = gain.max(1).pow(1e-7).max(1)
 	else if (inChallenge('master_sword', 11) && hasUpgrade('master_sword', 45)) gain = gain.max(1).pow(1e-9).max(1)
 	else if (inChallenge('master_sword', 11)) gain = gain.max(1).pow(1e-10).max(1)
-	if (gain.gte("e1.798e308")) gain = new Decimal("e1.798e308")
+	if (gain.gte(player.hardcap)) gain = new Decimal(player.hardcap)
 	return gain
 }
 
 // You can add non-layer related variables that should to into "player" and be saved here, along with default values
 function addedPlayerData() { return {
-	lgpoints: new Decimal (0)
+	lgpoints: new Decimal (0),
+	hardcap: new Decimal("e1.798e308"),
+	smm1: "RIP SMM1 2024 Apr 9th",
+	yu_ayasaki: "jangpu!",
+	last_first_clear_smm1: "Trimming the Herbs",
 }}
 
 // Display extra things at the top of the page
 var displayThings = [
+	"<br>Endgame: e1e500000 Cleared Courses"	
 ]
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("e1.798e308"))
+	return player.points.gte(new Decimal("e1e500000"))
 }
 
 
