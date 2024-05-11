@@ -1,5 +1,10 @@
 //来源：病毒树
 //From: The Plague Tree
+function slog(x){
+	return x.slog(10)
+}
+
+
 function addCommas(s){
 	if (s.length <= 3) return s
 	let rem = s.length % 3
@@ -128,23 +133,92 @@ function t3format(x,mult=false,y,z) {
 	return t3f
 }
 
-function t4format(x,m) {
-	let t4ills = ["","aL","eJ","iJ","AsT","uN","rM","oV","oL","eT","O","aX","uP","rS","lT","eT","eV","yP","OmN","OuT","aRr"]
+function t4format(x,m,mult=false,y) {
+	let t4ills = ["","aL","eJ","iJ","AsT","uN","rM","oV","oL","eT","O","aX","uP","rS","lT","ET","eV","yP","OmN","OuT","aRr"]
+	if (mult && y>0 && x<10) t4ills = ["","","eJ","iJ","AsT","uN","rM","oV","oL","eT","O","aX","uP","rS","lT","ET","eV","yP","OmN","OuT","aRr"]
     let t4ones = ["","aRraL","aRreJ","aRriJ","aRrAst","aRruN","aRrrM","aRroV","aRroL","aRreT"]
+	let t4thirty_ones = ["aRr","aRraL","aRreJ","aRriJ","aRrAst","aRruN","aRrrM","aRroV","aRroL","aRreT"]
     let t4tens = ["","","B","G","A","L","F","J","S","Be"]
+	let t4hunds = ["","HuT","Mut","Gut","Aut","Lut","Fut","Jut","Sut","But"]
 	let t4m = ["","K","M","G","","L","F","J","S","B","Gl","G","S","V","M","M","X","H","","","B"]
+	if (mult && y>0 && x<10) t4m = ["","","M","G","","L","F","J","S","B","Gl","G","S","V","M","M","X","H","","","B"]
 	let t4f = t4ills[x]
 	if (m<2) t4f = t4m[x]+t4f
-    if (x>20) t4f = t4tens[Math.floor(x/10)%10]+t4ones[x%10]
+    if (x>20&&x<30) t4f = t4tens[Math.floor(x/10)%10]+t4ones[x%10]
+	if (x>=30&&x<100) t4f = t4tens[Math.floor(x/10)%10]+t4thirty_ones[x%10]
+	if (x>=100&&x<1000&&x%100<=20) t4f = t4hunds[Math.floor(x/100)%10]+t4ills[Math.floor(x%100)]
+	if (x>=100&&x<1000&&x%100>20&&x%100<30) t4f = t4hunds[Math.floor(x/100)%10]+t4tens[Math.floor(x/10)%10]+t4ones[x%10]
+	if (x>=100&&x<1000&&x%100>30) t4f = t4hunds[Math.floor(x/100)%10]+t4tens[Math.floor(x/10)%10]+t4thirty_ones[x%10]
 	return t4f
+}
+
+function t5format(x,mult=false,y) {
+	let t5ills = ["","Hep","Ott","Neg","Deg","Ung","Ent","Fit","Syt","Brt"]
+	if (mult && y>0 && x<10) t5ills = ["","","Ott","Neg","Deg","Ung","Ent","Fit","Syt","Brt"]
+	let t5tens = ["","Gep","Ams","Hpr","Kyr","Pij","Sgn","Pct","Nsb","Ztz"]
+	let t5tens_comp = ["","Gea'","Ama'","Hpa'","Kya'","Pia'","Sga'","Pra'","Nia'","Zza'"]
+	let t5hunds = ["","Alp","Bex","Gmm","Dlt","Tht","Iot","Kap","Lmd","Sgm"]
+	let t5hunds_comp = ["","Afa'","Bfa'","Gfa'","Dfa'","Tfa'","Ifa'","Kfa'","Lfa'","Sfa'"]
+	let t5f = ""
+	if (x<10) t5f = t5ills[x]
+	if (x>=10&&x%10==0&&x<100) t5f = t5tens[x/10]
+	if (x>=10&&x%10==0==false&&x<100) t5f = t5tens_comp[Math.floor(x/10)] + t5ills[x%10]
+	if (x%100==0) t5f = t5hunds[x/100]
+	if (x>100&&x%10==0&&x%100==0==false) t5f = t5hunds_comp[Math.floor(x/100)] + t5tens[x%100/10]
+	if (x>100&&x%10==0==false&&x%100==0==false) t5f = t5hunds_comp[Math.floor(x/100)] + t5tens_comp[Math.floor(x%100/10)] + t5ills[x%10]
+	return t5f
+}
+
+function t6format(x,mult=false,y) {
+    let t6ills = ["","HPx","DiS","TriS","Te","Pe","He","Hp","Ot","En"]
+	let t6teens = ["Dc","HDc","DDc","DcTr","DcTe","DcPe","DcHe","DcHp","DcOt","DcEn"]
+	let t6ones = ["","H","D","Tr","Te","Pe","He","Hp","Ot","En"]
+	let t6tens = ["","","Ic","TCn","TsS","PeC","HeC","HdC","OgC","EnC"]
+	let t6hunds = ["","Hc","DcS","TcS","TeS","PeS","HeS","HpS","OtS","EnS"]
+	if (mult && y>0 && x<10) t6ills = ["","","DiS","TriS","Te","Pe","He","Hp","Ot","En"]
+	let t6f = ""
+	if (x<4) t6f = t6ills[x]
+	if (x>=4&&x<10) t6f = t6ills[x] + "Ks"
+	if (x>=10&&x<20) t6f = t6teens[x%10] + "Ks"
+	if (x>=20&&x<100) t6f = t6tens[Math.floor(x/10)] + t6ones[x%10] + "Ks"
+	if (x>=100) t6f = t6hunds[Math.floor(x/100)] + t6tens[Math.floor(x/10)%10] + t6ones[x%10] + "Ks"
+	return t6f
+}
+
+function t7format(x,m,mult=false,y) {
+	let t7ills = ["","Rd","rG","lO","Lm","GrN","CyN","BlU","PrP","MgN"]
+	let t7m = ["","","O","Y","","","","","",""]
+	let t7tens = ["","PnK","DiK","TiK","TtK","PeK","HeK","HpK","OcK","EnK"]
+	let t7hunds = ["","VlT","DlT","TiT","TtT","PeT","HeT","HpT","OcT","EnT"]
+	if (mult && y>0 && x<10) t7ills = ["","","rG","lO","Lm","GrN","CyN","BlU","PrP","MgN"]
+	let t7f = t7ills[x]
+	if (m<2) t7f = t7m[x] + t7f
+	if (x>=10) t7f = t7ills[x%10] + t7tens[Math.floor(x/10)]
+	if (m<2&&x>=10) t7f = t7m[x%10] + t7ills[x%10] + t7tens[Math.floor(x/10)]
+	if (x>=100) t7f = t7ills[x%10] + t7tens[Math.floor(x/10%10)] + t7hunds[Math.floor(x/100)]
+	if (m<2&&x>=100) t7f = t7m[x%10] + t7ills[x%10] + t7tens[Math.floor(x/10%10)] + t7hunds[Math.floor(x/100)]
+	return t7f
+}
+
+function t8format(x,mult=false,y) {
+	let t8ills = ["","Hyd","Hel","Lth","Byr","Bor","Crb","Ntr","Oxy","Flr"]
+	let t8teens = ["Neo","Sod","Mng","Alm","Slc","Phs","Slf","Chl","Arg","Pts"]
+	let t8tens = ["","","Hne","Lne","Byn","Bne","Cne","Nne","Oxn","Fln"]
+	let t8hunds = ["","Krp","Hrp","Lrp","Ber","Brp","Crp","Nrp","Oxp","Fyp"]
+	let t8f = t8ills[x]
+	if (x>=10&&x<20) t8f = t8teens[x%10]
+	if (x>=20&&x<100) t8f = t8tens[Math.floor(x/10)] + t8ills[x%10]
+	if (x>=100) t8f = t8hunds[Math.floor(x/100)] + t8tens[Math.floor(x/10)%10] + t8ills[x%10]
+	if (x>=100&&x%100<20&&x%100>=10) t8f = t8hunds[Math.floor(x/100)] + t8teens[Math.floor(x/10)%10]
+	return t8f
 }
 
 function standard(decimal, precision){
 	decimal = new Decimal(decimal)
 	if (decimal.sign < 0) return "-"+standard(decimal.neg(), precision)
-	if (decimal.layer > 4 && decimal.mag>=0 || (decimal.mag >= Math.log10(3e90) && decimal.layer == 4)) {
+	if (decimal.layer > 8 && decimal.mag>=0 || (decimal.mag >= Decimal.log10('3e3000').toNumber() && decimal.layer == 8)) {
 		var slog = decimal.slog()
-		if (slog.gte(1e9)) return "F" + formatWhole(slog.floor())
+		if (slog.gte(1e9)) return "F" + format(slog.floor())
 		if (slog.gte(100)) return Decimal.pow(10, slog.sub(slog.floor())).toStringWithDecimalPlaces(3) + "F" + commaFormat(slog.floor(), 0)
 		else return Decimal.pow(10, slog.sub(slog.floor())).toStringWithDecimalPlaces(4) + "F" + commaFormat(slog.floor(), 0)
 	}
@@ -159,20 +233,40 @@ function standard(decimal, precision){
 	let t2illion = illion.max(1).log10().div(3).floor()
 	let t3illion = t2illion.max(1).log10().div(3).floor()
 	let t4illion = t3illion.max(1).log10().div(3).floor()
+	let t5illion = t4illion.max(1).log10().div(3).floor()
+	let t6illion = t5illion.max(1).log10().div(3).floor()
+	let t7illion = t6illion.max(1).log10().div(3).floor()
+	let t8illion = t7illion.max(1).log10().div(3).floor()
 	let t1 = illion.div(Decimal.pow(1e3,t2illion.sub(2))).floor().toNumber()
 	if (illion.lt(1e3)) t1 = illion.toNumber()
 	let t2 = t2illion.div(Decimal.pow(1e3,t3illion.sub(2))).floor().toNumber()
 	if (t2illion.lt(1e3)) t2 = t2illion.toNumber()
 	let t3 = t3illion.div(Decimal.pow(1e3,t4illion.sub(2))).floor().toNumber()
 	if (t3illion.lt(1e3)) t3 = t3illion.toNumber()
-	let t4 = t4illion.toNumber()
-	let st = t1format(t1)
+	let t4 = t4illion.div(Decimal.pow(1e3,t5illion.sub(2))).floor().toNumber()
+    	if (t4illion.lt(1e3)) t4 = t4illion.toNumber()
+	let t5 = t5illion.div(Decimal.pow(1e3,t6illion.sub(2))).floor().toNumber()
+	if (t5illion.lt(1e3)) t5 = t5illion.toNumber()
+	let t6 = t6illion.div(Decimal.pow(1e3,t7illion.sub(2))).floor().toNumber()
+	if (t6illion.lt(1e3)) t6 = t6illion.toNumber()
+	let t7 = t7illion.div(Decimal.pow(1e3,t8illion.sub(2))).floor().toNumber()
+	if (t7illion.lt(1e3)) t7 = t7illion.toNumber()
+	let t8 = t8illion.toNumber()
+	st = t1format(t1)
 	if (illion.gte(1e3)) st = t1format(Math.floor(t1/1e6),true,t2)+t2format(t2)+((Math.floor(t1/1e3)%1e3>0)?('-'+t1format(Math.floor(t1/1e3)%1e3,true,t2-1)+t2format(t2-1)):'')
 	if (illion.gte(1e6)) st += ((t1%1e3>0)?('-'+t1format(t1%1e3,true,t2-2)+t2format(t2-2)):'')
 	if (t2illion.gte(1e3)) st = t2format(Math.floor(t2/1e6),true,t3)+t3format(t3)+((Math.floor(t2/1e3)%1e3>0)?("a'-"+t2format(Math.floor(t2/1e3)%1e3,true,t3-1)+t3format(t3-1)):'')
 	if (t2illion.gte(1e6)) st += ((t2%1e3>0)?("a'-"+t2format(t2%1e3,true,t3-2)+t3format(t3-2)):'')
 	if (t3illion.gte(1e3)) st = t3format(Math.floor(t3/1e6),true,t4)+t4format(t4,Math.floor(t3/1e6))+((Math.floor(t3/1e3)%1e3>0)?("`-"+t3format(Math.floor(t3/1e3)%1e3,true,t4-1,t3)+t4format(t4-1,Math.floor(t3/1e3)%1e3)):'')
 	if (t3illion.gte(1e6)) st += ((t3%1e3>0)?("`-"+t3format(t3%1e3,true,t4-2,t3)+t4format(t4-2,t3%1e3)):'')
+	if (t4illion.gte(1e3)) st = t4format(Math.floor(t4/1e6),1,true,t5)+t5format(t5)+((Math.floor(t4/1e3)%1e3>0)?("~"+t4format(Math.floor(t4/1e3)%1e3,1,true,t5-1,t4)+t5format(t5-1)):'')
+	if (t4illion.gte(1e6)) st += ((t4%1e3>0)?("~"+t4format(t4%1e3,1,true,t5-2,t4)+t5format(t5-2)):'')
+	if (t5illion.gte(1e3)) st = t5format(Math.floor(t5/1e6),true,t6)+t6format(t6)+((Math.floor(t5/1e3)%1e3>0)?("*-"+t5format(Math.floor(t5/1e3)%1e3,true,t6-1)+t6format(t6-1)):'')
+	if (t5illion.gte(1e6)) st += ((t5%1e3>0)?("*-"+t5format(t5%1e3,true,t6-2)+t6format(t6-2)):'')
+	if (t6illion.gte(1e3)) st = t6format(Math.floor(t6/1e6),true,t7)+t7format(t7,Math.floor(t6/1e6))+((Math.floor(t6/1e3)%1e3>0)?(".-"+t6format(Math.floor(t6/1e3)%1e3,true,t7-1)+t7format(t7-1,(t6/1e3)%1e3)):'')
+	if (t6illion.gte(1e6)) st += ((t6%1e3>0)?(".-"+t6format(t6%1e3,true,t7-2)+t7format(t7-2,t6%1e3)):'')
+	if (t7illion.gte(1e3)) st = t7format(Math.floor(t7/1e6),1,true,t8)+t8format(t8,Math.floor(t7/1e6))+((Math.floor(t7/1e3)%1e3>0)?(",-"+t7format(Math.floor(t7/1e3)%1e3,1,true,t8-1)+t8format(t8-1,(t7/1e3)%1e3)):'')
+	if (t7illion.gte(1e6)) st += ((t7%1e3>0)?(",-"+t7format(t7%1e3,1,true,t8-2)+t8format(t8-2,t7%1e3)):'')
 	if (decimal.mag >= 1e9 || (decimal.layer>0 && decimal.mag>=0))return m+st
 	if (decimal.mag >= 1e3) return commaFormat(decimal, 0)
 	if (decimal.mag >= 0.001) return regularFormat(decimal, precision)
@@ -182,7 +276,7 @@ function standard(decimal, precision){
 
 function hyperEformat(decimal, precision) {
 	decimal = new Decimal(decimal)
-	let s = slog(decimal)
+	let s = Decimal.slog(decimal)
 	let mag = s.sub(s.floor()).pow10().pow10()
 	let m = commaFormat(mag,precision)
 	if (mag.gte(1e6)) m = commaFormat(mag,0)
@@ -219,10 +313,10 @@ function letter(decimal, precision, str) { //AD NG+++
 	if (isNaN(skipped.sign)||isNaN(skipped.layer)||isNaN(skipped.mag)) skipped = new Decimal(0)
 	skipped = skipped.add(7)
 	let lett = Decimal.mul(1e9,Decimal.log10(len))
-	let s = slog(skipped).sub(slog(lett)).div(2).floor().add(1)
-	let sl = tet10(slog(skipped).sub(slog(skipped).sub(slog(lett)).div(2).floor().mul(2))).mul(Decimal.log(10,len))
+	let s = Decimal.slog(skipped).sub(slog(lett)).div(2).floor().add(1)
+	let sl = Decimal.tetrate(Decimal.slog(skipped).sub(Decimal.slog(skipped).sub(slog(lett)).div(2).floor().mul(2)),10).mul(Decimal.log(10,len))
 	if (decimal.layer >= 1e9) return '{'+formatWhole(s)+'}'
-	if (decimal.gte(tet10(slog(lett).add(8)))) return format(sl)+'{'+formatWhole(s)+'}'
+	if (decimal.gte(Decimal.tetrate(Decimal.slog(lett).add(8),10))) return format(sl)+'{'+formatWhole(s)+'}'
 	if (skipped.gte(1e9)) return "["+letter(skipped, precision, str)+"]"
 	if (skipped.gt(7)) ret += "[" + commaFormat(skipped, 0) + "]"
 	if (decimal.gte("ee9")) return ret
@@ -316,7 +410,7 @@ function formatTime(s) {
     else return formatWhole(Math.floor(s / 31536000)) + "y " + formatWhole(Math.floor(s / 86400) % 365) + "d " + formatWhole(Math.floor(s / 3600) % 24) + "h " + formatWhole(Math.floor(s / 60) % 60) + "m " + format(s % 60) + "s"
 }
 function verse(x) {
-	s = slog(new Decimal(x)).sub(Decimal.log10(9))
+	s = Decimal.slog(new Decimal(x)).sub(Decimal.log10(9))
 	let verse1 = [2,3,4,5]
 	let verse2 = ["multi","meta","xeno","hyper"]
 	let id = 0;
@@ -325,12 +419,12 @@ function verse(x) {
 			while (s.gte(verse1[id])) id++;
 			if (id > 0) id--;
 		}
-	let mag = slogadd(x,-verse1[id]+1).div(1e9)
+	let mag = Decimal.layeradd(x,-verse1[id]+1).div(1e9)
 	return [mag,verse2[id]]
 }
 
 function verseShort(x) {
-	s = slog(new Decimal(x)).sub(Decimal.log10(9))
+	s = Decimal.slog(new Decimal(x)).sub(Decimal.log10(9))
 	let verse1 = [2,3,4,5]
 	let verse2 = ["mlt","met","xen","hyp"]
 	let id = 0;
@@ -339,7 +433,7 @@ function verseShort(x) {
 			while (s.gte(verse1[id])) id++;
 			if (id > 0) id--;
 		}
-	let mag = slogadd(x,-verse1[id]+1).div(1e9)
+	let mag = Decimal.layeradd(x,-verse1[id]+1).div(1e9)
 	return [mag,verse2[id]]
 }
 
@@ -360,7 +454,7 @@ function formatTimeLong(s) {
 		mverse = arv2[id]
 		if (arv2[id]=="") mverse = "multi"
 	}
-	if (years.gte("6pt9")) return format(slog(years).pow10().div(9e6)) + " omniverse ages"
+	if (years.gte("6pt9")) return format(Decimal.slog(years).pow10().div(9e6)) + " omniverse ages"
 	if (years.gte("eee56") && years.lt("eee69")) return format(years.log10().log10().div(1e56)) + " new big bangs"
 	if (years.gte("ee120") && years.lt("ee129")) return format(years.log10().div(1e120)) + " big rips"
 	if (years.gte("ee9")) return format(mlt[0].div(arv1[id])) + " " + mverse +"verse ages"
