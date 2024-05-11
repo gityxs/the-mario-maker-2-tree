@@ -62,6 +62,16 @@ var colors = {
 		background: "#007eff",
 		background_tooltip: "rgba(220, 235, 255, 0.75)",
 	},
+	wonderful: {
+		1: "#50004b",
+		2: "#50004b",
+		3: "#404040",
+		color: "#50004b",
+		points: "#50004b",
+		locked: "#bf8f8f",
+		background: "#ff8bf5",
+		background_tooltip: "rgba(220, 235, 255, 0.75)",
+	},
 }
 function changeTheme() {
 
