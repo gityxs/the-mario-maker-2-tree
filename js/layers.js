@@ -9993,10 +9993,10 @@ addLayer("toad", {
                 return display}, 
             canAfford() { return player[this.layer].supertier[0].gte(this.cost()) },
             buy() {
-                if (hasMilestone('easy', 14)==false) player[this.layer].points = new Decimal(0)
-                if (hasMilestone('easy', 14)==false) player[this.layer].buyables[11] = new Decimal(0)
-                if (hasMilestone('easy', 14)==false) player[this.layer].buyables[12] = new Decimal(0)
-                if (hasMilestone('easy', 14)==false) player[this.layer].buyables[21] = new Decimal(0)
+                player[this.layer].points = new Decimal(0)
+                player[this.layer].buyables[11] = new Decimal(0)
+                player[this.layer].buyables[12] = new Decimal(0)
+                player[this.layer].buyables[21] = new Decimal(0)
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             unlocked() {return hasUpgrade('toad', 54)},
@@ -11193,23 +11193,6 @@ addLayer("easy", {
             cost: new Decimal(1e40),
             unlocked() {return hasUpgrade(this.layer, 42)},
         },
-        44: {
-            title: "Leading forever",
-            description: "Every 2 'Ikyota challenging' levels provides 1 free level of 'Iczeta challenging'.",
-            cost: new Decimal("1e1625"),
-            unlocked() {return hasUpgrade(this.layer, 43)},
-            effect() {
-                let eff = getBuyableAmount('easy', 12).max(0).div(2).floor()
-                return eff
-            },
-            effectDisplay() { return "+"+formatWhole(upgradeEffect(this.layer, this.id)) },
-        },
-        45: {
-            title: "The display limit",
-            description: "5x One Shot Clears gain.",
-            cost: new Decimal("1e1725"),
-            unlocked() {return hasUpgrade(this.layer, 44)},
-        },
         // Look in the upgrades docs to see what goes here!
     },
     milestones: {
@@ -11282,11 +11265,6 @@ addLayer("easy", {
             requirementDescription: "1.79e308 Easy Endless Clears",
             effectDescription: "^1000000 Cleared Courses gain.",
             done() { return player.easy.points.gte("1.79e308") },
-        },
-        14: {
-            requirementDescription: "1e1600 Easy Endless Clears",
-            effectDescription: "Toad pent resets nothing.",
-            done() { return player.easy.points.gte("1e1600") },
         },
     },
     clickables: {
@@ -11571,9 +11549,8 @@ addLayer("easy", {
             display() { 
                 let free = new Decimal(0)
                 if (hasUpgrade('normal', 13)) free = free.add(upgradeEffect('normal', 13))
-                if (hasUpgrade('easy', 44)) free = free.add(upgradeEffect('easy', 44))
                 let freedis = ""
-                if (hasUpgrade('normal', 13) || hasUpgrade('easy', 44)) freedis = "+"+formatWhole(free)
+                if (hasUpgrade('normal', 13)) freedis = "+"+formatWhole(free)
                 let display = ` Multiply Free Clears by lg(FC)^0.5x per every level. <br>
                 base: ${format(player.easy.free_c.max(10).log(10).root(2))}<br>
                 level: ${formatWhole(player[this.layer].buyables[this.id])}${freedis}<br>
@@ -11591,7 +11568,6 @@ addLayer("easy", {
             effect(x) {
                 let free = new Decimal(0)
                 if (hasUpgrade('normal', 13)) free = free.add(upgradeEffect('normal', 13))
-                if (hasUpgrade('easy', 44)) free = free.add(upgradeEffect('easy', 44))
                 let base = player.easy.free_c.max(10).log(10).root(2)
                 let effect = base.pow(x.add(free))
                 return effect},
@@ -11736,7 +11712,6 @@ addLayer("normal", {
         oneshot_mult: new Decimal(1),
         square_cooldown: new Decimal(0),
         square_changing: new Decimal(0),
-        auto_mario: new Decimal(0),
     }},
 
     color: "#77A831",                       // The color for this layer, which affects many elements.
@@ -11762,7 +11737,6 @@ addLayer("normal", {
         let mult = new Decimal(1) //gainMult
         if (player.toad.supertier[1].gte(69)) mult = mult.times(3)
         if (hasUpgrade('easy', 43)) mult = mult.times(buyableEffect('easy', 12))
-        if (hasMilestone('normal', 1)) mult = mult.times(milestoneEffect('normal', 1))
         let gain = player.easy.points.max(1).div("1e641").max(1).log(1e10).times(mult).floor()
         return gain
     },
@@ -11771,7 +11745,6 @@ addLayer("normal", {
         let mult = new Decimal(1) //gainMult
         if (player.toad.supertier[1].gte(69)) mult = mult.times(3)
         if (hasUpgrade('easy', 43)) mult = mult.times(buyableEffect('easy', 12))
-        if (hasMilestone('normal', 1)) mult = mult.times(milestoneEffect('normal', 1))
         base = base.root(mult)
         let gain = tmp.normal.resetGain
         return Decimal.pow(base, gain).times("1e651").div(base.pow(mult.sub(1)))
@@ -11863,19 +11836,14 @@ addLayer("normal", {
             cost: new Decimal(6677),
             unlocked() {return hasUpgrade(this.layer, 14)},
             effect() {
-                let power = new Decimal(3)
-                if (hasUpgrade(this.layer, 21)) power = power.div(2)
-                let eff = player.normal.oneshot.max(0).root(power).times(3600)
+                let eff = player.normal.oneshot.max(0).root(3).times(3600)
                 return eff
             },
         },
         21: {
-            title: "Timing",
-            description: "One Shot Clears effect is better.",
-            currencyDisplayName: "One Shot Clears",
-            currencyInternalName: "oneshot",
-            currencyLayer: "normal",
-            cost: new Decimal(10),
+            title: "TBD",
+            description: "Coming in v0.10.",
+            cost: new Decimal("10^^7625597484984"),
             unlocked() {return hasUpgrade(this.layer, 15)},
         },
         // Look in the upgrades docs to see what goes here!
@@ -11885,12 +11853,6 @@ addLayer("normal", {
             requirementDescription: "1 Normal Endless Clear",
             effectDescription: "Keep Easy Endless milestones on row 12 reset and autobuy Peachette levels.",
             done() { return player.normal.points.gte(1) },
-        },
-        1: {
-            requirementDescription: "100 One Shot Clears",
-            effect() {return player.normal.oneshot},
-            effectDescription(){return "One Shot Clears boosts Normal Endless CLears gain.<br>Currently: "+format(milestoneEffect('normal', 1))+"x"},
-            done() { return player.normal.oneshot.gte(100) },
         },
     },
     clickables: {
@@ -11941,9 +11903,6 @@ addLayer("normal", {
     },
     update(Nor) {
         let tick = new Decimal(0.05)
-        let OSmult = new Decimal(1)
-        if (hasUpgrade('easy', 45)) OSmult = OSmult.times(5)
-        player.normal.oneshot_mult = OSmult
         if (player.normal.oneshot_mult.lt(1)) player.normal.oneshot_mult = new Decimal(1)
         if (hasUpgrade('normal', 15)&&(player.easy.random_theme.gte(1) && player.easy.random_theme.lte(9) && player.easy.random_style.eq(2))) player.normal.square_changing = player.normal.square_changing.add(1)
         if (player.normal.square_cooldown.gt(0)) player.normal.square_cooldown = player.normal.square_cooldown.sub(tick)
