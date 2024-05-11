@@ -1,3 +1,12 @@
+decimalElephant = new Decimal(74751)
+decimalCrow = new Decimal(501761)
+decimalPi = new Decimal(3.141592653589793)
+decimalNatral = new Decimal(2.71828)
+decimalInfinity = new Decimal("1.79769313e308")
+decimalGoogol = new Decimal(1e100)
+decimalGoogolplex = new Decimal("ee100")
+decimalDecker = new Decimal("10^^10")
+decimalGiggol = new Decimal("10^^100")
 // 特殊层：成就
 addLayer("achievements", {
     name: "achievements",
@@ -12,6 +21,16 @@ addLayer("achievements", {
     row: "side",                                 // The row this layer is on (0 is the first row).
 
     layerShown() { return true },          // Returns a bool for if this layer's node should be visible in the tree.
+
+    clickables: {
+        11: {
+            title: "Tab fix",
+            canClick() {return true},
+            onClick() {return player.navTab='tree-tab'},
+            unlocked() {return true},
+            display: "Fix your tab if you stuck in a layer tab."
+        },
+    },
 
     achievements: {
         11: {
@@ -578,12 +597,265 @@ addLayer("achievements", {
                 return player.achievements.points = player.achievements.points.add("e1e145")
             },
         },
+        151: {
+            name: "Level up!",
+            tooltip: "Toad level 1. <br> Reward: e1e180 AP.",
+            done() {return player.toad.level.gte(1)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e1e180")
+            },
+        },
+        152: {
+            name: "Tier up!",
+            tooltip: "Toad tier 1. <br> Reward: e1e210 AP.",
+            done() {return player.toad.tier.gte(1)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e1e210")
+            },
+        },
+        153: {
+            name: "All 4 characters",
+            tooltip: "Unlock Toadette layer. <br> Reward: e1e240 AP.",
+            done() {return player.toad.tier.gte(4)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e1e240")
+            },
+        },
+        154: {
+            name: "Supertier layer up!",
+            tooltip: "Toad tetr 1. <br> Reward: e1e270 AP.",
+            done() {return player.toad.supertier[0].gte(1)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e1e270")
+            },
+        },
+        155: {
+            name: "Awakening",
+            tooltip: "Get 1 Awaken Power. <br> Reward: e1.7976e308 AP.",
+            done() {return player.toad.awaken_power.gte(1)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e1.7976e308")
+            },
+        },
+        161: {
+            name: "Googolplexichime",
+            tooltip: "Get e1e1000 cleared courses. <br> Reward: e3.69e369 AP, keep PCK in coin layer.",
+            done() {return player.points.gte("ee1000")},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e3.69e579")
+            },
+        },
+        162: {
+            name: "Mario locked",
+            tooltip: "Reach Mario cleared courses hardcap^3. <br> Reward: e4.56e456 AP.",
+            done() {return player.mario.c_lock},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e4.56e456")
+            },
+        },
+        163: {
+            name: "Special power in NSMBUDX",
+            tooltip: "Get 1 Toadette's crown. <br> Reward: e3e1000 AP.",
+            done() {return player.toadette.crown.gte(1)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e3e1000")
+            },
+        },
+        164: {
+            name: "Toadette becomes a princess?",
+            tooltip: "Peachette level 1. <br> Reward: e3e1500 AP.",
+            done() {return player.toadette.peachette.gte(1)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e3e1500")
+            },
+        },
+        165: {
+            name: "Hardcap: softcap",
+            tooltip: "Reach the softcap of Toad level 3 effect. <br> Reward: e3e3000 AP.",
+            done() {return player.toad.level.gte(500)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e3e3000")
+            },
+        },
+        171: {
+            name: "Is that too easy?",
+            tooltip: "Unlock Easy Endless Challenge layer. <br> Reward: e3e5000 AP.",
+            done() {return player.toad.supertier[0].gte(6)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e3e5000")
+            },
+        },
+        172: {
+            name: "No damage",
+            tooltip: "Cleared 1 easy endless course without taking damage. <br> Reward: e1e7000 AP.",
+            done() {return player.easy.no_dmg.gte(1)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e1e7000")
+            },
+        },
+        173: {
+            name: "Fastest way to gain a clear",
+            tooltip: "Get 1 Free Clear. <br> Reward: e1e12000 AP.",
+            done() {return player.easy.free_c.gte(1)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e1e12000")
+            },
+        },
+        174: {
+            name: "Raise the difficulty",
+            tooltip: "Unlock Normal Endless Challenge layer. <br> Reward: e1e30000 AP.",
+            done() {return player.toad.supertier[2].gte(3)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e1e30000")
+            },
+        },
+        175: {
+            name: "One shot master",
+            tooltip: "Cleared 1 normal endless course with one attempt. <br> Reward: e1e50000 AP.",
+            done() {return player.normal.oneshot.gte(1)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e1e50000")
+            },
+        },
     },
     upgrades: {
         11: {
             title: "希望不会有BUG",
              description: "但愿吧。",
             cost: new Decimal("10^^1666390"),
+        },
+    },
+})
+// 特殊层：隐藏成就
+addLayer("secret_achievements", {
+    name: "secret achievements",
+    symbol: "SAc",
+    startData() { return {                  // startData is a function that returns default data for a layer. 
+        unlocked: true,                     // You can add more variables here to add them to your layer.
+        points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+        secretnumber: new Decimal(0),
+    }},
+
+    color: "#A060FF",                       // The color for this layer, which affects many elements.
+    resource: "secret achievements",            // The name of this layer's main prestige resource.
+    row: "side",                                 // The row this layer is on (0 is the first row).
+
+    layerShown() { return true },          // Returns a bool for if this layer's node should be visible in the tree.
+    clickables: {
+        11: {
+            title(){title = formatWhole(player[this.layer].secretnumber)
+            return title},
+            display() { dis = ""
+                if (player.secret_achievements.secretnumber.eq(69)) dis = "lol"
+                if (player.secret_achievements.secretnumber.eq(114514)) dis = "homo"
+                if (player.secret_achievements.secretnumber.eq(1919810)) dis = "臭死力"
+                if (player.secret_achievements.secretnumber.eq(74751)) dis = "嬲"
+                if (player.secret_achievements.secretnumber.eq(501761)) dis = "乌鸦喝水，爱你呦！"
+                if (player.secret_achievements.secretnumber.gte("1e1000")) dis = "Are you still here?"
+                if (player.secret_achievements.secretnumber.gte("1e10000")) dis = "Seriously?"
+                if (player.secret_achievements.secretnumber.gte("1e100000")) dis = "Impressive."
+                if (player.secret_achievements.secretnumber.gte("1e1000000")) dis = "Are you using autoclicker and afk for hours?"
+                if (player.secret_achievements.secretnumber.gte("ee10")) dis = "You cheated!"
+                return dis
+            },
+            canClick() {return true},
+        },
+        21: {
+            title: "+1",
+            canClick() {return true},
+            onClick() {return player[this.layer].secretnumber = player[this.layer].secretnumber.add(1)},
+        },
+        22: {
+            title: "+10",
+            canClick() {return true},
+            onClick() {return player[this.layer].secretnumber = player[this.layer].secretnumber.add(10)},
+        },
+        23: {
+            title: "x2",
+            canClick() {return true},
+            onClick() {return player[this.layer].secretnumber = player[this.layer].secretnumber.times(2)},
+        },
+        24: {
+            title: "x10",
+            canClick() {return true},
+            onClick() {return player[this.layer].secretnumber = player[this.layer].secretnumber.times(10)},
+        },
+        25: {
+            title: "=0",
+            canClick() {return true},
+            onClick() {return player[this.layer].secretnumber = decimalZero},
+        },
+    },
+    achievements: {
+        11: {
+            name: "Super Mario Galaxy",
+            tooltip() {
+                if (hasAchievement(this.layer, this.id)) return "Set the game theme to galaxy"
+                else return "Where can you find the galaxy?"},
+            done() {return options.theme == "galaxy"},
+            onComplete() {
+                return player[this.layer].points = player[this.layer].points.add(1)
+            },
+        },
+        12: {
+            name: "How can you read this notation?",
+            tooltip() { 
+                if (hasAchievement(this.layer, this.id)) return "Set the notation to Standard"
+                else return "A difficult notation"},
+            done() {return player.notation == "Standard"},
+            onComplete() {
+                return player[this.layer].points = player[this.layer].points.add(1)
+            },
+        },
+        13: {
+            name: "Did you use the autoclicker?",
+            tooltip() { 
+                if (hasAchievement(this.layer, this.id)) return "Make the number in Secret Achievement layer to 1e10000 or larger"
+                else return "Why?"},
+            done() {return player.secret_achievements.secretnumber.gte("1e10000")},
+            onComplete() {
+                return player[this.layer].points = player[this.layer].points.add(1)
+            },
+        },
+        14: {
+            name: "Nice",
+            tooltip() {
+                if (hasAchievement(this.layer, this.id)) return "Make the number in Secret Achievement layer equal to 69"
+                else return "Funny"},
+            done() {return player.secret_achievements.secretnumber.eq(69)},
+            onComplete() {
+                return player[this.layer].points = player[this.layer].points.add(1)
+            },
+        },
+        15: {
+            name: "Heng heng heng aaaaahhhhh!",
+            tooltip() {
+                if (hasAchievement(this.layer, this.id)) return "Make the number in Secret Achievement layer equal to 114514"
+                else return "Smelly!"},
+            done() {return player.secret_achievements.secretnumber.eq(114514)},
+            onComplete() {
+                return player[this.layer].points = player[this.layer].points.add(1)
+            },
+        },
+        21: {
+            name: "Why can't I pass 29?",
+            tooltip() { 
+                if (hasAchievement(this.layer, this.id)) return "Buyable 'Pedaka swimming' level is 7 or larger"
+                else return "Bowser said you can't pass this, or this game would be unbalanced"},
+            done() {return getBuyableAmount('frog_suit', 21).gte(7)},
+            onComplete() {
+                return player[this.layer].points = player[this.layer].points.add(1)
+            },
+        },
+        22: {
+            name: "Best mystery mushroom ever",
+            tooltip() { 
+                if (hasAchievement(this.layer, this.id)) return "Find Yu Ayasaki"
+                else return "Find a secret button to unlock"},
+            done() {return player.toadette.yu_ayasaki},
+            onComplete() {
+                return player[this.layer].points = player[this.layer].points.add(1)
+            },
         },
     },
 })
@@ -627,13 +899,15 @@ addLayer("stats", {
                         else if (player.points.lte(1e180))
                         return "If you wrote 3 numbers a second, it would take you "+ format(player.points.log(10).div(3)) + " seconds to write down your Cleared Courses amount.<br>"
                         else if (player.points.lte("1e10800"))
-                        return "If you wrote 3 numbers a second, it would take you "+ format(player.points.log(10).div(180)) + " minutes to write down your Cleared Courses amount.<br>Also you can clear " + format(player.points.log(10).div(180).times(1.1)) + " courses in Easy Endless."
+                        return "If you wrote 3 numbers a second, it would take you "+ format(player.points.log(10).div(180)) + " minutes to write down your Cleared Courses amount.<br>Also you can clear " + formatWhole(player.points.log(10).div(180).times(1.1)) + " courses in Easy Endless."
                         else if (player.points.lte("1e259200"))
-                        return "If you wrote 3 numbers a second, it would take you "+ format(player.points.log(10).div(10800)) + " hours to write down your Cleared Courses amount.<br>Also you can clear " + format(player.points.log(10).div(180).times(1.1)) + " courses in Easy Endless."
+                        return "If you wrote 3 numbers a second, it would take you "+ format(player.points.log(10).div(10800)) + " hours to write down your Cleared Courses amount.<br>Also you can clear " + formatWhole(player.points.log(10).div(180).times(1.1)) + " courses in Easy Endless."
                         else if (player.points.lte("1e94608000"))
-                        return "If you wrote 3 numbers a second, it would take you "+ format(player.points.log(10).div(259200)) + " days to write down your Cleared Courses amount.<br>Also you can clear " + format(player.points.log(10).div(1440)) + " courses in Super Expert Endless."
-                        else
-                        return "If you wrote 3 numbers a second, it would take you "+ format(player.points.log(10).div(94608000)) + " years to write down your Cleared Courses amount.<br>Also you can get a " + format(player.points.log(10).div(540).log(4)) + "-win streak in Versus Mode."
+                        return "If you wrote 3 numbers a second, it would take you "+ format(player.points.log(10).div(259200)) + " days to write down your Cleared Courses amount.<br>Also you can clear " + formatWhole(player.points.log(10).div(1440)) + " courses in Super Expert Endless."
+                        else if (player.points.lte("e9.4608e10"))
+                        return "If you wrote 3 numbers a second, it would take you "+ format(player.points.log(10).div(94608000)) + " years to write down your Cleared Courses amount.<br>Also you can get a " + formatWhole(player.points.log(10).div(540).log(4)) + "-win streak in Versus Mode."
+                        else 
+                        return "If you wrote 3 numbers a second, it would take you "+ formatTimeLong(player.points.log(10).div(3)) + " to write down your Cleared Courses amount.<br>Also you can get a " + formatWhole(player.points.log(10).div(540).log(4)) + "-win streak in Versus Mode."
                     }],
                 ]
             },
@@ -688,7 +962,9 @@ addLayer("coin", {
         return new Decimal(Csoftcap)
     },
     softcapPower(){
-        return new Decimal(0.2)
+        let power = new Decimal(0.2)
+        if (player.coin.points.gte(player.points)) power = new Decimal(0)
+        return power
     },
     row: 0, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
@@ -726,6 +1002,9 @@ addLayer("coin", {
                 if(hasMilestone('master_sword', 8)) {
                 kept.push("upgrades")
                 }
+                if(hasAchievement('achievements', 161)) {
+                    kept.push("pink_key_coin")
+                }
             layerDataReset(this.layer, kept)
         }
     },
@@ -742,13 +1021,17 @@ addLayer("coin", {
             unlocked() {return hasUpgrade('coin', 11)},
             effect() {
                 let CU2softcap = new Decimal("e1e16")
+                let exp = new Decimal(1)
+                if (player.toad.tier.gte(238)) exp = exp.times(5)
                 if (hasUpgrade('master_sword', 21)) CU2softcap = CU2softcap.pow(2)
                 if (hasUpgrade('master_sword', 25)) CU2softcap = CU2softcap.pow(player.super_hammer.characters_box.max(1).log(1e10).add(1).pow(2).times(2))
                 if (hasUpgrade('master_sword', 72)) CU2softcap = CU2softcap.pow(upgradeEffect('master_sword', 72))
                 if (hasUpgrade('power_balloon', 45)) CU2softcap = CU2softcap.pow(25)
-                if (player.coin.points.gte(CU2softcap))
+                if (player.coin.points.gte(CU2softcap) && hasMilestone('toadette', 4) == false)
                 return player[this.layer].points.add(1).pow(0.1).times(CU2softcap.pow(0.4))
+                else if (hasMilestone('toadette', 4)) return player[this.layer].points.add(1).pow(0.3).times(CU2softcap.pow(0.4)).pow(exp)
                 else return player[this.layer].points.add(1).pow(0.5)
+                
             },
             effectDisplay() { 
                 let CU2softcap = new Decimal("e1e16")
@@ -965,6 +1248,8 @@ addLayer("coin", {
     tabFormat: [
         "main-display",
         "prestige-button",
+        ["display-text", () => `You have ` +format(player.points) + ` Cleared Courses`],
+        ["display-text", () => `Your best amount of coin is ` +format(player.coin.best)],
         ["display-text", () => "Softcap starts at e1.8e12 Coins"],
         ["microtabs", "stuff"],
         ["blank", "65px"],
@@ -1144,7 +1429,7 @@ addLayer("super_mushroom", {
                 else {
                 return Decimal.pow(10, SMC1C)}
             },
-            rewardDisplay() { return format(challengeEffect(this.layer, this.id))+"x <br> Completions: "+format(challengeCompletions(this.layer, this.id))+"/3" },
+            rewardDisplay() { return format(challengeEffect(this.layer, this.id))+"x <br> Completions: "+formatWhole(challengeCompletions(this.layer, this.id))+"/3" },
             unlocked() {return hasMilestone('coin', 2) || hasAchievement('achievements', 13)},
         },
     },
@@ -1159,6 +1444,8 @@ addLayer("super_mushroom", {
     tabFormat: [
         "main-display",
         "prestige-button",
+        ["display-text", () => `You have ` +format(player.coin.points) + ` coins`],
+        ["display-text", () => `Your best amount of Super Mushroom is ` +format(player.super_mushroom.best)],
         ["microtabs", "stuff"],
         ["blank", "65px"],
     ],
@@ -1200,7 +1487,9 @@ addLayer("super_mushroom", {
 // 第三层：火之花
 addLayer("fire_flower", {
     effect(){
-        return Decimal.pow(player[this.layer].points, 2).add(1)
+        let eff = Decimal.pow(player[this.layer].points, 2).add(1)
+        if (hasUpgrade('easy', 25)) eff = eff.pow(1000)
+        return eff
         /*
           you should use this.layer instead of <layerID>
           Decimal.pow(num1, num2) is an easier way to do
@@ -1381,6 +1670,8 @@ effectDescription(){
     tabFormat: [
         "main-display",
         "prestige-button",
+        ["display-text", () => `You have ` +format(player.coin.points) + ` coins`],
+        ["display-text", () => `Your best amount of Fire Flower is ` +format(player.fire_flower.best)],
         ["microtabs", "stuff"],
         ["blank", "65px"],
     ],
@@ -1465,7 +1756,7 @@ addLayer("invincible_star", {
 
     resetsNothing() {return hasAchievement("achievements", 44) || hasAchievement('achievements', 61)},
     autoPrestige() {return hasAchievement("achievements", 44) || hasAchievement('achievements', 61)},
-    autoUpgrade() {return hasAchievement('achievements', 63)},
+    autoUpgrade() {return hasAchievement('achievements', 63) || hasMilestone('super_leaf', 0)},
     doReset(resettingLayer) {
         if (layers[resettingLayer].row > layers[this.layer].row) {
             let kept = ["unlocked", "auto"]
@@ -1654,6 +1945,8 @@ addLayer("invincible_star", {
     tabFormat: [
         "main-display",
         "prestige-button",
+        ["display-text", () => `You have ` +format(player.fire_flower.points) + ` Fire Flowers`],
+        ["display-text", () => `Your best amount of Invincible Star is ` +format(player.invincible_star.best)],
         ["microtabs", "stuff"],
         ["blank", "65px"],
     ],
@@ -1947,6 +2240,8 @@ addLayer("oneup_mushroom", {
     tabFormat: [
         "main-display",
         "prestige-button",
+        ["display-text", () => `You have ` +format(player.fire_flower.points) + ` Fire Flowers`],
+        ["display-text", () => `Your best amount of 1UP Mushroom is ` +format(player.oneup_mushroom.best)],
         ["microtabs", "stuff"],
         ["blank", "65px"],
     ],
@@ -2294,6 +2589,8 @@ addLayer("bouncy_ball_flower", {
     tabFormat: [
         "main-display",
         "prestige-button",
+        ["display-text", () => `You have ` +format(player.super_mushroom.points) + ` Super Mushrooms`],
+        ["display-text", () => `Your best amount of Bouncy Ball Flower is ` +format(player.bouncy_ball_flower.best)],
         ["microtabs", "stuff"],
         ["blank", "65px"],
     ],
@@ -2601,6 +2898,8 @@ addLayer("big_mushroom", {
     tabFormat: [
         "main-display",
         "prestige-button",
+        ["display-text", () => `You have ` +format(player.fire_flower.points) + ` Fire Flowers`],
+        ["display-text", () => `Your best amount of Big Mushroom is ` +format(player.big_mushroom.best)],
         ["microtabs", "stuff"],
         ["blank", "65px"],
     ],
@@ -3195,6 +3494,8 @@ addLayer("super_leaf", {
     tabFormat: [
         "main-display",
         "prestige-button",
+        ["display-text", () => `You have ` +format(player.oneup_mushroom.points) + ` 1UP ushrooms`],
+        ["display-text", () => `Your best amount of Super Leaf is ` +format(player.super_leaf.best)],
         ["microtabs", "stuff"],
         ["blank", "65px"],
     ],
@@ -3506,6 +3807,8 @@ addLayer("cape_feather", {
     tabFormat: [
         "main-display",
         "prestige-button",
+        ["display-text", () => `You have ` +format(player.big_mushroom.points) + ` Big Mushrooms`],
+        ["display-text", () => `Your best amount of Cape Feather is ` +format(player.cape_feather.best)],
         ["microtabs", "stuff"],
         ["blank", "65px"],
     ],
@@ -3820,6 +4123,8 @@ addLayer("yoshi_egg", {
     tabFormat: [
         "main-display",
         "prestige-button",
+        ["display-text", () => `You have ` +format(player.bouncy_ball_flower.points) + ` Bouncy Ball Flowers`],
+        ["display-text", () => `Your best amount of Yoshi Egg is ` +format(player.yoshi_egg.best)],
         ["display-text", () => "Softcap starts at 1e60,000,000 Yoshi Eggs"],
         ["microtabs", "stuff"],
         ["blank", "65px"],
@@ -4119,11 +4424,11 @@ addLayer("propeller_mushroom", {
             rewardDisplay() { let PMC1C = player.propeller_mushroom.challenges[11]
                 if (hasUpgrade('super_bell', 24))
                 return format(challengeEffect(this.layer, this.id))+"x<br>Completions: "
-                + format(PMC1C)
+                + formatWhole(PMC1C)
                 + "/50<br>Current Goal: "
                 + format(Decimal.pow("1e10000000", PMC1C).times("1e2060000"))
                 else return format(challengeEffect(this.layer, this.id))+"x<br>Completions: "
-                + format(PMC1C)
+                + formatWhole(PMC1C)
                 + "/10<br>Current Goal: "
                 + format(Decimal.pow("1e10000000", PMC1C).times("1e2060000"))},
             unlocked() {return hasAchievement('achievements', 85)},
@@ -4132,6 +4437,7 @@ addLayer("propeller_mushroom", {
     tabFormat: [
         "main-display",
         "prestige-button",
+        ["display-text", () => `You have ` +format(player.super_leaf.points) + ` Super Leaves`],
         ["display-text", () => `Your best amount of Propeller Mushrooms is ` +format(player.propeller_mushroom.best)],
         ["microtabs", "stuff"],
         ["blank", "65px"],
@@ -4417,7 +4723,8 @@ addLayer("super_bell", {
     tabFormat: [
         "main-display",
         "prestige-button",
-        ["display-text", () => `Your best amount of Super Bells is ` +format(player.super_bell.best)],
+        ["display-text", () => `You have ` +format(player.yoshi_egg.points) + ` Yoshi Eggs`],
+        ["display-text", () => `Your best amount of Super Bell is ` +format(player.super_bell.best)],
         ["microtabs", "stuff"],
         ["blank", "65px"],
     ],
@@ -4502,8 +4809,12 @@ addLayer("super_hammer", {
         if (hasUpgrade('super_hammer', 34)) mult = mult.times(upgradeEffect('super_hammer', 34))
         if (hasUpgrade('usa_mushroom', 11)) mult = mult.times(7000)
         if (hasUpgrade('usa_mushroom', 12)) mult = mult.times(upgradeEffect('usa_mushroom', 12))
+        if (player.super_hammer.points.gte("e8.1e1919")) mult = new Decimal(1)
         return mult
     },
+
+    softcap() {return new Decimal("e1.4e1145")},
+    softcapPower: 0,
 
     layerShown() { return hasAchievement('achievements', 94) },          // Returns a bool for if this layer's node should be visible in the tree.
 
@@ -4845,7 +5156,16 @@ addLayer("super_hammer", {
         "main-display",
         "prestige-button",
         ["display-text", () => `Your have ` +format(player.super_leaf.points) + ` Super Leaves`],
+        ["display-text", () => `Your best amount of Super Hammer is ` +format(player.super_hammer.best)],
         ["display-text", () => `Reset for Super Hammers gain's formula is 1e2039000·1e100^x`],
+        ["display-text",  function () {
+            if (player.super_hammer.points.gte('e1.4e1145'))
+            return "Super Hammer hardcap is at " + format('e1.4e1145')
+        }],
+        ["display-text",  function () {
+            if (player.super_hammer.points.gte('e8.1e1919'))
+            return "Some multipliers can pass the hardcap, multipliers after the hardcap is disabled while your Super Hammer is over " + format('e8.1e1919')
+        }],
         ["microtabs", "stuff"],
         ["blank", "65px"],
     ],
@@ -4906,13 +5226,13 @@ addLayer("master_sword", {
         links_bow: new Decimal(0),          //林克弓
         ranged_kills: new Decimal(0),       //远程击杀数
         ranged_kills_mult: new Decimal(1),  //远程击杀动态倍数
-        array: new Decimal(0),              //箭
+        arrow: new Decimal(0),              //箭
         container_of_heart: new Decimal(0), //心之容器
         container_of_energy: new Decimal(0), //精力容器
         container_total: new Decimal(0),    //容器总数
         container_assignable: new Decimal(0),    //容器可分配数
         rupee: new Decimal(0),              //卢比
-        array_status: new Decimal(0),        //箭的消耗状态
+        arrow_status: new Decimal(0),        //箭的消耗状态
     }},
 
     color: "#2730B8",                       // The color for this layer, which affects many elements.
@@ -5210,8 +5530,8 @@ addLayer("master_sword", {
             },
         },
         62: {
-            title: "Use the arrays",
-            description: "Auto craft arrays per second (Based on Master Sword).",
+            title: "Use the arrows",
+            description: "Auto craft arrows per second (Based on Master Sword).",
             currencyDisplayName: "Link's Bows",
             currencyInternalName: "links_bow",
             currencyLayer: "master_sword",
@@ -5220,19 +5540,19 @@ addLayer("master_sword", {
             effect() {
                 let Arrmult = new Decimal(1)
                 Arrmult = Arrmult.times(player.master_sword.points)
-                if (player.master_sword.array_status.gte(0.5)) Arrmult = new Decimal(0)
+                if (player.master_sword.arrow_status.gte(0.5)) Arrmult = new Decimal(0)
                 return Arrmult
             },
             effectDisplay() { 
                 let main = format(upgradeEffect(this.layer, this.id)) + "/sec"
-                if (player.master_sword.array_status.gte(0.5)) main = main + "<br>('Snipe' current active)"
+                if (player.master_sword.arrow_status.gte(0.5)) main = main + "<br>('Snipe' current active)"
                 return main},
         },
         63: {
             title: "Ranged attack!",
-            description: "Unlock a button that can spend arrays to get boost for Link's Bow.",
-            currencyDisplayName: "Arrays",
-            currencyInternalName: "array",
+            description: "Unlock a button that can spend arrows to get boost for Link's Bow.",
+            currencyDisplayName: "arrows",
+            currencyInternalName: "arrow",
             currencyLayer: "master_sword",
             cost: new Decimal(1000),
             unlocked() {return hasUpgrade('master_sword', 62)},
@@ -5242,7 +5562,7 @@ addLayer("master_sword", {
         },
         64: {
             title: "Up, middle, down",
-            description: "Unlock a buyable for arrays.",
+            description: "Unlock a buyable for arrows.",
             currencyDisplayName: "Ranged Kills",
             currencyInternalName: "ranged_kills",
             currencyLayer: "master_sword",
@@ -5250,7 +5570,7 @@ addLayer("master_sword", {
             unlocked() {return hasUpgrade('master_sword', 63)},
         },
         65: {
-            title: "Element arrays",
+            title: "Element arrows",
             description: "Increase 'Meckakoopa' Cleared Courses base to ^1e-7.",
             cost: new Decimal(29),
             unlocked() {return hasUpgrade('master_sword', 64)},
@@ -5314,7 +5634,7 @@ addLayer("master_sword", {
             cost: new Decimal(237),
             unlocked() {return hasUpgrade('master_sword', 81)},
             effect() {
-                return player.master_sword.array
+                return player.master_sword.arrow
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "/sec"},
         },
@@ -5705,17 +6025,17 @@ addLayer("master_sword", {
             title: "Snipe",
             display() {
                 let ArDivpsec = new Decimal(1.1)
-                return "Pause gaining arrays, start to divide Arrays by " + format(ArDivpsec) + " per second.<br>If your Arrays are decreased to 1, resume gaining arrays, stop dividing Arrays.<br>You'll gain Ranged Kills when this button activated."},
+                return "Pause gaining arrows, start to divide arrows by " + format(ArDivpsec) + " per second.<br>If your arrows are decreased to 1, resume gaining arrows, stop dividing arrows.<br>You'll gain Ranged Kills when this button activated."},
             canClick() {
                 if (hasUpgrade("master_sword", 82)) return false
-                else if (player.master_sword.array.gte(1) && player.master_sword.array_status.lte(0.5))
+                else if (player.master_sword.arrow.gte(1) && player.master_sword.arrow_status.lte(0.5))
                 return true},
             onClick() {
-                return player.master_sword.array_status = new Decimal(1)
+                return player.master_sword.arrow_status = new Decimal(1)
             },
             unlocked() {return hasUpgrade('master_sword', 63)},
             effect() {
-            if (player.master_sword.array.lte(1)) player.master_sword.array_status = new Decimal(0)
+            if (player.master_sword.arrow.lte(1)) player.master_sword.arrow_status = new Decimal(0)
             },
         },
     },
@@ -5804,11 +6124,11 @@ addLayer("master_sword", {
             unlocked() {return hasUpgrade('master_sword', 52)}
         },
         21: {
-            title: "Array rain",
+            title: "Arrow rain",
             cost(x) { return new Decimal(5).pow(x.pow(1.4)).times(1e33) },
             display() { 
                 let MSB4base = new Decimal(3.1415926535)
-                return` Multiply Array by ${format(MSB4base)}(π) per every level. <br>
+                return` Multiply arrow gain by ${format(MSB4base)}(π) per every level. <br>
                 Effect: ${format(this.effect())}x <br>
                 Level: ${format(player[this.layer].buyables[this.id])}<br>
                 Cost: ${format(this.cost())} Rupee`
@@ -5887,19 +6207,19 @@ addLayer("master_sword", {
         if (hasUpgrade('master_sword', 55) && player.master_sword.links_bomb_random == 5 || hasMilestone('usa_mushroom', 0)) player.master_sword.hyrule_shield = player.master_sword.hyrule_shield.add(HSmult.times(0.5))
         let Armult = upgradeEffect('master_sword', 62).times(0.05)
         if (hasUpgrade('master_sword', 64)) Armult = Armult.times(buyableEffect('master_sword', 21))
-        if (hasUpgrade('master_sword', 62)) player.master_sword.array = player.master_sword.array.add(Armult)  
+        if (hasUpgrade('master_sword', 62)) player.master_sword.arrow = player.master_sword.arrow.add(Armult)  
         let multRK = new Decimal(1)
         multRK = multRK.times(1.1)
         if (hasUpgrade('master_sword', 71)) multRK = multRK.pow(20)
         if (hasUpgrade('master_sword', 74)) multRK = multRK.pow(5)
-        if (player.master_sword.array_status.gte(0.5)) player.master_sword.ranged_kills_mult = player.master_sword.ranged_kills_mult.times(multRK.root(20))
-        if (player.master_sword.array_status.gte(0.5)) player.master_sword.ranged_kills = player.master_sword.ranged_kills.add(player.master_sword.ranged_kills_mult.times(0.05))
-        if (player.master_sword.array_status.gte(0.5)) player.master_sword.array = player.master_sword.array.div(multRK.root(20))
-        if (player.master_sword.array_status.lte(0.5)) player.master_sword.ranged_kills_mult = new Decimal(1)
+        if (player.master_sword.arrow_status.gte(0.5)) player.master_sword.ranged_kills_mult = player.master_sword.ranged_kills_mult.times(multRK.root(20))
+        if (player.master_sword.arrow_status.gte(0.5)) player.master_sword.ranged_kills = player.master_sword.ranged_kills.add(player.master_sword.ranged_kills_mult.times(0.05))
+        if (player.master_sword.arrow_status.gte(0.5)) player.master_sword.arrow = player.master_sword.arrow.div(multRK.root(20))
+        if (player.master_sword.arrow_status.lte(0.5)) player.master_sword.ranged_kills_mult = new Decimal(1)
         if (hasUpgrade('master_sword', 72)) player.master_sword.container_of_heart = player.master_sword.buyables[31]
         if (hasUpgrade('master_sword', 72)) player.master_sword.container_total = player.master_sword.container_of_heart.add(player.master_sword.container_of_energy)
         if (hasUpgrade('master_sword', 73)) player.master_sword.container_of_energy = player.master_sword.buyables[32]
-        if (hasUpgrade('master_sword', 82) || hasMilestone('power_balloon', 2))player.master_sword.ranged_kills = player.master_sword.ranged_kills.add(player.master_sword.array.times(0.05))
+        if (hasUpgrade('master_sword', 82) || hasMilestone('power_balloon', 2))player.master_sword.ranged_kills = player.master_sword.ranged_kills.add(player.master_sword.arrow.times(0.05))
         let DE = new Decimal(1)
         if (hasUpgrade('master_sword', 31)) DE = DE.times(upgradeEffect('master_sword', 31))
         if (hasUpgrade('master_sword', 23)) DE = DE.pow(2)
@@ -5925,6 +6245,7 @@ addLayer("master_sword", {
     tabFormat: [
         "main-display",
         "prestige-button",
+        ["display-text", () => `You have ` +format(player.super_bell.points) + ` Super Bells`],
         ["display-text", () => "Your best amount of Master Sword is " + format(player.master_sword.best)],
         ["microtabs", "stuff"],
         ["blank", "65px"],
@@ -5991,7 +6312,7 @@ addLayer("master_sword", {
                         return "You have <h2 style='color: #2730b8; text-shadow: 0 0 10px #2730b8'>" + format(player.master_sword.links_bow) + "</h2> Link's Bows, increase 'Box accelerator' base by <h2 style='color: #2730b8; text-shadow: 0 0 10px #2730b8'>+" + format(upgradeEffect('master_sword', 61) + "</h2>")
                     }],
                     ["display-text", function() {
-                        return "You have <h2 style='color: #42b2fa; text-shadow: 0 0 10px #42b2fa'>" + format(player.master_sword.array) + "</h2> Arrays"
+                        return "You have <h2 style='color: #42b2fa; text-shadow: 0 0 10px #42b2fa'>" + format(player.master_sword.arrow) + "</h2> arrows"
                     }],
                     ["display-text", function() {
                         return "You have <h2 style='color: #2730b8; text-shadow: 0 0 10px #2730b8'>" + format(player.master_sword.ranged_kills) + "</h2> Ranged Kills, multiply Link's Bow gain by <h2 style='color: #2730b8; text-shadow: 0 0 10px #2730b8'>" + format(upgradeEffect('master_sword', 63)) + "x</h2>"
@@ -6494,6 +6815,7 @@ addLayer("usa_mushroom", {
         "main-display",
         "prestige-button",
         ["display-text", () => `You have ` +format(player.super_hammer.points) + ` Super Hammers`],
+        ["display-text", () => `Your best amount of SMB2 Mushroom is ` +format(player.usa_mushroom.best)],
         ["microtabs", "stuff"],
         ["blank", "65px"],
     ],
@@ -6991,6 +7313,7 @@ addLayer("frog_suit", {
         "main-display",
         "prestige-button",
         ["display-text", () => `You have ` +format(player.invincible_star.points) + ` Invincible Stars`],
+        ["display-text", () => `Your best amount of Frog Suit is ` +format(player.frog_suit.best)],
         ["microtabs", "stuff"],
         ["blank", "65px"],
     ],
@@ -7980,6 +8303,12 @@ addLayer("boomerang_flower", {
 
     layerShown() { return hasAchievement('achievements', 125) },          // Returns a bool for if this layer's node should be visible in the tree.
 
+    doReset(resettingLayer) {
+        if (layers[resettingLayer].row > layers[this.layer].row) {
+        layerDataReset(this.layer, kept)
+        }
+    },
+
     hotkeys: [
         {key: "x", description: "X: Reset for Boomerang Flowers", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
@@ -8137,6 +8466,7 @@ addLayer("boomerang_flower", {
             goalDescription() {return "Get "+format("e5e148")+" Cleared Courses. Then ^1e10 per each completion."},
             completionLimit() {
                 let FBCCL = new Decimal(10)
+                if (hasUpgrade('toad', 32)) FBCCL = FBCCL.add(upgradeEffect('toad', 32))
                 return FBCCL},
             canComplete: function() {
                 let FBC1C = player[this.layer].challenges[11]
@@ -8146,15 +8476,16 @@ addLayer("boomerang_flower", {
                 if (hasUpgrade('luigi', 23)) base = new Decimal(10)
                 return "Delay Luigi's effect hardcap by "+format(base)+"x per each completion."},
             rewardEffect() {
-                let base = new Decimal(2)
+                let base = new Decimal(2)             
                 if (hasUpgrade('luigi', 23)) base = new Decimal(10)
+                if (hasUpgrade('toad', 33)) base = base.pow(2)
                 let FBC1C = player[this.layer].challenges[11]
                 return Decimal.pow(base, new Decimal (FBC1C))
             },
             rewardDisplay() { let FBC1C = player[this.layer].challenges[11]
                 return format(challengeEffect(this.layer, this.id))+"x<br>Completions: "
-                + format(FBC1C)
-                + "/10<br>Current Goal: "
+                + formatWhole(FBC1C)
+                + "/"+formatWhole(completionLimit('boomerang_flower', 11))+"<br>Current Goal: "
                 + format(new Decimal("e5e148").pow(new Decimal(1e10).pow(new Decimal(FBC1C)).max(1)))
             },
             unlocked() {return hasUpgrade('luigi', 22)},
@@ -8243,6 +8574,8 @@ addLayer("boomerang_flower", {
         if (hasUpgrade('super_acorn', 103)) multB = multB.times(upgradeEffect('boomerang_flower', 34))
         if (hasUpgrade('boomerang_flower', 22)) player.boomerang_flower.boomerang_persec = multB
         if (hasUpgrade('boomerang_flower', 22)) player.boomerang_flower.boomerang = player.boomerang_flower.boomerang.add(multB.times(tick))
+    
+        if (hasMilestone('mario', 6)) player.boomerang_flower.challenges[11] = completionLimit('boomerang_flower', 11).toNumber()
     },
     tabFormat: [
         "main-display",
@@ -8309,14 +8642,17 @@ addLayer("mario", {
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         c_re: new Decimal(0),
         c_re_hardcap: new Decimal("1e1000"),
+        c_re_capSecond: new Decimal("1e400000"),
+        c_re_capThird: new Decimal("1e6000003"),
         c_re_psec: new Decimal(0),
         c_im: new Decimal(0),
+        c_lock: false,
         iMcap: new Decimal(0),
     }},
 
     color: "#FF0018",                       // The color for this layer, which affects many elements.
     resource: "Mario",            // The name of this layer's main prestige resource.
-    row: 0,                                 // The row this layer is on (0 is the first row).
+    row: 8,                                 // The row this layer is on (0 is the first row).
     displayRow: 8,
     position: 0,
     symbol: "M",
@@ -8378,19 +8714,15 @@ addLayer("mario", {
 
     layerShown() { return hasAchievement('achievements', 135) },          // Returns a bool for if this layer's node should be visible in the tree.
 
+    autoUpgrade() {return hasMilestone('toad', 2)},
     doReset(resettingLayer) {
-        if (player.points.gte(0)) {
+        if (layers[resettingLayer].row > layers[this.layer].row) {
             let kept = ["unlocked", "auto"]
-            kept.push("milestones")
-            kept.push("upgrades")
-            kept.push("buyables")
-            kept.push("challenges")
-            kept.push("points")
-            kept.push("best")
-            kept.push("total")
-            kept.push("c_re")
-            kept.push("c_re_psec")
-            kept.push("c_im")
+            if (hasMilestone('toad', 0)) {
+                kept.push("milestones")
+                kept.push("c_lock")}
+                if (hasMilestone('toadette', 3)) {
+                    kept.push("upgrades")}
         layerDataReset(this.layer, kept)
         }
     },
@@ -8601,13 +8933,18 @@ milestones: {
         effectDescription: "Mario resets nothing and autobuy Mario.",
         done() { return player.mario.points.gte(1000) },
     },
+    6: {
+        requirementDescription: "Mario cleared 1e10,000,000 courses",
+        effectDescription: "'Piranha' completion are always maxed.",
+        done() { return player.mario.c_re.gte("1e10000000") },
+    },
 },
 buyables: {
     11: {
         title: "Yodaka jumping",
         cost(x) { return new Decimal(10).pow(Decimal.pow(x, 1.1)).times(10) },
         display() { let MB1base = new Decimal(0.25)
-            if (hasUpgrade(this.layer, 31)) MB1base = MB1base.add(clickableEffect(this.layer, 12))
+            if (hasUpgrade(this.layer, 31) && player.cape_feather.ce.lt(1) || hasUpgrade('toad', 14)) MB1base = MB1base.add(clickableEffect(this.layer, 12))
             if (hasUpgrade('luigi', 25)) MB1base = MB1base.times(2)
             let display = ` Increase Mario booster 1 base by +${format(MB1base)} per every level. <br>
             Effect: +${format(this.effect())} <br>
@@ -8615,24 +8952,29 @@ buyables: {
             Cost: ${format(this.cost())} Mario's cleared courses`
             return display}, 
         canAfford() { return player[this.layer].c_re.gte(this.cost()) },
+        buyMax() { return setBuyableAmount(this.layer, this.id, player[this.layer].c_re.div(10).max(10).log(10).root(1.1).floor().add(1))},
         buy() {
             let bulk = new Decimal(1)
             if (hasUpgrade('luigi', 32)) bulk = new Decimal(10)
+            if (hasMilestone('toad', 1)) bulk = new Decimal(50)
             player[this.layer].c_re = player[this.layer].c_re.sub(this.cost())
             setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(bulk))
+            if (this.canBuyMax()) this.buyMax()
         },
         effect(x) {
             let MB1base = new Decimal(0.25)
-            if (hasUpgrade(this.layer, 31)) MB1base = MB1base.add(clickableEffect(this.layer, 12))
+            if (hasUpgrade(this.layer, 31) && player.cape_feather.ce.lt(1) || hasUpgrade('toad', 14)) MB1base = MB1base.add(clickableEffect(this.layer, 12))
             if (hasUpgrade('luigi', 25)) MB1base = MB1base.times(2)
             effect = MB1base.times(x).max(0)
             return effect},
         unlocked() {return hasUpgrade('mario', 23)},
+        canBuyMax() {return hasMilestone('toad', 4)},
     },
     12: {
         title: "Nedaka jumping",
         cost(x) { return new Decimal(10).pow(Decimal.pow(1.2, x)).times(1e24) },
         display() { let MB2base = new Decimal(0.018)
+            if (hasUpgrade("toad", 11)) MB2base = MB2base.add(upgradeEffect("toad", 11))
             if (hasUpgrade(this.layer, 42)) MB2base = MB2base.times(1.5)
             let display = ` Increase Mario booster 1 base by +${format(MB2base)} per every level before level 5, and ${format(MB2base)}·((x-5)^0.2+10) after level 5.<br>
             Effect: +${format(this.effect())} <br>
@@ -8640,17 +8982,21 @@ buyables: {
             Cost: ${format(this.cost())} Mario's cleared courses`
             return display}, 
         canAfford() { return player[this.layer].c_re.gte(this.cost()) },
+        buyMax() { return setBuyableAmount(this.layer, this.id, player[this.layer].c_re.div(1e24).max(10).log(10).max(1.2).log(1.2).floor().add(1))},
         buy() {
             player[this.layer].c_re = player[this.layer].c_re.sub(this.cost())
             setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            if (this.canBuyMax()) this.buyMax()
         },
         effect(x) {
             let MB2base = new Decimal(0.018)
+            if (hasUpgrade("toad", 11)) MB2base = MB2base.add(upgradeEffect("toad", 11))
             if (hasUpgrade(this.layer, 42)) MB2base = MB2base.times(1.5)
             effect = MB2base.times(x).max(0)
             if (x.gte(5)) effect = MB2base.times(x.sub(5).root(5).add(10)).max(0)
             return effect},
         unlocked() {return hasUpgrade('mario', 34)},
+        canBuyMax() {return hasMilestone('toad', 4)},
     },
     13: {
         title: "Ika jumping",
@@ -8663,9 +9009,11 @@ buyables: {
             Cost: ${format(this.cost())} imaginary Mario's cleared courses`
             return display}, 
         canAfford() { return player[this.layer].c_im.gte(this.cost()) },
+        buyMax() { return setBuyableAmount(this.layer, this.id, player[this.layer].c_im.max(10).log(10).root(1.05).floor().add(2))},
         buy() {
             player[this.layer].c_im = player[this.layer].c_im.sub(this.cost())
             setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            if (this.canBuyMax()) this.buyMax()
         },
         effect(x) {
             let MB3base = new Decimal(1e100)
@@ -8673,6 +9021,7 @@ buyables: {
             effect = MB3base.pow(x).max(1)
             return effect},
         unlocked() {return hasUpgrade('mario', 44)},
+        canBuyMax() {return hasMilestone('toad', 4)},
     },
 },
 clickables: {
@@ -8682,7 +9031,7 @@ clickables: {
             MM1a = new Decimal(2.35)
             if (hasUpgrade('mario', 23)) MM1a = MM1a.add(buyableEffect('mario', 11))
             dis = "Power Mario's clearing courses speed by ^" + format(MM1a) +".<br>Effect condition: Have 0 Pink Key Coins."
-            if (player.coin.pink_key_coin.lt(1)) dis = dis + "<br>Activated!"
+            if (player.coin.pink_key_coin.lt(1) || hasUpgrade('toad', 14)) dis = dis + "<br>Activated!"
             return dis
             },
         tooltip: "Hint: Enter a challenge that disables PKC gain",
@@ -8704,7 +9053,7 @@ clickables: {
             MM2a = new Decimal(0.1)
             if (hasUpgrade('mario', 34)) MM2a = MM2a.add(buyableEffect('mario', 12))
             dis = "Increase 'Yodaka jumping' base by +" + format(MM2a) +".<br>Effect condition: Have 0 Cape Essence."
-            if (player.cape_feather.ce.lt(1)) dis = dis + "<br>Activated!"
+            if (player.cape_feather.ce.lt(1) || hasUpgrade('toad', 14)) dis = dis + "<br>Activated!"
             return dis
             },
         tooltip: "Hint: Enter a challenge that disables CE gain",
@@ -8726,7 +9075,7 @@ clickables: {
             MM3a = new Decimal(1)
             if (hasUpgrade('mario', 44)) MM3a = MM3a.times(buyableEffect('mario', 13))
             dis = "Multiply Mario cleared courses by " + format(MM3a) + " every level.<br>Effect condition: 0 FS swimming click counts."
-            if (player.frog_suit.swim_calculations.lt(1)) dis = dis + "<br>Activated!"
+            if (player.frog_suit.swim_calculations.lt(1) || hasUpgrade('toad', 14)) dis = dis + "<br>Activated!"
             return dis
             },
         tooltip: "Hint: Run out FS click counts",
@@ -8752,20 +9101,42 @@ clickables: {
         player.mario.iMcap = iMcap
         rMcap = new Decimal("1e1000")
         rMcapPow = new Decimal(1/3)
-        if (player.coin.pink_key_coin.lt(1)) Mmult = Mmult.pow(clickableEffect('mario', 11))
+        if (player.coin.pink_key_coin.lt(1) || hasUpgrade('toad', 14)) Mmult = Mmult.pow(clickableEffect('mario', 11))
+        if (hasMilestone('easy', 0)) Mmult = Mmult.times(20)
         if (hasUpgrade('mario', 24)) Mmult = Mmult.pow(upgradeEffect('frog_suit', 34))
-        if (hasUpgrade('mario', 44) && player.frog_suit.swim_calculations.lt(1)) player.mario.c_re_hardcap = rMcap.times(clickableEffect('mario', 13))
+        if (hasUpgrade('mario', 44) && player.frog_suit.swim_calculations.lt(1) || hasUpgrade('toad', 14)) player.mario.c_re_hardcap = rMcap.times(clickableEffect('mario', 13))
         else player.mario.c_re_hardcap = new Decimal("1e1000")
+        if (hasMilestone('toad', 0)) Mmult = Mmult.times(1e10)
         player.mario.c_re_psec = Mmult
-        if (hasUpgrade('mario', 15) && player.mario.c_re.lt(player.mario.c_re_hardcap)) player.mario.c_re = player.mario.c_re.add(Mmult.times(tick))
+        if (hasUpgrade('mario', 15) && player.mario.c_re.lt(player.mario.c_re_hardcap) && player.mario.c_lock == false) player.mario.c_re = player.mario.c_re.add(Mmult.times(tick))
         if (player.mario.c_re.gte(player.mario.c_re_hardcap) && (hasUpgrade('luigi', 14) == false)) player.mario.c_re = player.mario.c_re_hardcap
         MmultCapped = Mmult.div(player.mario.c_re_hardcap).pow(rMcapPow).times(player.mario.c_re_hardcap).max(1)
-        if (player.mario.c_re.gte(player.mario.c_re_hardcap) && hasUpgrade('luigi', 14)) player.mario.c_re = player.mario.c_re.add(MmultCapped.times(tick))
+        rMcap2 = new Decimal("e400000")
+        if (hasUpgrade('toad', 35)) rMcap2 = rMcap2.times("1e100000")
+        rMcap3 = new Decimal("e6000003")
+        if (hasUpgrade('toadette', 15)) rMcap2 = rMcap2.times(buyableEffect('toad', 103))
+        if (player.mario.c_re.gte(player.mario.c_re_psec.times(100000))) player.mario.c_re = player.mario.c_re_psec.times(100000)
+        player.mario.c_re_capSecond = rMcap2
+        player.mario.c_re_capThird = rMcap3
+        if (player.mario.c_re.gte("e6000003")) player.mario.c_lock = true
+        // if (player.mario.c_re.gte(rMcap2)) MmultCapped = MmultCapped.div(rMcap2).root(100).times(rMcap2) 以后生效
+        if (player.mario.c_re.gte(rMcap2) && hasUpgrade('toadette', 14)) MmultCapped = MmultCapped.div(rMcap2).root(3).times(rMcap2)
+        if (player.mario.c_re.gte(rMcap2) && hasUpgrade('toadette', 14)==false) player.mario.c_re = rMcap2    
+        if (player.mario.c_lock && hasUpgrade('toad', 65) == false) player.mario.c_re = rMcap3
+        if (hasUpgrade('toad', 65)) MmultCapped = MmultCapped.div("1e6000003").max(10).log(10).pow(10000000).times("1e6000003")
+        if (player.mario.c_re.gte(player.mario.c_re_hardcap) && hasUpgrade('luigi', 14) && player.mario.c_lock == false || hasUpgrade('toad', 65)) player.mario.c_re = player.mario.c_re.add(MmultCapped.times(tick))
         if (player.mario.c_re.gte(player.mario.c_re_hardcap) && hasUpgrade('luigi', 14)) player.mario.c_re_psec = MmultCapped
+
         iMhalftime = new Decimal(60)
         if (hasUpgrade('luigi', 11)) iMhalftime = iMhalftime.div(3)
         if (hasUpgrade('mario', 43)) player.mario.c_im = player.mario.c_im.add((iMcap.sub(player.mario.c_im).div(2)).div(iMhalftime.div(tick))).max(0)
         if (hasUpgrade('mario', 44)) player.mario.c_re_hardcap = player.mario.c_re_hardcap
+        //automate
+        if (hasMilestone('toadette', 0) && player.mario.c_re.gte(buyableCost(this.layer, 11))) setBuyableAmount(this.layer, 11, player[this.layer].c_re.div(10).max(10).log(10).root(1.1).floor().add(1))
+        if (hasMilestone('toadette', 0) && player.mario.c_re.gte(buyableCost(this.layer, 12))) setBuyableAmount(this.layer, 12, player[this.layer].c_re.div(1e24).max(10).log(10).max(1.2).log(1.2).floor().add(1))
+        if (hasMilestone('toadette', 0) && player.mario.c_im.gte(buyableCost(this.layer, 13))) setBuyableAmount(this.layer, 13, player[this.layer].c_im.max(10).log(10).root(1.05).floor().add(2))
+
+
     },
         // Look in the upgrades docs to see what goes here!
     tabFormat: [
@@ -8803,11 +9174,19 @@ clickables: {
                         dis = "Mario cleared <h2 style='color: #ff0018; text-shadow: 0 0 10px #ff0018'>" + format(player.mario.c_re) +" </h2> courses (+" +format(player.mario.c_re_psec) +"/sec)"
                         if (player.mario.c_re.gte(player.mario.c_re_hardcap)) dis = dis + " (hardcapped)"
                         if (hasUpgrade(this.layer, 43)) dis = "Mario cleared <h2 style='color: #ff0018; text-shadow: 0 0 10px #ff0018'>" + format(player.mario.c_re) +" + "+format(player.mario.c_im)+"i </h2> courses (+" +format(player.mario.c_re_psec) +"/sec)"
-                        if (hasUpgrade(this.layer, 43) && player.mario.c_re.gte(player.mario.c_re_hardcap)) dis = dis + " (real side hardcapped)"
+                        if (hasUpgrade(this.layer, 43) && player.mario.c_re.gte(player.mario.c_re_hardcap) && player.mario.c_re.gte(player.mario.c_re_capSecond) == false) dis = dis + " (real side hardcapped)"
+                        if (player.mario.c_re.gte(player.mario.c_re_capSecond) && player.mario.c_re.gte(player.mario.c_re_capThird) == false) dis = dis + " (real side hardcapped^2)"
+                        if (player.mario.c_re.gte(player.mario.c_re_capThird)) dis = dis + " (real side hardcapped^3)"
                         return dis
                     }],
                     ["display-text", function() {
                         if (player.mario.c_re.gte("1e1000")) return "Mario cleared courses have a hardcap of <h2 style='color: #ff0018; text-shadow: 0 0 10px #ff0018'>" +format(player.mario.c_re_hardcap) +"</h2>"
+                    }],
+                    ["display-text", function() {
+                        if (player.mario.c_re.gte("1e400000")) return "Mario cleared courses have a hardcap^2 of <h2 style='color: #ff0018; text-shadow: 0 0 10px #ff0018'>" +format(player.mario.c_re_capSecond) +"</h2>"
+                    }],
+                    ["display-text", function() {
+                        if (player.mario.c_re.gte("1e6000003")) return "Mario cleared courses have a hardcap^3 of <h2 style='color: #ff0018; text-shadow: 0 0 10px #ff0018'>" +format(player.mario.c_re_capThird) +"</h2>"
                     }],
                     ["display-text", function() {
                         if (hasUpgrade(this.layer, 43)) return "Imaginary Mario cleared courses' hardcap is based on Cleared Courses. Now that's at <h2 style='color: #ff0018; text-shadow: 0 0 10px #ff0018'>" +format(player.mario.iMcap) +"i</h2>"
@@ -8831,11 +9210,12 @@ addLayer("luigi", {
         c: new Decimal(0),
         c_psec: new Decimal(0),
         cheesed: new Decimal(0),
+        ch_psec: new Decimal(0),
     }},
 
     color: "#5CB73D",                       // The color for this layer, which affects many elements.
     resource: "Luigi",            // The name of this layer's main prestige resource.
-    row: 0,                                 // The row this layer is on (0 is the first row).
+    row: 8,                                 // The row this layer is on (0 is the first row).
     displayRow: 8,
     position: 1,
     branches: ['mario'],
@@ -8880,27 +9260,22 @@ addLayer("luigi", {
 
     canBuyMax() {return hasMilestone(this.layer, 1)},
 
-    doReset(resettingLayer) {
-        if (player.points.gte(0)) {
-            let kept = ["unlocked", "auto"]
-            kept.push("milestones")
-            kept.push("upgrades")
-            kept.push("buyables")
-            kept.push("challenges")
-            kept.push("points")
-            kept.push("best")
-            kept.push("total")
-            kept.push("c")
-            kept.push("c_psec")
-            kept.push("cheesed")
-        layerDataReset(this.layer, kept)
-        }
-    },
 
     resetsNothing(){return hasMilestone(this.layer, 2)},
     autoPrestige(){return hasMilestone(this.layer, 2)},
-
+    autoUpgrade() {return hasMilestone('toad', 3)},
     layerShown() { return hasAchievement('achievements', 143) },          // Returns a bool for if this layer's node should be visible in the tree.
+
+    doReset(resettingLayer) {
+        if (layers[resettingLayer].row > layers[this.layer].row) {
+            let kept = ["unlocked", "auto"]
+            if (hasMilestone('toad', 1)) {
+                kept.push("milestones")}
+                if (hasMilestone('toadette', 3)) {
+                    kept.push("upgrades")}
+        layerDataReset(this.layer, kept)
+        }
+    },
 
     hotkeys: [
         {key: "L", description: "Shift+L: Reset for Luigi", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
@@ -8997,6 +9372,33 @@ addLayer("luigi", {
             cost: new Decimal(1e9),
             unlocked() {return hasUpgrade(this.layer, 31)},
         },
+        33: {
+            title: "L is for Luigi",
+            description: "25x cheesed Luigi cleared courses gain. ",
+            currencyDisplayName: "cheesed Luigi cleared courses",
+            currencyInternalName: "cheesed",
+            currencyLayer: "luigi",
+            cost: new Decimal(60),
+            unlocked() {return hasUpgrade('toad', 12)},
+        },
+        34: {
+            title: "L is for lucky",
+            description: "Unlock a new buyable for cheesed Luigi cleared courses.",
+            currencyDisplayName: "Mario cleared courses",
+            currencyInternalName: "c_re",
+            currencyLayer: "mario",
+            cost: new Decimal("1e30003"),
+            unlocked() {return hasUpgrade(this.layer, 33)},
+        },
+        35: {
+            title: "A vacuum cleaner",
+            description: "Unlock a new buyable for Luigi cleared courses.",
+            currencyDisplayName: "cheesed Luigi cleared courses",
+            currencyInternalName: "cheesed",
+            currencyLayer: "luigi",
+            cost: new Decimal(50000),
+            unlocked() {return hasUpgrade(this.layer, 34)},
+        },
         // Look in the upgrades docs to see what goes here!
     },
     milestones: {
@@ -9036,6 +9438,7 @@ addLayer("luigi", {
                 player[this.layer].c = player[this.layer].c.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
+            buyMax() { return setBuyableAmount(this.layer, this.id, player[this.layer].c.max(10).log(10).root(1.35).floor().add(1))},
             effect(x) {
                 let LB1base = new Decimal(12)
                 effect = LB1base.pow(x).max(1)
@@ -9045,14 +9448,82 @@ addLayer("luigi", {
                 if (player[this.layer].c.gte(this.cost())) 
                 return {"background":"linear-gradient(45deg, #5cb73d, #8cd46e)"}
             },
+            canAuto() {return hasMilestone('toadette', 1)},
+        },
+        12: {
+            title: "Icoda jumping",
+            cost(x) { return new Decimal(10).pow(Decimal.pow(x, 1.4)) },
+            display() { let LB2base = new Decimal(1.25)
+                let display = ` Multiply cheesed Luigi clearing courses speed by ${format(LB2base)} per every level. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Luigi's cleared courses`
+                return display}, 
+            canAfford() { return player[this.layer].c.gte(this.cost()) },
+            buy() {
+                player[this.layer].c = player[this.layer].c.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            buyMax() { return setBuyableAmount(this.layer, this.id, player[this.layer].c.max(10).log(10).root(1.4).floor().add(1))},
+            effect(x) {
+                let LB2base = new Decimal(1.25)
+                effect = LB2base.pow(x).max(1)
+                return effect},
+            unlocked() {return hasUpgrade('luigi', 34)},
+            style() {
+                if (player[this.layer].c.gte(this.cost())) 
+                return {"background":"linear-gradient(45deg, #5cb73d, #8cd46e)"}
+            },
+            canAuto() {return hasMilestone('toadette', 1)},
+        },
+        13: {
+            title: "Ictra jumping",
+            cost(x) { return new Decimal(5).pow(Decimal.pow(x, 1.2)) },
+            display() { let LB3base = new Decimal(8)
+                let display = ` Multiply Luigi clearing courses speed by ${format(LB3base)} per every level. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} cheesed Luigi's cleared courses`
+                return display}, 
+            canAfford() { return player[this.layer].cheesed.gte(this.cost()) },
+            buy() {
+                player[this.layer].cheesed = player[this.layer].cheesed.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            buyMax() { return setBuyableAmount(this.layer, this.id, player[this.layer].cheesed.max(5).log(5).root(1.2).floor().add(1))},
+            effect(x) {
+                let LB3base = new Decimal(8)
+                effect = LB3base.pow(x).max(1)
+                return effect},
+            unlocked() {return hasUpgrade('luigi', 35)},
+            style() {
+                if (player[this.layer].cheesed.gte(this.cost())) 
+                return {"background":"linear-gradient(45deg, #5cb73d, #8cd46e)"}
+            },
+            canAuto() {return hasMilestone('toadette', 1)},
         },
     },
     update(L) {
         tick = new Decimal(0.05)
         Lcmult = player[this.layer].points
         if (hasUpgrade(this.layer, 15)) Lcmult = Lcmult.times(buyableEffect(this.layer, 11))
+        if (hasUpgrade(this.layer, 35)) Lcmult = Lcmult.times(buyableEffect(this.layer, 13))
+        if (player.toad.level.gte(11)) Lcmult = Lcmult.times(player.toad.level_rew[2])
         player[this.layer].c_psec = Lcmult
         if (hasUpgrade(this.layer, 12)) player[this.layer].c = player[this.layer].c.add(Lcmult.times(tick))
+        Lchmult = new Decimal(1)
+        if (hasUpgrade(this.layer, 33)) Lchmult = Lchmult.times(25)
+        if (hasUpgrade(this.layer, 34)) Lchmult = Lchmult.times(buyableEffect(this.layer, 12))
+        if (hasUpgrade('toad', 14)) Lchmult = Lchmult.times(100)
+        if (player.toad.level.gte(6)) Lchmult = Lchmult.times(100)
+        if (player.toad.level.gte(11)) Lchmult = Lchmult.times(player.toad.level_rew[2])
+        if (hasMilestone('easy', 0)) Lchmult = Lchmult.times(20)
+        player[this.layer].ch_psec = Lchmult
+        if (hasUpgrade('toad', 11)) player[this.layer].cheesed = player[this.layer].cheesed.add(Lchmult.times(tick))
+
+        if (buyableAuto('luigi', 11) && buyableCanAfford('luigi', 11)) setBuyableAmount(this.layer, 11, player[this.layer].c.max(10).log(10).root(1.35).floor().add(1))
+        if (buyableAuto('luigi', 12) && buyableCanAfford('luigi', 12)) setBuyableAmount(this.layer, 12, player[this.layer].c.max(10).log(10).root(1.4).floor().add(1))
+        if (buyableAuto('luigi', 13) && buyableCanAfford('luigi', 13)) setBuyableAmount(this.layer, 13, player[this.layer].cheesed.max(5).log(5).root(1.2).floor().add(1))
     },
     tabFormat: [
         "main-display",
@@ -9088,6 +9559,11 @@ addLayer("luigi", {
                         dis = "Luigi cleared <h2 style='color: #5cb730; text-shadow: 0 0 10px #5cb730'>" + format(player.luigi.c) +" </h2> courses (+" +format(player.luigi.c_psec) +"/sec)"
                         return dis}
                     ],
+                    ["display-text", function() {
+                        if (hasUpgrade("toad", 11))
+                        return "Luigi cleared <h2 style='color: #5cb730; text-shadow: 0 0 10px #5cb730'>" + format(player.luigi.cheesed) +" </h2> courses by cheesing. (+" +format(player.luigi.ch_psec) +"/sec) Which increasing 'Nedaka jumping' base by <h2 style='color: #5cb730; text-shadow: 0 0 10px #5cb730'>+" + format(upgradeEffect('toad', 11)) +" </h2>"
+                        }
+                    ],
                     "clickables",
                     "buyables",
                 ]                
@@ -9100,48 +9576,89 @@ addLayer("toad", {
     startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+        level: new Decimal(0),
+        tier: new Decimal(0),
+        supertier: [new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0)],
+        level_des: "placeholder",
+        tier_des: "placeholder",
+        supertier_des: ["placeholder","placeholder","placeholder","placeholder","placeholder"],
+        level_rew: [new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0)],
+        tier_rew: [new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0)],
+        supertier_rew: [[new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0)],
+        [new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0)],
+        [new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0)],
+        [new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0)],
+        [new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0)]],
+        awaken_power: new Decimal(0),
     }},
 
     color: "#0047ff",                       // The color for this layer, which affects many elements.
     resource: "Toad",            // The name of this layer's main prestige resource.
     symbol: "To",
     branches: ["mario"],
-    row: 1,                                 // The row this layer is on (0 is the first row).
+    row: 9,                                 // The row this layer is on (0 is the first row).
     displayRow: 9,
     position: 0,
-
     baseResource: "Mario cleared courses",                 // The name of the resource your prestige gain is based on.
     baseAmount() { return player.mario.c_re },  // A function to return the current amount of baseResource.
 
-    requires: new Decimal("10^^10"),              // The amount of the base needed to  gain 1 of the prestige currency.
+    requires: new Decimal("1e21160"),              // The amount of the base needed to  gain 1 of the prestige currency.
     //v0.9改成1e21160
                                             // Also the amount required to unlock the layer.
 
     type: "normal",                         // Determines the formula used for calculating prestige currency.
-    exponent: 0.00075,                          // "normal" prestige gain is (currency^exponent).
+    exponent: 0.00007,                          // "normal" prestige gain is (currency^exponent).
 
     gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
-        return new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        if (player.toad.level.gte(1)) mult = mult.times(player.toad.level_rew[0])
+        if (player.toad.tier.gte(1)) mult = mult.times(buyableEffect(this.layer, 101))
+        if (hasUpgrade(this.layer, 23)) mult = mult.times(upgradeEffect(this.layer, 23))
+        if (hasUpgrade(this.layer, 24)) mult = mult.times(79)
+        if (hasUpgrade(this.layer, 25)) mult = mult.times(2400)
+        if (hasMilestone('toadette', 2)) mult = mult.times(milestoneEffect('toadette', 2))
+        if (hasUpgrade(this.layer, 52)) mult = mult.times(1e30)
+        if (hasUpgrade('toadette', 41)) mult = mult.times(upgradeEffect('toadette', 41))
+        if (hasUpgrade(this.layer, 53)) mult = mult.times(1e50)
+        if (hasUpgrade(this.layer, 54)) mult = mult.times(1e50)
+        if (hasUpgrade(this.layer, 63)) mult = mult.times("1e2000")
+        if (hasUpgrade('normal', 12)) mult = mult.times(upgradeEffect('normal', 12))
+        return mult
     },
     gainExp() {                             // Returns the exponent to your gain of the prestige resource.
         return new Decimal(1)
     },
-
-    doReset(resettingLayer) {
-        if (player.points.gte(0)) {
-            let kept = ["unlocked", "auto"]
-            kept.push("milestones")
-            kept.push("upgrades")
-            kept.push("buyables")
-            kept.push("challenges")
-            kept.push("points")
-            kept.push("best")
-            kept.push("total")
-        layerDataReset(this.layer, kept)
-        }
-    },
+    softcap() {cap = new Decimal(1e37)
+        if (hasUpgrade('toadette', 11)) cap = cap.times(upgradeEffect('toadette', 11))
+        if (hasUpgrade('toad', 51)) cap = cap.times(1e20)
+        if (hasUpgrade('easy', 13)) cap = cap.times(upgradeEffect('easy', 13))
+        return cap},
+    softcapPower() {
+        let power = 0.5
+        if (hasUpgrade('toad', 55)) power = 0.66
+        if (hasUpgrade('toadette', 42)) power = 0.8
+        return power},
 
     layerShown() { return hasAchievement('achievements', 145) },          // Returns a bool for if this layer's node should be visible in the tree.
+
+    passiveGeneration() {return hasUpgrade(this.layer, 21)},
+    
+    doReset(resettingLayer) {
+        if (layers[resettingLayer].row > layers[this.layer].row) {
+            let kept = ["unlocked", "auto"]
+            if (hasMilestone('easy', 0)) {
+                kept.push("milestones")}
+                if (hasMilestone('easy', 5)) {
+                    kept.push("upgrades")}
+                    if (player.toad.supertier[2].gte(1)) {
+                        kept.push("buyables", 11)
+                        kept.push("buyables", 12)
+                        kept.push("buyables", 21)
+                        kept.push("buyables", 22)
+                        kept.push("buyables", 31)}
+            layerDataReset(this.layer, kept)
+        }
+    },  
 
     hotkeys: [
         {key: "t", description: "T: Reset for Toad", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
@@ -9149,18 +9666,712 @@ addLayer("toad", {
 
     upgrades: {
         11: {
-            title: "TBD",
-            description: "coming in v0.9",
-            cost: new Decimal("10^^10"),
+            title: "We are adorable!",
+            description: "Unlock a new resource in Luigi layer.",
+            cost: new Decimal(4),
             unlocked() {return true},
+            effect() {return player.luigi.cheesed.add(10).max(10).log(10).div(1000)}
+        },
+        12: {
+            title: "Thank you! Mario",
+            description: "Unlock 13th Luigi upgrade.",
+            cost: new Decimal(6),
+            unlocked() {return hasUpgrade(this.layer, 11)},
+        },
+        13: {
+            title: "But our princess is in another castle",
+            description: "Unlock a subtab this layer.",
+            currencyDisplayName: "cheesed Luigi cleared courses",
+            currencyInternalName: "cheesed",
+            currencyLayer: "luigi",
+            cost: new Decimal(200000),
+            unlocked() {return hasUpgrade(this.layer, 12)},
+        },
+        14: {
+            title: "Mushroom head",
+            description: "100x cheesed Luigi cleared courses gain.",
+            cost: new Decimal(36),
+            unlocked() {return hasUpgrade(this.layer, 13)},
+        },
+        15: {
+            title: "Welcome to the Mushroom Kingdom!",
+            description: "3 Mario boosters have no conditions.",
+            cost: new Decimal(144),
+            unlocked() {return hasUpgrade(this.layer, 14)},
+        },
+        21: {
+            title: "Red Toad",
+            description: "Passive gain 100% Toad every second.",
+            cost: new Decimal(360),
+            unlocked() {return hasUpgrade(this.layer, 15)},
+        },
+        22: {
+            title: "Yellow Toad",
+            description: "Unlock Toad Tier.",
+            cost: new Decimal(99999),
+            unlocked() {return hasUpgrade(this.layer, 21)},
+        },
+        23: {
+            title: "Green Toad",
+            description: "Multiply Toad gain by OoM^2s of Cleared Courses.",
+            cost: new Decimal(1.5e11),
+            unlocked() {return hasUpgrade(this.layer, 22)},
+            effect() {
+                return player.lgpoints.max(10).log(10)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        24: {
+            title: "Blue Toad",
+            description: "79x Toad gain, it'll help you to reach Toad level 11.",
+            cost: new Decimal(4e16),
+            unlocked() {return hasUpgrade(this.layer, 23)},
+        },
+        25: {
+            title: "Purple Toad",
+            description: "2400x Toad gain, it'll help you to reach Toad tier 4.",
+            cost: new Decimal(2e44),
+            unlocked() {return hasUpgrade(this.layer, 24)},
+        },
+        31: {
+            title: "Captain Toad",
+            description() {
+                let hardcap = new Decimal(100)
+                if (hasMilestone('easy', 8)) hardcap = hardcap.add(100)
+                return "Toad Tier requirment is decreased based on Toadette. (Requirment can't be negative, and hardcap at "+formatWhole(hardcap)+")"
+            },
+            cost: new Decimal(6e60),
+            unlocked() {return hasUpgrade(this.layer, 25)},
+            effect() {
+                let hardcap = new Decimal(100)
+                if (hasMilestone('easy', 8)) hardcap = hardcap.add(100)
+                let eff = player.toadette.points.max(10).log(10).min(hardcap).ceil()
+                if (hasUpgrade(this.layer, 45)) eff = eff.times(2).min(hardcap)
+                return eff
+            },
+            effectDisplay() { return "-"+formatWhole(upgradeEffect(this.layer, this.id)) },
+        },
+        32: {
+            title: "Mushroom team",
+            description: "Piranhas completion limit is increased based on Cleared Courses.",
+            cost: new Decimal(1e64),
+            unlocked() {return hasUpgrade(this.layer, 31)},
+            effect() {
+                return player.lgpoints.max(1e13).log(1e13).round()
+            },
+            effectDisplay() { return "+"+format(upgradeEffect(this.layer, this.id)) },
+        },
+        33: {
+            title: "Iron head",
+            description: "Square 'Piranha' effect base.",
+            cost: new Decimal(6.66e66),
+            unlocked() {return hasUpgrade(this.layer, 32)}
+        },
+        34: {
+            title: "Worker Toad",
+            description: "+1 to 'Ictera jumping' base.",
+            cost: new Decimal(6.868e68),
+            unlocked() {return hasUpgrade(this.layer, 33)}
+        },
+        35: {
+            title: "Cat Toad",
+            description: "Delay Mario cleared courses hard(soft)cap by 1e100000x",
+            cost: new Decimal(7.654e77),
+            unlocked() {return hasUpgrade(this.layer, 34)}
+        },
+        41: {
+            title: "Many many Toads",
+            description: "2x Toad Tier 5 effect base.",
+            cost: new Decimal(1e87),
+            unlocked() {return hasUpgrade(this.layer, 35)}
+        },
+        42: {
+            title: "Running faster",
+            description: "Unlock Toad Tetr.",
+            cost: new Decimal(3e152),
+            unlocked() {return hasUpgrade(this.layer, 41)}
+        },
+        43: {
+            title: "Blue fire Toad",
+            description: "20x Toadette gain.",
+            cost: new Decimal(1e153),
+            unlocked() {return hasUpgrade(this.layer, 42)}
+        },
+        44: {
+            title: "Doesn't become yellow",
+            description: "You can buy max Toad level.",
+            currencyDisplayName: "Awaken Power",
+            currencyInternalName: "awaken_power",
+            currencyLayer: "toad",
+            cost: new Decimal(10000),
+            unlocked() {return hasUpgrade(this.layer, 43)}
+        },
+        45: {
+            title: "Ha ya ho",
+            description: "Double 11th Toad upgrade's effect.",
+            cost: new Decimal(1e214),
+            unlocked() {return hasUpgrade(this.layer, 44)}
+        },
+        51: {
+            title: "Waaaa!",
+            description: "Delay Toad softcap by 1e20x.",
+            cost: new Decimal(1e260),
+            unlocked() {return hasUpgrade(this.layer, 45)}
+        },
+        52: {
+            title: "Toad's ascend",
+            description: "1e30x Toad gain.",
+            cost: new Decimal("1e618"),
+            unlocked() {return hasUpgrade(this.layer, 51)}
+        },
+        53: {
+            title: "Catch the flag!",
+            description: "1e50x Toad gain.",
+            cost: new Decimal("1e1251"),
+            unlocked() {return hasUpgrade(this.layer, 52)}
+        },
+        54: {
+            title: "Toad's singularity",
+            description: "Unlock Toad Pent, and 1e50x Toad gain again.",
+            cost: new Decimal("1e1325"),
+            unlocked() {return hasUpgrade(this.layer, 53)}
+        },
+        55: {
+            title: "Red Toad in the year 1985",
+            description: "Weaken Toad gain softcap.",
+            cost: new Decimal("1e1388"),
+            unlocked() {return hasUpgrade(this.layer, 54)}
+        },
+        61: {
+            title: "Toad's army",
+            description: "Toad tetr multiplies No Damage easy clears.",
+            cost: new Decimal("1e24270"),
+            unlocked() {return hasUpgrade('easy', 23)},
+            effect() {
+                return player.toad.supertier[0].add(1).max(1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        62: {
+            title: "Paper Toad",
+            description: "^1.5 Peachette's effect.",
+            cost: new Decimal("1e33000"),
+            unlocked() {return hasUpgrade(this.layer, 61)}
+        },
+        63: {
+            title: "Teamwork!",
+            description: "1e2000x Toad gain.",
+            cost: new Decimal("1e35100"),
+            unlocked() {return hasUpgrade(this.layer, 62)}
+        },
+        64: {
+            title: "Never again",
+            description: "You never lose any no damage easy clears.",
+            cost: new Decimal("1e229400"),
+            unlocked() {return hasUpgrade(this.layer, 63)}
+        },
+        65: {
+            title: "Rolling Toad",
+            description: "You can go beyond Mario cleared courses hardcap^3, but it'll be logarithmically softcapped.",
+            cost: new Decimal("1e250000"),
+            unlocked() {return hasUpgrade(this.layer, 64)}
         },
         // Look in the upgrades docs to see what goes here!
     },
+    buyables: {
+        11: {
+            title() {return "Toad Level " + formatWhole(player.toad.level)},
+            cost(x) { cost = new Decimal(10).pow(x.pow(1.28).add(1))
+                if (player.toad.tier.gte(2)) cost = cost.div(buyableEffect(this.layer, 102))
+                        return cost },
+            display() { 
+                let display = ` Raise Toad level, but reset your Toad. <br>
+                Cost: ${formatWhole(this.cost())} Toad <br>
+                ${player.toad.level_des}` 
+                return display}, 
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buyMax() {if (player.toad.tier.gte(2))
+                return setBuyableAmount('toad', 11, player.toad.points.times(buyableEffect('toad', 102)).max(10).log(10).sub(1).root(1.28).floor().add(1))
+                else return setBuyableAmount('toad', 11, player.toad.points.max(10).log(10).sub(1).root(1.28).floor().add(1))},
+            buy() { 
+                let amount = getBuyableAmount(this.layer, this.id).add(1)
+                setBuyableAmount(this.layer, this.id, amount)
+                if (hasUpgrade(this.layer, 44)) this.buyMax()
+                if (player.toad.tier.lt(12)) player[this.layer].points = new Decimal(0)
+            },
+           
+            unlocked() {return hasUpgrade('toad', 13)},
+            style() { 
+                return {"background":"linear-gradient(90deg, #000000, #001244)",
+                        "border-radius":"0%",
+                        "width":"300px",
+                        "height":"120px",
+                        "color":"white",
+                        "border":"5px solid",
+                        "border-color":"rgba(255,255,255,0.125)"}
+            },
+        },
+        12: {
+            title() {return "Toad Tier " + formatWhole(player.toad.tier)},
+            cost(x) { 
+                    let cheap = new Decimal(0)
+                    let reduce = new Decimal(1)
+                    if (player.toad.level.gte(234)) reduce = new Decimal(0.75)
+                    if (hasUpgrade(this.layer, 31)) cheap = cheap.add(upgradeEffect(this.layer, 31))
+                    let cost = new Decimal(4).times(x.times(4/3).pow(1.1).add(1)).sub(cheap).times(reduce).floor().max(0)                   
+                        return cost },
+            display() { 
+                let display = ` Raise Toad tier, but reset your Toad and Toad level. <br>
+                Cost: Toad level ${formatWhole(this.cost())} <br>
+                ${player.toad.tier_des}` 
+                return display}, 
+            canAfford() { return player[this.layer].level.gte(this.cost()) },
+            buyMax() {
+                let cheap = new Decimal(0)
+                let reduce = new Decimal(1)
+                if (player.toad.level.gte(234)) reduce = new Decimal(0.75)
+                if (hasUpgrade(this.layer, 31)) cheap = cheap.add(upgradeEffect(this.layer, 31))
+                return setBuyableAmount('toad', 12, player.toad.level.div(reduce).add(cheap).div(4).sub(1).root(1.1).times(0.75).round().add(1))
+            },
+            buy() {
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                if (hasMilestone('easy', 1)) this.buyMax()
+                if (hasMilestone('easy', 1)==false) player[this.layer].points = new Decimal(0)
+                if (hasMilestone('easy', 1)==false) player[this.layer].buyables[11] = new Decimal(0)
+            },
+            unlocked() {return hasUpgrade('toad', 22)},
+            style() { 
+                return {"background":"linear-gradient(90deg, #000000, #001244)",
+                        "border-radius":"0%",
+                        "width":"300px",
+                        "height":"120px",
+                        "color":"white",
+                        "border":"5px solid",
+                        "border-color":"rgba(255,255,255,0.125)"}
+            },
+        },
+        21: {
+            title() {return "Toad Tetr " + formatWhole(player.toad.supertier[0])},
+            cost(x) { let cheap = new Decimal(0)
+                    let cost = new Decimal(10).times(x.times(4/3).pow(1.1).add(1)).floor().sub(cheap).max(0)                   
+                        return cost },
+            display() { 
+                let display = ` Raise Toad tetr, but reset your Toad, Toad level and Toad tier. <br>
+                Cost: Toad tier ${formatWhole(this.cost())} <br>
+                ${player.toad.supertier_des[0]}` 
+                return display}, 
+            canAfford() { return player[this.layer].tier.gte(this.cost()) },
+            buyMax() { return setBuyableAmount('toad', 21, player.toad.tier.div(10).sub(1).root(1.1).times(0.75).ceil()) },
+            buy() {
+                if (hasMilestone('toad', 7)==false) player[this.layer].points = new Decimal(0)
+                if (hasMilestone('toad', 7)==false) player[this.layer].buyables[11] = new Decimal(0)
+                if (hasMilestone('toad', 7)==false) player[this.layer].buyables[12] = new Decimal(0)
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            unlocked() {return hasUpgrade('toad', 42)},
+            style() { 
+                return {"background":"linear-gradient(90deg, #000000, #001244)",
+                        "border-radius":"0%",
+                        "width":"300px",
+                        "height":"120px",
+                        "color":"white",
+                        "border":"5px solid",
+                        "border-color":"rgba(255,255,255,0.125)"}
+            },
+        },
+        22: {
+            title() {return "Toad Pent " + formatWhole(player.toad.supertier[1])},
+            cost(x) { let cheap = new Decimal(0)
+                    let reduce = new Decimal(1)
+                    if (hasUpgrade('easy', 42)) reduce = new Decimal(0.475)
+                    let cost = new Decimal(12).times(x.pow(1.2).add(1)).sub(7).sub(cheap).times(reduce).floor().max(0)                   
+                        return cost },
+            display() { 
+                let display = ` Raise Toad pent, but reset all your previous Toad level layers. <br>
+                Cost: Toad tetr ${formatWhole(this.cost())} <br>
+                ${player.toad.supertier_des[1]}` 
+                return display}, 
+            canAfford() { return player[this.layer].supertier[0].gte(this.cost()) },
+            buy() {
+                if (hasMilestone('easy', 14)==false) player[this.layer].points = new Decimal(0)
+                if (hasMilestone('easy', 14)==false) player[this.layer].buyables[11] = new Decimal(0)
+                if (hasMilestone('easy', 14)==false) player[this.layer].buyables[12] = new Decimal(0)
+                if (hasMilestone('easy', 14)==false) player[this.layer].buyables[21] = new Decimal(0)
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            unlocked() {return hasUpgrade('toad', 54)},
+            style() { 
+                return {"background":"linear-gradient(90deg, #000000, #001244)",
+                        "border-radius":"0%",
+                        "width":"300px",
+                        "height":"120px",
+                        "color":"white",
+                        "border":"5px solid",
+                        "border-color":"rgba(255,255,255,0.125)"}
+            },
+        },
+        31: {
+            title() {return "Toad Hex " + formatWhole(player.toad.supertier[2])},
+            cost(x) { let cheap = new Decimal(0)
+                    let cost = new Decimal(18).times(x.pow(1.25).add(1)).floor().sub(11).sub(cheap).max(0)                   
+                        return cost },
+            display() { 
+                let display = ` Raise Toad hex, but reset all your previous Toad level layers. <br>
+                Cost: Toad pent ${formatWhole(this.cost())} <br>
+                ${player.toad.supertier_des[2]}` 
+                return display}, 
+            canAfford() { return player[this.layer].supertier[1].gte(this.cost()) },
+            buy() {
+                player[this.layer].points = new Decimal(0)
+                player[this.layer].buyables[11] = new Decimal(0)
+                player[this.layer].buyables[12] = new Decimal(0)
+                player[this.layer].buyables[21] = new Decimal(0)
+                player[this.layer].buyables[22] = new Decimal(0)
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            unlocked() {return hasUpgrade('toadette', 44)},
+            style() { 
+                return {"background":"linear-gradient(90deg, #000000, #001244)",
+                        "border-radius":"0%",
+                        "width":"300px",
+                        "height":"120px",
+                        "color":"white",
+                        "border":"5px solid",
+                        "border-color":"rgba(255,255,255,0.125)"}
+            },
+        },
+        101: {
+            title: "Ictera jumping",
+            cost(x) { return new Decimal(2).pow(Decimal.pow(x, 1.4)) },
+            display() { let ToB1base = new Decimal(2)
+                if (hasUpgrade(this.layer, 34)) ToB1base = ToB1base.add(1)
+                if (player.toad.tier.gte(7)) ToB1base = ToB1base.add(player.toad.tier_rew[1])
+                if (hasUpgrade('easy', 21)) ToB1base = ToB1base.times(upgradeEffect('easy', 21))
+                if (player.toad.supertier[1].gte(4)) ToB1base = ToB1base.times(100)
+                let display = ` Multiply Toad gain by ${format(ToB1base)} per every level. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Toad`
+                return display}, 
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buyMax() {
+                return setBuyableAmount('toad', 101, player.toad.points.max(2).log(2).root(1.4).floor().add(1))
+                },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                if (hasMilestone('easy', 1)) this.buyMax()
+            },
+            effect(x) {
+                let ToB1base = new Decimal(2)
+                if (hasUpgrade(this.layer, 34)) ToB1base = ToB1base.add(1)
+                if (player.toad.tier.gte(7)) ToB1base = ToB1base.add(player.toad.tier_rew[1])
+                if (hasUpgrade('easy', 21)) ToB1base = ToB1base.times(upgradeEffect('easy', 21))
+                if (player.toad.supertier[1].gte(4)) ToB1base = ToB1base.times(100)
+                effect = ToB1base.pow(x).max(1)
+                return effect},
+            unlocked() {return player.toad.tier.gte(1)},
+            style() {
+                if (player[this.layer].points.gte(this.cost()))
+                 dis = {"background":"linear-gradient(45deg, #0047ff, #2265ff)",
+                        "border-radius":"0%"}
+                else dis = {"border-radius":"0%"}
+                return dis
+            },
+        },
+        102: {
+            title: "Icpeta jumping",
+            cost(x) { return new Decimal(3).pow(Decimal.pow(x, 1.78)).times(1e10) },
+            display() { let ToB2base = new Decimal(2)
+                if (player.toad.tier.gte(34)) ToB2base = ToB2base.add(clickableEffect('toadette', 11))
+                let display = ` Divide Toad level cost by ${format(ToB2base)} per every level. <br>
+                Effect: /${format(this.effect())} <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Toad`
+                return display}, 
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buyMax() {
+                return setBuyableAmount('toad', 102, player.toad.points.div(1e10).max(3).log(3).root(1.78).floor().add(1))
+                },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                if (hasMilestone('easy', 1)) this.buyMax()
+            },
+            effect(x) {
+                let ToB2base = new Decimal(2)
+                if (player.toad.tier.gte(34)) ToB2base = ToB2base.add(clickableEffect('toadette', 11))
+                effect = ToB2base.pow(x).max(1)
+                return effect},
+            unlocked() {return player.toad.tier.gte(1)},
+            style() {
+                if (player[this.layer].points.gte(this.cost()))
+                 dis = {"background":"linear-gradient(45deg, #0047ff, #2265ff)",
+                        "border-radius":"0%"}
+                else dis = {"border-radius":"0%"}
+                return dis
+            },
+        },
+        103: {
+            title: "Ikecta jumping",
+            cost(x) { return new Decimal(100).pow(Decimal.pow(x, 1.9)).times(1e76) },
+            display() { let ToB3base = new Decimal("1e25000")
+                let ToB3base2 = new Decimal(1.01)
+                let display = ` Delay Mario cleared courses hard(soft)cap^2  cost by ${format(ToB3base)}x per every level. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Toad`
+                if (hasUpgrade('easy', 33)) display = ` Delay Mario cleared courses hard(soft)cap^2  cost by ${format(ToB3base)}x per every level, multiply Free Clear by ${format(ToB3base2)} per every level. <br>
+                Effect 1: ${format(this.effect())}x <br>
+                Effect 2: ${format(this.effectII())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Toad`
+                return display}, 
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buyMax() {
+                return setBuyableAmount('toad', 103, player.toad.points.div(1e76).max(100).log(100).root(1.9).floor().add(1))
+                },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                if (hasMilestone('easy', 1)) this.buyMax()
+            },
+            effect(x) {
+                let ToB3base = new Decimal("1e25000")
+                effect = ToB3base.pow(x).max(1)
+                return effect},
+            effectII(x) {
+                let ToB3base2 = new Decimal(1.01)
+                effect = ToB3base2.pow(getBuyableAmount(this.layer, this.id)).max(1)
+                return effect},
+            unlocked() {return hasUpgrade('toadette', 15)},
+            style() {
+                if (player[this.layer].points.gte(this.cost()))
+                 dis = {"background":"linear-gradient(45deg, #0047ff, #2265ff)",
+                        "border-radius":"0%"}
+                else dis = {"border-radius":"0%"}
+                return dis
+            },
+        },
+        111: {
+            title: "Toad tickspeed",
+            cost(x) { return new Decimal(5).pow(Decimal.pow(x, 1.64)) },
+            display() { let base = new Decimal(5)
+                if (hasMilestone('easy', 4)) base = base.add(2.5)
+                if (hasUpgrade('easy', 12)) base = base.add(upgradeEffect('easy', 12))
+                let display = ` Multiply Toadette gain by ${format(base)}x per every level. <br>
+                Effect: ${format(this.effect())}x <br>
+                Level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Awaken Power`
+                return display}, 
+            canAfford() { return player[this.layer].awaken_power.gte(this.cost()) },
+            buyMax() {
+                return setBuyableAmount('toad', 111, player.toad.awaken_power.max(5).log(5).root(1.64).floor().add(1))
+                },
+            buy() {
+                player[this.layer].awaken_power = player[this.layer].awaken_power.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                if (hasMilestone('easy', 1)) this.buyMax()
+            },
+            effect(x) {
+                let base = new Decimal(5)
+                if (hasMilestone('easy', 4)) base = base.add(2.5)
+                if (hasUpgrade('easy', 12)) base = base.add(upgradeEffect('easy', 12))
+                effect = base.pow(x).max(1)
+                return effect},
+            unlocked() {return hasMilestone(this.layer, 5)},
+            style() {
+                if (player[this.layer].awaken_power.gte(this.cost()))
+                 dis = {"background-color":"#ffca00",
+                        "border-radius":"0%"}
+                else dis = {"border-radius":"0%"}
+                return dis
+            },
+        },
+    },
+    clickables: {
+        11: {
+            title: "Awaken Toad",
+            display() {
+                let gain = player.toad.points.div(1e165).max(0).root(14)
+                if (player.toad.level.gte(66)) gain = gain.times(player.toad.level_rew[3])
+                gain = gain.floor()
+                let next = Decimal.pow(gain.add(1), 14).times(1e165)
+                if (player.toad.level.gte(66)) next = Decimal.pow(gain.add(1).div(player.toad.level_rew[3]), 14).times(1e165)
+                return "Reset Toad, Toad level, tier, tetr...etc. But gain " + formatWhole(gain) + " Awaken Power<br>Next Awaken Power: " + format(next) + " Toad<br>Req: Toad tetr 1"
+                },
+            canClick() {return player.toad.points.gte(1e165) && player.toad.supertier[0].gte(1)},
+            onClick() {
+                let gain = player.toad.points.div(1e165).max(0).root(14)
+                if (player.toad.level.gte(66)) gain = gain.times(player.toad.level_rew[3])
+                if (player.toad.supertier[0].lt(2)) 
+                return player[this.layer].points = new Decimal(0),
+                player[this.layer].buyables[11] = new Decimal(0),
+                player[this.layer].buyables[12] = new Decimal(0),
+                player[this.layer].buyables[21] = new Decimal(0),
+                player.toad.awaken_power = player.toad.awaken_power.add(gain)
+                else return player[this.layer].points = new Decimal(0),
+                player[this.layer].buyables[11] = new Decimal(0),
+                player[this.layer].buyables[12] = new Decimal(0),
+                player.toad.awaken_power = player.toad.awaken_power.add(gain)
+            },
+            unlocked() {return hasAchievement('achievements', 154)},
+            style() {
+                if (player.toad.points.gte(1e165) && player.toad.supertier[0].gte(1))
+                dis = {"background-color":"#ffca00",
+                        "width":"180px"}
+                else dis = {"width":"180px"}
+                return dis
+            },
+        },
+    },
+    update(Toad) {
+        let tick = new Decimal(0.05)
+
+        if (hasUpgrade('toad', 13)) player.toad.level = player.toad.buyables[11]
+        if (hasUpgrade('toad', 22)) player.toad.tier = player.toad.buyables[12]
+        if (hasUpgrade('toad', 42)) player.toad.supertier[0] = player.toad.buyables[21]
+        if (hasUpgrade('toad', 54)) player.toad.supertier[1] = player.toad.buyables[22]
+        if (hasUpgrade('toadette', 44)) player.toad.supertier[2] = player.toad.buyables[31]
+        // 文本更新
+        if (player.toad.level.lt(1)) player.toad.level_des = "At Toad level 1, Toad level boosts Toad gain."
+        else if (player.toad.level.lt(3)) player.toad.level_des = "At Toad level 3, Toad level delays Cleared Courses hardcap."
+        else if (player.toad.level.lt(6)) player.toad.level_des = "At Toad level 6, x100 cheesed Luigi cleared courses gain."
+        else if (player.toad.level.lt(11)) player.toad.level_des = "At Toad level 11, Toad boosts cheesed and normal Luigi cleared courses gain."
+        else if (player.toad.level.lt(25)) player.toad.level_des = "At Toad level 25, +1 to Toad level 1 reward base."
+        else if (player.toad.level.lt(66)) player.toad.level_des = "At Toad level 66, Luigi multiplies Awaken Power gain."
+        else if (player.toad.level.lt(234)) player.toad.level_des = "At Toad level 234, Toad tier cost is reduced by 0.75x."
+        else if (player.toad.level.lt(2600)) player.toad.level_des = "At Toad level 2600, Toad level now boosts Easy Endless clears gain."
+        else if (player.toad.level.gte(2600)) player.toad.level_des = "You have unlocked every Toad level rewards!"
+
+        if (player.toad.tier.lt(1)) player.toad.tier_des = "At Toad tier 1, unlock a buyable for Toad."
+        else if (player.toad.tier.lt(2)) player.toad.tier_des = "At Toad tier 2, unlock another buyable."
+        else if (player.toad.tier.lt(4)) player.toad.tier_des = "At Toad tier 4, unlock the last character layer."
+        else if (player.toad.tier.lt(5)) player.toad.tier_des = "At Toad tier 5, Toad Tier boosts Toadette gain."
+        else if (player.toad.tier.lt(7)) player.toad.tier_des = "At Toad tier 7, Toadette increases 'Ictera jumping' base."
+        else if (player.toad.tier.lt(12)) player.toad.tier_des = "At Toad tier 12, Toad level no longer resets Toad."
+        else if (player.toad.tier.lt(34)) player.toad.tier_des = "At Toad tier 34, unlock a new resource in Toadette layer."
+        else if (player.toad.tier.lt(238)) player.toad.tier_des = "At Toad tier 238, ^5 2nd coin upgrade's effect."
+        else if (player.toad.tier.gte(238)) player.toad.tier_des = "You have unlocked every Toad tier rewards!"
+
+        if (player.toad.supertier[0].lt(1)) player.toad.supertier_des[0] = "At Toad tetr 1, unlock a new resource for Toad."
+        else if (player.toad.supertier[0].lt(2)) player.toad.supertier_des[0] = "At Toad tetr 2, Awaken Power no longer resets Toad tetr."
+        else if (player.toad.supertier[0].lt(3)) player.toad.supertier_des[0] = "At Toad tetr 3, auto Toad level up."
+        else if (player.toad.supertier[0].lt(6)) player.toad.supertier_des[0] = "At Toad tetr 6, unlock a new layer about a game mode of SMM2."
+        else if (player.toad.supertier[0].lt(28)) player.toad.supertier_des[0] = "At Toad tetr 28, Toadette Crown effect is boosted base on Toad tetr."
+        else if (player.toad.supertier[0].lt(2024)) player.toad.supertier_des[0] = "At Toad tetr 2024, TBD."
+        
+        if (player.toad.supertier[1].lt(1)) player.toad.supertier_des[1] = "At Toad pent 1, ^1.5 1st Toadette upgrade's effect."
+        else if (player.toad.supertier[1].lt(4)) player.toad.supertier_des[1] = "At Toad pent 4, 100x 'Ictera jumping' base."
+        else if (player.toad.supertier[1].lt(8)) player.toad.supertier_des[1] = "At Toad pent 8, remove Toad level 11 effect hardcap but softcapped."
+        else if (player.toad.supertier[1].lt(69)) player.toad.supertier_des[1] = "At Toad pent 69, triple Normal Endless Clears gain."
+        else if (player.toad.supertier[1].lt(501761)) player.toad.supertier_des[1] = "At Toad pent 501,761, TBD."
+
+        if (player.toad.supertier[2].lt(1)) player.toad.supertier_des[2] = "At Toad hex 1, Easy Endless no longer resets Toad pent, hex... etc."
+        if (player.toad.supertier[2].lt(3)) player.toad.supertier_des[2] = "At Toad hex 3, unlock a new layer about the second difficulty of endless challenge."
+        if (player.toad.supertier[2].lt(20)) player.toad.supertier_des[2] = "At Toad hex 20, unlock Toad hept and more Toad tier layers."
+
+        // 等级奖励
+        let Tl1base = new Decimal(2)
+        if (player.toad.level.gte(25)) Tl1base = Tl1base.add(1) //25级奖励
+        if (hasUpgrade('toadette', 24)) Tl1base = Tl1base.add(clickableEffect('toadette', 11))
+        player.toad.level_rew[0] = Decimal.pow(Tl1base,player.toad.level.max(0)) //1级奖励
+        player.toad.level_rew[1] = Decimal.pow(1e10,player.toad.level.max(0)) //3级奖励
+        let Tl3softcapRoot = new Decimal(1.25)
+        if (hasUpgrade('easy', 34)) Tl3softcapRoot = new Decimal(1.2)
+        if (player.toad.level.gte(500)) player.toad.level_rew[1] = Decimal.pow(1e10,player.toad.level.max(500).sub(500).root(Tl3softcapRoot)).times("1e5000")  //3级奖励软上限
+        player.toad.level_rew[2] = player.toad.points.max(1).root(5).min(decimalInfinity) //11级奖励      
+        player.toad.level_rew[3] = player.luigi.points.max(1e10).log(1e10).pow(1.5).min(decimalInfinity) //66级奖励
+        player.toad.level_rew[4] = player.toad.level.max(1).pow(2) //2600级奖励
+
+        let Tt1base = new Decimal(2)
+        let Tt7base = new Decimal(1)
+        if (hasUpgrade('easy', 14)) Tt7base = Tt7base.times(1.5)
+        if (hasUpgrade('toad', 41)) Tt1base = Tt1base.add(2)
+        if (hasUpgrade('toadette', 25)) Tt1base = Tt1base.add(upgradeEffect('toadette', 25))
+        if (player.toad.tier.gte(5)) player.toad.tier_rew[0] = Decimal.pow(Tt1base,player.toad.tier.max(0)) //5阶奖励
+        if (player.toad.tier.gte(7)) player.toad.tier_rew[1] = player.toadette.points.max(5).log(5).pow(Tt7base) //7阶奖励
+        if (hasUpgrade('toad', 41)) Tt1base = Tt1base.add(2)
+        if (player.toad.level.gte(3)) player.hardcap = new Decimal("e1.798e308").pow(player.toad.level_rew[1])
+
+        if (player.toad.supertier[0].gte(28)) player.toad.supertier_rew[0][0] = player.toad.supertier[0].add(1).max(1).pow(1.33)
+
+        if (player.toad.supertier[1].gte(8)) player.toad.level_rew[2] = player.toad.points.max(1).root(10) //8.
+        //自动化
+        if (player.toad.supertier[0].gte(3) && player.toad.tier.gte(2) || hasMilestone('easy', 1)) setBuyableAmount('toad', 11, player.toad.points.times(buyableEffect('toad', 102)).max(10).log(10).sub(1).root(1.28).floor().add(1))
+        else if (player.toad.supertier[0].gte(3)) setBuyableAmount('toad', 11, player.toad.points.max(10).log(10).sub(1).root(1.28).floor().add(1)) //3四重阶奖励 
+        
+        let cheap2 = new Decimal(0)
+        let reduce2 = new Decimal(1)        
+        if (player.toad.level.gte(234)) reduce2 = new Decimal(0.75)
+        if (hasUpgrade(this.layer, 31)) cheap2 = cheap2.add(upgradeEffect(this.layer, 31))
+        if (hasMilestone('easy', 3)) setBuyableAmount('toad', 12, player.toad.level.div(reduce2).add(cheap2).div(4).sub(1).root(1.1).times(0.75).round().add(1))
+        if (hasMilestone('easy', 12)) setBuyableAmount('toad', 21, player.toad.tier.div(10).sub(1).root(1.1).times(0.75).ceil())
+        
+        if (hasMilestone('easy', 6)) setBuyableAmount('toad', 101, player.toad.points.max(2).log(2).root(1.4).floor().add(1))
+        if (hasMilestone('easy', 6)) setBuyableAmount('toad', 102, player.toad.points.div(1e10).max(3).log(3).root(1.78).floor().add(1))
+        if (hasMilestone('easy', 6)) setBuyableAmount('toad', 103, player.toad.points.div(1e76).max(100).log(100).root(1.9).floor().add(1))
+        if (hasMilestone('easy', 10)) setBuyableAmount('toad', 111, player.toad.awaken_power.max(5).log(5).root(1.64).floor().add(1))
+        //觉醒力量
+        let APgain = player.toad.points.div(1e165).max(0).root(14)
+        if (player.toad.level.gte(66)) APgain = APgain.times(player.toad.level_rew[3])
+        if (hasMilestone('toad', 6)) player.toad.awaken_power = player.toad.awaken_power.add(APgain.times(tick))
+    },
+    milestones:{
+        0: {
+            requirementDescription: "Get 1 Toad",
+            effectDescription: "Keep Mario milestones on row 10 reset and x1e10 real Mario cleared courses gain after exp. cal.",
+            done() { return player.toad.points.gte(1) },
+        },
+        1: {
+            requirementDescription: "Get 3 Toad",
+            effectDescription: "Keep Luigi milestones on row 10 reset and bulk buy 50x 'Yodaka jumping'.",
+            done() { return player.toad.points.gte(3) },
+        },
+        2: {
+            requirementDescription: "Get 25 Toad",
+            effectDescription: "Autobuy Mario upgrades.",
+            done() { return player.toad.points.gte(25) },
+        },
+        3: {
+            requirementDescription: "Get 99 Toad",
+            effectDescription: "Autobuy Luigi upgrades.",
+            done() { return player.toad.points.gte(99) },
+        },
+        4: {
+            requirementDescription: "Get 199 Toad",
+            effectDescription: "You can buy max Mario buyables.",
+            done() { return player.toad.points.gte(199) },
+        },
+        5: {
+            requirementDescription: "Get 1 Awaken Power",
+            effectDescription: "Unlock a new buyable for Awaken Power.",
+            done() { return player.toad.awaken_power.gte(1) },
+            unlocked() {return hasAchievement('achievements', 154)},
+        },
+        6: {
+            requirementDescription: "Get 1.79e308 Awaken Power",
+            effectDescription: "Passive gain 100% Awaken Power every.",
+            done() { return player.toad.awaken_power.gte("1.79e308") },
+            unlocked() {return hasAchievement('achievements', 154)},
+        },
+        7: {
+            requirementDescription: "Get 1e50000 Toad",
+            effectDescription: "Toad tetr no longer resets Toad, Toad level and Toad tier.",
+            done() { return player.toad.points.gte("1e50000") },
+            unlocked() {return hasAchievement('achievements', 154)},
+        },
+    },
+    
     tabFormat: [
         "main-display",
         "prestige-button",
         ["display-text", () => `Mario cleared ` +format(player.mario.c_re) + ` courses (real)`],
         ["display-text", () => `Your best amount of Toad is ` +format(player.toad.best)],
+        ["display-text", function() {
+            if (player.toad.points.gte(1e36))
+            return "Toad gain's softcap is at " + format(tmp.toad.softcap)}
+        ],
         ["microtabs", "stuff"],
         ["blank", "65px"],
     ],
@@ -9178,19 +10389,184 @@ addLayer("toad", {
                 unlocked() {return true},
                 content: [
                     ["blank", "15px"],
-                    ["raw-html", () => `<h4 style="opacity:.5">Luigi layer also only resets Cleared Courses, like coin and Mario layers did.`],
+                    ["raw-html", () => `<h4 style="opacity:.5">Toad layer resets row 9 layers`],
                     "milestones",
                 ]                
             }, 
             "Toad's Journey": {
-                unlocked() {return false},
+                unlocked() {return hasUpgrade('toad', 13)},
                 content: [
                     ["blank", "15px"],
+                    ["buyables",[1,2,3,10]],
+                ]                
+            },
+            "Rewards": {
+                unlocked() {return hasUpgrade('toad', 13)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        return "Cleared Courses hardcap is at " + format(player.hardcap)}
+                    ],
+                    ["microtabs", "rewards"],
+                ]                
+            },
+            "Awaken": {
+                unlocked() {return hasAchievement('achievements', 154)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        return "You have <h2 style='color: #ffca00; text-shadow: 0 0 10px #ffca00'>" + format(player.toad.awaken_power) +" </h2> Awaken Power."
+                        },
+                    ],
                     "clickables",
-                    "buyables",
+                    ["buyables",[11,12]]
                 ]                
             },           
         },
+        rewards:{
+            "Toad Level": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        if (player.toad.level.gte(1))
+                        return "Toad level 1: Toad level boosts Toad gain. Currently: " +format(player.toad.level_rew[0])+"x"}
+                    ],
+                    ["display-text", function() {
+                        let dis = ""
+                        if (player.toad.level.gte(3))
+                        dis = "Toad level 3: Toad level delays Cleared Courses hardcap.  Currently: ^" +format(player.toad.level_rew[1])
+                        if (player.toad.level.gte(500)) dis = dis + " (softcapped)"
+                        return dis
+                        }
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.level.gte(6))
+                        return "Toad level 6: 100x cheesed Luigi cleared courses gain"}
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.level.gte(11))
+                        return "Toad level 11: Toad boosts cheesed and normal Luigi cleared courses gain.  Currently: " +format(player.toad.level_rew[2])+"x"}
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.level.gte(25))
+                        return "Toad level 25: +1 to Toad level 1 reward base."}
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.level.gte(66))
+                        return "Toad level 66: Luigi multiplies Awaken Power gain. Currently: " + format(player.toad.level_rew[3])+"x"}
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.level.gte(234))
+                        return "Toad level 234: Toad tier cost is reduced by 0.75x."}
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.level.gte(2600))
+                        return "Toad level 2600: Toad level now boosts Easy Endless clears gain. Currently: " + format(player.toad.level_rew[4])+"x"}
+                    ],
+                ]
+            },
+            "Toad Tier": {
+                unlocked() {return hasUpgrade('toad', 22)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        if (player.toad.tier.gte(1))
+                        return "Toad tier 1: Unlock a buyable for Toad"}
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.tier.gte(2))
+                        return "Toad tier 2: Unlock another buyable"}
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.tier.gte(4))
+                        return "Toad tier 4: Unlock Toadette layer"}
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.tier.gte(5))
+                        return "Toad tier 5: Toad Tier boosts Toadette gain. Currently: "+format(player.toad.tier_rew[0])+"x"}
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.tier.gte(7))
+                        return "Toad tier 7: Toadette increases 'Ictera jumping' base. Currently: +"+format(player.toad.tier_rew[1])}
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.tier.gte(12))
+                        return "Toad tier 12: Toad level no longer resets Toad."}
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.tier.gte(34))
+                        return "Toad tier 34: Unlock a new resource in Toadette layer."}
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.tier.gte(238))
+                        return "Toad tier 238: ^5 2nd coin upgrade's effect."}
+                    ],
+                ]
+            },
+            "Toad Tetr": {
+                unlocked() {return hasUpgrade('toad', 42)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        if (player.toad.supertier[0].gte(1))
+                        return "Toad tetr 1: Unlock a new resource for Toad layer."}
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.supertier[0].gte(2))
+                        return "Toad tetr 2: Awaken Power no longer resets Toad tetr."}
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.supertier[0].gte(3))
+                        return "Toad tetr 3: Auto Toad level up."}
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.supertier[0].gte(6))
+                        return "Toad tetr 6: Unlock Easy Endless Challenge layer."}
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.supertier[0].gte(28))
+                        return "Toad tetr 28: Toadette Crown effect is boosted base on Toad tetr. Currently: " + format(player.toad.supertier_rew[0][0]) + "x"}
+                    ],
+                ]
+            },
+            "Toad Pent": {
+                unlocked() {return hasUpgrade('toad', 54)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        if (player.toad.supertier[1].gte(1))
+                        return "Toad pent 1: ^1.5 1st Toadette upgrade's effect."}
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.supertier[1].gte(4))
+                        return "Toad pent 4: 100x 'Ictera jumping' base."}
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.supertier[1].gte(8))
+                        return "Toad pent 8: Remove Toad level 11 effect hardcap but softcapped."}
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.supertier[1].gte(69))
+                        return "Toad pent 69: Triple Normal Endless Clears gain."}
+                    ],
+                ]
+            },
+            "Toad Hex": {
+                unlocked() {return hasUpgrade('toadette', 44)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        if (player.toad.supertier[2].gte(1))
+                        return "Toad hex 1: Easy Endless no longer resets Toad pent, hex... etc."}
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.supertier[2].gte(3))
+                        return "Toad hex 3: Unlock a new layer about the second difficulty of endless challenge."}
+                    ],
+                ]
+            },
+        }
     },
 })
 // 第二十三层：奇诺比珂
@@ -9198,36 +10574,1438 @@ addLayer("toadette", {
     startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+        crown: new Decimal(0),
+        peachette: new Decimal(0),
+        yu_ayasaki: false,
     }},
 
     color: "#ff4899",                       // The color for this layer, which affects many elements.
     resource: "Toadette",            // The name of this layer's main prestige resource.
     symbol: "Te",
     branches: ["luigi","toad"],
-    row: 1,                                 // The row this layer is on (0 is the first row).
+    row: 9,                                 // The row this layer is on (0 is the first row).
     displayRow: 9,
     position: 1,
 
-    baseResource: "Mario cleared courses",                 // The name of the resource your prestige gain is based on.
-    baseAmount() { return player.mario.c_re },  // A function to return the current amount of baseResource.
+    baseResource: "Luigi",                 // The name of the resource your prestige gain is based on.
+    baseAmount() { return player.luigi.points },  // A function to return the current amount of baseResource.
 
-    requires: new Decimal("10^^10"),              // The amount of the base needed to  gain 1 of the prestige currency.
+    requires: new Decimal(1.71e20),              // The amount of the base needed to  gain 1 of the prestige currency.
                                             // Also the amount required to unlock the layer.
 
     type: "normal",                         // Determines the formula used for calculating prestige currency.
-    exponent: 0.00075,                          // "normal" prestige gain is (currency^exponent).
+    exponent: 0.1,                          // "normal" prestige gain is (currency^exponent).
 
     gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
-        return new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        if (hasUpgrade(this.layer, 12)) mult = mult.times(3)
+        if (player.toad.tier.gte(5)) mult = mult.times(player.toad.tier_rew[0])
+        if (hasUpgrade('toad', 43)) mult = mult.times(20)
+        if (hasMilestone('toad', 5)) mult = mult.times(buyableEffect('toad', 111))
+        if (hasUpgrade(this.layer, 21)) mult = mult.times(5)
+        if (hasUpgrade(this.layer, 22)) mult = mult.times(upgradeEffect(this.layer, 22))
+        if (hasMilestone('toadette', 2)) mult = mult.times(milestoneEffect('toadette', 2))
+        if (hasUpgrade(this.layer, 31)) mult = mult.times(upgradeEffect(this.layer, 31))
+        if (hasUpgrade(this.layer, 32)) mult = mult.times(upgradeEffect(this.layer, 32))
+        if (hasUpgrade(this.layer, 33)) mult = mult.times(10)
+        if (hasUpgrade('easy', 11)) mult = mult.times(1e15)
+        if (hasUpgrade(this.layer, 45)) mult = mult.times("1e1000")
+        return mult
     },
     gainExp() {                             // Returns the exponent to your gain of the prestige resource.
         return new Decimal(1)
     },
 
-    layerShown() { return false },          // Returns a bool for if this layer's node should be visible in the tree.
+    layerShown() { return hasAchievement('achievements', 153) },          // Returns a bool for if this layer's node should be visible in the tree.
 
+    doReset(resettingLayer) {
+        if (layers[resettingLayer].row > layers[this.layer].row) {
+            let kept = ["unlocked", "auto"]
+            if (hasMilestone('easy', 1)) {
+                kept.push("milestones")}
+                if (hasMilestone('easy', 5)) {
+                    kept.push("upgrades")}
+            layerDataReset(this.layer, kept)
+        }
+    },
+
+    passiveGeneration() {
+        if (hasMilestone('easy', 2)) return 10
+    },
+
+    hotkeys: [
+        {key: "T", description: "Shift+T: Reset for Toadette", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
     upgrades: {
+        11: {
+            title: "The cutest!",
+            description: "Toadette delays Toad gain softcap.",
+            cost: new Decimal(40),
+            unlocked() {return true},
+            effect() {let eff = player.toadette.points.max(1).pow(3.6).root(player.toadette.points.max(10).log(10).div(100).add(1).min(3.6))
+                    if (hasUpgrade(this.layer, 13)) eff = eff.pow(2)
+                    if (hasUpgrade(this.layer, 35)) eff = eff.pow(1.2)
+                    if (player.toad.supertier[1].gte(1)) eff = eff.pow(1.5)
+                    if (hasUpgrade('easy', 22)) eff = eff.pow(upgradeEffect('easy', 22))
+                    return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        12: {
+            title: "Mushroom girl",
+            description: "Triple Toadette gain.",
+            cost: new Decimal(120),
+            unlocked() {return hasUpgrade(this.layer, 11)},
+        },
+        13: {
+            title: "Getting famous",
+            description: "^2 1st Toadette upgrade's effect'.",
+            cost: new Decimal(300),
+            unlocked() {return hasUpgrade(this.layer, 12)},
+        },
+        14: {
+            title: "Special pink!",
+            description: "You can go beyond Mario cleared courses hardcap^2, but effect will be super nerfed.",
+            cost: new Decimal(28888),
+            unlocked() {return hasUpgrade(this.layer, 13)},
+        },
+        15: {
+            title: "SM3DW Toadette",
+            description: "Unlock another Toad buyable.",
+            cost: new Decimal(142857),
+            unlocked() {return hasUpgrade(this.layer, 14)},
+        },
+        21: {
+            title: "Yee- Hah- Hoo-",
+            description: "5x Toadette again.",
+            cost: new Decimal(5e13),
+            unlocked() {return hasUpgrade(this.layer, 15)},
+        },
+        22: {
+            title: "The only special mushroom",
+            description: "Awaken Power boosts Toadette again but weaker than 'Toad tickspeed'.",
+            cost: new Decimal(6e18),
+            unlocked() {return hasUpgrade(this.layer, 21)},
+            effect() {let eff = Decimal.pow(10, player.toad.awaken_power.max(1).log(10).pow(0.75).div(2.5))
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        23: {
+            title: "Need more Toadette",
+            description: "Unlock a new subtab, to display reward of Toad tier 34.",
+            cost: new Decimal(1e50),
+            unlocked() {return hasUpgrade(this.layer, 22)},
+        },
+        24: {
+            title: "Toadette's showtime!",
+            description: "Toadette's Crown also affacts 1st Toad level reward base.",
+            currencyDisplayName: "Toadette's Crowns",
+            currencyInternalName: "crown",
+            currencyLayer: "toadette",
+            cost: new Decimal(5),
+            unlocked() {return hasUpgrade(this.layer, 23)},
+        },
+        25: {
+            title: "Disappear in 3-player VS",
+            description: "Toad tetr increases Toad tier 5 reward base.",
+            cost: new Decimal(1e54),
+            unlocked() {return hasUpgrade(this.layer, 24)},
+            effect() {
+                let eff = player.toad.supertier[0].div(5).max(0)
+                return eff
+            },
+            effectDisplay() { return "+"+format(upgradeEffect(this.layer, this.id)) },
+        },
+        31: {
+            title: "Toadette cheesed a course",
+            description: "Cheesed Luigi cleared courses boosts Toadette gain.",
+            cost: new Decimal(1e57),
+            unlocked() {return hasUpgrade(this.layer, 25)},
+            effect() {
+                let eff = player.luigi.cheesed.max(10).log(10).pow(3)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        32: {
+            title: "Toadette imagines a course",
+            description: "Imaginary Mario cleared courses boosts Toadette gain.",
+            cost: new Decimal(1e68),
+            unlocked() {return hasUpgrade(this.layer, 31)},
+            effect() {
+                let eff = player.mario.c_im.max(10).log(10).pow(3)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        33: {
+            title: "You got a star! (Mario Party Superstars)",
+            description: "10x Toadette gain.",
+            cost: new Decimal(1e80),
+            unlocked() {return hasUpgrade(this.layer, 32)},
+        },
+        34: {
+            title: "You got a moon! (Super Mario Odyssey)",
+            description: "Unlock a new resource in this layer.",
+            cost: new Decimal(3e88),
+            unlocked() {return hasUpgrade(this.layer, 33)},
+            effect() {
+                let eff = Decimal.pow(65, player.toadette.peachette.max(0))
+                if (hasUpgrade('toad', 62)) eff = eff.pow(1.5)
+                if (hasUpgrade('toadette', 51)) eff = eff.pow(2)
+                if (hasUpgrade('easy', 41)) eff = eff.pow(2)
+                return eff
+            },
+        },
+        35: {
+            title: "Captain Toad: Treasure Tracker",
+            description: "^1.2 1st Toadette upgrade's effect.",
+            cost: new Decimal(1e95),
+            unlocked() {return hasUpgrade(this.layer, 34)},
+        },
+        41: {
+            title: "Traveller Toadette",
+            description: "Toad boosts itself.",
+            cost: new Decimal(1e100),
+            unlocked() {return hasUpgrade(this.layer, 35)},
+            effect() {
+                let eff = player.toad.points.max(1).root(20)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        42: {
+            title: "Only Toadette can beat this",
+            description: "Weaken Toad's softcap again.",
+            cost: new Decimal(1e192),
+            unlocked() {return hasUpgrade(this.layer, 41)},
+        },
+        43: {
+            title: "More pixels",
+            description: "Multiply Easy Endless Clears gain based on Toad tetr and pent.",
+            cost: new Decimal(1e259),
+            unlocked() {return hasUpgrade(this.layer, 42)},
+            effect() {
+                let eff = player.toad.supertier[0].add(1).pow(2).times(player.toad.supertier[1].add(1).pow(5))
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        44: {
+            title: "20 coins to buy a star",
+            description: "Unlock Toad Hex.",
+            cost: new Decimal("1e4250"),
+            unlocked() {return hasUpgrade(this.layer, 43)},
+        },
+        45: {
+            title: "Half price to buy a star",
+            description: "1e1000x Toadette gain.",
+            cost: new Decimal("1e5421"),
+            unlocked() {return hasUpgrade(this.layer, 44)},
+        },
+        51: {
+            title: "Mushroom Kingdom idol",
+            description: "Square Peachette effect.",
+            cost: new Decimal("1e6795"),
+            unlocked() {return hasUpgrade(this.layer, 45)},
+        },
         // Look in the upgrades docs to see what goes here!
+    },
+    milestones: {
+        0: {
+            requirementDescription: "Get 1 Toadette",
+            effectDescription: "Autobuy Mario buyables.",
+            done() { return player.toadette.points.gte(1) },
+        },
+        1: {
+            requirementDescription: "Get 3.45e9 Toadette",
+            effectDescription: "Autobuy Luigi buyables.",
+            done() { return player.toadette.points.gte(3.45e9) },
+        },
+        2: {
+            requirementDescription: "Complete 'Piranha' 100 times",
+            effect() { return new Decimal(challengeCompletions('boomerang_flower',11)).max(1).pow(2)},
+            effectDescription() {return "Multiply Toad and Toadette gain based on 'Piranhas' completions. <br>Currently: " + format(milestoneEffect(this.layer, 2)) + "x" },
+            done() { return challengeCompletions('boomerang_flower', 11) >= 100 },
+        },
+        3: {
+            requirementDescription: "Get 1.23e77 Toadette",
+            effectDescription: "Keep Mario and Luigi upgrades on row 10 reset.",
+            done() { return player.toadette.points.gte(1.23e77) },
+        },
+        4: {
+            requirementDescription: "Peachette level 10",
+            effectDescription: "Weaken 2nd Coin upgrade's softcap.",
+            done() { return player.toadette.peachette.gte(10) },
+        },
+    },
+    clickables: {
+        11: {
+            title: "Crowns!",
+            display() {
+                let mult = new Decimal(1)
+                if (hasUpgrade(this.layer, 34)) mult = mult.times(upgradeEffect(this.layer, 34))
+                let gain = player.toadette.points.div(1e50).max(0).root(3.678).times(mult)
+                gain = gain.floor()
+                let next = Decimal.pow(gain.add(1).div(mult), 3.678).times(1e50)
+                return "Reset Toadette for " + formatWhole(gain) + " Toadette's Crowns <br>Next Toadette's Crown: " + format(next) + " Toadette<br>"
+                },
+            canClick() {return player.toadette.points.gte(1e50)},
+            onClick() {
+                let mult = new Decimal(1)
+                if (hasUpgrade(this.layer, 34)) mult = mult.times(upgradeEffect(this.layer, 34))
+                let gain = player.toadette.points.div(1e50).max(0).root(3.678).times(mult)
+                gain = gain.floor()
+                player.toadette.points = decimalZero
+                player.toadette.crown = player.toadette.crown.add(gain)
+            },
+            unlocked() {return hasAchievement('achievements', 154)},
+            effect() {
+                let eff = player.toadette.crown.add(10).max(10).log(10).pow(1.25).sub(1).times(3)
+                if (player.toad.supertier[0].gte(28)) eff = eff.times(player.toad.supertier_rew[0][0])
+                if (hasUpgrade('easy', 41)) eff = eff.pow(2)
+                return eff
+            },
+            style() {
+                dis = {"width":"180px"}
+                return dis
+            },
+        },
+        21: {
+            title() {
+                let t = ""
+                if (player.toadette.yu_ayasaki) t = "Secret"
+                return t},
+            display() {
+                let d = ""
+                if (player.toadette.yu_ayasaki) d = "You found a secret!<br>Yu Ayasaki!"
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                player.toadette.yu_ayasaki = true
+            },
+            unlocked() {return true},
+            style() {
+                if (player.toadette.yu_ayasaki == false) dis = {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)"}
+                else dis = {"background-color":"rgb(0,194,199)",                    
+                }
+                return dis
+            },
+        },
+    },
+    buyables: {
+        11: {
+            title: "Toadette's Transfiguration",
+            cost(x) { return new Decimal(20).pow(Decimal.pow(x, 1.44)).times(1e12) },
+            display() { 
+                let display = ` Toadette uses her crown, now she becomes Peachette! <br>
+                Peachette level: ${format(player[this.layer].buyables[this.id])}<br>
+                Cost: ${format(this.cost())} Toadette's Crowns`
+                return display}, 
+            canAfford() { return player[this.layer].crown.gte(this.cost()) },
+            buyMax() {return setBuyableAmount('toadette', 11, player.toadette.crown.div(1e12).max(20).log(20).root(1.44).floor().add(1))},
+            canBuyMax() { return hasMilestone('easy', 10)},
+            buy() {
+                player[this.layer].crown = player[this.layer].crown.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                if (this.canBuyMax()) this.buyMax()
+            },
+            unlocked() {return hasUpgrade('toadette', 34)},
+            
+        },
+    },
+    update(Te) {
+        let tick = new Decimal(0.05)
+        if (hasUpgrade('toadette', 34)) player.toadette.peachette = getBuyableAmount('toadette', 11)
+
+        let mult = new Decimal(1)
+        if (hasUpgrade(this.layer, 34)) mult = mult.times(upgradeEffect(this.layer, 34))
+        let gain = player.toadette.points.div(1e50).max(0).root(3.678).times(mult)
+        if (hasMilestone('easy', 7)) player.toadette.crown = player.toadette.crown.add(gain.times(tick))
+
+        if (hasMilestone('normal', 0)) setBuyableAmount('toadette', 11, player.toadette.crown.div(1e12).max(20).log(20).root(1.44).floor().add(1))
+    },
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        ["display-text", () => `You have ` +format(player.luigi.points) + ` Luigi`],
+        ["display-text", () => `Your best amount of Toadette is ` +format(player.toadette.best)],
+        ["microtabs", "stuff"],
+        ["blank", "65px"],
+    ],
+    microtabs: {
+        stuff: {
+            "Upgrades": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    ["raw-html", () => `<h4 style="opacity:.5">Toadette is Captain Toad's sister, pink head with white spot and pink mushroom braids are her symbols. Also, in Mario Maker 2 story mode, she is a chief!`],
+                    ["upgrades", [1,2,3,4,5,6,7,8,9]]
+                ]
+            },
+            "Milestones": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    "milestones",
+                ]                
+            }, 
+            "Toadette's Journey": {
+                unlocked() {return hasUpgrade('toadette', 23)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        if (player.toad.tier.gte(34))
+                        return "You have <h2 style='color: #ff4899; text-shadow: 0 0 10px #ff4899'>" + formatWhole(player.toadette.crown) +" </h2> Toadette's Crowns, increasing 'Icpeta jumping' base by <h2 style='color: #ff4899; text-shadow: 0 0 10px #ff4899'>+" + format(clickableEffect('toadette', 11)) + ""}
+                    ],
+                    ["display-text", function() {
+                        if (hasUpgrade('toadette', 34))
+                        return "Your Peachette level is <h2 style='color: #ff4899; text-shadow: 0 0 10px #ff4899'>" + formatWhole(player.toadette.peachette) +"</h2>, multipling Toadette's Crown gain by <h2 style='color: #ff4899; text-shadow: 0 0 10px #ff4899'>" + format(upgradeEffect('toadette', 34)) + "x"}
+                    ],
+                    ["clickables",[1]],
+                    "buyables",
+                    ["blank", "81900px"],
+                    ["microtabs", "secret"],
+                    ["blank", "41700px"],
+                ]                
+            },           
+        },
+        secret: {
+            "Secret": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    ["clickables", [2]],
+                    ["display-image", function() {
+                        if (player.toadette.yu_ayasaki) return "resources/69695.png"
+                    }]                 
+                ]
+            },
+        },
+    },
+})
+// 第二十四层：简单耐力挑战
+function easyEndlessRandom() {
+    return player.easy.random_theme = new Decimal(Math.random()).times(10).floor().add(1),
+    player.easy.random_style = new Decimal(Math.random()).times(5).floor().add(1)
+}
+addLayer("easy", {
+    startData() { return {                  // startData is a function that returns default data for a layer. 
+        unlocked: true,                     // You can add more variables here to add them to your layer.
+        points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+        life: new Decimal(5),
+        free_c: new Decimal(0),
+        no_dmg: new Decimal(0),
+        no_dmg_running: false,
+        random_theme: new Decimal(0),
+        random_style: new Decimal(0),
+        no_dmg_mult: new Decimal(1),
+    }},
+
+    color: "#2DBBA4",                       // The color for this layer, which affects many elements.
+    resource: "Easy Endless Clears",            // The name of this layer's main prestige resource.
+    row: 10,                                 // The row this layer is on (0 is the first row).
+    symbol: "Eas",
+
+    baseResource: "OoMs of cleared courses",                 // The name of the resource your prestige gain is based on.
+    baseAmount() { return player.lgpoints },  // A function to return the current amount of baseResource.
+
+    requires: new Decimal("3e5422"),              // The amount of the base needed to  gain 1 of the prestige currency.
+                                            // Also the amount required to unlock the layer.
+
+    type: "normal",                         // Determines the formula used for calculating prestige currency.
+    exponent: 0.0025,                          // "normal" prestige gain is (currency^exponent).
+
+    canReset() {
+        return player.toad.points.gte("1e2667") && player.points.gte("e3e5422")
+    },
+
+    gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        if (hasUpgrade('toadette', 43)) mult = mult.times(upgradeEffect('toadette', 43))
+        if (hasUpgrade(this.layer, 15)) mult = mult.times(clickableEffect(this.layer, 11))
+        if (player.toad.level.gte(2600)) mult = mult.times(player.toad.level_rew[4])
+        return mult
+    },
+    gainExp() {                             // Returns the exponent to your gain of the prestige resource.
+        return new Decimal(1)
+    },
+
+    layerShown() { return hasAchievement('achievements', 171) },          // Returns a bool for if this layer's node should be visible in the tree.
+
+    onPrestige() {
+        let gain = tmp.easy.resetGain.max(10).log(10).floor()
+        if (hasUpgrade('easy', 33)) gain = gain.times(tmp.toad.buyables[103].effectII)
+        if (hasUpgrade('easy', 35)) gain = gain.times(buyableEffect('easy', 11))
+        if (hasUpgrade('normal', 11)) gain = gain.times(upgradeEffect('normal', 11))
+        if (hasUpgrade('easy', 31))
+        player[this.layer].free_c = player[this.layer].free_c.add(gain)
+    },
+    doReset(resettingLayer) {
+        if (layers[resettingLayer].row > layers[this.layer].row) {
+            let kept = ["unlocked", "auto"]
+            if (hasMilestone('normal', 0)) {
+                kept.push("milestones")}
+            layerDataReset(this.layer, kept)
+        }
+    },
+    hotkeys: [
+        {key: "e", description: "E: Reset for Easy Endless", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    upgrades: {
+        11: {
+            title: "The new journey",
+            description: "1e15x Toadette gain.",
+            cost: new Decimal(8),
+            unlocked() {return true},
+        },
+        12: {
+            title: "Record and rank",
+            description: "Easy Endless record increases 'Toad tickspeed' base.",
+            cost: new Decimal(4),
+            unlocked() {return hasUpgrade(this.layer, 11)},
+            effect() {
+                let hardcap = new Decimal(100)
+                if (hasUpgrade('easy', 24)) hardcap = new Decimal(1000)
+                let eff = player.easy.best.add(1).max(1).log(2).min(hardcap)
+                return eff
+            },
+            effectDisplay() { return "+"+format(upgradeEffect(this.layer, this.id)) },
+        },
+        13: {
+            title: "For medals",
+            description: "Easy Endless Clears delays Toad's softcap.",
+            cost: new Decimal(999),
+            unlocked() {return hasUpgrade(this.layer, 12)},
+            effect() {let eff = Decimal.pow(10, player.easy.points.max(1).log(10).add(10).pow(2))
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        14: {
+            title: "Easy gold ribbon",
+            description: "Toad tier 7 reward now has a better formula.",
+            cost: new Decimal(1111111),
+            unlocked() {return hasUpgrade(this.layer, 13)},
+        },
+        15: {
+            title: "Special challenge",
+            description: "Unlock a new subtab.",
+            cost: new Decimal(3e11),
+            unlocked() {return hasUpgrade(this.layer, 14)},
+        },
+        21: {
+            title: "Speedrunning",
+            description: "No damage easy clears boosts 'Ictera jumping' base.",
+            cost: new Decimal(2e16),
+            unlocked() {return hasUpgrade(this.layer, 15)},
+            effect() {let eff = player.easy.no_dmg.max(1).root(2.5)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        22: {
+            title: "Speedrunner",
+            description: "Peachette level powers 1st Toadette upgrade's effect. (hardcap at ^3)",
+            cost: new Decimal(8e27),
+            unlocked() {return hasUpgrade(this.layer, 21)},
+            effect() {
+                let cap = new Decimal(3)
+                if (hasUpgrade(this.layer, 32)) cap = new Decimal(10)
+                let eff = player.toadette.peachette.max(0).div(200).add(1).pow(2).min(cap)
+                return eff
+            },
+            effectDisplay() { return "^"+format(upgradeEffect(this.layer, this.id)) },
+        },
+        23: {
+            title: "Toad's speedrun",
+            description: "Unlock 26th Toad upgrade.",
+            cost: new Decimal(1e28),
+            unlocked() {return hasUpgrade(this.layer, 22)},
+        },
+        24: {
+            title: "Safety running",
+            description: "Delay 2nd Easy Endless upgrade hardcap to 1000.",
+            cost: new Decimal(1e39),
+            unlocked() {return hasUpgrade(this.layer, 23)},
+        },
+        25: {
+            title: "Farming lives",
+            description: "Fire Flower effect ^1000.",
+            cost: new Decimal(1e63),
+            unlocked() {return hasUpgrade(this.layer, 24)},
+        },
+        31: {
+            title: "Is not necessary",
+            description: "Unlock a new subtab.",
+            cost: new Decimal(5e98),
+            unlocked() {return hasUpgrade(this.layer, 25)},
+            effect() {
+                let ex = player.easy.free_c.max(1e100).log(1e100).root(1.5)
+                let eff = player.easy.free_c.add(1).max(1).root(3).root(ex)
+                return eff
+            },
+        },
+        32: {
+            title: "Eternal grinding",
+            description: "7th Easy Endless upgrade's effect hardcap is delayed to ^10.",
+            cost: new Decimal(1e114),
+            unlocked() {return hasUpgrade(this.layer, 31)},
+        },
+        33: {
+            title: "00:01.301",
+            description: "Unlock 2nd effect of 'Ikecta jumping'.",
+            cost: new Decimal(1e119),
+            unlocked() {return hasUpgrade(this.layer, 32)},
+        },
+        34: {
+            title: "00:01.317",
+            description: "Weaken Toad level 3 effect softcap.",
+            cost: new Decimal(1e125),
+            unlocked() {return hasUpgrade(this.layer, 33)},
+        },
+        35: {
+            title: "Lots of free clear",
+            description: "Unlock a buyable in this layer in Free Clears subtab.",
+            cost: new Decimal(1e165),
+            unlocked() {return hasUpgrade(this.layer, 34)},
+        },
+        41: {
+            title: "That's empty",
+            description: "Square Toadette's Crown and Peachette effects.",
+            cost: new Decimal(1e175),
+            unlocked() {return hasUpgrade(this.layer, 35)},
+        },
+        42: {
+            title: "Difficulty up",
+            description: "Reduce Toad pent cost by 0.475x",
+            cost: new Decimal("1e623"),
+            unlocked() {return hasUpgrade(this.layer, 41)},
+        },
+        43: {
+            title: "Easy endless leader",
+            description: "Unlock a new buyable.",
+            currencyDisplayName: "Free Clears",
+            currencyInternalName: "free_c",
+            currencyLayer: "easy",
+            cost: new Decimal(1e40),
+            unlocked() {return hasUpgrade(this.layer, 42)},
+        },
+        44: {
+            title: "Leading forever",
+            description: "Every 2 'Ikyota challenging' levels provides 1 free level of 'Iczeta challenging'.",
+            cost: new Decimal("1e1625"),
+            unlocked() {return hasUpgrade(this.layer, 43)},
+            effect() {
+                let eff = getBuyableAmount('easy', 12).max(0).div(2).floor()
+                return eff
+            },
+            effectDisplay() { return "+"+formatWhole(upgradeEffect(this.layer, this.id)) },
+        },
+        45: {
+            title: "The display limit",
+            description: "5x One Shot Clears gain.",
+            cost: new Decimal("1e1725"),
+            unlocked() {return hasUpgrade(this.layer, 44)},
+        },
+        // Look in the upgrades docs to see what goes here!
+    },
+    milestones: {
+        0: {
+            requirementDescription: "1 Easy Endless Clear",
+            effectDescription: "20x Mario cleared courses and cheesed Luigi cleared courses gain. Keep Toad milestones on row 11 reset.",
+            done() { return player.easy.points.gte(1) },
+        },
+        1: {
+            requirementDescription: "2 Easy Endless Clears",
+            effectDescription: "Keep Toadette milestones on row 11 reset. You can always autobuy Toad level and you can buy max Toad tier and buyables. (Including Toad tickspeed) Toad tier no longer reset Toad level.",
+            done() { return player.easy.points.gte(2) },
+        },
+        2: {
+            requirementDescription: "3 Easy Endless Clears",
+            effectDescription: "Passive gain 1000% Toadette every second.",
+            done() { return player.easy.points.gte(3) },
+        },
+        3: {
+            requirementDescription: "4 Easy Endless Clears",
+            effectDescription: "Autobuy Toad tier.",
+            done() { return player.easy.points.gte(4) },
+        },
+        4: {
+            requirementDescription: "5 Easy Endless Clears",
+            effectDescription: "+2.5 'Toad tickspeed' base.",
+            done() { return player.easy.points.gte(5) },
+        },
+        5: {
+            requirementDescription: "6 Easy Endless Clears",
+            effectDescription: "Keep Toad and Toadette upgrades on row 11 reset.",
+            done() { return player.easy.points.gte(6) },
+        },
+        6: {
+            requirementDescription: "600 Easy Endless Clears",
+            effectDescription: "Autobuy Toad buyables except 'Toad tickspeed'.",
+            done() { return player.easy.points.gte(600) },
+        },
+        7: {
+            requirementDescription: "1e11 Easy Endless Clears",
+            effectDescription: "Passive gain 100% Toadette's crown every second.",
+            done() { return player.easy.points.gte(1e11) },
+        },
+        8: {
+            requirementDescription: "30 Easy Endless Clears without taking damage",
+            effectDescription: "+100 to 11th Toad upgrade's hardcap.",
+            done() { return player.easy.no_dmg.gte(30) },
+        },
+        9: {
+            requirementDescription: "1000 Easy Endless Clears without taking damage",
+            effectDescription: "Protect 50% of No Damage easy clears while picking an incorrect goal.",
+            done() { return player.easy.no_dmg.gte(1000) },
+        },
+        10: {
+            requirementDescription: "8e80 Easy Endless Clears",
+            effectDescription: "Autobuy 'Toad tickspeed' and you can buy max Peachette levels.",
+            done() { return player.easy.points.gte(8e80) },
+        },
+        11: {
+            requirementDescription: "1e130 Easy Endless Clears",
+            effectDescription: "^1000 Cleared Courses gain.",
+            done() { return player.easy.points.gte(1e130) },
+        },
+        12: {
+            requirementDescription: "2.22e222 Easy Endless Clears",
+            effectDescription: "Auto Toad tetr up.",
+            done() { return player.easy.points.gte(2.22e222) },
+        },
+        13: {
+            requirementDescription: "1.79e308 Easy Endless Clears",
+            effectDescription: "^1000000 Cleared Courses gain.",
+            done() { return player.easy.points.gte("1.79e308") },
+        },
+        14: {
+            requirementDescription: "1e1600 Easy Endless Clears",
+            effectDescription: "Toad pent resets nothing.",
+            done() { return player.easy.points.gte("1e1600") },
+        },
+    },
+    clickables: {
+        11: {
+            title: "Spend 3e11 Easy Endless Clears to start a new No damage easy run",
+            display() {
+                return ""
+                },
+            canClick() {return player.easy.points.gte(3e11) && player.easy.no_dmg_running == false},
+            onClick() {
+                return player.easy.points = player.easy.points.sub(3e11),
+                player.easy.no_dmg_running = true,
+                easyEndlessRandom()
+            },
+            unlocked() {return hasUpgrade('easy', 15)},
+            effect() {
+                let eff = Decimal.factorial(player.easy.no_dmg.add(1.7).max(1.7).log(1.7))
+                return eff
+            },
+            style: {'border-radius':"0%",
+                    'width':"500px",
+                    'min-height':'20px',
+                    },
+        },
+        21: {
+            title: "Overworld",
+            display() {
+                return ""
+                },
+            canClick() {return false},
+            unlocked() {return hasUpgrade('easy', 15)},
+            style() {
+                    if (player.easy.no_dmg_running && player.easy.random_theme.eq(1)) 
+                    return {'background-color':"#58cd2a"}
+            },
+        },
+        22: {
+            title: "Underground",
+            display() {
+                return ""
+                },
+            canClick() {return false},
+            unlocked() {return hasUpgrade('easy', 15)},
+            style() {
+                    if (player.easy.no_dmg_running && player.easy.random_theme.eq(2)) 
+                    return {'background-color':"#317b86"}
+            },
+        },
+        23: {
+            title: "Underwater",
+            display() {
+                return ""
+                },
+            canClick() {return false},
+            unlocked() {return hasUpgrade('easy', 15)},
+            style() {
+                    if (player.easy.no_dmg_running && player.easy.random_theme.eq(3)) 
+                    return {'background-color':"#4545ff"}
+            },
+        },
+        24: {
+            title: "Desert",
+            display() {
+                return ""
+                },
+            canClick() {return false},
+            unlocked() {return hasUpgrade('easy', 15)},
+            style() {
+                    if (player.easy.no_dmg_running && player.easy.random_theme.eq(4)) 
+                    return {'background-color':"#ffd191"}
+            },
+        },
+        25: {
+            title: "Snow",
+            display() {
+                return ""
+                },
+            canClick() {return false},
+            unlocked() {return hasUpgrade('easy', 15)},
+            style() {
+                    if (player.easy.no_dmg_running && player.easy.random_theme.eq(5)) 
+                    return {'background-color':"#7dbaff"}
+            },
+        },
+        31: {
+            title: "Athletic",
+            display() {
+                return ""
+                },
+            canClick() {return false},
+            unlocked() {return hasUpgrade('easy', 15)},
+            style() {
+                    if (player.easy.no_dmg_running && player.easy.random_theme.eq(6)) 
+                    return {'background-color':"#748bff"}
+            },
+        },
+        32: {
+            title: "Jungle",
+            display() {
+                return ""
+                },
+            canClick() {return false},
+            unlocked() {return hasUpgrade('easy', 15)},
+            style() {
+                    if (player.easy.no_dmg_running && player.easy.random_theme.eq(7)) 
+                    return {'background-color':"#156137"}
+            },
+        },
+        33: {
+            title: "Ghost House",
+            display() {
+                return ""
+                },
+            canClick() {return false},
+            unlocked() {return hasUpgrade('easy', 15)},
+            style() {
+                    if (player.easy.no_dmg_running && player.easy.random_theme.eq(8)) 
+                    return {'background-color':"#3e2f44"}
+            },
+        },
+        34: {
+            title: "Airship",
+            display() {
+                return ""
+                },
+            canClick() {return false},
+            unlocked() {return hasUpgrade('easy', 15)},
+            style() {
+                    if (player.easy.no_dmg_running && player.easy.random_theme.eq(9)) 
+                    return {'background-color':"#ce8e23"}
+            },
+        },
+        35: {
+            title: "Castle",
+            display() {
+                return ""
+                },
+            canClick() {return false},
+            unlocked() {return hasUpgrade('easy', 15)},
+            style() {
+                    if (player.easy.no_dmg_running && player.easy.random_theme.eq(10)) 
+                    return {'background-color':"#432b29"}
+            },
+        },
+        41: {
+            title: "SMB1",
+            display() {
+                return ""
+                },
+            canClick() {return false},
+            unlocked() {return hasUpgrade('easy', 15)},
+            style() {
+                    if (player.easy.no_dmg_running && player.easy.random_style.eq(1)) 
+                    return {'background-color':"#e55807"}
+            },
+        },
+        42: {
+            title: "SMB3",
+            display() {
+                return ""
+                },
+            canClick() {return false},
+            unlocked() {return hasUpgrade('easy', 15)},
+            style() {
+                    if (player.easy.no_dmg_running && player.easy.random_style.eq(2)) 
+                    return {'background-color':"#ff9d1e"}
+            },
+        },
+        43: {
+            title: "SMW",
+            display() {
+                return ""
+                },
+            canClick() {return false},
+            unlocked() {return hasUpgrade('easy', 15)},
+            style() {
+                    if (player.easy.no_dmg_running && player.easy.random_style.eq(3)) 
+                    return {'background-color':"#88ffff"}
+            },
+        },
+        44: {
+            title: "NSMBU",
+            display() {
+                return ""
+                },
+            canClick() {return false},
+            unlocked() {return hasUpgrade('easy', 15)},
+            style() {
+                    if (player.easy.no_dmg_running && player.easy.random_style.eq(4)) 
+                    return {'background-color':"#ffdd00"}
+            },
+        },
+        45: {
+            title: "SM3DW",
+            display() {
+                return ""
+                },
+            canClick() {return false},
+            unlocked() {return hasUpgrade('easy', 15)},
+            style() {
+                    if (player.easy.no_dmg_running && player.easy.random_style.eq(5)) 
+                    return {'background-color':"#059eff"}
+            },
+        },
+        51: {
+            title: "Flag Goal",
+            display() {
+                return ""
+                },
+            canClick() {return player.easy.no_dmg_running},
+            onClick() {
+                let protect = decimalZero
+                if (hasMilestone(this.layer, 9)) protect = player.easy.no_dmg.div(2).floor()
+                if (hasUpgrade('toad', 64)) protect = player.easy.no_dmg
+                if (player.easy.random_theme.gte(1) && player.easy.random_theme.lte(9) && (player.easy.random_style.eq(1) || player.easy.random_style.eq(4)) || player.easy.random_style.eq(5))
+                return player.easy.no_dmg = player.easy.no_dmg.add(player.easy.no_dmg_mult), easyEndlessRandom()
+                else return player.easy.no_dmg = protect, easyEndlessRandom()},
+            unlocked() {return hasUpgrade('easy', 15)},
+            style() {
+                    return {'background-color':"#ffdb27"}
+            },
+        },
+        52: {
+            title: `<br><h4 style='color: #ffffff;font-family: "MARIO MAKER", "Lucida Console", "Courier New", monospace'>Square Goal</h4>`,
+            display() {
+                return ""
+                },
+            canClick() {return player.easy.no_dmg_running},
+            onClick() {
+                let protect = decimalZero
+                if (hasMilestone(this.layer, 9)) protect = player.easy.no_dmg.div(2).floor()
+                if (hasUpgrade('toad', 64)) protect = player.easy.no_dmg
+                if (player.easy.random_theme.gte(1) && player.easy.random_theme.lte(9) && player.easy.random_style.eq(2))
+                return player.easy.no_dmg = player.easy.no_dmg.add(player.easy.no_dmg_mult), easyEndlessRandom()
+                else return player.easy.no_dmg = protect, easyEndlessRandom()},
+            unlocked() {return hasUpgrade('easy', 15)},
+            style() {
+                    return {'background-color':"#070707"}
+            },
+        },
+        53: {
+            title: "Pole Goal",
+            display() {
+                return ""
+                },
+            canClick() {return player.easy.no_dmg_running},
+            onClick() {
+                let protect = decimalZero
+                if (hasMilestone(this.layer, 9)) protect = player.easy.no_dmg.div(2).floor()
+                if (hasUpgrade('toad', 64)) protect = player.easy.no_dmg
+                if (player.easy.random_theme.gte(1) && player.easy.random_theme.lte(9) && player.easy.random_style.eq(3))
+                return player.easy.no_dmg = player.easy.no_dmg.add(player.easy.no_dmg_mult), easyEndlessRandom()
+                else return player.easy.no_dmg = protect, easyEndlessRandom()},
+            unlocked() {return hasUpgrade('easy', 15)},
+            style() {
+                    return {'background-color':"#4a4f95"}
+            },
+        },
+        54: {
+            title: "Axe Goal",
+            display() {
+                return ""
+                },
+            canClick() {return player.easy.no_dmg_running},
+            onClick() {
+                let protect = decimalZero
+                if (hasMilestone(this.layer, 9)) protect = player.easy.no_dmg.div(2).floor()
+                if (hasUpgrade('toad', 64)) protect = player.easy.no_dmg
+                if (player.easy.random_theme.eq(10) && player.easy.random_style.gte(1) && player.easy.random_style.lte(4))
+                return player.easy.no_dmg = player.easy.no_dmg.add(player.easy.no_dmg_mult), easyEndlessRandom()
+                else return player.easy.no_dmg = protect, easyEndlessRandom()},
+            unlocked() {return hasUpgrade('easy', 15)},
+            style() {
+                    return {'background-color':"#a97d41"}
+            },
+        },
+    },
+    buyables: {
+        11: {
+            title: "Iczeta challenging",
+            cost(x) { return new Decimal(10).pow(Decimal.pow(x, 1.35)) },
+            display() { 
+                let free = new Decimal(0)
+                if (hasUpgrade('normal', 13)) free = free.add(upgradeEffect('normal', 13))
+                if (hasUpgrade('easy', 44)) free = free.add(upgradeEffect('easy', 44))
+                let freedis = ""
+                if (hasUpgrade('normal', 13) || hasUpgrade('easy', 44)) freedis = "+"+formatWhole(free)
+                let display = ` Multiply Free Clears by lg(FC)^0.5x per every level. <br>
+                base: ${format(player.easy.free_c.max(10).log(10).root(2))}<br>
+                level: ${formatWhole(player[this.layer].buyables[this.id])}${freedis}<br>
+                Effect: ${format(this.effect())}x<br>
+                Cost: ${format(this.cost())} Free Clears`
+                return display}, 
+            canAfford() { return player[this.layer].free_c.gte(this.cost()) },
+            buyMax() {return setBuyableAmount('easy', 11, player.easy.free_c.max(10).log(10).root(1.35).floor().add(1))},
+            canBuyMax() { return false},
+            buy() {
+                player[this.layer].free_c = player[this.layer].free_c.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                if (this.canBuyMax()) this.buyMax()
+            },
+            effect(x) {
+                let free = new Decimal(0)
+                if (hasUpgrade('normal', 13)) free = free.add(upgradeEffect('normal', 13))
+                if (hasUpgrade('easy', 44)) free = free.add(upgradeEffect('easy', 44))
+                let base = player.easy.free_c.max(10).log(10).root(2)
+                let effect = base.pow(x.add(free))
+                return effect},
+            unlocked() {return hasUpgrade('easy', 35)},
+            
+        },
+        12: {
+            title: "Ikyota challenging",
+            cost(x) { return new Decimal(256).pow(Decimal.pow(x, 1.44)).times(1e20) },
+            display() { 
+                let free = new Decimal(0)
+                let freedis = ""
+                if (false) freedis = "+"+formatWhole(free)
+                let base = new Decimal(1.5)
+                let display = ` Multiply Normal Endless clear gain by ${format(base)} per every level. <br>
+                level: ${formatWhole(player[this.layer].buyables[this.id])}${freedis}<br>
+                Effect: ${format(this.effect())}x<br>
+                Cost: ${format(this.cost())} Free Clears`
+                return display}, 
+            canAfford() { return player[this.layer].free_c.gte(this.cost()) },
+            buyMax() {return setBuyableAmount('easy', 12, player.easy.free_c.div(1e20).max(256).log(256).root(1.44).floor().add(1))},
+            canBuyMax() { return false},
+            buy() {
+                player[this.layer].free_c = player[this.layer].free_c.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                if (this.canBuyMax()) this.buyMax()
+            },
+            effect(x) {
+                let free = new Decimal(0)
+                let base = new Decimal(1.5)
+                let effect = base.pow(x.add(free))
+                return effect},
+            unlocked() {return hasUpgrade('easy', 43)},
+            
+        },
+    },
+    update(easy) {
+        let tick = new Decimal(0.05)
+        let multNDMG = new Decimal(1)
+        if (hasUpgrade('easy', 31)) multNDMG = multNDMG.times(upgradeEffect('easy', 31))
+        if (hasUpgrade('toad', 61)) multNDMG = multNDMG.times(upgradeEffect('toad', 61))
+        multNDMG = multNDMG.floor()
+        player.easy.no_dmg_mult = multNDMG
+    },
+tabFormat: [
+    "main-display",
+    "prestige-button",
+    ["display-text", () => `You only can reset for this layer after getting ` +format("1e2667") + ` Toad`],
+    ["display-text", () => `You have ` +format(player.points) + ` Cleared Courses`],
+    ["display-text", () => `You have ` +format(player.toad.points) + ` Toad`],
+    ["display-text", () => `Your record of Easy Endless Clears is ` + format(player.easy.best)],
+    ["microtabs", "stuff"],
+    ["blank", "65px"],
+],
+microtabs: {
+    stuff: {
+        "Upgrades": {
+            unlocked() {return true},
+            content: [
+                ["blank", "15px"],
+                ["raw-html", () => `<h4 style="opacity:.5">There are 4 different difficulties of endless challenges. Easy endless is the first difficulty.<br>When you start a new run, you would have 5 lives.`],
+                ["upgrades", [1,2,3,4,5,6,7,8,9]]
+            ]
+        },
+        "Milestones": {
+            unlocked() {return true},
+            content: [
+                ["blank", "15px"],
+                "milestones",
+            ]                
+        }, 
+        "No Damage Challenge": {
+            unlocked() {return hasUpgrade('easy', 15)},
+            content: [
+                ["blank", "15px"],
+                ["display-text", function() {
+                    return "You cleared <h2 style='color: #2dbba4; text-shadow: 0 0 10px #2dbba4'>" + formatWhole(player.easy.no_dmg) +" </h2> easy courses without taking damage, multiplying Easy Endless clears by <h2 style='color: #2dbba4; text-shadow: 0 0 10px #2dbba4'>" + format(clickableEffect('easy', 11)) + "x </h2>"}
+                ],
+                ["clickables", [1]],
+                ["display-text", function() {
+                    return "You will get a course with a random style and a random theme. Pick the corresponding goal of this random course to increase No Damage easy clears."}
+                ],
+                ["display-text", function() {
+                    return "You can gain " + formatWhole(player.easy.no_dmg_mult) + " No Damage easy clears per every correct pick, but if you picked incorrect goal, you will lose all your No Damage easy clears"}
+                ],
+                "blank",
+                "blank",
+                ["display-text", function() {
+                    return "------Themes------"}
+                ],
+                ["clickables", [2]],
+                "blank",
+                ["clickables", [3]],
+                "blank",
+                ["display-text", function() {
+                    return "------Styles------"}
+                ],
+                ["clickables", [4]],
+                "blank",
+                ["display-text", function() {
+                    return "------Goals------"}
+                ],
+                ["clickables", [5]],
+                ["blank", "1000px"],
+                ["display-text", function() {
+                    return "Oh if you don't know what goals are correct here's the hint.<br>____________________________________________________________________"}
+                ],
+                ["display-text", function() {
+                    return "In SMB1 and NSMBU style, the goal is a flag except castle theme<br>In SMB3 style, the goal is a square except castle theme<br>In SMW style, the goal is a pole except castle theme"}
+                ],
+                ["display-text", function() {
+                    return "In SM3DW style, the goal is a flag<br>In castle theme, the goal is an axe except SM3DW style"}
+                ],
+            ]                
+        },  
+        "Free Clears": {
+            unlocked() {return hasUpgrade('easy', 31)},
+            content: [
+                ["blank", "15px"],
+                ["display-text", function() {
+                    return "You have <h2 style='color: #2dbba4; text-shadow: 0 0 10px #2dbba4'>" + formatWhole(player.easy.free_c) + "</h2> Free Clears in Easy Endless, multiplying <h2 style='color: #2dbba4; text-shadow: 0 0 10px #2dbba4'>" + format(upgradeEffect('easy', 31)) + "x</h2> to No Damage easy clears gain"}
+                ],
+                ["display-text", function() {
+                    let gain = tmp.easy.resetGain.max(10).log(10).floor()
+                    if (hasUpgrade('easy', 33)) gain = gain.times(tmp.toad.buyables[103].effectII)
+                    if (hasUpgrade('easy', 35)) gain = gain.times(buyableEffect('easy', 11))
+                    if (hasUpgrade('normal', 11)) gain = gain.times(upgradeEffect('normal', 11))
+                    return "You can gain " + formatWhole(gain) + " Free Clears this Easy Endless reset"}
+                ],
+                "buyables",
+            ]                
+        }, 
+    },
+},
+})
+// 第二十五层：普通耐力挑战
+addLayer("normal", {
+    startData() { return {                  // startData is a function that returns default data for a layer. 
+        unlocked: true,                     // You can add more variables here to add them to your layer.
+        points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+        oneshot: new Decimal(0),
+        oneshot_mult: new Decimal(1),
+        square_cooldown: new Decimal(0),
+        square_changing: new Decimal(0),
+        auto_mario: new Decimal(0),
+    }},
+
+    color: "#77A831",                       // The color for this layer, which affects many elements.
+    resource: "Normal Endless Clears",            // The name of this layer's main prestige resource.
+    row: 11,                                 // The row this layer is on (0 is the first row).
+    position: 0,
+    branches: ["easy"],
+    symbol: "Nor",
+
+    baseResource: "Easy Endless Clears",                 // The name of the resource your prestige gain is based on.
+    baseAmount() { return player.easy.points },  // A function to return the current amount of baseResource.
+
+    requires: new Decimal("1e651"),              // The amount of the base needed to gain 1 of the prestige currency.
+                                            // Also the amount required to unlock the layer.
+
+    type: "custom",                         // Determines the formula used for calculating prestige currency.
+    exponent: 0.5,                          // "normal" prestige gain is (currency^exponent).
+
+    prestigeButtonText() {
+        return "Difficulty up for <b>+" + formatWhole(tmp.normal.resetGain) + "</b> Normal Endless Clears<br><br>Next at "+ format(tmp.normal.nextAt)+ " Easy Endless Clears"
+    },
+    getResetGain() {
+        let mult = new Decimal(1) //gainMult
+        if (player.toad.supertier[1].gte(69)) mult = mult.times(3)
+        if (hasUpgrade('easy', 43)) mult = mult.times(buyableEffect('easy', 12))
+        if (hasMilestone('normal', 1)) mult = mult.times(milestoneEffect('normal', 1))
+        let gain = player.easy.points.max(1).div("1e641").max(1).log(1e10).times(mult).floor()
+        return gain
+    },
+    getNextAt() {
+        let base = new Decimal(1e10)
+        let mult = new Decimal(1) //gainMult
+        if (player.toad.supertier[1].gte(69)) mult = mult.times(3)
+        if (hasUpgrade('easy', 43)) mult = mult.times(buyableEffect('easy', 12))
+        if (hasMilestone('normal', 1)) mult = mult.times(milestoneEffect('normal', 1))
+        base = base.root(mult)
+        let gain = tmp.normal.resetGain
+        return Decimal.pow(base, gain).times("1e651").div(base.pow(mult.sub(1)))
+    },
+    canReset() {
+        return player.easy.points.gte("1e651")
+    },
+    gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        
+        return mult
+    },
+    gainExp() {                             // Returns the exponent to your gain of the prestige resource.
+        return new Decimal(1)
+    },
+    effect(){
+        return Decimal.pow(10,player[this.layer].points.add(1).max(1).log(10).root(3)).pow(10)
+        /*
+        you should use this.layer instead of <layerID>
+        Decimal.pow(num1, num2) is an easier way to do
+        num1.pow(num2)
+        */
+    },
+        effectDescription(){
+        return "powering Cleared Courses gain by ^" + format(layerEffect('normal'))
+        /*
+        use format(num) whenever displaying a number
+        */
+    },
+    onPrestige() {
+        return player[this.layer].resetTime = 0
+    },
+    layerShown() { return hasAchievement('achievements', 174) },          // Returns a bool for if this layer's node should be visible in the tree.
+    hotkeys: [
+        {key: "n", description: "N: Reset for Normal Endless", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    upgrades: {
+        11: {
+            title: "Another journey",
+            description: "Record of Normal Endless Clears boosts Free Clears gain.",
+            cost: new Decimal(3),
+            unlocked() {return true},
+            effect() {
+                let eff = player.normal.best.add(1.1).max(1.1).log(1.1).pow(2)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        12: {
+            title: "A simple gap",
+            description() {
+                let time = new Decimal(player.normal.resetTime)
+                if (hasUpgrade(this.layer, 14)) time = time.add(3600)
+                if (hasUpgrade(this.layer, 15)) time = time.add(upgradeEffect(this.layer, 15))
+                if (time.lt(31556952000))
+                return "Normal Endless reset time multiplies Toad gain.<br>Time: "+formatTime(new Decimal(time))
+                else return "Normal Endless reset time multiplies Toad gain.<br>Time: "+formatTimeLong(new Decimal(time))},
+            cost: new Decimal(10),
+            unlocked() {return hasUpgrade(this.layer, 11)},
+            effect() {
+                let time = new Decimal(player.normal.resetTime)
+                if (hasUpgrade(this.layer, 14)) time = time.add(3600)
+                if (hasUpgrade(this.layer, 15)) time = time.add(upgradeEffect(this.layer, 15))
+                let eff = Decimal.pow("1e10000", time.root(3).times(10))
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        13: {
+            title: "A hidden block",
+            description: "Normal Endless Clear provides free level of 'Iczeta challenging'.",
+            cost: new Decimal(350),
+            unlocked() {return hasUpgrade(this.layer, 12)},
+            effect() {
+                let eff = player.normal.points.max(1).log(2).floor()
+                return eff
+            },
+            effectDisplay() { return "+"+formatWhole(upgradeEffect(this.layer, this.id)) },
+        },
+        14: {
+            title: "Time skip",
+            description: "Add 1 hour to 2nd Normal Endless upgrade effect.",
+            cost: new Decimal(1528),
+            unlocked() {return hasUpgrade(this.layer, 13)},
+        },
+        15: {
+            title: "Go to the goal",
+            description: "Unlock a new subtab.",
+            cost: new Decimal(6677),
+            unlocked() {return hasUpgrade(this.layer, 14)},
+            effect() {
+                let power = new Decimal(3)
+                if (hasUpgrade(this.layer, 21)) power = power.div(2)
+                let eff = player.normal.oneshot.max(0).root(power).times(3600)
+                return eff
+            },
+        },
+        21: {
+            title: "Timing",
+            description: "One Shot Clears effect is better.",
+            currencyDisplayName: "One Shot Clears",
+            currencyInternalName: "oneshot",
+            currencyLayer: "normal",
+            cost: new Decimal(10),
+            unlocked() {return hasUpgrade(this.layer, 15)},
+        },
+        // Look in the upgrades docs to see what goes here!
+    },
+    milestones: {
+        0: {
+            requirementDescription: "1 Normal Endless Clear",
+            effectDescription: "Keep Easy Endless milestones on row 12 reset and autobuy Peachette levels.",
+            done() { return player.normal.points.gte(1) },
+        },
+        1: {
+            requirementDescription: "100 One Shot Clears",
+            effect() {return player.normal.oneshot},
+            effectDescription(){return "One Shot Clears boosts Normal Endless CLears gain.<br>Currently: "+format(milestoneEffect('normal', 1))+"x"},
+            done() { return player.normal.oneshot.gte(100) },
+        },
+    },
+    clickables: {
+        11: {
+            title() {
+                let c = player.normal.square_changing
+                if (c.gte(1) && c.lte(3)) return "Mushroom"
+                if (c.gte(4) && c.lte(6)) return "Flower"
+                if (c.gte(7) && c.lte(9)) return "Star"
+                if (c.gte(10) && c.lte(12)) return "1UP"
+            },
+            display() {
+                return ""
+                },
+            canClick() {return player.normal.square_cooldown.eq(0) && (player.easy.random_theme.gte(1) && player.easy.random_theme.lte(9) && player.easy.random_style.eq(2))},
+            onClick() {
+                player.normal.square_cooldown = new Decimal(5)
+                let c = player.normal.square_changing
+                if (c.gte(10) && c.lte(12)) player.normal.oneshot = player.normal.oneshot.add(player.normal.oneshot_mult)          
+                },
+            unlocked() {return hasUpgrade('normal', 15)},
+            style() {
+                let style = ""
+                let c = player.normal.square_changing
+                if (c.gte(1) && c.lte(3)) 
+                    style = {'border-radius':"10%",
+                            'border':"10px solid",
+                            'border-color':"#ffffff",
+                            'background':"radial-gradient(#c42533 0%, #070707)",}
+                if (c.gte(4) && c.lte(6)) 
+                    style = {'border-radius':"10%",
+                            'border':"10px solid",
+                            'border-color':"#ffffff",
+                            'background':"radial-gradient(#ff8d00 0%, #070707)",}
+                if (c.gte(7) && c.lte(9)) 
+                    style = {'border-radius':"10%",
+                            'border':"10px solid",
+                            'border-color':"#ffffff",
+                            'background':"radial-gradient(#ffb15a 0%, #070707)",}
+                if (c.gte(10) && c.lte(12)) 
+                    style = {'border-radius':"10%",
+                            'border':"10px solid",
+                            'border-color':"#ffffff",
+                            'background':"radial-gradient(#5bbf2f 0%, #070707)",}
+                return style
+            },
+        },
+    },
+    update(Nor) {
+        let tick = new Decimal(0.05)
+        let OSmult = new Decimal(1)
+        if (hasUpgrade('easy', 45)) OSmult = OSmult.times(5)
+        player.normal.oneshot_mult = OSmult
+        if (player.normal.oneshot_mult.lt(1)) player.normal.oneshot_mult = new Decimal(1)
+        if (hasUpgrade('normal', 15)&&(player.easy.random_theme.gte(1) && player.easy.random_theme.lte(9) && player.easy.random_style.eq(2))) player.normal.square_changing = player.normal.square_changing.add(1)
+        if (player.normal.square_cooldown.gt(0)) player.normal.square_cooldown = player.normal.square_cooldown.sub(tick)
+        if (player.normal.square_cooldown.lt(0)) player.normal.square_cooldown = decimalZero
+        if (player.normal.square_changing.gt(12)) player.normal.square_changing = new Decimal(1)
+    },
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        ["display-text", () => `You have ` +format(player.easy.points) + ` Easy Endless Clears`],
+        ["display-text", () => `Your record of Normal Endless Clears is ` + format(player.normal.best)],
+        ["microtabs", "stuff"],
+        ["blank", "65px"],
+    ],
+    microtabs: {
+        stuff: {
+            "Upgrades": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    ["raw-html", () => `<h4 style="opacity:.5">There are 4 different difficulties of endless challenges. Normal endless is the second difficulty.<br>When you start a new run, you would have 5 lives. It's still a little hard for beginners.`],
+                    ["upgrades", [1,2,3,4,5,6,7,8,9]]
+                ]
+            },
+            "Milestones": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    "milestones",
+                ]                
+            }, 
+            "One Shot Clears": {
+                unlocked() {return hasUpgrade('normal', 15)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        let rew = formatTime(upgradeEffect('normal', 15))
+                        if (upgradeEffect('normal', 15).gte(31556952000)) rew = formatTimeLong(upgradeEffect('normal', 15))
+                        if (hasUpgrade('normal', 15))
+                        return "Your have cleared <h2 style='color: #77a831; text-shadow: 0 0 10px #77a831'>" + formatWhole(player.normal.oneshot) +"</h2> Normal Endless courses with only one attempt (One shot clears), adding <h2 style='color: #77a831; text-shadow: 0 0 10px #77a831'>" + rew + " </h2> to 2nd Normal Endless upgrade."}
+                    ],
+                    ["display-text", function() {
+                        if (!(player.easy.random_theme.gte(1) && player.easy.random_theme.lte(9) && player.easy.random_style.eq(2)))
+                        return "The SMB3 square goal is not rolling. To make the SMB3 square goal to start to roll, you need to go to 'No Damage Challenge' subtab in Easy Endless layer and make the goal is square goal."}
+                    ],
+                    ["display-text", function() {
+                        if (player.easy.random_theme.gte(1) && player.easy.random_theme.lte(9) && player.easy.random_style.eq(2))
+                        return "The SMB3 square goal is rolling, click this goal while it turn to 1UP, gain " +formatWhole(player.normal.oneshot_mult)+ " One Shot Clears."}
+                    ],
+                    "blank",
+                    ["display-text", function() {
+                        return "There is a 5s cooldown between two clicks."}
+                    ],
+                    "blank",
+                    "clickables",
+                    "blank",
+                    ["display-text", function() {
+                        return "Cooldown: "+formatTime(player.normal.square_cooldown)}
+                    ],
+                ]                
+            }, 
+        },
     },
 })
 //剧透警告！！！SPOILER ALERT!!!
@@ -9261,8 +12039,8 @@ addLayer("toadette", {
 
 
 
-// 第二十四层：简单耐力挑战
-// 第二十五层：普通耐力挑战
+
+
 // 第二十六层：困难耐力挑战
 // 第二十七层：超难耐力挑战
 // 第二十八层：多人过关
