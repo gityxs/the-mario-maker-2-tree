@@ -10103,7 +10103,7 @@ addLayer("toad", {
                 if (player.toad.tier.gte(34)) ToB2base = ToB2base.add(clickableEffect('toadette', 11))
                 effect = ToB2base.pow(x).max(1)
                 return effect},
-            unlocked() {return player.toad.tier.gte(1)},
+            unlocked() {return player.toad.tier.gte(2)},
             style() {
                 if (player[this.layer].points.gte(this.cost()))
                  dis = {"background":"linear-gradient(45deg, #0047ff, #2265ff)",
