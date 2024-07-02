@@ -7,13 +7,35 @@ decimalGoogol = new Decimal(1e100)
 decimalGoogolplex = new Decimal("ee100")
 decimalDecker = new Decimal("10^^10")
 decimalGiggol = new Decimal("10^^100")
+function isDInfinity(decimal) {
+    decimal = new Decimal(decimal)
+    if (decimal.mag == Infinity || decimal.sign == Infinity || decimal.layer == Infinity)
+    return true
+    else return false
+}
+function isDNaN(decimal) {
+    decimal = new Decimal(decimal)
+    if (isNaN(decimal.mag) || isNaN(decimal.sign) || isNaN(decimal.layer))
+    return true
+    else return false
+}
+function d(x) {
+    return new Decimal(x)
+}
 // 特殊层：成就
+function hasNormalAchievement(id) {
+    return hasAchievement('achievements', id)
+}
+function hasSecretAchievement(id) {
+    return hasAchievement('secret_achievements', id)
+}
 addLayer("achievements", {
     name: "achievements",
     symbol: "🏆",
     startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+        cc: new Decimal(0),
     }},
 
     color: "#FFE125",                       // The color for this layer, which affects many elements.
@@ -31,7 +53,21 @@ addLayer("achievements", {
             display: "Fix your tab if you stuck in a layer tab."
         },
     },
-
+    update() {
+        if (player.devSpeed == undefined) player.devSpeed = 1
+        if (player.devSpeed > 1) cheat = true
+        if (cheat || cheat1 || cheat2 || cheat3 || cheat4 || cheat5 || cheat6 || cheat7 || cheat8 || cheat9) cheat = true,
+        cheat1 = true,
+        cheat2 = true,
+        cheat3 = true,
+        cheat4 = true,
+        cheat5 = true,
+        cheat6 = true,
+        cheat7 = true,
+        cheat8 = true,
+        cheat9 = true
+        player.achievements.cc = player.points
+    },
     achievements: {
         11: {
             name: "Mario disliked eating mushroom before",
@@ -642,7 +678,7 @@ addLayer("achievements", {
             tooltip: "Get e1e1000 cleared courses. <br> Reward: e3.69e369 AP, keep PCK in coin layer.",
             done() {return player.points.gte("ee1000")},
             onComplete() {
-                return player.achievements.points = player.achievements.points.add("e3.69e579")
+                return player.achievements.points = player.achievements.points.add("e3.69e369")
             },
         },
         162: {
@@ -715,6 +751,110 @@ addLayer("achievements", {
             done() {return player.normal.oneshot.gte(1)},
             onComplete() {
                 return player.achievements.points = player.achievements.points.add("e1e50000")
+            },
+        },
+        181: {
+            name: "Live for a millennium (1000年生きてる/存活千年)",
+            tooltip: "Accumulate 1000 years in 2nd Normal Endless upgrade time. <br> Reward: e1e140000 AP.",
+            done() {return tmp.normal.upgrades[12].time.gte(31556926080)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e1e140000")
+            },
+        },
+        182: {
+            name: "Are you an expert for this?",
+            tooltip: "Unlock Expert Endless Challenge layer. <br> Reward: e3.33e333333 AP.",
+            done() {return hasUpgrade('normal', 35)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e3.33e333333")
+            },
+        },
+        183: {
+            name: "Bosses...",
+            tooltip: "Enter a boss challenge. <br> Reward: e1.00e1000000 AP.",
+            done() {return inExpertBossChallenge()},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e1e1000000")
+            },
+        },
+        184: {
+            name: "Tetralogue clears!!",
+            tooltip: "Get ee1e10 Cleared Courses. <br> Reward: e1.00e10,000,000 AP.",
+            done() {return player.points.gte("ee1e10")},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e1e10000000")
+            },
+        },
+        185: {
+            name: "Tiers and layers",
+            tooltip: "Toad Oct 1. <br> Reward: e1.00e100,000,000 AP.",
+            done() {return player.toad.tierlayer.gte(8)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e1e100000000")
+            },
+        },
+        191: {
+            name: "No no no too hard for defeating it!",
+            tooltip: "Defeat 1 Iggy. <br> Reward: ee1,000,000,000 AP.",
+            done() {return player.expert.iggy.gte(1)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e1e1000000000")
+            },
+        },
+        192: {
+            name: "The hardest, let's go!",
+            tooltip: "Unlock Super Expert Endless Challenge layer. <br> Reward: ee10,000,000,000 AP.",
+            done() {return hasUpgrade('expert', 41)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e1e10000000000")
+            },
+        },
+        193: {
+            name: "They can jump higher",
+            tooltip: "Get 1 Wing. <br> Reward: ee100,000,000,000 AP.",
+            done() {return player.expert.wing.gte(1)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("e1e100000000000")
+            },
+        },
+        194: {
+            name: "I hope this course have no flaw",
+            tooltip: "Get 3e40 Wings. <br> Reward: ee1.00e13 AP.",
+            done() {return player.expert.wing.gte(3e40)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("ee1e13")
+            },
+        },
+        195: {
+            name: "Layer^10",
+            tooltip: "Toad Dec 1. <br> Reward: ee1.00e16 AP.",
+            done() {return player.toad.tierlayer.gte(10)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("ee1e16")
+            },
+        },
+        201: {
+            name: "Is this really a Boss?",
+            tooltip: "Defeat 1 Boom Boom. <br> Reward: ee3.00e20 AP.",
+            done() {return player.s_expert.boom_boom.gte(1)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("ee3e20")
+            },
+        },
+        202: {
+            name: "Don't try to drink that",
+            tooltip: "Get 301 Poison. <br> Reward: ee3.00e21 AP.",
+            done() {return player.s_expert.poison.gte(301)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("ee3e21")
+            },
+        },
+        203: {
+            name: "Teamwork!",
+            tooltip: "Unlock Multiplayer Co-op layer. <br> Reward: ee1.45e26 AP.",
+            done() {return hasSEendlessUpgrade(35)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("ee1.45e26")
             },
         },
     },
@@ -857,6 +997,16 @@ addLayer("secret_achievements", {
                 return player[this.layer].points = player[this.layer].points.add(1)
             },
         },
+        23: {
+            name: "Anti-cheesed lava",
+            tooltip() { 
+                if (hasAchievement(this.layer, this.id)) return "Input a negative number in spending lava input and try to gain lava by cheesing."
+                else return "Lose a negative number amount is win"},
+            done() {return player.s_expert.lavaSpendInput.lt(0)},
+            onComplete() {
+                return player[this.layer].points = player[this.layer].points.add(1)
+            },
+        },
     },
 })
 // 特殊层：统计
@@ -872,19 +1022,19 @@ addLayer("stats", {
     color: "#FFFFFF",                       // The color for this layer, which affects many elements.
     resource: "statistics",            // The name of this layer's main prestige resource.
     row: "side",                                 // The row this layer is on (0 is the first row).
+    tooltip: "Statistics",
 
     layerShown() { return true },          // Returns a bool for if this layer's node should be visible in the tree.
     update(lgpoints) {
         player.lgpoints = player.points.max(1).log(10)
     },
     tabFormat: [
-        "main-display",
         ["microtabs", "stuff"],
         ["blank", "65px"],
     ],
     microtabs: {
         stuff: {
-            "Statistics": {
+            "Cleared Courses": {
                 unlocked() {return true},
                 content: [
                     ["blank", "15px"],
@@ -911,10 +1061,427 @@ addLayer("stats", {
                     }],
                 ]
             },
+            "Resources": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        return `Coin: ${textStyle_h4(format(player.coin.points),'feb252')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('coin', 31))
+                        return `Pink Key Coin: ${textStyle_h4(format(player.coin.pink_key_coin),'ff746f')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.super_mushroom.layerShown)
+                        return `Super Mushroom: ${textStyle_h4(format(player.super_mushroom.points),'c42533')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.fire_flower.layerShown)
+                        return `Fire Flower: ${textStyle_h4(format(player.fire_flower.points),'ff8d00')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.invincible_star.layerShown)
+                        return `Invincible Star: ${textStyle_h4(format(player.invincible_star.points),'ffb15a')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.oneup_mushroom.layerShown)
+                        return `1UP Mushroom: ${textStyle_h4(format(player.oneup_mushroom.points),'5bbf2f')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('usa_mushroom', 35))
+                        return `Rotten Mushroom: ${textStyle_h4(format(player.oneup_mushroom.rotten_mushroom),'9600b1')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.bouncy_ball_flower.layerShown)
+                        return `Bouncy Ball Flower: ${textStyle_h4(format(player.bouncy_ball_flower.points),'606040')}`
+                    }],
+                    ["display-text", function() {
+                        if (tmp.bouncy_ball_flower.layerShown)
+                        return `Bouncy Ball: ${textStyle_h4(format(player.bouncy_ball_flower.bouncy_ball),'e4e4b2')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.big_mushroom.layerShown)
+                        return `Big Mushroom: ${textStyle_h4(format(player.big_mushroom.points),'f7341d')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('big_mushroom', 11))
+                        return `Broken Brick: ${textStyle_h4(format(player.big_mushroom.broken_brick),'a05911')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('big_mushroom', 15))
+                        return `Broken Hard Brick: ${textStyle_h4(format(player.big_mushroom.broken_hard_brick),'ffff80')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('big_mushroom', 25))
+                        return `Broken Ice Block: ${textStyle_h4(format(player.big_mushroom.broken_ice_block),'55dff8')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.super_leaf.layerShown)
+                        return `Super Leaf: ${textStyle_h4(format(player.super_leaf.points),'f83a11')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('super_leaf', 15))
+                        return `Super Leaf Skill Points (SLST): ${textStyle_h4(format(player.super_leaf.slsp),'f83a11')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.cape_feather.layerShown)
+                        return `Cape Feather: ${textStyle_h4(format(player.cape_feather.points),'fcbf02')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('cape_feather', 15))
+                        return `Cape Essence: ${textStyle_h4(format(player.cape_feather.ce),'fcbf02')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.yoshi_egg.layerShown)
+                        return `Yoshi Egg: ${textStyle_h4(format(player.yoshi_egg.points),'00d800')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasMilestone('yoshi_egg', 0))
+                        return `Yoshi: ${textStyle_h4(format(player.yoshi_egg.yoshi),'00d800')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasMilestone('yoshi_egg', 0))
+                        return `Red Yoshi: ${textStyle_h4(format(player.yoshi_egg.red_yoshi),'f70000')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.propeller_mushroom.layerShown)
+                        return `Propeller Mushroom: ${textStyle_h4(format(player.propeller_mushroom.points),'f83a11')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.super_bell.layerShown)
+                        return `Super Bell: ${textStyle_h4(format(player.super_bell.points),'b6a017')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.super_hammer.layerShown)
+                        return `Super Hammer: ${textStyle_h4(format(player.super_hammer.points),'403739')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('super_bell', 35))
+                        return `Characters' Box: ${textStyle_h4(format(player.super_hammer.points),'a0733c')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.master_sword.layerShown)
+                        return `Master Sword: ${textStyle_h4(format(player.master_sword.points),'2730b8')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('master_sword', 15))
+                        return `Link's Bomb: ${textStyle_h4(format(player.master_sword.links_bomb),'2730b8')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('master_sword', 15))
+                        return `Explosion Defeats: ${textStyle_h4(format(player.master_sword.defeats_by_explosion),'2730b8')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('master_sword', 33))
+                        return `Rupee: ${textStyle_h4(format(player.master_sword.rupee),'107010')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('master_sword', 41))
+                        return `Hyrule Shield: ${textStyle_h4(format(player.master_sword.hyrule_shield),'2730b8')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('master_sword', 61))
+                        return `Link's Bow: ${textStyle_h4(format(player.master_sword.links_bow),'2730b8')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('master_sword', 62))
+                        return `Arrow: ${textStyle_h4(format(player.master_sword.links_bomb),'42b2fa')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('master_sword', 63))
+                        return `Ranged Kills: ${textStyle_h4(format(player.master_sword.ranged_kills),'2730b8')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('master_sword', 72))
+                        return `Total Containers: ${textStyle_h4(format(player.master_sword.container_total),'2730b8')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('master_sword', 72))
+                        return `Container of Heart: ${textStyle_h4(format(player.master_sword.container_of_heart),'ff2a32')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('master_sword', 73))
+                        return `Container of Energy: ${textStyle_h4(format(player.master_sword.container_of_energy),'00dd00')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.usa_mushroom.layerShown)
+                        return `SMB2 Mushroom: ${textStyle_h4(format(player.usa_mushroom.points),'f93414')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('usa_mushroom', 12))
+                        return `Grabbing Enemy: ${textStyle_h4(format(player.usa_mushroom.grabs),'f93414')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.frog_suit.layerShown)
+                        return `Frog Suit: ${textStyle_h4(format(player.frog_suit.points),'24aa0c')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('frog_suit', 15))
+                        return `Current Swimming Speed: ${textStyle_h4(format(player.frog_suit.swim_speed)+" m/s",'24aa0c')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('power_balloon', 14))
+                        return `Best Swimming Speed: ${textStyle_h4(format(player.power_balloon.SSbest)+" m/s",'24aa0c')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.power_balloon.layerShown)
+                        return `Power Balloon: ${textStyle_h4(format(player.power_balloon.points),'ffff6e')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('power_balloon', 15))
+                        return `Balloon Space: ${textStyle_h4(format(player.power_balloon.space),'ffff6e')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('power_balloon', 15))
+                        return `Resistance: ${textStyle_h4(format(player.power_balloon.resistance),'ffff6e')}`
+                    }],
+
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.super_acorn.layerShown)
+                        return `Super Acorn: ${textStyle_h4(format(player.super_acorn.points),'d74a19')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('super_acorn', 15))
+                        return `Flying Strength: ${textStyle_h4(format(player.super_acorn.strength),'d74a19')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('super_acorn', 15))
+                        return `SMB3 Flying Power: ${textStyle_h4(format(player.super_acorn.SMBsan),'d74a19')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('super_acorn', 15))
+                        return `SMW Flying Power: ${textStyle_h4(format(player.super_acorn.SMWorld),'d74a19')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('super_acorn', 15))
+                        return `NSMBU Flying Power: ${textStyle_h4(format(player.super_acorn.NSMBrosU),'d74a19')}`
+                    }],
+
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.boomerang_flower.layerShown)
+                        return `Boomerang Flower: ${textStyle_h4(format(player.boomerang_flower.points),'0097ef')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('boomerang_flower', 22))
+                        return `Boomerang: ${textStyle_h4(format(player.boomerang_flower.boomerang),'0097ef')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.mario.layerShown)
+                        return `Mario: ${textStyle_h4(format(player.mario.points),'ff0018')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('mario', 15) && !hasUpgrade('mario', 43))
+                        return `Mario Cleared Courses: ${textStyle_h4(format(player.mario.c_re),'ff0018')}`
+                        else if (hasUpgrade('mario', 15) && hasUpgrade('mario', 43))
+                        return `Mario Cleared Courses: ${textStyle_h4(format(player.mario.c_re)+" + "+format(player.mario.c_im)+"i",'ff0018')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.luigi.layerShown)
+                        return `Luigi: ${textStyle_h4(format(player.luigi.points),'5cb73d')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('luigi', 12))
+                        return `Luigi Cleared Courses: ${textStyle_h4(format(player.luigi.c),'5cb73d')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('toad', 11))
+                        return `Cheesed Luigi Cleared Courses: ${textStyle_h4(format(player.luigi.cheesed),'5cb73d')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.toad.layerShown)
+                        return `Toad: ${textStyle_h4(format(player.toad.points),'0047ff')}`
+                    }],
+                    ["display-text", function() {
+                        if (player.toad.supertier[0].gte(1))
+                        return `Awaken Power: ${textStyle_h4(format(player.toad.awaken_power),'ffca00')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.toadette.layerShown)
+                        return `Toadette: ${textStyle_h4(format(player.toadette.points),'ff4899')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('toadette', 23))
+                        return `Toadette's Crown: ${textStyle_h4(format(player.toadette.crown),'ff4899')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('toadette', 23))
+                        return `Peachette Level: ${textStyle_h4(format(player.toadette.peachette),'ff4899')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.easy.layerShown)
+                        return `Easy Endless Clear: ${textStyle_h4(format(player.easy.points),'2dbba4')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('easy', 15))
+                        return `Easy Endless No Damage Clear: ${textStyle_h4(format(player.easy.no_dmg),'2dbba4')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('easy', 31))
+                        return `Free Clear: ${textStyle_h4(format(player.easy.free_c),'2dbba4')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.normal.layerShown)
+                        return `Normal Endless Clear: ${textStyle_h4(format(player.normal.points),'77a831')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('normal', 12) && tmp.normal.upgrades[12].time.lte(31556926080))
+                        return `Time Spent in 2nd Normal Endless upgrade: ${textStyle_h4(formatTime(tmp.normal.upgrades[12].time),'77a831')}`
+                        else if (hasUpgrade('normal', 12) && tmp.normal.upgrades[12].time.gt(31556926080))
+                        return `Time Spent in 2nd Normal Endless upgrade: ${textStyle_h4(formatTimeLong(tmp.normal.upgrades[12].time),'77a831')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('normal', 15))
+                        return `One Shot Clear: ${textStyle_h4(format(player.normal.oneshot),'77a831')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('normal', 25))
+                        return `Auto-Mario Course: ${textStyle_h4(format(player.normal.auto_mario),'77a831')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('normal', 25))
+                        return `Semi-auto Course: ${textStyle_h4(format(player.normal.semi_auto),'77a831')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('normal', 25))
+                        return `Condition Courses: ${textStyle_h4(format(player.normal.condition_course),'77a831')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.expert.layerShown)
+                        return `Expert Endless Clear: ${textStyle_h4(format(player.expert.points),'be924f')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasExpertEndlessUpgrade(13))
+                        return `Larry: ${textStyle_h4(format(player.expert.larry),'21f519')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasExpertEndlessUpgrade(13))
+                        return `Larry's Magic: ${textStyle_h4(format(player.expert.larry_m),'21f519')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasExpertEndlessUpgrade(15))
+                        return `Lemmy: ${textStyle_h4(format(player.expert.lemmy),'fac215')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasExpertEndlessUpgrade(15))
+                        return `Lemmy's Ball: ${textStyle_h4(format(player.expert.lemmy_b),'fac215')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasExpertEndlessUpgrade(24))
+                        return `Wendy: ${textStyle_h4(format(player.expert.wendy),'ff0066')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasExpertEndlessUpgrade(24))
+                        return `Wendy's Magic: ${textStyle_h4(format(player.expert.wendy_m),'ff0066')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasExpertEndlessUpgrade(35))
+                        return `Iggy: ${textStyle_h4(format(player.expert.iggy),'003ad7')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasExpertEndlessUpgrade(35))
+                        return `Iggy's Magic: ${textStyle_h4(format(player.expert.iggy_m),'003ad7')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasExpertEndlessUpgrade(42))
+                        return `Morton: ${textStyle_h4(format(player.expert.morton),'606060')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasExpertEndlessUpgrade(42))
+                        return `Morton's Magic: ${textStyle_h4(format(player.expert.morton_m),'606060')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasExpertEndlessUpgrade(52))
+                        return `Roy: ${textStyle_h4(format(player.expert.roy),'ac009e')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasExpertEndlessUpgrade(52))
+                        return `Roy's Magic: ${textStyle_h4(format(player.expert.roy_m),'ac009e')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasExpertEndlessUpgrade(54))
+                        return `Ludwig: ${textStyle_h4(format(player.expert.ludwig),'07c5d8')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasExpertEndlessUpgrade(54))
+                        return `Ludwig's Magic: ${textStyle_h4(format(player.expert.ludwig_m),'07c5d8')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasAchievement('achievements', 185))
+                        return `Extra Magic: ${textStyle_h4(format(player.expert.magic),'be924f')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasExpertEndlessUpgrade(62))
+                        return `Wing: ${textStyle_h4(format(player.expert.wing),'ffffff')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasExpertEndlessUpgrade(72))
+                        return `Boss Rush Course: ${textStyle_h4(format(player.expert.boss_rush),'be924f')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasExpertEndlessUpgrade(72))
+                        return `Flaw: ${textStyle_h4(format(player.expert.flaw),'be924f')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.s_expert.layerShown)
+                        return `Super Expert Endless Clear: ${textStyle_h4(format(player.s_expert.points),'6a4fae')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasSEendlessUpgrade(15))
+                        return `Lava: ${textStyle_h4(format(player.s_expert.lava),'ffbf16')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasExpertEndlessUpgrade(74))
+                        return `Boom Boom: ${textStyle_h4(format(player.s_expert.boom_boom),'6a4fae')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasSEendlessUpgrade(23))
+                        return `Poison: ${textStyle_h4(format(player.s_expert.poison),'fc2bf0')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasExpertEndlessUpgrade(75))
+                        return `Poom Poom: ${textStyle_h4(format(player.s_expert.poom_poom),'6a4fae')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.coop.layerShown)
+                        return `Multiplayer Co-op Clear: ${textStyle_h4(format(player.coop.points),'ffcf03')}`
+                    }],
+                ]
+            },
         },
     },
 }),
 // 第一层：金币
+function pinkKeyCoinEffect(x) {
+    Decimal.pow(player.coin.pink_key_coin.max(0), 1.5).add(1)
+}
 addLayer("coin", {
     name: "coin", // This is optional, only used in a few places, If absent it just uses the layer id.
     symbol: "C", // This appears on the layer's node. Default is the id with the first letter capitalized
@@ -940,7 +1507,7 @@ addLayer("coin", {
         if (hasUpgrade('coin', 23)) mult = mult.times(100)
         if (hasUpgrade('coin', 24)) mult = mult.times(2024)
         if (hasUpgrade('coin', 25)) mult = mult.times(9402011)
-        if (player.coin.pink_key_coin.gte(1)) mult = mult.times(tmp.coin.effect)
+        if (player.coin.pink_key_coin.gte(1)) mult = mult.times(tmp.coin.pinkKeyCoinEffect)
         if (hasUpgrade('coin', 33)) mult = mult.times(100)
         if (hasUpgrade('invincible_star', 34)) mult = mult.times(1e100)
         if (hasMilestone('coin', 3)) mult = mult.times(1e50)
@@ -986,7 +1553,9 @@ addLayer("coin", {
         if (hasUpgrade('super_acorn', 101)) player.coin.points = player.coin.points.add("e9e45")
     },
     autoUpgrade() {return hasUpgrade('fire_flower', 12) || hasAchievement('achievements', 31)},
-    effect(){return Decimal.pow(player[this.layer].pink_key_coin.max(0), 1.5).add(1)
+    pinkKeyCoinEffect(){
+        let eff = Decimal.pow(player.coin.pink_key_coin.max(0), 1.5).add(1)
+        return eff
         /*
           you should use this.layer instead of <layerID>
           Decimal.pow(num1, num2) is an easier way to do
@@ -1065,7 +1634,7 @@ addLayer("coin", {
             cost: new Decimal(2024),
             unlocked() {return hasUpgrade('super_mushroom', 12)},
             effect() {
-                return player.points.add(10).log(10)
+                return player.points.max(0).add(10).log(10)
             },
             effectDisplay() { 
                 return format(upgradeEffect(this.layer, this.id))+"x" },
@@ -1216,23 +1785,25 @@ addLayer("coin", {
     milestones: {
         0: {
             requirementDescription(){des = "Reach 6871 cleared courses"
-                if (hasUpgrade('power_balloon', 45)) des = des + " (Overpowered)"
+                if (milestoneOverpowered('coin', 0)) des = des + " (Overpowered)"
                 return des},
             effectDescription() {des = "x2.5 your coins gain."
-            if (hasUpgrade('power_balloon', 45)) des = des + "<br> Overpowered effect: Delay 2nd Coin upgrade's softcap by ^25."
+            if (milestoneOverpowered('coin', 0)) des = des + "<br> Overpowered effect: Delay 2nd Coin upgrade's softcap by ^25."
             return des},
+            overpowered() { return hasUpgrade('power_balloon', 45) },
             done() { return player.points.gte(6871) },
-            style(){if (hasUpgrade('power_balloon', 45)) return{'background-color':'#ffad00'}}
+            style(){if (milestoneOverpowered('coin', 0)) return{'background-color':'#ffad00'}}
         },
         1: {
             requirementDescription(){des = "Reach 74751 coins"
-                if (hasUpgrade('super_acorn', 101)) des = des + " (Overpowered)"
+                if (milestoneOverpowered('coin', 1)) des = des + " (Overpowered)"
                 return des},
             effectDescription() {des = "Triple coin gain."
-            if (hasUpgrade('super_acorn', 101)) des = des + "<br> Overpowered effect: You start every reset with " + format(new Decimal("e9e45")) + " Coins."
+            if (milestoneOverpowered('coin', 1)) des = des + "<br> Overpowered effect: You start every reset with " + format(new Decimal("e9e45")) + " Coins."
             return des},
+            overpowered() { return hasUpgrade('super_acorn', 101) },
             done() { return player.coin.points.gte(74751) },
-            style(){if (hasUpgrade('super_acorn', 101)) return{'background-color':'#ffad00'}}
+            style(){if (milestoneOverpowered('coin', 1)) return{'background-color':'#ffad00'}}
         },
         2: {
             requirementDescription: "Reach 50,000,000 coins",
@@ -1323,6 +1894,8 @@ addLayer("super_mushroom", {
     passiveGeneration() {return hasUpgrade('coin', 35) || hasAchievement('achievements', 34)},
     autoUpgrade() {return hasMilestone('invincible_star', 3) || hasAchievement('achievements', 61)},
     doReset(resettingLayer) {
+        if (layers[resettingLayer].row >= 12) return undefined
+        else
         if (layers[resettingLayer].row > layers[this.layer].row) {
             let kept = ["unlocked", "auto"]
                 if(hasMilestone('invincible_star', 2)) {
@@ -1437,7 +2010,7 @@ addLayer("super_mushroom", {
         if (player.super_mushroom.points.lte(0)) return
         if (hasMilestone('oneup_mushroom', 0)) {
             if (player.super_mushroom.points) {
-                hasMilestone('oneup_mushroom', 0) ? setBuyableAmount("super_mushroom",11,tmp.super_mushroom.buyables[11].canAfford?player.super_mushroom.points.log(3e24).subtract(1).pow(1/1.5).floor().add(1):getBuyableAmount("super_mushroom",11)) : buyBuyable("super_mushroom",11)
+                hasMilestone('oneup_mushroom', 0) ? setBuyableAmount("super_mushroom",11,tmp.super_mushroom.buyables[11].canAfford?player.super_mushroom.points.max(3e24).log(3e24).subtract(1).root(1.5).floor().add(1):getBuyableAmount("super_mushroom",11)) : buyBuyable("super_mushroom",11)
             }
         }
     },
@@ -1496,7 +2069,7 @@ addLayer("fire_flower", {
           num1.pow(num2)
         */
       },
-effectDescription(){
+    effectDescription(){
     return "multiplying coin gain by " + format(tmp[this.layer].effect)
     /*
       use format(num) whenever displaying a number
@@ -1563,6 +2136,8 @@ effectDescription(){
     passiveGeneration(){return hasUpgrade('bouncy_ball_flower', 12) || hasAchievement('achievements', 61)},
 
     doReset(resettingLayer) {
+        if (layers[resettingLayer].row >= 12) return undefined
+        else
         if (layers[resettingLayer].row > layers[this.layer].row) {
             let kept = ["unlocked", "auto"]
                 if(hasMilestone('invincible_star', 3)) {
@@ -1714,7 +2289,7 @@ addLayer("invincible_star", {
     effect(){
         let ISfactor = ((player[this.layer].points).add(10)).log(10)
         if (hasUpgrade('cape_feather', 14)) ISfactor = ISfactor.times(100)
-        return Decimal.pow(10, (ISfactor).times(player[this.layer].points))
+        return Decimal.pow(10, (ISfactor).times(player[this.layer].points)).max(1)
         /*
           you should use this.layer instead of <layerID>
           Decimal.pow(num1, num2) is an easier way to do
@@ -1758,6 +2333,8 @@ addLayer("invincible_star", {
     autoPrestige() {return hasAchievement("achievements", 44) || hasAchievement('achievements', 61)},
     autoUpgrade() {return hasAchievement('achievements', 63) || hasMilestone('super_leaf', 0)},
     doReset(resettingLayer) {
+        if (layers[resettingLayer].row >= 12) return undefined
+        else
         if (layers[resettingLayer].row > layers[this.layer].row) {
             let kept = ["unlocked", "auto"]
                 if(hasAchievement('achievements', 63)) {
@@ -1896,9 +2473,18 @@ addLayer("invincible_star", {
             done() { return player.invincible_star.points.gte(4) },
         },
         3: {
-            requirementDescription: "Get 9 Invincible Stars",
-            effectDescription: "Autobuy Super Mushroom upgrades and unlock 6th 1UP Mushroom upgrade. Keep Fire Flower milestones on row 3 resets.",
+            requirementDescription() {
+                let dis = "Get 9 Invincible Stars"
+                if (milestoneOverpowered(this.layer, 3)) dis = dis + " (Overpowered)"
+                return dis},
+            effectDescription() {
+                let d = "Autobuy Super Mushroom upgrades and unlock 6th 1UP Mushroom upgrade. Keep Fire Flower milestones on row 3 resets."
+                if (milestoneOverpowered(this.layer, 3)) d = d + "<br>Overpowered effect: Invincible Star boosts CC in Expert Boss challenges.(After exp. cal.) <br>Currently: "+format(upgradeEffect('super_acorn', 112))+"x"
+                return d
+            },
+            overpowered() { return hasUpgrade('super_acorn', 112) },
             done() { return player.invincible_star.points.gte(9) },
+            style(){if (milestoneOverpowered(this.layer, 3)) return{'background-color':'#ffad00'}},
         },
         4: {
             requirementDescription: "Get 21 Invincible Stars",
@@ -2031,6 +2617,8 @@ addLayer("oneup_mushroom", {
     autoUpgrade() {return hasMilestone('super_leaf', 6) || hasAchievement('achievements', 83)},
     passiveGeneration(){return hasMilestone('super_leaf', 5) || hasAchievement('achievements', 64)},
     doReset(resettingLayer) {
+        if (layers[resettingLayer].row >= 12) return undefined
+        else
         if (layers[resettingLayer].row > layers[this.layer].row) {
             let kept = ["unlocked", "auto"]
                 if(hasAchievement('achievements', 63)) {
@@ -2182,11 +2770,22 @@ addLayer("oneup_mushroom", {
             done() { return player.oneup_mushroom.points.gte(99) },
         },
         1: {
-            requirementDescription: "Get 3000 Rotten Mushrooms",
-            effectDescription: "10x Rotten Mushroom gain.",
+            requirementDescription() {
+                let d = "Get 3000 Rotten Mushrooms"
+                if (milestoneOverpowered(this.layer, 1)) d = d + " (Overpowered)"
+                return d
+            },
+            effectDescription() {
+                let d = "10x Rotten Mushroom gain."
+                if (milestoneOverpowered(this.layer, 1)) d = d + "<br>Overpowered Effect: 1UP Mushroom boosts SE Endless Clears gain<br>"
+                + "Currently: " + format(upgradeEffect('super_acorn', 113)) + "x"
+                return d
+            },
             done() { return player.oneup_mushroom.rotten_mushroom.gte(3000) },
+            overpowered() {return hasUpgrade('super_acorn', 113)},
             unlocked() {return hasUpgrade('usa_mushroom', 35)},
-            style() {if (hasMilestone('oneup_mushroom',1)) return {"background-color":"#9600b1"}}
+            style() {if (hasMilestone('oneup_mushroom',1) && !milestoneOverpowered(this.layer, 1)) return {"background-color":"#9600b1"}
+                    else if (hasMilestone('oneup_mushroom', 1) && milestoneOverpowered(this.layer, 1)) return {"background":"linear-gradient(45deg, #9600b1, #ffad00)"}}
         },
         2: {
             requirementDescription: "Get 50000 Rotten Mushrooms",
@@ -2206,8 +2805,8 @@ addLayer("oneup_mushroom", {
                 },
             rewardDescription: "Multiply Pink Key Coin gain based on 1UP Mushrooms. (Hardcap at 1e5000)",
             rewardEffect() {
-                if (hasUpgrade('super_leaf', 25)) return player.oneup_mushroom.points.pow(Decimal.log10((player.oneup_mushroom.points.add(10))).min(75)).max(1)
-                else return player.oneup_mushroom.points.pow(Decimal.log10((player.oneup_mushroom.points.add(10)))).min("1e5000").max(1)
+                if (hasUpgrade('super_leaf', 25)) return player.oneup_mushroom.points.pow(Decimal.log10((player.oneup_mushroom.points.max(0).add(10))).min(75)).max(1)
+                else return player.oneup_mushroom.points.pow(Decimal.log10((player.oneup_mushroom.points.max(0).add(10)))).min("1e5000").max(1)
             },
             rewardDisplay() { return format(challengeEffect(this.layer, this.id))+"x" },
             unlocked() {return true},
@@ -2342,6 +2941,8 @@ addLayer("bouncy_ball_flower", {
     passiveGeneration(){return hasMilestone('super_leaf', 5) || hasAchievement('achievements', 64)},
     autoUpgrade() {return hasUpgrade('cape_feather', 13) || hasAchievement('achievements', 83)},
     doReset(resettingLayer) {
+        if (layers[resettingLayer].row >= 12) return undefined
+        else
         if (layers[resettingLayer].row > layers[this.layer].row) {
             let kept = ["unlocked", "auto"]
                 if(hasMilestone('super_leaf', 7)) {
@@ -2571,9 +3172,16 @@ addLayer("bouncy_ball_flower", {
     },
     milestones: {
         0: {
-            requirementDescription: "Get 300 Bouncy Balls",
-            effectDescription: "Unlock 2nd Bouncy Ball Flower buyable.",
+            requirementDescription() {let d = "Get 300 Bouncy Balls"
+                if (hasUpgrade('super_acorn', 121)) d = d+" (Overpowered)"
+                return d
+            },
+            effectDescription() {let d = "Unlock 2nd Bouncy Ball Flower buyable."
+                if (hasUpgrade('super_acorn', 121)) d = d+"<br>Overpowered effect: Power Normal Endless Clear effect based on BBF.<br>Currently: ^"+format(upgradeEffect('super_acorn', 121))
+                return d
+            },
             done() { return player.bouncy_ball_flower.bouncy_ball.gte(300) },
+            style() {if (hasUpgrade('super_acorn', 121)) return {"background-color":"#ffad00"}},
         },
         1: {
             requirementDescription: "Get 8888 Bouncy Balls",
@@ -2672,7 +3280,8 @@ addLayer("big_mushroom", {
     autoUpgrade() {return hasUpgrade('cape_feather', 32) || hasAchievement('achievements', 83)},
 
     doReset(resettingLayer) {
-        if (layers[resettingLayer].row > layers[this.layer].row) {
+        if (layers[resettingLayer].row >= 12) return undefined
+        else if (layers[resettingLayer].row > layers[this.layer].row) {
             let kept = ["unlocked", "auto"]
                 if(hasMilestone('super_leaf', 7)) {
                 kept.push("milestones")
@@ -3009,7 +3618,8 @@ addLayer("super_leaf", {
     passiveGeneration() {return hasMilestone('propeller_mushroom', 2)},
 
     doReset(resettingLayer) {
-        if (layers[resettingLayer].row > layers[this.layer].row) {
+        if (layers[resettingLayer].row >= 12) return undefined
+        else if (layers[resettingLayer].row > layers[this.layer].row) {
             let kept = ["unlocked", "auto"]
                 if(hasMilestone('propeller_mushroom', 1)) {
                 kept.push("milestones", 7)
@@ -3494,7 +4104,7 @@ addLayer("super_leaf", {
     tabFormat: [
         "main-display",
         "prestige-button",
-        ["display-text", () => `You have ` +format(player.oneup_mushroom.points) + ` 1UP ushrooms`],
+        ["display-text", () => `You have ` +format(player.oneup_mushroom.points) + ` 1UP mushrooms`],
         ["display-text", () => `Your best amount of Super Leaf is ` +format(player.super_leaf.best)],
         ["microtabs", "stuff"],
         ["blank", "65px"],
@@ -3577,7 +4187,8 @@ addLayer("cape_feather", {
     resetsNothing() {return hasMilestone('propeller_mushroom', 3)},
 
     doReset(resettingLayer) {
-        if (layers[resettingLayer].row > layers[this.layer].row) {
+        if (layers[resettingLayer].row >= 12) return undefined
+        else if (layers[resettingLayer].row > layers[this.layer].row) {
             let kept = ["unlocked", "auto"]
             if(hasMilestone('propeller_mushroom', 7)) {
             kept.push("milestones")
@@ -3888,7 +4499,8 @@ addLayer("yoshi_egg", {
     passiveGeneration() {return hasMilestone('propeller_mushroom', 5)},
     autoUpgrade() {return hasMilestone('propeller_mushroom', 6)},
     doReset(resettingLayer) {
-        if (layers[resettingLayer].row > layers[this.layer].row) {
+        if (layers[resettingLayer].row >= 12) return undefined
+        else if (layers[resettingLayer].row > layers[this.layer].row) {
             let kept = ["unlocked", "auto"]
             if(hasMilestone('propeller_mushroom', 7)) {
             kept.push("milestones")
@@ -4245,7 +4857,8 @@ addLayer("propeller_mushroom", {
         return mult
     },
     doReset(resettingLayer) {
-        if (layers[resettingLayer].row > layers[this.layer].row) {
+        if (layers[resettingLayer].row >= 12) return undefined
+        else if (layers[resettingLayer].row > layers[this.layer].row) {
             let kept = ["unlocked", "auto"]
             if(hasMilestone('master_sword', 0)) {
             kept.push("milestones")
@@ -4517,7 +5130,8 @@ addLayer("super_bell", {
     passiveGeneration() { return hasUpgrade('super_hammer', 32)  || hasMilestone('master_sword', 2)},
     autoUpgrade() { return hasMilestone('master_sword', 4) },
     doReset(resettingLayer) {
-        if (layers[resettingLayer].row > layers[this.layer].row) {
+        if (layers[resettingLayer].row >= 12) return undefined
+        else if (layers[resettingLayer].row > layers[this.layer].row) {
             let kept = ["unlocked", "auto"]
             if(hasMilestone('master_sword', 3)) {
                 kept.push("milestones")
@@ -4786,6 +5400,10 @@ addLayer("super_hammer", {
     type: "normal",                         // Determines the formula used for calculating prestige currency.                         // "normal" prestige gain is (currency^exponent).
     exponent() {if (hasMilestone('super_hammer', 0)) return 0
                 else return 1e-100},
+    getNextAt() {
+        let SH = player.super_hammer.points
+        return Decimal.pow(1e100, SH).times("1e2039000")
+    },
     gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
         mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
         let SL = player.super_leaf.points
@@ -4819,7 +5437,8 @@ addLayer("super_hammer", {
     layerShown() { return hasAchievement('achievements', 94) },          // Returns a bool for if this layer's node should be visible in the tree.
 
     doReset(resettingLayer) {
-        if (layers[resettingLayer].row > layers[this.layer].row) {
+        if (layers[resettingLayer].row >= 12) return undefined
+        else if (layers[resettingLayer].row > layers[this.layer].row) {
             let kept = ["unlocked", "auto"]
             if(hasMilestone('master_sword', 1)) {
                 kept.push("challenges")
@@ -5151,13 +5770,15 @@ addLayer("super_hammer", {
         if (hasUpgrade('usa_mushroom', 14)) multCB = multCB.times(upgradeEffect('usa_mushroom', 14))
         if (inChallenge('super_hammer', 11) && hasChallenge('super_hammer', 11) || hasMilestone('master_sword', 7) && hasChallenge('super_hammer', 11)) player.super_hammer.characters_box = player.super_hammer.characters_box.add(player.invincible_star.points.times(multCB))
         if (hasMilestone('mario', 3) && player.super_hammer.buyables[13].lt(limitBoxtranscender)) player.super_hammer.buyables[13]=limitBoxtranscender
+    
+        if (player.super_hammer.points.gte("e8.1e1919")) player.super_hammer.points = new Decimal("e8.1e1919")
     },
     tabFormat: [
         "main-display",
         "prestige-button",
         ["display-text", () => `Your have ` +format(player.super_leaf.points) + ` Super Leaves`],
         ["display-text", () => `Your best amount of Super Hammer is ` +format(player.super_hammer.best)],
-        ["display-text", () => `Reset for Super Hammers gain's formula is 1e2039000·1e100^x`],
+        ["display-text", () => `Reset for Super Hammers gain's formula is 1e2039000·1e100<sup>x</sup>`],
         ["display-text",  function () {
             if (player.super_hammer.points.gte('e1.4e1145'))
             return "Super Hammer hardcap is at " + format('e1.4e1145')
@@ -5280,7 +5901,8 @@ addLayer("master_sword", {
         {key: "M", description: "Shift+M: Reset for Master Swords", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     doReset(resettingLayer) {
-        if (layers[resettingLayer].row > layers[this.layer].row) {
+        if (layers[resettingLayer].row >= 12) return undefined
+        else if (layers[resettingLayer].row > layers[this.layer].row) {
             let kept = ["unlocked", "auto"]
             if(hasMilestone('power_balloon', 0)) {
             kept.push("milestones")
@@ -6278,7 +6900,7 @@ addLayer("master_sword", {
                         return "You have defeated <h2 style='color: #2730b8; text-shadow: 0 0 10px #2730b8'>" + format(player.master_sword.defeats_by_explosion) + "</h2> Enemies by Explosion, multiply Master Sword gain by <h2 style='color: #2730b8; text-shadow: 0 0 10px #2730b8'>" + format(player.master_sword.defeats_by_explosion.add(2).log(2).root(4).max(1)) + "x</h2>"
                     }],
                     ["display-text", function() {
-                        return "You can detonate your bomb on Area " + format(player.master_sword.links_bomb_random)
+                        return "You can detonate your bomb on Area " + formatWhole(player.master_sword.links_bomb_random)
                     }],
                     ["clickables", [1,2,3,4]]
                 ]    
@@ -6382,7 +7004,8 @@ addLayer("usa_mushroom", {
     layerShown() { return hasAchievement('achievements', 111) },          // Returns a bool for if this layer's node should be visible in the tree.
 
     doReset(resettingLayer) {
-        if (layers[resettingLayer].row > layers[this.layer].row) {
+        if (layers[resettingLayer].row >= 12) return undefined
+        else if (layers[resettingLayer].row > layers[this.layer].row) {
             let kept = ["unlocked", "auto"]
             if(hasMilestone('power_balloon', 2)) {
             kept.push("milestones")
@@ -6900,7 +7523,8 @@ addLayer("frog_suit", {
     ],
 
     doReset(resettingLayer) {
-        if (layers[resettingLayer].row > layers[this.layer].row) {
+        if (layers[resettingLayer].row >= 12) return undefined
+        else if (layers[resettingLayer].row > layers[this.layer].row) {
             let kept = ["unlocked", "auto"]
             if(hasMilestone('power_balloon', 2)) {
             kept.push("milestones")
@@ -7424,7 +8048,8 @@ addLayer("power_balloon", {
     layerShown() { return hasAchievement("achievements", 121) },          // Returns a bool for if this layer's node should be visible in the tree.
 
     doReset(resettingLayer) {
-        if (layers[resettingLayer].row > layers[this.layer].row) {
+        if (layers[resettingLayer].row >= 12) return undefined
+        else if (layers[resettingLayer].row > layers[this.layer].row) {
             let kept = ["unlocked", "auto"]
             if(hasMilestone('boomerang_flower', 0)) {
             kept.push("milestones")
@@ -7861,7 +8486,8 @@ addLayer("super_acorn", {
     layerShown() { return hasAchievement('achievements', 122) },          // Returns a bool for if this layer's node should be visible in the tree.
 
     doReset(resettingLayer) {
-        if (layers[resettingLayer].row > layers[this.layer].row) {
+        if (layers[resettingLayer].row >= 12) return undefined
+        else if (layers[resettingLayer].row > layers[this.layer].row) {
             let kept = ["unlocked", "auto"]
             if(hasMilestone('boomerang_flower', 2)) {
             kept.push("milestones")
@@ -8058,6 +8684,79 @@ addLayer("super_acorn", {
                     'width':'180px','font-size':'18px',
                     'border-radius':'0%',
                     'background-color':'#ffb15a'}
+                return style}
+        },
+        112: {
+            title: "SA-OPU5",
+            tooltip: "Overpower 4th Invinsible Star milestone",
+            currencyDisplayName: "Invinsible Stars",
+            currencyInternalName: "points",
+            currencyLayer:"invincible_star",
+            cost: new Decimal("e3.15e15"),
+            unlocked() {return expertBossMagicEffect('ludwig').gte(1)
+            },
+            effect() {
+                let eff = player.invincible_star.points.max(10).log(10).pow(2)
+                if (hasUpgrade('expert', 55)) eff = eff.pow(upgradeEffect('expert', 55))
+                return eff
+            },
+            style(){style = {'min-height':'180px',
+                            'width':'180px',
+                            'font-size':'18px',
+                            'border-radius':'0%'}
+                    if (hasUpgrade(this.layer, 112)) 
+                    style = {'min-height':'180px',
+                    'width':'180px','font-size':'18px',
+                    'border-radius':'0%',
+                    'background-color':'#ffb15a'}
+                return style}
+        },
+        113: {
+            title: "SA-OPU6",
+            tooltip: "Overpower 2nd 1UP Mushroom milestone",
+            currencyDisplayName: "1UP Mushrooms",
+            currencyInternalName: "points",
+            currencyLayer:"oneup_mushroom",
+            cost: new Decimal("ee9.6e16"),
+            unlocked() {return expertBossMagicEffect('ludwig').gte(2)
+            },
+            effect() {
+                let eff = player.oneup_mushroom.points.max(10).log(10).max(10).log(10).root(10)
+                return eff
+            },
+            style(){style = {'min-height':'180px',
+                            'width':'180px',
+                            'font-size':'18px',
+                            'border-radius':'0%'}
+                    if (hasUpgrade(this.layer, 113)) 
+                    style = {'min-height':'180px',
+                    'width':'180px','font-size':'18px',
+                    'border-radius':'0%',
+                    'background-color':'#5bbf2f'}
+                return style}
+        },
+        121: {
+            title: "SA-OPU7",
+            tooltip: "Overpower 1st Bouncy Ball Flower milestone",
+            currencyDisplayName: "Bouncy Ball Flowers",
+            currencyInternalName: "points",
+            currencyLayer:"bouncy_ball_flower",
+            cost: new Decimal("ee1.25e24"),
+            unlocked() {return expertBossMagicEffect('ludwig').gte(3)
+            },
+            effect() {
+                let eff = player.bouncy_ball_flower.points.max(10).log(10).max(10).log(10).root(12)
+                return eff
+            },
+            style(){style = {'min-height':'180px',
+                            'width':'180px',
+                            'font-size':'18px',
+                            'border-radius':'0%'}
+                    if (hasUpgrade(this.layer, 121)) 
+                    style = {'min-height':'180px',
+                    'width':'180px','font-size':'18px',
+                    'border-radius':'0%',
+                    'background-color':'#606040'}
                 return style}
         },
         // Look in the upgrades docs to see what goes here!
@@ -8304,9 +9003,7 @@ addLayer("boomerang_flower", {
     layerShown() { return hasAchievement('achievements', 125) },          // Returns a bool for if this layer's node should be visible in the tree.
 
     doReset(resettingLayer) {
-        if (layers[resettingLayer].row > layers[this.layer].row) {
-        layerDataReset(this.layer, kept)
-        }
+        return undefined
     },
 
     hotkeys: [
@@ -8575,7 +9272,7 @@ addLayer("boomerang_flower", {
         if (hasUpgrade('boomerang_flower', 22)) player.boomerang_flower.boomerang_persec = multB
         if (hasUpgrade('boomerang_flower', 22)) player.boomerang_flower.boomerang = player.boomerang_flower.boomerang.add(multB.times(tick))
     
-        if (hasMilestone('mario', 6)) player.boomerang_flower.challenges[11] = completionLimit('boomerang_flower', 11).toNumber()
+        if (hasMilestone('mario', 6)) player.boomerang_flower.challenges[11] = completionLimit('boomerang_flower', 11)
     },
     tabFormat: [
         "main-display",
@@ -9362,7 +10059,7 @@ addLayer("luigi", {
         },
         31: {
             title: "Best plumber team!",
-            description: "Boomerang Flower layer fesets nothing. ",
+            description: "Boomerang Flower layer resets nothing. ",
             cost: new Decimal(123456),
             unlocked() {return hasUpgrade(this.layer, 25)},
         },
@@ -9572,6 +10269,44 @@ addLayer("luigi", {
     },
 })
 // 第二十二层：奇诺比奥
+function toadTierLayerDisplay (decimal, isCapital = true){
+    decimal = new Decimal(decimal)
+    let onesC = ["","","","","","","","Hept","Oct","Enne"]
+    let onesCc = ["","Me","Due","Trie","Tetre","Pente","Hexe","Hepte","Octe","Enne"]
+    let onesL = ["","","","","","","","hept","oct","enne"]
+    let onesLc = ["","me","due","trie","tetre","pente","hexe","hepte","octe","enne"]
+    let tensC = ["","Dec","Icos","Triacont","Tetracont","Pentacont","Hexacont","Heptacont","Octacont","Enneacont"]
+    let tensL = ["","dec","icos","triacont","tetracont","pentacont","hexacont","heptacont","octacont","enneacont"]
+    let hundsC = ["","Hect","Dohect","Triahect","Tetrahect","Pentahect","Hexahect","Heptahect","Octahect","Enneahect"]
+    let hundsL = ["","hect","dohect","triahect","tetrahect","pentahect","hexahect","heptahect","octahect","enneahect"]
+    let C11 = "Endec"
+    let L11 = "endec"
+    let C12 = "Dodec"
+    let L12 = "dodec"
+    let C109 = "Enneahect"
+    let L109 = "enneahect"
+    let a = "a"
+    if (decimal.gte(1000)) return "Layer-"+formatWhole(decimal)
+    let num = decimal.toNumber()
+    if (num <= 9 && isCapital) return onesC[num]
+    if (num <= 9 && !isCapital) return onesL[num]
+    if (num >= 10 && num <= 99 && isCapital && num != 11 && num !=12 && num%10 != 0) return onesCc[num%10]+tensL[Math.floor(num/10)]
+    if (num >= 10 && num <= 99 && !isCapital && num != 11) return onesLc[num%10]+tensL[Math.floor(num/10)]
+    if (num >= 10 && num <= 99 && isCapital && num%10 == 0) return tensC[Math.floor(num/10)]
+    if (num == 11 && isCapital) return C11
+    if (num == 11 && !isCapital) return L11
+    if (num == 12 && isCapital) return C12
+    if (num == 12 && !isCapital) return L12
+    if (num >= 100 && num <= 999 && isCapital && num%100 != 11 && num%100 !=12 && num != 109 && num%100 != 0) return onesCc[num%10]+tensL[Math.floor(num/10)%10]+a+hundsL[Math.floor(num/100)]
+    if (num >= 100 && num <= 999 && !isCapital && num%100 != 11 && num%100 !=12 && num != 109 && num%100 != 0) return onesLc[num%10]+tensL[Math.floor(num/10)%10]+a+hundsL[Math.floor(num/100)]
+    if (num >= 100 && num <= 999 && isCapital && num%100 == 11) return C11+a+hundsL[Math.floor(num/100)]
+    if (num >= 100 && num <= 999 && isCapital && num%100 == 12) return C12+a+hundsL[Math.floor(num/100)]
+    if (num >= 100 && num <= 999 && !isCapital && num%100 == 11) return L11+a+hundsL[Math.floor(num/100)]
+    if (num >= 100 && num <= 999 && !isCapital && num%100 == 12) return L12+a+hundsL[Math.floor(num/100)]
+    if (num >= 100 && num <= 999 && isCapital && num%100 == 0) return hundsC[Math.floor(num/100)]
+    if (num == 109 && isCapital) return C109
+    if (num == 109 && !isCapital) return L109
+}
 addLayer("toad", {
     startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
@@ -9589,6 +10324,10 @@ addLayer("toad", {
         [new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0)],
         [new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0)],
         [new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0)]],
+        tierlayer: new Decimal(7),
+        tierlayer_des: ["placeholder","placeholder","placeholder","placeholder","placeholder"],
+        tierlayer_rew: [new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0)],
+        highest_tierlayer: new Decimal(0),
         awaken_power: new Decimal(0),
     }},
 
@@ -9644,7 +10383,8 @@ addLayer("toad", {
     passiveGeneration() {return hasUpgrade(this.layer, 21)},
     
     doReset(resettingLayer) {
-        if (layers[resettingLayer].row > layers[this.layer].row) {
+        if (layers[resettingLayer].row >= 12) return undefined
+        else if (layers[resettingLayer].row > layers[this.layer].row) {
             let kept = ["unlocked", "auto"]
             if (hasMilestone('easy', 0)) {
                 kept.push("milestones")}
@@ -9655,7 +10395,8 @@ addLayer("toad", {
                         kept.push("buyables", 12)
                         kept.push("buyables", 21)
                         kept.push("buyables", 22)
-                        kept.push("buyables", 31)}
+                        kept.push("buyables", 31)
+                        kept.push("buyables", 32)}
             layerDataReset(this.layer, kept)
         }
     },  
@@ -9992,11 +10733,16 @@ addLayer("toad", {
                 ${player.toad.supertier_des[1]}` 
                 return display}, 
             canAfford() { return player[this.layer].supertier[0].gte(this.cost()) },
+            buyMax() {
+                let cheap = new Decimal(0)
+                let reduce = new Decimal(1)
+                if (hasUpgrade('easy', 42)) reduce = new Decimal(0.475)
+                setBuyableAmount('toad', 22, player.toad.supertier[0].div(reduce).add(cheap).add(7).div(12).sub(1).root(1.2).floor().add(1))},
             buy() {
-                player[this.layer].points = new Decimal(0)
-                player[this.layer].buyables[11] = new Decimal(0)
-                player[this.layer].buyables[12] = new Decimal(0)
-                player[this.layer].buyables[21] = new Decimal(0)
+                if (hasMilestone('easy', 14)==false) player[this.layer].points = new Decimal(0)
+                if (hasMilestone('easy', 14)==false) player[this.layer].buyables[11] = new Decimal(0)
+                if (hasMilestone('easy', 14)==false) player[this.layer].buyables[12] = new Decimal(0)
+                if (hasMilestone('easy', 14)==false) player[this.layer].buyables[21] = new Decimal(0)
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             unlocked() {return hasUpgrade('toad', 54)},
@@ -10012,8 +10758,8 @@ addLayer("toad", {
         },
         31: {
             title() {return "Toad Hex " + formatWhole(player.toad.supertier[2])},
-            cost(x) { let cheap = new Decimal(0)
-                    let cost = new Decimal(18).times(x.pow(1.25).add(1)).floor().sub(11).sub(cheap).max(0)                   
+            cost(x) {
+                    let cost = new Decimal(18).times(x.pow(1.25).add(1)).floor().sub(11).max(0)                   
                         return cost },
             display() { 
                 let display = ` Raise Toad hex, but reset all your previous Toad level layers. <br>
@@ -10021,6 +10767,9 @@ addLayer("toad", {
                 ${player.toad.supertier_des[2]}` 
                 return display}, 
             canAfford() { return player[this.layer].supertier[1].gte(this.cost()) },
+            buyMax() {
+                return setBuyableAmount('toad', 31, player.toad.supertier[2].max(0).add(11).div(18).sub(1).root(1.25).ceil())
+            },
             buy() {
                 player[this.layer].points = new Decimal(0)
                 player[this.layer].buyables[11] = new Decimal(0)
@@ -10040,6 +10789,67 @@ addLayer("toad", {
                         "border-color":"rgba(255,255,255,0.125)"}
             },
         },
+        32: {
+            title() {return "Toad Hept " + formatWhole(player.toad.supertier[3])},
+            cost(x) { let cheap = new Decimal(0)
+                    let cost = new Decimal(23).times(x.add(1)).max(0)                
+                        return cost },
+            display() { 
+                let display = ` Raise Toad hept, oct, enne... etc. <br>
+                Cost: Toad hex ${formatWhole(this.cost())} <br>
+                ${player.toad.supertier_des[3]}` 
+                return display}, 
+            canAfford() { return player[this.layer].supertier[2].gte(this.cost()) },
+            buyMax() {
+                return setBuyableAmount('toad', 32, player.toad.supertier[2].div(23).floor())
+            },
+            buy() {
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            unlocked() {return player.toad.supertier[2].gte(20)},
+            style() { 
+                return {"background":"linear-gradient(90deg, #000000, #001244)",
+                        "border-radius":"0%",
+                        "width":"300px",
+                        "height":"120px",
+                        "color":"white",
+                        "border":"5px solid",
+                        "border-color":"rgba(255,255,255,0.125)"}
+            },
+        },
+        41: {
+            title() {
+                let l = player.toad.tierlayer
+                let c = l.sub(7)
+                let c_1 = l.sub(8)
+                let c_2 = l.sub(9)
+                if (player.toad.tierlayer.eq(7))
+                return "Toad " + toadTierLayerDisplay(l) + " " + formatWhole(player.toad.supertier[3])
+                if (player.toad.tierlayer.eq(8))
+                return "Toad " + toadTierLayerDisplay(l) + " " + formatWhole(player.toad.supertier[3].div(100).floor())+"<br>"
+                     + "Toad " + toadTierLayerDisplay(l.sub(1)) + " " + formatWhole(player.toad.supertier[3])
+                if (player.toad.tierlayer.gte(9))
+                return "Toad " + toadTierLayerDisplay(l) + " " + formatWhole(player.toad.supertier[3].div(Decimal.pow(10, c.times(3).add(c.pow(2)).div(2))).floor())+"<br>"
+                     + "Toad " + toadTierLayerDisplay(l.sub(1)) + " " + formatWhole(player.toad.supertier[3].div(Decimal.pow(10, c_1.times(3).add(c_1.pow(2)).div(2))).floor())+"<br>"
+                     + "Toad " + toadTierLayerDisplay(l.sub(2)) + " " + formatWhole(player.toad.supertier[3].div(Decimal.pow(10, c_2.times(3).add(c_2.pow(2)).div(2))).floor())                   
+            },
+            display() { 
+                let l = player.toad.tierlayer
+                let display = ` Higher Toad tier layers are passively increasing <br>
+                Toad ${toadTierLayerDisplay(l.add(1), false)} up at Toad ${toadTierLayerDisplay(l, false)} ${formatWhole(Decimal.pow(10,l.sub(5)))}
+                <br>${player.toad.tierlayer_des}` 
+                return display}, 
+            unlocked() {return player.toad.supertier[2].gte(20)},
+            style() { 
+                return {"background":"linear-gradient(90deg, #000000, #001244)",
+                        "border-radius":"0%",
+                        "width":"614px",
+                        "height":"180px",
+                        "color":"white",
+                        "border":"5px solid",
+                        "border-color":"rgba(255,255,255,0.125)"}
+            },
+        },
         101: {
             title: "Ictera jumping",
             cost(x) { return new Decimal(2).pow(Decimal.pow(x, 1.4)) },
@@ -10048,6 +10858,7 @@ addLayer("toad", {
                 if (player.toad.tier.gte(7)) ToB1base = ToB1base.add(player.toad.tier_rew[1])
                 if (hasUpgrade('easy', 21)) ToB1base = ToB1base.times(upgradeEffect('easy', 21))
                 if (player.toad.supertier[1].gte(4)) ToB1base = ToB1base.times(100)
+                if (player.toad.supertier[3].gte(12)) ToB1base = ToB1base.pow(2)
                 let display = ` Multiply Toad gain by ${format(ToB1base)} per every level. <br>
                 Effect: ${format(this.effect())}x <br>
                 Level: ${format(player[this.layer].buyables[this.id])}<br>
@@ -10068,6 +10879,7 @@ addLayer("toad", {
                 if (player.toad.tier.gte(7)) ToB1base = ToB1base.add(player.toad.tier_rew[1])
                 if (hasUpgrade('easy', 21)) ToB1base = ToB1base.times(upgradeEffect('easy', 21))
                 if (player.toad.supertier[1].gte(4)) ToB1base = ToB1base.times(100)
+                if (player.toad.supertier[3].gte(12)) ToB1base = ToB1base.pow(2)
                 effect = ToB1base.pow(x).max(1)
                 return effect},
             unlocked() {return player.toad.tier.gte(1)},
@@ -10233,6 +11045,12 @@ addLayer("toad", {
         if (hasUpgrade('toad', 42)) player.toad.supertier[0] = player.toad.buyables[21]
         if (hasUpgrade('toad', 54)) player.toad.supertier[1] = player.toad.buyables[22]
         if (hasUpgrade('toadette', 44)) player.toad.supertier[2] = player.toad.buyables[31]
+        if (player.toad.supertier[2].gte(20)) player.toad.supertier[3] = player.toad.buyables[32]
+        let r = player.toad.supertier[3].max(1).log(10)
+        if (player.toad.supertier[2].gte(20)) player.toad.tierlayer = r.times(2).add(2.25).root(2).add(5.5).floor() //100七重阶是1八重阶，1000八重阶是1九重阶，10000九重阶是1十重阶，以此类推
+        
+        let c = player.toad.tierlayer.sub(7)
+        player.toad.highest_tierlayer = player.toad.supertier[3].div(Decimal.pow(10, c.times(3).add(c.pow(2)).div(2))).floor()
         // 文本更新
         if (player.toad.level.lt(1)) player.toad.level_des = "At Toad level 1, Toad level boosts Toad gain."
         else if (player.toad.level.lt(3)) player.toad.level_des = "At Toad level 3, Toad level delays Cleared Courses hardcap."
@@ -10259,17 +11077,28 @@ addLayer("toad", {
         else if (player.toad.supertier[0].lt(3)) player.toad.supertier_des[0] = "At Toad tetr 3, auto Toad level up."
         else if (player.toad.supertier[0].lt(6)) player.toad.supertier_des[0] = "At Toad tetr 6, unlock a new layer about a game mode of SMM2."
         else if (player.toad.supertier[0].lt(28)) player.toad.supertier_des[0] = "At Toad tetr 28, Toadette Crown effect is boosted base on Toad tetr."
-        else if (player.toad.supertier[0].lt(2024)) player.toad.supertier_des[0] = "At Toad tetr 2024, TBD."
-        
+        else if (player.toad.supertier[0].lt(2434)) player.toad.supertier_des[0] = "At Toad tetr 2434, Toad level 3 effect's softcap is weaker again."
+        else if (player.toad.supertier[0].gte(2434)) player.toad.supertier_des[0] = "You have unlocked every Toad tetr rewards!"
+
         if (player.toad.supertier[1].lt(1)) player.toad.supertier_des[1] = "At Toad pent 1, ^1.5 1st Toadette upgrade's effect."
         else if (player.toad.supertier[1].lt(4)) player.toad.supertier_des[1] = "At Toad pent 4, 100x 'Ictera jumping' base."
         else if (player.toad.supertier[1].lt(8)) player.toad.supertier_des[1] = "At Toad pent 8, remove Toad level 11 effect hardcap but softcapped."
         else if (player.toad.supertier[1].lt(69)) player.toad.supertier_des[1] = "At Toad pent 69, triple Normal Endless Clears gain."
-        else if (player.toad.supertier[1].lt(501761)) player.toad.supertier_des[1] = "At Toad pent 501,761, TBD."
+        else if (player.toad.supertier[1].lt(501761)) player.toad.supertier_des[1] = "At Toad pent 501,761, delay 'Ikyota challenging' softcap^2 to 1e200."
+        else if (player.toad.supertier[1].gte(501761)) player.toad.supertier_des[1] = "You have unlocked every Toad pent rewards!"
 
-        if (player.toad.supertier[2].lt(1)) player.toad.supertier_des[2] = "At Toad hex 1, Easy Endless no longer resets Toad pent, hex... etc."
-        if (player.toad.supertier[2].lt(3)) player.toad.supertier_des[2] = "At Toad hex 3, unlock a new layer about the second difficulty of endless challenge."
-        if (player.toad.supertier[2].lt(20)) player.toad.supertier_des[2] = "At Toad hex 20, unlock Toad hept and more Toad tier layers."
+        if (player.toad.supertier[2].lt(1)) player.toad.supertier_des[2] = "At Toad hex 1, Easy Endless and future layers no longer resets Toad pent, hex... etc."
+        else if (player.toad.supertier[2].lt(3)) player.toad.supertier_des[2] = "At Toad hex 3, unlock a new layer about the second difficulty of endless challenge."
+        else if (player.toad.supertier[2].lt(20)) player.toad.supertier_des[2] = "At Toad hex 20, unlock Toad hept and more Toad tier layers."
+        else if (player.toad.supertier[2].gte(20)) player.toad.supertier_des[2] = "You have unlocked every Toad hex rewards!"
+
+        if (player.toad.supertier[3].lt(2)) player.toad.supertier_des[3] = "At Toad hept 2, you are able to spend Semi-Auto Courses to gain Condition Courses."
+        else if (player.toad.supertier[3].lt(12)) player.toad.supertier_des[3] = "At Toad hept 12, square 'Ictera jumping' base."
+        else if (player.toad.supertier[3].gte(12)) player.toad.supertier_des[3] = "You have unlocked every Toad hept rewards!"
+
+        if (player.toad.tierlayer.lt(8)) player.toad.tierlayer_des = "At Toad oct 1, unlock Larry's minigame."
+        else if (player.toad.tierlayer.lt(9)) player.toad.tierlayer_des = "At Toad enne 1, unlock Iggy's minigame."
+        else if ((player.toad.tierlayer.lte(10) && player.toad.highest_tierlayer.lt(20)) || player.toad.tierlayer.lte(9)) player.toad.tierlayer_des = "At Toad dec 20, passive OSC generation is always activated."
 
         // 等级奖励
         let Tl1base = new Decimal(2)
@@ -10279,6 +11108,7 @@ addLayer("toad", {
         player.toad.level_rew[1] = Decimal.pow(1e10,player.toad.level.max(0)) //3级奖励
         let Tl3softcapRoot = new Decimal(1.25)
         if (hasUpgrade('easy', 34)) Tl3softcapRoot = new Decimal(1.2)
+        if (player.toad.supertier[0].gte(2434)) Tl3softcapRoot = new Decimal(1.165)
         if (player.toad.level.gte(500)) player.toad.level_rew[1] = Decimal.pow(1e10,player.toad.level.max(500).sub(500).root(Tl3softcapRoot)).times("1e5000")  //3级奖励软上限
         player.toad.level_rew[2] = player.toad.points.max(1).root(5).min(decimalInfinity) //11级奖励      
         player.toad.level_rew[3] = player.luigi.points.max(1e10).log(1e10).pow(1.5).min(decimalInfinity) //66级奖励
@@ -10296,22 +11126,30 @@ addLayer("toad", {
 
         if (player.toad.supertier[0].gte(28)) player.toad.supertier_rew[0][0] = player.toad.supertier[0].add(1).max(1).pow(1.33)
 
-        if (player.toad.supertier[1].gte(8)) player.toad.level_rew[2] = player.toad.points.max(1).root(10) //8.
+        if (player.toad.supertier[1].gte(8)) player.toad.level_rew[2] = player.toad.points.max(1).root(10) //8五重阶奖励
         //自动化
-        if (player.toad.supertier[0].gte(3) && player.toad.tier.gte(2) || hasMilestone('easy', 1)) setBuyableAmount('toad', 11, player.toad.points.times(buyableEffect('toad', 102)).max(10).log(10).sub(1).root(1.28).floor().add(1))
-        else if (player.toad.supertier[0].gte(3)) setBuyableAmount('toad', 11, player.toad.points.max(10).log(10).sub(1).root(1.28).floor().add(1)) //3四重阶奖励 
+        if ((player.toad.supertier[0].gte(3) && player.toad.tier.gte(2) || hasMilestone('easy', 1)) && getBuyableAmount('toad', 11).lte(player.toad.points.times(buyableEffect('toad', 102)).max(10).log(10).sub(1).root(1.28).floor().add(1))) setBuyableAmount('toad', 11, player.toad.points.times(buyableEffect('toad', 102)).max(10).log(10).sub(1).root(1.28).floor().add(1))
+        else if (player.toad.supertier[0].gte(3) && getBuyableAmount('toad', 11).lte(player.toad.points.max(10).log(10).sub(1).root(1.28).floor().add(1))) setBuyableAmount('toad', 11, player.toad.points.max(10).log(10).sub(1).root(1.28).floor().add(1)) //3四重阶奖励 
         
         let cheap2 = new Decimal(0)
         let reduce2 = new Decimal(1)        
         if (player.toad.level.gte(234)) reduce2 = new Decimal(0.75)
         if (hasUpgrade(this.layer, 31)) cheap2 = cheap2.add(upgradeEffect(this.layer, 31))
-        if (hasMilestone('easy', 3)) setBuyableAmount('toad', 12, player.toad.level.div(reduce2).add(cheap2).div(4).sub(1).root(1.1).times(0.75).round().add(1))
-        if (hasMilestone('easy', 12)) setBuyableAmount('toad', 21, player.toad.tier.div(10).sub(1).root(1.1).times(0.75).ceil())
+        if (hasMilestone('easy', 3) && getBuyableAmount('toad', 12).lte(player.toad.level.div(reduce2).add(cheap2).div(4).sub(1).root(1.1).times(0.75).round().add(1))) setBuyableAmount('toad', 12, player.toad.level.div(reduce2).add(cheap2).div(4).sub(1).root(1.1).times(0.75).round().add(1))
+        if (hasMilestone('easy', 12) && getBuyableAmount('toad', 21).lte(player.toad.tier.div(10).sub(1).root(1.1).times(0.75).ceil())) setBuyableAmount('toad', 21, player.toad.tier.div(10).sub(1).root(1.1).times(0.75).ceil())
+
+        let cheap3 = new Decimal(0)
+        let reduce3 = new Decimal(1)
+        if (hasUpgrade('easy', 42)) reduce3 = new Decimal(0.475)
+        if (hasMilestone('normal', 6) && getBuyableAmount('toad', 22).lte(player.toad.supertier[0].div(reduce3).add(cheap3).add(7).div(12).sub(1).root(1.2).floor().add(1))) setBuyableAmount('toad', 22, player.toad.supertier[0].div(reduce3).add(cheap3).add(7).div(12).sub(1).root(1.2).floor().add(1))
         
-        if (hasMilestone('easy', 6)) setBuyableAmount('toad', 101, player.toad.points.max(2).log(2).root(1.4).floor().add(1))
-        if (hasMilestone('easy', 6)) setBuyableAmount('toad', 102, player.toad.points.div(1e10).max(3).log(3).root(1.78).floor().add(1))
-        if (hasMilestone('easy', 6)) setBuyableAmount('toad', 103, player.toad.points.div(1e76).max(100).log(100).root(1.9).floor().add(1))
-        if (hasMilestone('easy', 10)) setBuyableAmount('toad', 111, player.toad.awaken_power.max(5).log(5).root(1.64).floor().add(1))
+        if (hasMilestone('expert', 8) && getBuyableAmount('toad', 31).lte(player.toad.supertier[1].max(0).add(11).div(18).sub(1).root(1.25).ceil())) setBuyableAmount('toad', 31, player.toad.supertier[1].max(0).add(11).div(18).sub(1).root(1.25).ceil())
+
+        if (hasMilestone('expert', 10) && getBuyableAmount('toad', 32).lte(player.toad.supertier[2].div(23).floor())) setBuyableAmount('toad', 32, player.toad.supertier[2].div(23).floor())
+        if (hasMilestone('easy', 6) && getBuyableAmount('toad', 101).lte(player.toad.points.max(2).log(2).root(1.4).floor().add(1))) setBuyableAmount('toad', 101, player.toad.points.max(2).log(2).root(1.4).floor().add(1))
+        if (hasMilestone('easy', 6) && getBuyableAmount('toad', 102).lte(player.toad.points.div(1e10).max(3).log(3).root(1.78).floor().add(1))) setBuyableAmount('toad', 102, player.toad.points.div(1e10).max(3).log(3).root(1.78).floor().add(1))
+        if (hasMilestone('easy', 6) && getBuyableAmount('toad', 103).lte(player.toad.points.div(1e76).max(100).log(100).root(1.9).floor().add(1))) setBuyableAmount('toad', 103, player.toad.points.div(1e76).max(100).log(100).root(1.9).floor().add(1))
+        if (hasMilestone('easy', 10) && getBuyableAmount('toad', 111).lte(player.toad.awaken_power.max(5).log(5).root(1.64).floor().add(1))) setBuyableAmount('toad', 111, player.toad.awaken_power.max(5).log(5).root(1.64).floor().add(1))
         //觉醒力量
         let APgain = player.toad.points.div(1e165).max(0).root(14)
         if (player.toad.level.gte(66)) APgain = APgain.times(player.toad.level_rew[3])
@@ -10397,7 +11235,7 @@ addLayer("toad", {
                 unlocked() {return hasUpgrade('toad', 13)},
                 content: [
                     ["blank", "15px"],
-                    ["buyables",[1,2,3,10]],
+                    ["buyables",[1,2,3,4,10]],
                 ]                
             },
             "Rewards": {
@@ -10528,6 +11366,10 @@ addLayer("toad", {
                         if (player.toad.supertier[0].gte(28))
                         return "Toad tetr 28: Toadette Crown effect is boosted base on Toad tetr. Currently: " + format(player.toad.supertier_rew[0][0]) + "x"}
                     ],
+                    ["display-text", function() {
+                        if (player.toad.supertier[0].gte(2434))
+                        return "Toad tetr 2434: Toad level 3 effect's softcap is weaker again."}
+                    ],
                 ]
             },
             "Toad Pent": {
@@ -10550,6 +11392,10 @@ addLayer("toad", {
                         if (player.toad.supertier[1].gte(69))
                         return "Toad pent 69: Triple Normal Endless Clears gain."}
                     ],
+                    ["display-text", function() {
+                        if (player.toad.supertier[1].gte(501761))
+                        return "Toad pent 501761: Delay 'Ikyota challenging' softcap^2 to 1e200."}
+                    ],
                 ]
             },
             "Toad Hex": {
@@ -10563,6 +11409,36 @@ addLayer("toad", {
                     ["display-text", function() {
                         if (player.toad.supertier[2].gte(3))
                         return "Toad hex 3: Unlock a new layer about the second difficulty of endless challenge."}
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.supertier[2].gte(20))
+                        return "Toad hex 20: Unlock Toad hept and more Toad tier layers."}
+                    ],
+                ]
+            },
+            "Higher Toad Tier Layers": {
+                unlocked() {return player.toad.supertier[2].gte(20)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        if (player.toad.supertier[3].gte(2))
+                        return "Toad hept 2: Able to spend Semi-Auto Courses to gain Condition Courses."}
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.supertier[3].gte(12))
+                        return "Toad hept 12: Square 'Ictera jumping' base."}
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.tierlayer.gte(8))
+                        return "Toad oct 1: Unlock Larry's minigame."}
+                    ],
+                    ["display-text", function() {
+                        if (player.toad.tierlayer.gte(9))
+                        return "Toad enne 1: Unlock Iggy's minigame."}
+                    ],
+                    ["display-text", function() {
+                        if ((player.toad.tierlayer.gte(10) && player.toad.highest_tierlayer.gte(20)) || player.toad.tierlayer.gte(11))
+                        return "Toad dec 20: Passive OSC generation is always activated."}
                     ],
                 ]
             },
@@ -11048,9 +11924,17 @@ addLayer("easy", {
             let kept = ["unlocked", "auto"]
             if (hasMilestone('normal', 0)) {
                 kept.push("milestones")}
+            if (hasMilestone('normal', 2)) {
+                kept.push("upgrades")}
+            if (hasMilestone('expert', 3)) {
+                kept.push("no_dmg_running")
+                kept.push("random_theme")
+                kept.push("random_style")
+            }
             layerDataReset(this.layer, kept)
         }
     },
+    passiveGeneration() {return hasMilestone('normal', 5)},
     hotkeys: [
         {key: "e", description: "E: Reset for Easy Endless", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
@@ -11193,6 +12077,23 @@ addLayer("easy", {
             cost: new Decimal(1e40),
             unlocked() {return hasUpgrade(this.layer, 42)},
         },
+        44: {
+            title: "Leading forever",
+            description: "Every 2 'Ikyota challenging' levels provides 1 free level of 'Iczeta challenging'.",
+            cost: new Decimal("1e1625"),
+            unlocked() {return hasUpgrade(this.layer, 43)},
+            effect() {
+                let eff = getBuyableAmount('easy', 12).max(0).div(2).floor()
+                return eff
+            },
+            effectDisplay() { return "+"+formatWhole(upgradeEffect(this.layer, this.id)) },
+        },
+        45: {
+            title: "The display limit",
+            description: "5x One Shot Clears gain.",
+            cost: new Decimal("1e1725"),
+            unlocked() {return hasUpgrade(this.layer, 44)},
+        },
         // Look in the upgrades docs to see what goes here!
     },
     milestones: {
@@ -11265,6 +12166,19 @@ addLayer("easy", {
             requirementDescription: "1.79e308 Easy Endless Clears",
             effectDescription: "^1000000 Cleared Courses gain.",
             done() { return player.easy.points.gte("1.79e308") },
+        },
+        14: {
+            requirementDescription: "1e1600 Easy Endless Clears",
+            effectDescription: "Toad pent resets nothing.",
+            done() { return player.easy.points.gte("1e1600") },
+            unlocked() {return hasAchievement('achievements', 174)},
+        },
+        15: {
+            requirementDescription: "3.33e3333 Easy Endless Clears",
+            effect() {return player.toad.level.max(10).log(10)},
+            effectDescription() {return "Power Normal Endless Clears effect based on Toad level.<br>Currently: ^" +format(milestoneEffect(this.layer, 15))},
+            done() { return player.easy.points.gte("3.33e3333") },
+            unlocked() {return hasAchievement('achievements', 174)},
         },
     },
     clickables: {
@@ -11549,8 +12463,9 @@ addLayer("easy", {
             display() { 
                 let free = new Decimal(0)
                 if (hasUpgrade('normal', 13)) free = free.add(upgradeEffect('normal', 13))
+                if (hasUpgrade('easy', 44)) free = free.add(upgradeEffect('easy', 44))
                 let freedis = ""
-                if (hasUpgrade('normal', 13)) freedis = "+"+formatWhole(free)
+                if (hasUpgrade('normal', 13) || hasUpgrade('easy', 44)) freedis = "+"+formatWhole(free)
                 let display = ` Multiply Free Clears by lg(FC)^0.5x per every level. <br>
                 base: ${format(player.easy.free_c.max(10).log(10).root(2))}<br>
                 level: ${formatWhole(player[this.layer].buyables[this.id])}${freedis}<br>
@@ -11568,6 +12483,7 @@ addLayer("easy", {
             effect(x) {
                 let free = new Decimal(0)
                 if (hasUpgrade('normal', 13)) free = free.add(upgradeEffect('normal', 13))
+                if (hasUpgrade('easy', 44)) free = free.add(upgradeEffect('easy', 44))
                 let base = player.easy.free_c.max(10).log(10).root(2)
                 let effect = base.pow(x.add(free))
                 return effect},
@@ -11582,9 +12498,17 @@ addLayer("easy", {
                 let freedis = ""
                 if (false) freedis = "+"+formatWhole(free)
                 let base = new Decimal(1.5)
+                if (hasUpgrade('normal', 23)) base = base.add(0.25)
+                let softcapped = ""
+                let cap2 = new Decimal(1e180)
+                let cap3 = decimalInfinity
+                if (player.toad.supertier[1].gte(501761)) cap2 = new Decimal(1e200)
+                if (buyableEffect('easy', 12).gte(1e100)) softcapped = " (softcapped)"
+                if (buyableEffect('easy', 12).gte(cap2)) softcapped = " (softcapped^2)"
+                if (buyableEffect('easy', 12).gte(cap3)) softcapped = " (hardcapped)"
                 let display = ` Multiply Normal Endless clear gain by ${format(base)} per every level. <br>
                 level: ${formatWhole(player[this.layer].buyables[this.id])}${freedis}<br>
-                Effect: ${format(this.effect())}x<br>
+                Effect: ${format(this.effect())}x${softcapped}<br>
                 Cost: ${format(this.cost())} Free Clears`
                 return display}, 
             canAfford() { return player[this.layer].free_c.gte(this.cost()) },
@@ -11598,11 +12522,22 @@ addLayer("easy", {
             effect(x) {
                 let free = new Decimal(0)
                 let base = new Decimal(1.5)
+                if (hasUpgrade('normal', 23)) base = base.add(0.25)
+                let cap2 = new Decimal(1e180)
+                if (player.toad.supertier[1].gte(501761)) cap2 = new Decimal(1e200)
+                let cap3 = decimalInfinity
                 let effect = base.pow(x.add(free))
+                if (effect.gte(1e100)) effect = effect.div(1e100).root(3).times(1e100)
+                if (effect.gte(cap2)) effect = effect.div(cap2).root(effect.log(10).root(2)).times(cap2)
+                if (effect.gte(cap3)) effect = cap3
                 return effect},
             unlocked() {return hasUpgrade('easy', 43)},
             
         },
+    },
+    automate() {
+        if (hasMilestone('expert', 2)) setBuyableAmount('easy', 11, player.easy.free_c.max(10).log(10).root(1.35).floor().add(1)),
+        setBuyableAmount('easy', 12, player.easy.free_c.div(1e20).max(256).log(256).root(1.44).floor().add(1))
     },
     update(easy) {
         let tick = new Decimal(0.05)
@@ -11611,6 +12546,14 @@ addLayer("easy", {
         if (hasUpgrade('toad', 61)) multNDMG = multNDMG.times(upgradeEffect('toad', 61))
         multNDMG = multNDMG.floor()
         player.easy.no_dmg_mult = multNDMG
+        if (hasMilestone('expert', 0)) player.easy.no_dmg = player.easy.no_dmg.add(player.easy.no_dmg_mult.times(tick))
+
+        let gain = tmp.easy.resetGain.max(10).log(10).floor()
+        if (hasUpgrade('easy', 33)) gain = gain.times(tmp.toad.buyables[103].effectII)
+        if (hasUpgrade('easy', 35)) gain = gain.times(buyableEffect('easy', 11))
+        if (hasUpgrade('normal', 11)) gain = gain.times(upgradeEffect('normal', 11))
+        if (hasUpgrade('easy', 31))
+        player[this.layer].free_c = player[this.layer].free_c.add(gain.times(tick))
     },
 tabFormat: [
     "main-display",
@@ -11712,6 +12655,9 @@ addLayer("normal", {
         oneshot_mult: new Decimal(1),
         square_cooldown: new Decimal(0),
         square_changing: new Decimal(0),
+        auto_mario: new Decimal(0),
+        semi_auto: new Decimal(0),
+        condition_course: new Decimal(0),
     }},
 
     color: "#77A831",                       // The color for this layer, which affects many elements.
@@ -11730,13 +12676,23 @@ addLayer("normal", {
     type: "custom",                         // Determines the formula used for calculating prestige currency.
     exponent: 0.5,                          // "normal" prestige gain is (currency^exponent).
 
-    prestigeButtonText() {
-        return "Difficulty up for <b>+" + formatWhole(tmp.normal.resetGain) + "</b> Normal Endless Clears<br><br>Next at "+ format(tmp.normal.nextAt)+ " Easy Endless Clears"
+    doReset(resettingLayer) {
+        if (layers[resettingLayer].row > layers[this.layer].row) {
+            let kept = ["unlocked", "auto"]
+            if (hasMilestone('expert', 0)) {
+                kept.push("milestones")}
+            layerDataReset(this.layer, kept)
+        }
     },
     getResetGain() {
         let mult = new Decimal(1) //gainMult
         if (player.toad.supertier[1].gte(69)) mult = mult.times(3)
         if (hasUpgrade('easy', 43)) mult = mult.times(buyableEffect('easy', 12))
+        if (hasMilestone('normal', 1)) mult = mult.times(milestoneEffect('normal', 1))
+        if (hasUpgrade('normal', 24)) mult = mult.times(upgradeEffect('normal', 24))
+        if (hasMilestone('normal', 3)) mult = mult.times(clickableEffect('normal', 21))
+        if (hasMilestone('expert', 0)) mult = mult.times(3)
+        if (hasUpgrade('expert', 13)) mult = mult.times(expertBossMagicEffect('larry'))
         let gain = player.easy.points.max(1).div("1e641").max(1).log(1e10).times(mult).floor()
         return gain
     },
@@ -11745,9 +12701,19 @@ addLayer("normal", {
         let mult = new Decimal(1) //gainMult
         if (player.toad.supertier[1].gte(69)) mult = mult.times(3)
         if (hasUpgrade('easy', 43)) mult = mult.times(buyableEffect('easy', 12))
+        if (hasMilestone('normal', 1)) mult = mult.times(milestoneEffect('normal', 1))
+        if (hasUpgrade('normal', 24)) mult = mult.times(upgradeEffect('normal', 24))
+        if (hasMilestone('normal', 3)) mult = mult.times(clickableEffect('normal', 21))
+        if (hasMilestone('expert', 0)) mult = mult.times(3)
+        if (hasUpgrade('expert', 13)) mult = mult.times(expertBossMagicEffect('larry'))
         base = base.root(mult)
         let gain = tmp.normal.resetGain
         return Decimal.pow(base, gain).times("1e651").div(base.pow(mult.sub(1)))
+    },
+    prestigeButtonText() {
+        if (tmp.normal.getResetGain.lt(100) && player.normal.points.lt(1000)) 
+        return "Difficulty up for <b>+" + formatWhole(tmp.normal.getResetGain) + "</b> Normal Endless Clears<br><br>Next at "+ format(tmp.normal.getNextAt)+ " Easy Endless Clears"
+        else return "Difficulty up for <b>+" + formatWhole(tmp.normal.getResetGain) + "</b> Normal Endless Clears"
     },
     canReset() {
         return player.easy.points.gte("1e651")
@@ -11761,7 +12727,16 @@ addLayer("normal", {
         return new Decimal(1)
     },
     effect(){
-        return Decimal.pow(10,player[this.layer].points.add(1).max(1).log(10).root(3)).pow(10)
+        let eff = Decimal.pow(10,player[this.layer].points.add(1).max(1).log(10).root(3)).pow(10)
+        if (hasMilestone('easy', 15)) eff = eff.pow(milestoneEffect('easy', 15))
+        if (hasUpgrade('normal', 34)) eff = eff.pow(upgradeEffect('normal', 34))
+        if (hasMilestone('expert', 5)) eff = eff.pow(10)
+        if (hasUpgrade('expert', 22)) eff = eff.pow(upgradeEffect('expert', 22))
+        if (hasUpgrade('expert', 25)) eff = eff.pow(upgradeEffect('expert', 25))
+        if (hasUpgrade('expert', 65)) eff = eff.pow(100)
+        if (hasSEendlessUpgrade(12)) eff = eff.pow(upgradeEffect('s_expert', 12))
+        if (hasUpgrade('super_acorn', 121)) eff = eff.pow(upgradeEffect('super_acorn', 121))
+        return eff
         /*
         you should use this.layer instead of <layerID>
         Decimal.pow(num1, num2) is an easier way to do
@@ -11777,7 +12752,12 @@ addLayer("normal", {
     onPrestige() {
         return player[this.layer].resetTime = 0
     },
+    passiveGeneration() {return hasMilestone('expert', 8)},
     layerShown() { return hasAchievement('achievements', 174) },          // Returns a bool for if this layer's node should be visible in the tree.
+    
+    autoUpgrade() {
+        return hasMilestone('expert', 9)
+    },
     hotkeys: [
         {key: "n", description: "N: Reset for Normal Endless", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
@@ -11808,8 +12788,16 @@ addLayer("normal", {
                 let time = new Decimal(player.normal.resetTime)
                 if (hasUpgrade(this.layer, 14)) time = time.add(3600)
                 if (hasUpgrade(this.layer, 15)) time = time.add(upgradeEffect(this.layer, 15))
-                let eff = Decimal.pow("1e10000", time.root(3).times(10))
+                let eff = Decimal.pow("1e100000", time.root(3))
+                if (time.lte(31556926080) && hasUpgrade(this.layer, 33)) eff = Decimal.pow("1e200000", time.root(3))
+                if (time.gte(31556926080) && hasUpgrade(this.layer, 33)) eff = Decimal.pow("1e100000", time.root(3)).times("5.49087e316008111")
                 return eff
+            },
+            time() {
+                let time = new Decimal(player.normal.resetTime)
+                if (hasUpgrade(this.layer, 14)) time = time.add(3600)
+                if (hasUpgrade(this.layer, 15)) time = time.add(upgradeEffect(this.layer, 15))
+                return time
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -11836,15 +12824,109 @@ addLayer("normal", {
             cost: new Decimal(6677),
             unlocked() {return hasUpgrade(this.layer, 14)},
             effect() {
-                let eff = player.normal.oneshot.max(0).root(3).times(3600)
+                let power = new Decimal(3)
+                if (hasUpgrade(this.layer, 21)) power = power.div(2)
+                let eff = player.normal.oneshot.max(0).root(power).times(3600)
+                if (hasUpgrade(this.layer, 25)) eff = eff.times(clickableEffect('normal', 21))
+                if (hasUpgrade('expert', 45)) eff = eff.times(3)
                 return eff
             },
         },
         21: {
-            title: "TBD",
-            description: "Coming in v0.10.",
-            cost: new Decimal("10^^7625597484984"),
+            title: "Timing",
+            description: "One Shot Clears effect is better.",
+            currencyDisplayName: "One Shot Clears",
+            currencyInternalName: "oneshot",
+            currencyLayer: "normal",
+            cost: new Decimal(10),
             unlocked() {return hasUpgrade(this.layer, 15)},
+        },
+        22: {
+            title: "Life +3",
+            description: "Normal Endless Clears boosts One Shot Clears gain.",
+            cost: new Decimal(10000000),
+            unlocked() {return hasUpgrade(this.layer, 21)},
+            effect() {
+                let eff = player.normal.points.max(10000).log(10000).pow(3.333)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        23: {
+            title: "Courses with extra rewards",
+            description: "+0.25 to 'Ikyota challenging' base.",
+            cost: new Decimal(88888888),
+            unlocked() {return hasUpgrade(this.layer, 22)},
+        },
+        24: {
+            title: "A precision jump",
+            description: "Normal Endless Clear boosts itself.",
+            cost: new Decimal(1e9),
+            unlocked() {return hasUpgrade(this.layer, 23)},
+            effect() {
+                let eff = player.normal.points.max(2).log(2).pow(1.5)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        25: {
+            title: "1000 Clears to a costume",
+            description: "Unlock a new subtab with three different kinds of resources.",
+            cost: new Decimal(1e13),
+            unlocked() {return hasUpgrade(this.layer, 24)},
+            effect() {
+                let eff = player.normal.semi_auto.max(1).root(1.8)
+                return eff
+            },
+        },
+        31: {
+            title: "Balance speed and lives",
+            description: "Boost OSC gain by your Normal Upg. bought.",
+            cost: new Decimal(1e15),
+            unlocked() {return hasUpgrade(this.layer, 25)},
+            effect() {
+                let eff = player.normal.upgrades.length
+                eff = new Decimal(eff)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        32: {
+            title: "Hold Y + right",
+            description: "Start to generate 1 Semi-auto Course every second.",
+            cost: new Decimal(3e18),
+            unlocked() {return hasUpgrade(this.layer, 31)},
+            effect() {
+                let gain = new Decimal(1)
+                if (hasAchievement('achievements', 182)) gain = gain.times(layerEffect('expert'))
+                if (player.toad.supertier[3].gte(2)) gain = gain.times(clickableEffect('normal', 22))
+                return gain
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"/sec" },
+        },
+        33: {
+            title: "Hold Y + ZR + right",
+            description: "Boost 2nd Normal Endless upgrade effect before 1 millennium.",
+            cost: new Decimal(8e22),
+            unlocked() {return hasUpgrade(this.layer, 32)},
+        },
+        34: {
+            title: "Watch out flaw courses",
+            description: "Multiply OSC gain and power Normal Endless Clears effect by OoM^3s of Cleared Courses.",
+            cost: new Decimal(2e24),
+            unlocked() {return hasUpgrade(this.layer, 33)},
+            effect() {
+                let eff = player.points.max(1).log(10).max(1).log(10).max(1).log(10)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x,<br>^"+format(upgradeEffect(this.layer, this.id))
+             },
+        },
+        35: {
+            title: "Difficulty up up",
+            description: "Unlock a new layer at row 13: Expert Endless.",
+            cost: new Decimal(1e27),
+            unlocked() {return hasUpgrade(this.layer, 34)},
         },
         // Look in the upgrades docs to see what goes here!
     },
@@ -11853,6 +12935,37 @@ addLayer("normal", {
             requirementDescription: "1 Normal Endless Clear",
             effectDescription: "Keep Easy Endless milestones on row 12 reset and autobuy Peachette levels.",
             done() { return player.normal.points.gte(1) },
+        },
+        1: {
+            requirementDescription: "100 One Shot Clears",
+            effect() {return player.normal.oneshot.max(1)},
+            effectDescription(){return "One Shot Clears boosts Normal Endless CLears gain.<br>Currently: "+format(milestoneEffect('normal', 1))+"x"},
+            done() { return player.normal.oneshot.gte(100) },
+        },
+        2: {
+            requirementDescription: "500,000,000 Normal Endless Clears",
+            effectDescription: "Keep Easy Endless upgrades on row 12 reset.",
+            done() { return player.normal.points.gte(500000000) },
+        },
+        3: {
+            requirementDescription: "1 month in 2nd Normal Endless upgrade",
+            effectDescription: "Auto-Mario Courses also affact Normal Endless Clear.",
+            done() { return tmp.normal.upgrades[12].time.gte(2592000) },
+        },
+        4: {
+            requirementDescription: "100 Auto-Mario Courses",
+            effectDescription(){return "Unlock a buyable for Auto-Mario Courses."},
+            done() { return player.normal.auto_mario.gte(100) },
+        },
+        5: {
+            requirementDescription: "1 year in 2nd Normal Endless upgrade",
+            effectDescription(){return "Passive gain 100% Easy Endless Clears and Free Clears every second."},
+            done() { return tmp.normal.upgrades[12].time.gte(31536000) },
+        },
+        6: {
+            requirementDescription: "Get e1e3,000,000 Cleared Courses",
+            effectDescription(){return "Auto Toad pent up."},
+            done() { return player.points.gte("e1e3000000") },
         },
     },
     clickables: {
@@ -11900,14 +13013,194 @@ addLayer("normal", {
                 return style
             },
         },
+        21: {
+            title: "Rare for Normal Endless",
+            display() {
+                let cost = new Decimal(10)
+                let gain = new Decimal(1)
+                if (hasMilestone('normal', 4)) cost = cost.times(tmp.normal.buyables[11].loss),
+                gain = gain.times(buyableEffect('normal', 11))
+                if (hasMilestone('expert', 1)) gain = gain.times(30)
+                if (hasUpgrade('expert', 11)) gain = gain.times(20)
+                if (hasUpgrade('expert', 24)) gain = gain.times(expertBossMagicEffect('wendy'))
+                return "Hold to spend "+formatWhole(cost)+" One Shot Clears per second to gain " + formatWhole(gain) +" Auto-Mario courses gain.<br>You should have at least "+formatWhole(cost)+" One Shot Clears to click."
+                },
+            canClick() {
+                let cost = new Decimal(10)
+                if (hasMilestone('normal', 4)) cost = cost.times(tmp.normal.buyables[11].loss)
+                return player.normal.oneshot.gte(cost)
+            },
+            onHold() {
+                let tick = new Decimal(0.05)
+                let cost = new Decimal(10)
+                let gain = new Decimal(1)
+                if (hasMilestone('normal', 4)) cost = cost.times(tmp.normal.buyables[11].loss),
+
+                gain = gain.times(buyableEffect('normal', 11))
+                if (hasMilestone('expert', 1)) gain = gain.times(30)
+                if (hasUpgrade('expert', 11)) gain = gain.times(20)
+                if (hasUpgrade('expert', 21)) gain = gain.times(upgradeEffect('expert', 21))
+                if (hasUpgrade('expert', 24)) gain = gain.times(expertBossMagicEffect('wendy'))
+
+                player.normal.oneshot = player.normal.oneshot.sub(cost.times(tick))
+                player.normal.auto_mario = player.normal.auto_mario.add(gain.times(tick))
+                },
+            unlocked() {return hasUpgrade('easy', 15)},
+            effect() {
+                let root = new Decimal(3)
+                return player.normal.auto_mario.max(1).root(root)
+            },
+            style() {
+                    return {'width':"200px",
+                        'min-height':'200px',
+                        "border-radius":"5%"
+                    }
+            },
+        },
+        22: {
+            title: "Conditions means no CP",
+            display() {
+                let gain = new Decimal(1)
+                let hardcap = ""
+                if (tmp.normal.clickables[22].gainCond.gte("1e4000")) hardcap = "(hardcapped)"
+                else hardcap = ""
+                if (hasMilestone('normal', 4)) cost = cost.times(tmp.normal.buyables[11].loss),
+                gain = gain.times(buyableEffect('normal', 11))
+                if (hasMilestone('expert', 1)) gain = gain.times(30)
+                return `Reset Semi-auto Courses for Condition Courses.<br>
+                        Condition Courses gain is based on Semi-auto Courses and Expert Endless Clears<br>
+                        Requirement: ${formatWhole(tmp.normal.clickables[22].requires)} Semi-Auto Courses<br>
+                        Condition Courses gain: ${formatWhole(tmp.normal.clickables[22].gainCond)} ${hardcap}`
+                },
+            canClick() {
+                return player.normal.semi_auto.gt(tmp.normal.clickables[22].requires)
+            },
+            requires() {
+                let exp = player.expert.points
+                if (exp.gte(8)) exp = player.expert.points.sub(6).root(5).add(6)
+                if (exp.gte(3000)) exp = exp.div(3000).root(2).times(3000)
+                let cond = player.normal.condition_course
+                let req = Decimal.pow(10, cond.max(0).root(exp))
+                return req
+            },
+            gainCond() {
+                let exp = player.expert.points
+                if (exp.gte(8)) exp = player.expert.points.sub(6).root(5).add(6)
+                if (exp.gte(3000)) exp = exp.div(3000).root(2).times(3000)
+                let semi = player.normal.semi_auto
+                let gain = semi.max(1).log(10).pow(exp)
+                let hardcap = new Decimal("1e4000")
+                if (hasUpgrade('expert', 53)) hardcap = hardcap.pow(upgradeEffect('expert', 53))
+                if (gain.gte(hardcap)) gain = new Decimal(hardcap)
+
+                return gain
+            },
+            onClick() {
+                player.normal.condition_course = tmp.normal.clickables[22].gainCond
+                player.normal.semi_auto = decimalZero
+                },
+            unlocked() {return player.toad.supertier[3].gte(2)},
+            effect() {
+                let softcap = new Decimal(1)
+                if (player.normal.condition_course.gte(1000000)) softcap = player.normal.condition_course.div(100000).log(10).root(1.2)
+                let eff = player.normal.condition_course.max(1).root(softcap)
+                if (player.normal.condition_course.gte(1000000)) eff = player.normal.condition_course.div(1000000).root(softcap).times(1000000)
+                return eff
+            },
+            style() {
+                    return {'width':"200px",
+                        'min-height':'200px',
+                        "border-radius":"5%"
+                    }
+            },
+        },
+    },
+    buyables: {
+        11: {
+            title: "Icxena challenging",
+            cost(x) { return new Decimal(3).pow(x) },
+            display() { 
+                let baseGain = new Decimal(2)
+                let baseCost = new Decimal(2.5)
+                let display = ` Multiply Auto-Mario Courses gain by ${format(baseGain)}x per every level. But loss ${format(baseCost)}x One Shot Clears per every level.<br>
+                level: ${formatWhole(player[this.layer].buyables[this.id])}<br>
+                Auto-Mario gain: ${format(this.effect())}x<br>
+                One Shot Clears loss: ${format(this.loss())}x<br>
+                Cost: ${format(this.cost())} Auto-Mario Courses`
+                return display}, 
+            canAfford() { return player[this.layer].auto_mario.gte(this.cost()) },
+            buyMax() { return setBuyableAmount('normal', 11, player.normal.auto_mario.max(1).log(3).floor())},
+            canBuyMax() { return false},
+            buy() {
+                player[this.layer].auto_mario = player[this.layer].auto_mario.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            sellOneGain() {
+                let x = getBuyableAmount('normal', 11)
+                let gain = new Decimal(3).pow(x.sub(1))
+                if (!hasSEendlessMilestone(6)) return gain
+                else return new Decimal(0)
+            },
+            sellOne() {
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).sub(1))
+                player[this.layer].auto_mario = player[this.layer].auto_mario.add(tmp.normal.buyables[11].sellOneGain)
+            },
+            canSellOne() {
+                return getBuyableAmount(this.layer, this.id).gte(1)
+            },
+            effect(x) {
+                let base = new Decimal(2)
+                let effect = Decimal.pow(base,x)
+                return effect},
+            loss() {
+                let x = getBuyableAmount('normal', 11)
+                let base = new Decimal(2.5)
+                let effect = Decimal.pow(base,x)
+                return effect},
+            unlocked() {return hasMilestone('normal', 4)},
+        },
     },
     update(Nor) {
         let tick = new Decimal(0.05)
+        let OSmult = new Decimal(1)
+        if (hasUpgrade('easy', 45)) OSmult = OSmult.times(5)
+        if (hasUpgrade('normal', 22)) OSmult = OSmult.times(upgradeEffect('normal', 22))
+        if (hasUpgrade('normal', 31)) OSmult = OSmult.times(upgradeEffect('normal', 31))
+        if (hasUpgrade('normal', 32)) OSmult = OSmult.times(upgradeEffect('normal', 25))
+        if (hasUpgrade('normal', 34)) OSmult = OSmult.times(upgradeEffect('normal', 34))
+        if (hasMilestone('expert', 0)) OSmult = OSmult.times(3)
+        if (hasUpgrade('expert', 12)) OSmult = OSmult.times(upgradeEffect('expert', 12))
+        if (hasUpgrade('expert', 21)) OSmult = OSmult.times(upgradeEffect('expert', 21))
+        OSmult = OSmult.floor()
+        player.normal.oneshot_mult = OSmult
         if (player.normal.oneshot_mult.lt(1)) player.normal.oneshot_mult = new Decimal(1)
         if (hasUpgrade('normal', 15)&&(player.easy.random_theme.gte(1) && player.easy.random_theme.lte(9) && player.easy.random_style.eq(2))) player.normal.square_changing = player.normal.square_changing.add(1)
         if (player.normal.square_cooldown.gt(0)) player.normal.square_cooldown = player.normal.square_cooldown.sub(tick)
         if (player.normal.square_cooldown.lt(0)) player.normal.square_cooldown = decimalZero
         if (player.normal.square_changing.gt(12)) player.normal.square_changing = new Decimal(1)
+
+        if (hasUpgrade('normal', 32)) player.normal.semi_auto = player.normal.semi_auto.add(upgradeEffect('normal', 32).times(tick))
+
+        let cap = new Decimal(50)
+        if (hasUpgrade('expert', 12)) cap = new Decimal(10)
+        if ((player.easy.random_theme.gte(1) && player.easy.random_theme.lte(9) && player.easy.random_style.eq(2) && hasMilestone('expert', 4) && player.normal.oneshot.lte(player.normal.oneshot_mult.times(cap))) || (hasMilestone('expert', 4) && player.normal.oneshot.lte(player.normal.oneshot_mult.times(cap)) && ((player.toad.tierlayer.gte(10) && player.toad.highest_tierlayer.gte(20)) || player.toad.tierlayer.gte(11)))) player.normal.oneshot = player.normal.oneshot.add(player.normal.oneshot_mult.div(5).times(tick))
+    
+        let gain = new Decimal(1)
+        if (hasMilestone('normal', 4)) cost = cost.times(tmp.normal.buyables[11].loss),
+
+        gain = gain.times(buyableEffect('normal', 11))
+        if (hasMilestone('expert', 1)) gain = gain.times(30)
+        if (hasUpgrade('expert', 11)) gain = gain.times(20)
+        if (hasUpgrade('expert', 21)) gain = gain.times(upgradeEffect('expert', 21))
+        if (hasUpgrade('expert', 24)) gain = gain.times(expertBossMagicEffect('wendy'))
+
+        if (hasMilestone('expert', 7)) player.normal.auto_mario = player.normal.auto_mario.add(gain.times(tick))
+        
+        if (hasSEendlessMilestone(15)) player.normal.condition_course = tmp.normal.clickables[22].gainCond
+        },
+    automate() {
+        if (hasSEendlessMilestone(6) && player.normal.auto_mario.gte(Decimal.pow(3, getBuyableAmount('normal', 11)))) 
+        setBuyableAmount('normal', 11, player.normal.auto_mario.max(1).log(3).floor().add(1))
     },
     tabFormat: [
         "main-display",
@@ -11942,7 +13235,7 @@ addLayer("normal", {
                         let rew = formatTime(upgradeEffect('normal', 15))
                         if (upgradeEffect('normal', 15).gte(31556952000)) rew = formatTimeLong(upgradeEffect('normal', 15))
                         if (hasUpgrade('normal', 15))
-                        return "Your have cleared <h2 style='color: #77a831; text-shadow: 0 0 10px #77a831'>" + formatWhole(player.normal.oneshot) +"</h2> Normal Endless courses with only one attempt (One shot clears), adding <h2 style='color: #77a831; text-shadow: 0 0 10px #77a831'>" + rew + " </h2> to 2nd Normal Endless upgrade."}
+                        return "You have cleared <h2 style='color: #77a831; text-shadow: 0 0 10px #77a831'>" + formatWhole(player.normal.oneshot) +"</h2> Normal Endless courses with only one attempt (One shot clears), adding <h2 style='color: #77a831; text-shadow: 0 0 10px #77a831'>" + rew + " </h2> to 2nd Normal Endless upgrade."}
                     ],
                     ["display-text", function() {
                         if (!(player.easy.random_theme.gte(1) && player.easy.random_theme.lte(9) && player.easy.random_style.eq(2)))
@@ -11952,16 +13245,3101 @@ addLayer("normal", {
                         if (player.easy.random_theme.gte(1) && player.easy.random_theme.lte(9) && player.easy.random_style.eq(2))
                         return "The SMB3 square goal is rolling, click this goal while it turn to 1UP, gain " +formatWhole(player.normal.oneshot_mult)+ " One Shot Clears."}
                     ],
+                    ["display-text", function() {
+                        if ((player.toad.tierlayer.gte(10) && player.toad.highest_tierlayer.gte(20)) || player.toad.tierlayer.gte(11))
+                        return "Because you reached Toad Dec 20, you can always gain " +format(player.normal.oneshot_mult.div(5))+ " One Shot Clears per second before the cap."}
+                    ],
                     "blank",
                     ["display-text", function() {
                         return "There is a 5s cooldown between two clicks."}
                     ],
                     "blank",
-                    "clickables",
+                    ["clickables",[1]],
                     "blank",
                     ["display-text", function() {
                         return "Cooldown: "+formatTime(player.normal.square_cooldown)}
                     ],
+                ]                
+            }, 
+            "Auto and Condition Courses": {
+                unlocked() {return hasUpgrade('normal', 25)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        let rew = formatTime(upgradeEffect('normal', 15))
+                        if (upgradeEffect('normal', 15).gte(31556952000)) rew = formatTimeLong(upgradeEffect('normal', 15))
+                        if (hasUpgrade('normal', 15))
+                        return "You have cleared <h2 style='color: #77a831; text-shadow: 0 0 10px #77a831'>" + formatWhole(player.normal.oneshot) +"</h2> Normal Endless courses with only one attempt (One shot clears), adding <h2 style='color: #77a831; text-shadow: 0 0 10px #77a831'>" + rew + " </h2> to 2nd Normal Endless upgrade."}
+                    ],
+                    ["display-text", function() {
+                        return "You have cleared <h2 style='color: #77a831; text-shadow: 0 0 10px #77a831'>" + formatWhole(player.normal.auto_mario) +"</h2> Auto-Mario courses in Normal Endless, making One Shot Clears provides <h2 style='color: #77a831; text-shadow: 0 0 10px #77a831'>"+format(clickableEffect('normal', 21))+"x</h2> of time to 2nd Normal Endless upgrade time"}
+                    ],
+                    ["display-text", function() {
+                        return "You have cleared <h2 style='color: #77a831; text-shadow: 0 0 10px #77a831'>" + formatWhole(player.normal.semi_auto) +"</h2> Semi-auto courses in Normal Endless, multiplying One Shot Clears gain by <h2 style='color: #77a831; text-shadow: 0 0 10px #77a831'>"+format(upgradeEffect('normal', 25))+"x</h2>"}
+                    ],
+                    ["display-text", function() {
+                        let des = "You have cleared <h2 style='color: #77a831; text-shadow: 0 0 10px #77a831'>" + formatWhole(player.normal.condition_course) +"</h2> courses with clear conditions in Normal Endless, multiplying Semi-auto Courses gain by <h2 style='color: #77a831; text-shadow: 0 0 10px #77a831'>"+format(clickableEffect('normal', 22))+"x</h2>"
+                        if (player.normal.condition_course.gte(1000000)) des = des + " (softcapped)"
+                        return des
+                        }
+                    ],
+                    ["clickables",[2]],
+                    "buyables",
+                ]                
+            }, 
+        },
+    },
+})
+// 第二十六层：困难耐力挑战
+function hasExpertEndlessUpgrade(id) {
+    return hasUpgrade('expert', id)
+}
+function expertBossMagicGeneration(boss) {
+    return tmp.expert.magicGeneration[boss]
+}
+function expertBossMagicEffect(boss) {
+    return tmp.expert.magicEffect[boss]
+}
+function expertBossMinigameMagicCatch() {
+    if (inChallenge('expert', 11) && player.expert.inChallengeTime.toNumber()%40 == 0 && player.toad.tierlayer.gte(8)) 
+    return player.expert.minigameMagicPosition[0] = Math.ceil(Math.random()*23),
+    player.expert.minigameMagicPosition[1] = player.expert.minigameMagicPosition[0] + 1,
+    player.expert.minigameMagicPosition[2] = player.expert.minigameMagicPosition[0] + 2
+    if (inChallenge('expert', 12) && player.expert.inChallengeTime.toNumber()%40 == 0 && hasUpgrade('expert', 32))
+    return player.expert.minigameMagicPosition[0] = Math.ceil(Math.random()*25),
+    player.expert.minigameMagicPosition[1] = 26 - player.expert.minigameMagicPosition[0],
+    player.expert.minigameMagicPosition[2] = 0
+    if (inChallenge('expert', 21) && player.expert.inChallengeTime.toNumber()%40 == 0 && hasUpgrade('expert', 34))
+    return player.expert.minigameMagicPosition[0] = Math.ceil(Math.random()*25),
+    player.expert.minigameMagicPosition[1] = (6-(Math.ceil(player.expert.minigameMagicPosition[0]/5)*2))*5+player.expert.minigameMagicPosition[0],
+    player.expert.minigameMagicPosition[2] = 0
+    if (inChallenge('expert', 22) && player.expert.inChallengeTime.toNumber()%30 == 0 && player.toad.tierlayer.gte(9))
+    return player.expert.minigameMagicPosition[0] = Math.ceil(Math.random()*13),
+    player.expert.minigameMagicPosition[1] = player.expert.minigameMagicPosition[0]+6,
+    player.expert.minigameMagicPosition[2] = player.expert.minigameMagicPosition[0]+12
+    if (inChallenge('expert', 31) && player.expert.inChallengeTime.toNumber()%15 == 0 && hasUpgrade('expert', 51)) {
+        let ring = [1,2,3,4,5,10,15,20,25,24,23,22,21,16,11,6]
+        return player.expert.minigameMagicPosition[0] = ring[player.expert.inChallengeTime.div(15).floor().toNumber()%ring.length],
+        player.expert.minigameMagicPosition[1] = 0,
+        player.expert.minigameMagicPosition[2] = 0
+    }
+    if (inChallenge('expert', 32) && player.expert.inChallengeTime.toNumber()%40 == 0 && hasUpgrade('expert', 61))
+    return player.expert.minigameMagicPosition[0] = Math.ceil(Math.random()*15),
+    player.expert.minigameMagicPosition[1] = player.expert.minigameMagicPosition[0]+5,
+    player.expert.minigameMagicPosition[2] = player.expert.minigameMagicPosition[0]+10
+    if (inChallenge('expert', 41) && player.expert.inChallengeTime.toNumber()%30 == 0 && hasSEendlessMilestone(2))
+    return player.expert.minigameMagicPosition[0] = Math.ceil(Math.random()*5)*5-4,
+    player.expert.minigameMagicPosition[1] = player.expert.minigameMagicPosition[0]+2,
+    player.expert.minigameMagicPosition[2] = player.expert.minigameMagicPosition[0]+4
+}
+function expertMinigameID(x) {
+    return Math.floor(x/10)*5+x%10-5
+}
+addLayer("expert", {
+    startData() { return {                  // startData is a function that returns default data for a layer. 
+        unlocked: true,                     // You can add more variables here to add them to your layer.
+        points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+        skill: new Decimal(0),
+        flaw: new Decimal(0),
+        boss_rush: new Decimal(0),
+        lemmy: new Decimal(0),
+        roy: new Decimal(0),
+        morton: new Decimal(0),
+        wendy: new Decimal(0),
+        ludwig: new Decimal(0),
+        iggy: new Decimal(0),
+        larry: new Decimal(0),
+        lemmy_b: new Decimal(0),
+        roy_m: new Decimal(0),
+        morton_m: new Decimal(0),
+        wendy_m: new Decimal(0),
+        ludwig_m: new Decimal(0),
+        iggy_m: new Decimal(0),
+        larry_m: new Decimal(0),
+        wing: new Decimal(0),
+        heptboss_total: new Decimal(0),
+        magic: new Decimal(0),
+        magicBoost: new Decimal(100),
+        minigameMagicPosition: [0, 0, 0],
+        inChallengeTime: new Decimal(0),
+        canGainBRCAndFlaw: false,
+    }},
+
+    color: "#BE924F",                       // The color for this layer, which affects many elements.
+    resource: "Expert Endless Clears",            // The name of this layer's main prestige resource.
+    row: 12,                                 // The row this layer is on (0 is the first row).
+    position: 0,
+    branches: ['normal'],
+    symbol: "Exp",
+
+    baseResource: "Normal Endless Clears",                 // The name of the resource your prestige gain is based on.
+    baseAmount() { return player.normal.points },  // A function to return the current amount of baseResource.
+
+    requires() {
+        let base = new Decimal(1e28)
+        if (hasUpgrade('expert', 35)) base = base.div(expertBossMagicEffect('iggy'))
+        return new Decimal(base).times(player.expert.points.add(1).pow(16.78))
+    },                                      // The amount of the base needed to  gain 1 of the prestige currency.
+                                            // Also the amount required to unlock the layer.
+
+    type: "custom",                         // Determines the formula used for calculating prestige currency.
+    exponent: 0.5,                          // "normal" prestige gain is (currency^exponent).
+
+    canReset() {
+        let base = new Decimal(1e28)
+        if (hasUpgrade('expert', 35)) base = base.div(expertBossMagicEffect('iggy'))
+        return player.normal.points.gte(new Decimal(base).times(player.expert.points.add(1).pow(16.78)))
+    },
+    getResetGain() {
+        let mult = new Decimal(1) //gainMult
+        let base = new Decimal(1e28)
+        if (hasUpgrade('expert', 35)) base = base.div(expertBossMagicEffect('iggy'))
+        let gain = player.normal.points.max(0).div(base).max(0).root(16.78).floor()
+        if ((!tmp[this.layer].canBuyMax) || tmp[this.layer].baseAmount.lt(tmp[this.layer].requires)) return decimalOne        
+        else return gain.floor().sub(player[this.layer].points).add(1).max(1)
+    },
+    getNextAt() {
+        let gain = tmp.expert.getResetGain
+        let base = new Decimal(1e28)
+        if (hasUpgrade('expert', 35)) base = base.div(expertBossMagicEffect('iggy'))
+        let nextshow = new Decimal(0)
+        if ((!tmp[this.layer].canBuyMax) || tmp[this.layer].baseAmount.lt(tmp[this.layer].requires)) nextshow = new Decimal(0)
+        else nextshow = new Decimal(1)
+        return new Decimal(base).times(gain.add(nextshow).add(player.expert.points).pow(16.78))
+    },
+    prestigeButtonText() {
+        return "Difficulty up for <b>+" + formatWhole(tmp.expert.getResetGain) + "</b> Expert Endless Clears<br><br>"+format(player.normal.points)+"/"+ format(tmp.expert.getNextAt)+ " Normal Endless Clears"
+    },
+    gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        return new Decimal(1)               // Factor in any bonuses multiplying gain here.
+    },
+    gainExp() {                             // Returns the exponent to your gain of the prestige resource.
+        return new Decimal(1)
+    },
+
+    layerShown() { return hasAchievement('achievements', 182) },          // Returns a bool for if this layer's node should be visible in the tree.
+    effect(){
+        let exp = player.expert.points
+        if (exp.gte(8)) exp = player.expert.points.sub(6).root(5).add(6)
+        let eff = exp.add(1).max(1).pow(4.3747)
+        return eff
+        /*
+        you should use this.layer instead of <layerID>
+        Decimal.pow(num1, num2) is an easier way to do
+        num1.pow(num2)
+        */
+    },
+    effectDescription(){
+        let des = "multiplying Semi-auto Courses gain by " + format(layerEffect('expert')) + "x"
+        if (player.expert.points.gte(8)) des = des + " (softcapped)"
+        return des
+        /*
+        use format(num) whenever displaying a number
+        */
+    },
+    doReset() {
+        return undefined
+    },
+    upgrades: {
+        11: {
+            title: "Start with 15 lives",
+            description: "20x Auto-Mario Courses gain.",
+            cost: new Decimal(100),
+            unlocked() {return true},
+        },
+        12: {
+            title: "Kaizo lite",
+            description: "Record of Expert Endless Clears boost OSC gain but the passive generation cap is decreased to 1000%.",
+            cost: new Decimal(694),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.expert.best.add(2).max(2).log(2).pow(2)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        13: {
+            title: "Boss here!",
+            description: "Unlock Boss Battles.",
+            cost: new Decimal(10000),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.expert.boss_rush.max(1).root(3.612)
+                return eff
+            },
+        },
+        14: {
+            title: "Jumping Boss",
+            description: "Larry boosts CC in Expert Endless Boss Challenges.",
+            currencyDisplayName: "Larry",
+            currencyInternalName: "larry",
+            currencyLayer: "expert",
+            cost: new Decimal(100),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.expert.larry.max(1).root(2.25)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        15: {
+            title: "Ball juggles",
+            description: "Unlock a new Boss Lemmy.",
+            currencyDisplayName: "Larry",
+            currencyInternalName: "larry",
+            currencyLayer: "expert",
+            cost: new Decimal(1000),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        21: {
+            title: "Bouncy ball, but Lemmy",
+            description: "Lemmy's ball boosts OSC and Auto-Mario Courses gain.",
+            currencyDisplayName: "Lemmy",
+            currencyInternalName: "lemmy",
+            currencyLayer: "expert",
+            cost: new Decimal(100),
+            unlocked() {return hasUpgrade(this.layer, 15)},
+            effect() {
+                let eff = player.expert.lemmy_b.max(20).log(20).pow(2.44)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        22: {
+            title: "Ball in the air",
+            description: "Record of Expert Endless Clears power Normal Endless Clear effect.",
+            cost: new Decimal(1e10),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.expert.best.max(10).log(10).pow(1.5)
+                return eff
+            },
+            effectDisplay() { return "^"+format(upgradeEffect(this.layer, this.id)) },
+        },
+        23: {
+            title: "Attack mode",
+            description: "Larry's magic is stronger.",
+            currencyDisplayName: "Larry",
+            currencyInternalName: "larry",
+            currencyLayer: "expert",
+            cost: new Decimal(1e13),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        24: {
+            title: "Ball juggles",
+            description: "Unlock a new Boss Wendy.",
+            cost: new Decimal(5e14),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        25: {
+            title: "Reflecting magic",
+            description: "Wendy's magic and Cleared Courses powers Normal Endless Clear effect.",
+            cost: new Decimal(3e15),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.expert.wendy_m.max(10).log(10).pow(player.lgpoints.max(1).log(10).max(1).log(10).max(1).root(3))
+                return eff
+            },
+            effectDisplay() { return "^"+format(upgradeEffect(this.layer, this.id)) },
+        },
+        31: {
+            title: "Circle magic",
+            description: "CC boosts itself in Boss challenges.",
+            cost: new Decimal(5e15),
+            unlocked() {return hasUpgrade(this.layer, 25)},
+            effect() {
+                let eff = player.points.max(1).root(5)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        32: {
+            title: "Dynamic balls",
+            description: "Unlock Lemmy's minigame.",
+            cost: new Decimal(3e16),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        33: {
+            title: "Too much!",
+            description: "Extra Magic has a power effect to Boss gain.",
+            cost: new Decimal(1e17),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.expert.magic.max(8).log(8).root(3)
+                return eff
+            },
+        },
+        34: {
+            title: "Not so hard",
+            description: "Unlock Wendy's minigame.",
+            cost: new Decimal(3e17),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        35: {
+            title: "Hard to catch",
+            description: "Unlock Boss Iggy.",
+            cost: new Decimal(1e19),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        41: {
+            title: "For elites",
+            description: "Unlock Super Expert Endless Challenge layer.",
+            cost: new Decimal(6.5e24),
+            unlocked() {return hasUpgrade(this.layer, 35)},
+        },
+        42: {
+            title: "Heavy attack",
+            description: "Unlock Boss Morton.",
+            cost: new Decimal(2.5e26),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        43: {
+            title: "Expert speedrunning",
+            description: "Multiply Extra Magic gain based on SE Endless Clears.",
+            cost: new Decimal(3e29),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.s_expert.points.max(0).add(2).log(1.8).pow(2.5)
+                let base = new Decimal(100)
+                if (hasUpgrade(this.layer,this.id)) base = base.times(eff)
+                if (hasUpgrade(this.layer,52)) base = base.times(expertBossMagicEffect('roy'))
+                player.expert.magicBoost = base
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        44: {
+            title: "Movement curse",
+            description: "Morton's magic powers Larry's magic effect.",
+            cost: new Decimal(1.5e30),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.expert.morton_m.max(0).add(3).log(3).root(5)
+                return eff
+            },
+            effectDisplay() { return "^"+format(upgradeEffect(this.layer, this.id)) },
+        },
+        45: {
+            title: "Groundpounding boss",
+            description: "Triple OSC effect.",
+            cost: new Decimal(1e32),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        51: {
+            title: "How's the fire moving?",
+            description: "Unlock Morton's minigame.",
+            cost: new Decimal(1e36),
+            unlocked() {return hasUpgrade(this.layer, 45)},
+        },
+        52: {
+            title: "Out of screen?!",
+            description: "Unlock Boss Roy.",
+            cost: new Decimal(1e38),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        53: {
+            title: "Trampoline: blocked",
+            description: "Roy's magic powers Condition Courses gain hardcap.",
+            cost: new Decimal(2e39),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.expert.roy_m.max(0).add(10).log(10).pow(1.2)
+                return eff
+            },
+            effectDisplay() { return "^"+format(upgradeEffect(this.layer, this.id)) },
+        },
+        54: {
+            title: "Oldest koopaling",
+            description: "Unlock Boss Ludwig.",
+            cost: new Decimal(5e39),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        55: {
+            title: "Boss floating jump.",
+            description: "Ludwig powers 'SA-OPU5' effect.",
+            currencyDisplayName: "Ludwig's Magic",
+            currencyInternalName: "ludwig_m",
+            currencyLayer: "expert",
+            cost: new Decimal(10000000),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.expert.ludwig.max(0).add(10).log(10).root(1.2)
+                return eff
+            },
+            effectDisplay() { return "^"+format(upgradeEffect(this.layer, this.id)) },
+        },
+        61: {
+            title: "Pink magic",
+            description: "Unlock Roy's minigame.",
+            cost: new Decimal(1.75e40),
+            unlocked() {return hasUpgrade(this.layer, 55)},
+        },
+        62: {
+            title: "Stronger koopalings",
+            description: "Unlock Wings.",
+            cost: new Decimal(3e41),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        63: {
+            title: "Fake attack",
+            description: "SE Endless Clears boosts Wings gain.",
+            tooltip: "Softcap starts at 1e15",
+            cost: new Decimal(3e43),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.s_expert.points.add(1).max(1)
+                let softcap = new Decimal(1e15)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        64: {
+            title: "Not at all",
+            description: "AP boosts Wing gain.",
+            cost: new Decimal(4.6e46),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.achievements.points.max(1).log(10).max(1).log(10)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        65: {
+            title: "Koopalings everywhere",
+            description: "^100 Normal Endless Clears effect.",
+            cost: new Decimal(2e52),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        71: {
+            title: "31st Expert Endless upgrade",
+            description: "Effect of Lemmy's ball is stronger.",
+            cost: new Decimal(1.8e53),
+            unlocked() {return hasUpgrade(this.layer, 65)},
+        },
+        72: {
+            title: "Two different designs",
+            description: "Unlock Boss Rush Courses and Flaw Courses.",
+            cost: new Decimal(4e54),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        73: {
+            title: "Bosses sometimes",
+            description: "Square Roy's magic effect.",
+            cost: new Decimal(5e61),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        74: {
+            title: "We need more bosses",
+            description: "Unlock a new Boss in Super Expert Endless layer.",
+            cost: new Decimal(4.5e76),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        75: {
+            title: "We need more bosses^2",
+            description: "Unlock a new Boss in Super Expert Endless layer again.",
+            cost: new Decimal(1e87),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        // Look in the upgrades docs to see what goes here!
+    },
+    milestones: {
+        0: {
+            requirementDescription: "1 Expert Endless Clear",
+            effectDescription: "Keep Normal Endless milestones on row 13 reset, passive gain 100% No Damage Easy Clears and triple Normal Endless Clears and One Shot Clears gain.",
+            done() { return player.expert.points.gte(1) },
+        },
+        1: {
+            requirementDescription: "1 Expert Endless Clear and 1e30 Normal Endless Clears",
+            effectDescription: "30x Auto-Mario Courses gain.",
+            done() { return player.expert.points.gte(1) && player.normal.points.gte(1e30)},
+        },
+        2: {
+            requirementDescription: "2 Expert Endless Clears",
+            effectDescription: "Autobuy two Easy Endless buyables and buy max.",
+            done() { return player.expert.points.gte(2) },
+        },
+        3: {
+            requirementDescription: "3 Expert Endless Clears",
+            effectDescription: "Keep random themes and styles on row 13 reset.",
+            done() { return player.expert.points.gte(3) },
+        },
+        4: {
+            requirementDescription: "5 Expert Endless Clears",
+            effectDescription() {
+                let des = "Passive gain 20% One Shot Clears every second when the SMB3 square goal is rolling. (Stop at 5000% OSC gained)"
+                if (hasUpgrade('expert', 12)) des = "Passive gain 20% One Shot Clears every second when the SMB3 square goal is rolling. (Stop at 1000% OSC gained)"
+                return des
+            },
+            done() { return player.expert.points.gte(5) },
+        },
+        5: {
+            requirementDescription: "7 Expert Endless Clears",
+            effectDescription: "^10 Normal Endless Clear effect.",
+            done() { return player.expert.points.gte(7) },
+        },
+        6: {
+            requirementDescription: "8 Expert Endless Clears",
+            effectDescription: "You can buy max Expert Endless Clears.",
+            done() { return player.expert.points.gte(8) },
+        },
+        7: {
+            requirementDescription: "Defeat 1 Larry",
+            effectDescription: "Passive gain 100% Auto-Mario Courses every second and loss nothing.",
+            done() { return player.expert.larry.gte(1) },
+        },
+        8: {
+            requirementDescription: "114114 Expert Endless Clears",
+            effectDescription: "Passive gain 100% Normal Endless Clears every second and auto Toad hex up.",
+            done() { return player.expert.points.gte(114114) },
+        },
+        9: {
+            requirementDescription: "1000 Extra Magic",
+            effectDescription: "Autobuy Normal Endless upgrades.",
+            done() { return player.expert.magic.gte(1000) },
+        },
+        10: {
+            requirementDescription: "1e17 Expert Endless Clears",
+            effectDescription: "Auto Toad hept up.",
+            done() { return player.expert.points.gte(1e17) },
+        },
+    },
+    challenges: {
+        11: {
+            name: "Larry",
+            challengeDescription: "Disable all multipliers to Cleared Courses gain before Expert Endless Challenge layer, CC gain is now based on Expert Endless Clears.",
+            goalDescription() {return "700000 Cleared Courses"},
+            completionLimit: new Decimal("1e10000"),
+            canComplete: function() {
+                return player.points.gte(700000)
+            },
+            rewardDescription() {
+                return "Meet a boss Larry, gain " + format(700000) + " Cleared Courses and complete this challenge to defeat it. "
+            },
+            rewardEffect() {
+                let larryGain = decimalZero
+                if (inChallenge(this.layer, 11)) larryGain = player.points.div(700000).max(1).times(3).log(3).pow(3)
+                if (player.expert.lemmy_b.gte(1)) larryGain = larryGain.times(expertBossMagicEffect('lemmy'))
+                if (hasUpgrade('expert', 33)) larryGain = larryGain.pow(upgradeEffect('expert', 33))
+                larryGain = larryGain.times(player.expert.magic.max(1).pow(1.25))
+                return larryGain
+            },
+            rewardDisplay() { 
+                return `Gain ${formatWhole(challengeEffect(this.layer, 11))} Larry on pressing "Complete" button<br>
+                Formula: log3((CC/700000)+1)^3`
+            },
+            onEnter() {
+                player.points = new Decimal(1)
+                player.expert.inChallengeTime = new Decimal(0)
+                player.expert.magic = new Decimal(0)
+            },
+            onExit() {
+                player.expert.inChallengeTime = new Decimal(0)
+                player.expert.minigameMagicPosition = [0,0,0]
+                player.expert.magic = new Decimal(0)
+            },
+            onComplete() {
+                player.expert.larry = player.expert.larry.add(challengeEffect(this.layer, 11))
+                player.expert.inChallengeTime = new Decimal(0)
+                player.expert.minigameMagicPosition = [0,0,0]
+                player.expert.magic = new Decimal(0)
+            },
+            unlocked() {return hasUpgrade('expert', 13)},
+            style: {'border-radius':'5%',
+                    'border-color':'#21f519'
+            },
+        },
+        12: {
+            name: "Lemmy",
+            challengeDescription: "Disable all multipliers to Cleared Courses gain before Expert Endless Challenge layer, CC gain is now based on Expert Endless Clears.",
+            goalDescription() {return "1e11 Cleared Courses"},
+            completionLimit: new Decimal("1e10000"),
+            canComplete: function() {
+                return player.points.gte(1e11)
+            },
+            rewardDescription() {
+                return "Meet a boss Lemmy, gain " + format(1e11) + " Cleared Courses and complete this challenge to defeat it. "
+            },
+            rewardEffect() {
+                let lemmyGain = decimalZero
+                if (inChallenge(this.layer, 12)) lemmyGain = player.points.div(1e11).max(1).times(3).log(3).pow(2.8)
+                if (hasUpgrade('expert', 33)) lemmyGain = lemmyGain.pow(upgradeEffect('expert', 33))
+                lemmyGain = lemmyGain.times(player.expert.magic.max(1).pow(1.25))
+                return lemmyGain
+            },
+            rewardDisplay() { 
+                return `Gain ${formatWhole(challengeEffect(this.layer, 12))} Lemmy on pressing "Complete" button<br>
+                Formula: log3((CC/1e11)+1)^2.8`
+            },
+            onEnter() {
+                player.points = new Decimal(1)
+                player.expert.inChallengeTime = new Decimal(0)
+                player.expert.magic = new Decimal(0)
+            },
+            onExit() {
+                player.expert.inChallengeTime = new Decimal(0)
+                player.expert.minigameMagicPosition = [0,0,0]
+                player.expert.magic = new Decimal(0)
+            },
+            onComplete() {
+                player.expert.lemmy = player.expert.lemmy.add(challengeEffect(this.layer, 12))
+                player.expert.inChallengeTime = new Decimal(0)
+                player.expert.minigameMagicPosition = [0,0,0]
+                player.expert.magic = new Decimal(0)
+            },
+            unlocked() {return hasUpgrade('expert', 15)},
+            style: {'border-radius':'5%',
+                    'border-color':'#fac215'
+            },
+        },
+        21: {
+            name: "Wendy",
+            challengeDescription: "Disable all multipliers to Cleared Courses gain before Expert Endless Challenge layer, CC gain is now based on Expert Endless Clears.",
+            goalDescription() {return "2.222e22 Cleared Courses"},
+            completionLimit: new Decimal("1e10000"),
+            canComplete: function() {
+                return player.points.gte(2.222e22)
+            },
+            rewardDescription() {
+                return "Meet a boss Wendy, gain " + format(2.222e22) + " Cleared Courses and complete this challenge to defeat it. "
+            },
+            rewardEffect() {
+                let wendyGain = decimalZero
+                if (inChallenge(this.layer, 21)) wendyGain = player.points.div(2.222e22).max(1).times(4).log(4).pow(2.6)
+                if (hasUpgrade('expert', 33)) wendyGain = wendyGain.pow(upgradeEffect('expert', 33))
+                wendyGain = wendyGain.times(player.expert.magic.max(1).pow(1.25))
+                return wendyGain
+            },
+            rewardDisplay() { 
+                return `Gain ${formatWhole(challengeEffect(this.layer, 21))} Wendy on pressing "Complete" button<br>
+                Formula: log4((CC/2.222e22)+1)^2.6`
+            },
+            onEnter() {
+                player.points = new Decimal(1)
+                player.expert.inChallengeTime = new Decimal(0)
+                player.expert.magic = new Decimal(0)
+            },
+            onExit() {
+                player.expert.inChallengeTime = new Decimal(0)
+                player.expert.minigameMagicPosition = [0,0,0]
+                player.expert.magic = new Decimal(0)
+            },
+            onComplete() {
+                player.expert.wendy = player.expert.wendy.add(challengeEffect(this.layer, 21))
+                player.expert.inChallengeTime = new Decimal(0)
+                player.expert.minigameMagicPosition = [0,0,0]
+                player.expert.magic = new Decimal(0)
+            },
+            unlocked() {return hasUpgrade('expert', 24)},
+            style: {'border-radius':'5%',
+                    'border-color':'#ff0066'
+            },
+        },
+        22: {
+            name: "Iggy",
+            challengeDescription: "Disable all multipliers to Cleared Courses gain before Expert Endless Challenge layer, CC gain is now based on Expert Endless Clears.",
+            goalDescription() {return "5e37 Cleared Courses"},
+            completionLimit: new Decimal("1e10000"),
+            canComplete: function() {
+                return player.points.gte(5e37)
+            },
+            rewardDescription() {
+                return "Meet a boss Iggy, gain " + format(5e37) + " Cleared Courses and complete this challenge to defeat it. "
+            },
+            rewardEffect() {
+                let iggyGain = decimalZero
+                if (inChallenge(this.layer, 22)) iggyGain = player.points.div(5e37).max(1).times(10).log(10).pow(3.15)
+                if (hasUpgrade('expert', 33)) iggyGain = iggyGain.pow(upgradeEffect('expert', 33))
+                iggyGain = iggyGain.times(player.expert.magic.max(1).pow(1.25))
+                if (hasSEendlessMilestone(0)) iggyGain = iggyGain.times(10000)
+                return iggyGain
+            },
+            rewardDisplay() { 
+                return `Gain ${formatWhole(challengeEffect(this.layer, 22))} Iggy on pressing "Complete" button<br>
+                Formula: log10((CC/5e37)+1)^3.15`
+            },
+            onEnter() {
+                player.points = new Decimal(1)
+                player.expert.inChallengeTime = new Decimal(0)
+                player.expert.magic = new Decimal(0)
+            },
+            onExit() {
+                player.expert.inChallengeTime = new Decimal(0)
+                player.expert.minigameMagicPosition = [0,0,0]
+                player.expert.magic = new Decimal(0)
+            },
+            onComplete() {
+                player.expert.iggy = player.expert.iggy.add(challengeEffect(this.layer, 22))
+                player.expert.inChallengeTime = new Decimal(0)
+                player.expert.minigameMagicPosition = [0,0,0]
+                player.expert.magic = new Decimal(0)
+            },
+            unlocked() {return hasUpgrade('expert', 35)},
+            style: {'border-radius':'5%',
+                    'border-color':'#003ad7'
+            },
+        },
+        31: {
+            name: "Morton",
+            challengeDescription: "Disable all multipliers to Cleared Courses gain before Expert Endless Challenge layer, CC gain is now based on Expert Endless Clears.",
+            goalDescription() {return "5e47 Cleared Courses"},
+            completionLimit: new Decimal("1e10000"),
+            canComplete: function() {
+                return player.points.gte(5e47)
+            },
+            rewardDescription() {
+                return "Meet a boss Morton, gain " + format(5e47) + " Cleared Courses and complete this challenge to defeat it. "
+            },
+            rewardEffect() {
+                let mortonGain = decimalZero
+                if (inChallenge(this.layer, 31)) mortonGain = player.points.div(5e47).max(1).times(5).log(5).pow(2.65)
+                if (hasUpgrade('expert', 33)) mortonGain = mortonGain.pow(upgradeEffect('expert', 33))
+                mortonGain = mortonGain.times(player.expert.magic.max(1).pow(1.25))
+                return mortonGain
+            },
+            rewardDisplay() { 
+                return `Gain ${formatWhole(challengeEffect(this.layer, 31))} Morton on pressing "Complete" button<br>
+                Formula: log5((CC/5e47)+1)^2.65`
+            },
+            onEnter() {
+                player.points = new Decimal(1)
+                player.expert.inChallengeTime = new Decimal(0)
+                player.expert.magic = new Decimal(0)
+            },
+            onExit() {
+                player.expert.inChallengeTime = new Decimal(0)
+                player.expert.minigameMagicPosition = [0,0,0]
+                player.expert.magic = new Decimal(0)
+            },
+            onComplete() {
+                player.expert.morton = player.expert.morton.add(challengeEffect(this.layer, 31))
+                player.expert.inChallengeTime = new Decimal(0)
+                player.expert.minigameMagicPosition = [0,0,0]
+                player.expert.magic = new Decimal(0)
+            },
+            unlocked() {return hasUpgrade('expert', 42)},
+            style: {'border-radius':'5%',
+                    'border-color':'#606060'
+            },
+        },
+        32: {
+            name: "Roy",
+            challengeDescription: "Disable all multipliers to Cleared Courses gain before Expert Endless Challenge layer, CC gain is now based on Expert Endless Clears.",
+            goalDescription() {return "1e350 Cleared Courses"},
+            completionLimit: new Decimal("1e10000"),
+            canComplete: function() {
+                return player.points.gte("1e350")
+            },
+            rewardDescription() {
+                return "Meet a boss Roy, gain " + format("1e350") + " Cleared Courses and complete this challenge to defeat it. "
+            },
+            rewardEffect() {
+                let royGain = decimalZero
+                if (inChallenge(this.layer, 32)) royGain = player.points.div("1e350").max(1).times(4.6).log(4.6).pow(1.55)
+                if (hasUpgrade('expert', 33)) royGain = royGain.pow(upgradeEffect('expert', 33))
+                royGain = royGain.times(player.expert.magic.max(1).pow(1.25))
+                return royGain
+            },
+            rewardDisplay() { 
+                return `Gain ${formatWhole(challengeEffect(this.layer, 32))} Roy on pressing "Complete" button<br>
+                Formula: log4.6((CC/1e350)+1)^1.55`
+            },
+            onEnter() {
+                player.points = new Decimal(1)
+                player.expert.inChallengeTime = new Decimal(0)
+                player.expert.magic = new Decimal(0)
+            },
+            onExit() {
+                player.expert.inChallengeTime = new Decimal(0)
+                player.expert.minigameMagicPosition = [0,0,0]
+                player.expert.magic = new Decimal(0)
+            },
+            onComplete() {
+                player.expert.roy = player.expert.roy.add(challengeEffect(this.layer, 32))
+                player.expert.inChallengeTime = new Decimal(0)
+                player.expert.minigameMagicPosition = [0,0,0]
+                player.expert.magic = new Decimal(0)
+            },
+            unlocked() {return hasUpgrade('expert', 52)},
+            style: {'border-radius':'5%',
+                    'border-color':'#ac009e'
+            },
+        },
+        41: {
+            name: "Ludwig",
+            challengeDescription: "Disable all multipliers to Cleared Courses gain before Expert Endless Challenge layer, CC gain is now based on Expert Endless Clears.",
+            goalDescription() {return "1e388 Cleared Courses"},
+            completionLimit: new Decimal("1e10000"),
+            canComplete: function() {
+                return player.points.gte("1e380")
+            },
+            rewardDescription() {
+                return "Meet a boss Roy, gain " + format("1e380") + " Cleared Courses and complete this challenge to defeat it. "
+            },
+            rewardEffect() {
+                let ludwigGain = decimalZero
+                if (inChallenge(this.layer, 41)) ludwigGain = player.points.div("1e380").max(1).times(5).log(5).pow(2)
+                if (hasUpgrade('expert', 33)) ludwigGain = ludwigGain.pow(upgradeEffect('expert', 33))
+                ludwigGain = ludwigGain.times(player.expert.magic.max(1).pow(1.25))
+                return ludwigGain
+            },
+            rewardDisplay() { 
+                return `Gain ${formatWhole(challengeEffect(this.layer, 41))} Ludwig on pressing "Complete" button<br>
+                Formula: log5((CC/1e380)+1)^2`
+            },
+            onEnter() {
+                player.points = new Decimal(1)
+                player.expert.inChallengeTime = new Decimal(0)
+                player.expert.magic = new Decimal(0)
+            },
+            onExit() {
+                player.expert.inChallengeTime = new Decimal(0)
+                player.expert.minigameMagicPosition = [0,0,0]
+                player.expert.magic = new Decimal(0)
+            },
+            onComplete() {
+                player.expert.ludwig = player.expert.ludwig.add(challengeEffect(this.layer, 41))
+                player.expert.inChallengeTime = new Decimal(0)
+                player.expert.minigameMagicPosition = [0,0,0]
+                player.expert.magic = new Decimal(0)
+            },
+            unlocked() {return hasUpgrade('expert', 54)},
+            style: {'border-radius':'5%',
+                    'border-color':'#07c6d9'
+            },
+        },
+    },
+    
+    canBuyMax() {return hasMilestone('expert', 6)},
+    magicMult() {
+        let mult = new Decimal(1)
+        let wing = player.expert.wing
+        if (hasUpgrade('expert', 62)) mult = mult.times(Decimal.pow(10, wing.max(0).add(1).log(10).pow(0.9)))
+        return mult
+    },
+    magicGeneration: {
+        larry() {
+            let mult = tmp.expert.magicMult
+            let larry = player.expert.larry
+            return larry.times(mult)
+        },
+        lemmy() {
+            let mult = tmp.expert.magicMult
+            let lemmy = player.expert.lemmy
+            return lemmy.times(mult)
+        },
+        wendy() {
+            let mult = tmp.expert.magicMult
+            let wendy = player.expert.wendy
+            return wendy.times(mult)
+        },
+        iggy() {
+            let mult = tmp.expert.magicMult
+            let iggy = player.expert.iggy
+            return iggy.times(mult)
+        },
+        morton() {
+            let mult = tmp.expert.magicMult
+            let morton = player.expert.morton
+            return morton.times(mult)
+        },
+        roy() {
+            let mult = tmp.expert.magicMult
+            let roy = player.expert.roy
+            return roy.times(mult)
+        },
+        ludwig() {
+            let mult = tmp.expert.magicMult
+            let ludwig = player.expert.ludwig
+            return ludwig.times(mult)
+        },
+        bossrush() {
+            let mult = new Decimal(1)
+            if (hasSEendlessUpgrade(13)) mult = mult.times(10)
+            if (hasSEendlessUpgrade(14)) mult = mult.times(upgradeEffect('s_expert', 14))
+            if (hasSEendlessUpgrade(22)) mult = mult.times(upgradeEffect('s_expert', 22))
+            if (player.expert.canGainBRCAndFlaw)
+            return mult
+            else return decimalZero
+        },
+        flaw() {
+            let mult = new Decimal(1)
+            if (hasSEendlessUpgrade(13)) mult = mult.times(2)
+            if (player.expert.canGainBRCAndFlaw)
+            return mult
+            else return decimalZero
+        },
+    },
+    magicEffect: {
+        larry() {
+            let larry = player.expert.larry_m
+            let eff = larry.max(1).pow(3)
+            let r = new Decimal(1.8)
+            if (hasUpgrade('expert', 23)) r = new Decimal(3)
+            if (larry.gte(1000)) eff = eff.div(1e9).root(larry.max(10).log(10).root(r)).times(1e9)
+            if (hasUpgrade('expert', 44)) eff = eff.pow(upgradeEffect('expert', 44))
+            return eff
+        },
+        lemmy() {
+            let lemmy = player.expert.lemmy_b
+            let eff = lemmy.max(1).pow(0.75)
+            let r = new Decimal(1.8)
+            if (hasUpgrade('expert', 71)) r = new Decimal(3.6)
+            if (lemmy.gte(10000)) eff = eff.div(1000).root(lemmy.max(10).log(10).root(r)).times(1000)
+            return eff
+        },
+        wendy() {
+            let wendy = player.expert.wendy_m
+            let f1 = wendy.max(1).pow(2)
+            let eff = Decimal.pow(10, f1.max(1).log(10).add(1).pow(0.6))
+            return eff
+        },
+        iggy() {
+            let iggy = player.expert.iggy_m
+            let beforeSC = Decimal.pow(1.1, iggy.max(0))
+            let SC = new Decimal(1e50)
+            let afterSC = beforeSC.div(SC).log(2).add(1).pow(5).times(SC)
+            let eff = new Decimal(0)
+            if (beforeSC.gte(SC)) eff = afterSC
+            else eff = beforeSC
+            return eff
+        },
+        morton() {
+            let morton = player.expert.morton_m
+            let eff = morton.max(0).add(1).pow(7)
+            return eff
+        },
+        roy() {
+            let roy = player.expert.roy_m
+            let eff = roy.max(0).add(10).log(10).pow(2)
+            if (hasUpgrade('expert', 73)) eff = eff.pow(2)
+            if (hasUpgrade('s_expert', 32)) eff = eff.pow(upgradeEffect('s_expert', 32))
+            return eff
+        },
+        ludwig() {
+            let ludwig = player.expert.ludwig_m
+            let eff = ludwig.max(0).add(1).log(100000).root(3)
+            return eff
+        },
+        bossrush() {
+            let br = player.expert.boss_rush
+            let eff = br.max(1).pow(10)
+            return eff
+        },
+        flaw() {
+            let flaw = player.expert.flaw
+            let eff = Decimal.pow(1.25, flaw.max(0))
+            return eff
+        },
+    },
+    clickables:{
+        rows: 5,
+        cols: 5,
+        11: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                               let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        12: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                               let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        13: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                               let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        14: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                               let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        15: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                               let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        21: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                               let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        22: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                               let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        23: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                               let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        24: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                               let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        25: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                               let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        31: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                               let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        32: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                               let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        33: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                               let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        34: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                               let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        35: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                               let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        41: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                               let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        42: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                               let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        43: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if ((pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                               let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        44: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                               let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        45: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                               let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        51: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                               let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        52: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                               let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        53: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                               let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        54: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                               let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        55: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                let pos = player.expert.minigameMagicPosition
+                if (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id))
+                player.expert.magic = player.expert.magic.add(player.expert.magicBoost)
+            },
+            unlocked() {return true},
+            style() {
+                let pos = player.expert.minigameMagicPosition
+                if (inChallenge('expert', 11) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"rgb(33,245,25)",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 12) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#fac215",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 21) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ff0066",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 22) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#003ad7",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 31) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#606060",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 32) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#ac009e",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else if (inChallenge('expert', 41) && (pos[0] == expertMinigameID(this.id) || pos[1] == expertMinigameID(this.id) || pos[2] == expertMinigameID(this.id)))
+                return {"background-color":"#07c6d9",
+                "border-radius":"100%","min-height":"30px","width":"30px"}
+                else return {"background-color":"rgba(0,0,0,0)","border-color":"rgba(0,0,0,0)",
+                    "border-radius":"100%","min-height":"30px","width":"30px"}
+            },
+        },
+        61: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = "Reset your BRC and Flaw amount"
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                player.expert.boss_rush = new Decimal(0),
+                player.expert.flaw = new Decimal(0)
+            },
+            unlocked() {return true},
+            style() {
+                return {'border-radius':'5%',
+                        'min-height':'50px',
+                        'width':'150px',
+                        'font-size':'15px'
+                }
+            },
+        },
+        62: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                if (player.expert.canGainBRCAndFlaw) d = "Disable BRC and Flaw gain"
+                else d = "Enable BRC and Flaw gain"
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                if (player.expert.canGainBRCAndFlaw) player.expert.canGainBRCAndFlaw = false
+                else if (player.expert.canGainBRCAndFlaw==false) player.expert.canGainBRCAndFlaw = true
+            },
+            unlocked() {return true},
+            style() {
+                return {'border-radius':'5%',
+                        'min-height':'50px',
+                        'width':'150px',
+                        'font-size':'15px'
+                }
+            },
+        },
+    },
+    update(Exp) {
+        let tick = new Decimal(0.05)
+        let larry = player.expert.larry
+        let lemmy = player.expert.lemmy
+        let wendy = player.expert.wendy
+        let iggy = player.expert.iggy
+        let morton = player.expert.morton
+        let roy = player.expert.roy
+        let ludwig = player.expert.ludwig
+        player.expert.heptboss_total = larry.add(lemmy).add(wendy).add(iggy).add(morton).add(roy).add(ludwig)
+        player.expert.larry_m = player.expert.larry_m.add(tmp.expert.magicGeneration.larry.times(tick))
+        player.expert.lemmy_b = player.expert.lemmy_b.add(tmp.expert.magicGeneration.lemmy.times(tick))
+        player.expert.wendy_m = player.expert.wendy_m.add(tmp.expert.magicGeneration.wendy.times(tick))
+        player.expert.iggy_m = player.expert.iggy_m.add(tmp.expert.magicGeneration.iggy.times(tick))
+        player.expert.morton_m = player.expert.morton_m.add(tmp.expert.magicGeneration.morton.times(tick))
+        player.expert.roy_m = player.expert.roy_m.add(tmp.expert.magicGeneration.roy.times(tick))
+        player.expert.ludwig_m = player.expert.ludwig_m.add(tmp.expert.magicGeneration.ludwig.times(tick))
+
+        if (inExpertBossChallenge()) player.expert.inChallengeTime = player.expert.inChallengeTime.add(1),
+                                     expertBossMinigameMagicCatch()
+
+        if (player.expert.magic.gte(1)) player.expert.magic = player.expert.magic.times(0.999)
+        if (player.expert.magic.lt(1)) player.expert.magic = new Decimal(0)
+
+        if (hasUpgrade('expert', 72)) player.expert.boss_rush = player.expert.boss_rush.add(expertBossMagicGeneration('bossrush').times(tick)),
+        player.expert.flaw = player.expert.flaw.add(expertBossMagicGeneration('flaw').times(tick))
+    
+        if ((hasSEendlessMilestone(8) && inChallenge('expert', 11))
+        || (hasSEendlessMilestone(9) && inChallenge('expert', 12))
+        || (hasSEendlessMilestone(10) && inChallenge('expert', 21))
+        || (hasSEendlessMilestone(11) && inChallenge('expert', 22))
+        || (hasSEendlessMilestone(12) && inChallenge('expert', 31))
+        || (hasSEendlessMilestone(13) && inChallenge('expert', 32))
+        || (hasSEendlessMilestone(14) && inChallenge('expert', 41))) player.expert.magic = player.expert.magic.add(player.expert.magicBoost.div(2))
+    },
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        ["display-text", () => `You have ` +format(player.normal.points) + ` Normal Endless Clears`],
+        ["display-text", () => `Your record of Expert Endless Clears is ` + format(player.expert.best)],
+        ["microtabs", "stuff"],
+        ["blank", "65px"],
+    ],
+    microtabs: {
+        stuff: {
+            "Upgrades": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    ["raw-html", () => `<h4 style="opacity:.5">There are 4 different difficulties of endless challenges. Expert endless is the third difficulty.<br>When you start a new run, you would have 15 lives. It requires more skills for making lives to the max. More speedrun courses, kaizo courses and hot garbage courses appear in this difficulty. It also requires a bit of luck.`],
+                    ["upgrades", [1,2,3,4,5,6,7,8,9]]
+                ]
+            },
+            "Milestones": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    "milestones",
+                ]                
+            }, 
+            "Koopaling Bosses":{
+                unlocked() {return hasUpgrade('expert', 13)},
+                content: [
+                    ["blank", "15px"],
+                    ["microtabs", "koopalings"],
+                ]
+            },
+        },
+        koopalings: {
+            "Battles": {
+                unlocked() {return hasUpgrade('expert', 13)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        if (hasUpgrade('expert', 62))
+                        return "You have <h2 style='color: #ffffff; text-shadow: 0 0 10px #ffffff'>" + formatWhole(player.expert.wing) +"</h2> Wings, multiplying all 7 koopalings' magic (balls) production by <h2 style='color: #ffffff; text-shadow: 0 0 10px #ffffff'>"+format(tmp.expert.magicMult)+"x</h2>"}
+                    ],
+                    ["display-text", function() {
+                        if (hasUpgrade('expert', 62))
+                        return "To get Wings, you should difficulty max for gaining Super Expert Endless Clears in a Boss Challenge<br>You can now gain " + formatWhole(tmp.s_expert.wingGain) + " Wings this time (Based on Expert Endless Clears)"}
+                    ],
+                    ["display-text", function() {
+                        return "You defeated <h2 style='color: rgb(33,245,25); text-shadow: 0 0 10px rgb(33,245,25)'>" + formatWhole(player.expert.larry) +"</h2> Larry, generating <h2 style='color: rgb(33,245,25); text-shadow: 0 0 10px rgb(33,245,25)'>"+format(expertBossMagicGeneration("larry"))+"</h2> Larry's magic every second"}
+                    ],
+                    ["display-text", function() {
+                        return "You defeated <h2 style='color: #fac215; text-shadow: 0 0 10px #fac215'>" + formatWhole(player.expert.lemmy) +"</h2> Lemmy, generating <h2 style='color: #fac215; text-shadow: 0 0 10px #fac215'>"+format(expertBossMagicGeneration("lemmy"))+"</h2> Lemmy's balls every second"}
+                    ],
+                    ["display-text", function() {
+                        return "You defeated <h2 style='color: #ff0066; text-shadow: 0 0 10px #ff0066'>" + formatWhole(player.expert.wendy) +"</h2> Wendy, generating <h2 style='color: #ff0066; text-shadow: 0 0 10px #ff0066'>"+format(expertBossMagicGeneration("wendy"))+"</h2> Wendy's magic every second"}
+                    ],
+                    ["display-text", function() {
+                        return "You defeated <h2 style='color: #003ad7; text-shadow: 0 0 10px #003ad7'>" + formatWhole(player.expert.iggy) +"</h2> Iggy, generating <h2 style='color: #003ad7; text-shadow: 0 0 10px #003ad7'>"+format(expertBossMagicGeneration("iggy"))+"</h2> Iggy's magic every second"}
+                    ],
+                    ["display-text", function() {
+                        return "You defeated <h2 style='color: #606060; text-shadow: 0 0 10px #606060'>" + formatWhole(player.expert.morton) +"</h2> Morton, generating <h2 style='color: #606060; text-shadow: 0 0 10px #606060'>"+format(expertBossMagicGeneration("morton"))+"</h2> Morton's magic every second"}
+                    ],
+                    ["display-text", function() {
+                        return "You defeated <h2 style='color: #ac009e; text-shadow: 0 0 10px #ac009e'>" + formatWhole(player.expert.roy) +"</h2> Roy, generating <h2 style='color: #ac009e; text-shadow: 0 0 10px #ac009e'>"+format(expertBossMagicGeneration("roy"))+"</h2> Roy's magic every second"}
+                    ],
+                    ["display-text", function() {
+                        return "You defeated <h2 style='color: #07c6d9; text-shadow: 0 0 10px #07c6d9'>" + formatWhole(player.expert.ludwig) +"</h2> Ludwig, generating <h2 style='color: #07c6d9; text-shadow: 0 0 10px #07c6d9'>"+format(expertBossMagicGeneration("ludwig"))+"</h2> Ludwig's magic every second"}
+                    ],
+                    "challenges",
+                ]                
+            }, 
+            "Rewards": {
+                unlocked() {return hasUpgrade('expert', 13)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        return "You have <h2 style='color: rgb(33,245,25); text-shadow: 0 0 10px rgb(33,245,25)'>" + format(player.expert.larry_m) +"</h2> Larry's magic, multiplying Normal Endless Clears gain by <h2 style='color: rgb(33,245,25); text-shadow: 0 0 10px rgb(33,245,25)'>"+format(expertBossMagicEffect("larry"))+"x</h2>"}
+                    ],
+                    ["display-text", function() {
+                        return "You have <h2 style='color: #fac215; text-shadow: 0 0 10px #fac215'>" + formatWhole(player.expert.lemmy_b) +"</h2> Lemmy's balls, multiplying Larry gain by <h2 style='color: #fac215; text-shadow: 0 0 10px #fac215'>"+format(expertBossMagicEffect("lemmy"))+"x</h2>"}
+                    ],
+                    ["display-text", function() {
+                        return "You have <h2 style='color: #ff0066; text-shadow: 0 0 10px #ff0066'>" + formatWhole(player.expert.wendy_m) +"</h2> Wendy's magic, multiplying Auto-Mario Courses gain by <h2 style='color: #ff0066; text-shadow: 0 0 10px #ff0066'>"+format(expertBossMagicEffect("wendy"))+"x</h2>"}
+                    ],
+                    ["display-text", function() {
+                        let t = "You have <h2 style='color: #003ad7; text-shadow: 0 0 10px #003ad7'>" + formatWhole(player.expert.iggy_m) +"</h2> Iggy's magic, dividing Expert Endless Clear cost by <h2 style='color: #003ad7; text-shadow: 0 0 10px #003ad7'>/"+format(expertBossMagicEffect("iggy"))+"</h2>"
+                        if (expertBossMagicEffect('iggy').gte(1e50)) t = t+" (softcapped)"
+                        return t }
+                    ],
+                    ["display-text", function() {
+                        return "You have <h2 style='color: #606060; text-shadow: 0 0 10px #606060'>" + formatWhole(player.expert.morton_m) +"</h2> Morton's magic, multiplying Cleared Courses gain in Expert Endless Boss challenges by <h2 style='color: #606060; text-shadow: 0 0 10px #606060'>"+format(expertBossMagicEffect("morton"))+"x</h2>"}
+                    ],
+                    ["display-text", function() {
+                        return "You have <h2 style='color: #ac009e; text-shadow: 0 0 10px #ac009e'>" + formatWhole(player.expert.roy_m) +"</h2> Roy's magic, multiplying Extra Magic gain by <h2 style='color: #ac009e; text-shadow: 0 0 10px #ac009e'>"+format(expertBossMagicEffect("roy"))+"x</h2>"}
+                    ],
+                    ["display-text", function() {
+                        return "You have <h2 style='color: #07c6d9; text-shadow: 0 0 10px #07c6d9'>" + formatWhole(player.expert.ludwig_m) +"</h2> Ludwig's magic, unlocking <h2 style='color: #07c6d9; text-shadow: 0 0 10px #07c6d9'>"+formatWhole(expertBossMagicEffect("ludwig").floor())+" </h2> more overpower milestone upgrade. Next unlock progress: <h2 style='color: #07c6d9; text-shadow: 0 0 10px #07c6d9'>" +formatPercent(expertBossMagicEffect("ludwig").toNumber()%1)+ "</h2>"}
+                    ],
+                ]                
+            }, 
+            "Minigames": {
+                unlocked() {return hasAchievement('achievements', 185)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        return "Catch Bosses' magic (or Lemmy's balls) to gain Extra magic, it can provide a boost to corresponding Boss gain in a boss challenge."}
+                    ],
+                    ["display-text", function() {
+                        let exp = ""
+                        if (hasUpgrade('expert', 33)) exp = "powering corresponding Bosses gain in your current challenge by <h2 style='color: #be924f; text-shadow: 0 0 10px #be924f'>^"+format(upgradeEffect('expert', 33))+"</h2> then"
+                        else exp = ""
+                        let boss = "corresponding Bosses gain in your current challenge"
+                        if (hasUpgrade('expert', 33)) boss = "it gain"
+                        else boss = "corresponding Bosses gain in your current challenge"
+                        let dis = "You have <h2 style='color: #be924f; text-shadow: 0 0 10px #be924f'>" + formatWhole(player.expert.magic) +"</h2> Extra Magic, "+exp+" multiplying "+boss+" by <h2 style='color: #be924f; text-shadow: 0 0 10px #be924f'>"+format(player.expert.magic.max(1).pow(1.25))+"x</h2><br>You can only gain Extra Magic in Boss challenges in Expert Endless layer." 
+                        return dis
+                    }
+                    ],
+                    ["display-text", function() {
+                        return `You gain ${formatWhole(player.expert.magicBoost)} Extra Magic per every catch`}
+                    ],
+                    ["display-text", function() {
+                        return "You loss 0.1% Extra Magic every tick (1 tick = 0.05s)"}
+                    ],
+                    "blank",
+                    ["clickables", [1]],
+                    "blank",
+                    ["clickables", [2]],
+                    "blank",
+                    ["clickables", [3]],
+                    "blank",
+                    ["clickables", [4]],
+                    "blank",
+                    ["clickables", [5]],
+                    "blank",
+                ]                
+            }, 
+            "Boss Rush and Flaw":{
+                unlocked() {return hasUpgrade('expert', 72)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        return "You have cleared <h2 style='color: #be924f; text-shadow: 0 0 10px #be924f'>" + formatWhole(player.expert.boss_rush) +"</h2> Boss Rush Courses in Expert Endless (+"+format(expertBossMagicGeneration('bossrush'))+"/sec), multiplying Wing gain by <h2 style='color: #be924f; text-shadow: 0 0 10px #be924f'>"+format(expertBossMagicEffect('bossrush'))+"x</h2>"}
+                    ],
+                    ["display-text", function() {
+                        return "But you also have <h2 style='color: #be924f; text-shadow: 0 0 10px #be924f'>" + formatWhole(player.expert.flaw) +"</h2> Flaw (+"+format(expertBossMagicGeneration('flaw'))+"/sec), dividing Wing gain by <h2 style='color: #be924f; text-shadow: 0 0 10px #be924f'>/"+format(expertBossMagicEffect('flaw'))+"</h2>"}
+                    ],
+                    ["clickables",[6]],
+                ]
+            },
+        },
+    },
+})
+// 第二十七层：超难耐力挑战
+function hasSEendlessUpgrade(id) {
+    return hasUpgrade('s_expert', id)
+}
+function hasSEendlessMilestone(id) {
+    return hasMilestone('s_expert', id)
+}
+function switchAttackMode() {
+    if (player.s_expert.AttackMode==1) return player.s_expert.AttackMode=0,
+    player.s_expert.cooldownSwitching = d(30)
+    if (player.s_expert.AttackMode==0) return player.s_expert.AttackMode=1,
+    player.s_expert.cooldownSwitching = d(30) //0对应踩，1对应打火
+}
+addLayer("s_expert", {
+    startData() { return {                  // startData is a function that returns default data for a layer. 
+        unlocked: true,                     // You can add more variables here to add them to your layer.
+        points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+        cooldown: new Decimal(0),
+        boom_boom: new Decimal(0),
+        poom_poom: new Decimal(0),
+        healthBoss: {
+            boom_boom: [d(3), d(5)],
+            poom_poom: [d(3), d(5)],
+        }, //3段血，每段5个火球
+        cooldownBoss: {
+            boom_boom: new Decimal(3),
+            poom_poom: new Decimal(4),
+        },
+        bowserJr: new Decimal(0),
+        bowser: new Decimal(0),
+        super_skill: new Decimal(0),
+        lava: new Decimal(0),
+        lavacap: new Decimal(300),
+        lavaSpendInput: new Decimal(0),
+        lavaSpending: false,
+        poison: new Decimal(0),
+        poisoncap: new Decimal(300),
+        AttackMode: 0,
+        cooldownSwitching: d(30),
+        shot_period: d(1),
+    }},
+
+    color: "#6A4FAE",                       // The color for this layer, which affects many elements.
+    resource: "Super Expert Endless Clears",            // The name of this layer's main prestige resource.
+    row: 13,                                 // The row this layer is on (0 is the first row).
+    position: 0,
+    branches: ['expert'],
+    symbol: "S.E.",
+
+    baseResource: "Expert Endless Clears",                 // The name of the resource your prestige gain is based on.
+    baseAmount() { return player.expert.points },  // A function to return the current amount of baseResource.
+
+    requires: new Decimal(1.5e25),              // The amount of the base needed to  gain 1 of the prestige currency.
+                                            // Also the amount required to unlock the layer.
+
+    type: "normal",                         // Determines the formula used for calculating prestige currency.
+    exponent: 0.2,                          // "normal" prestige gain is (currency^exponent).
+    base: new Decimal(10),
+
+    gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        let mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        if (hasUpgrade('super_acorn', 113)) mult = mult.times(upgradeEffect('super_acorn', 113))
+        if (hasSEendlessUpgrade(15) && player.s_expert.lavaSpending) mult = mult.times(upgradeEffect('s_expert', 15).max(1))
+        return mult
+    },
+    gainExp() {                             // Returns the exponent to your gain of the prestige resource.
+        return new Decimal(1)
+    },
+
+    canReset() {
+        return (player.expert.points.gte(1.5e25) && player.s_expert.cooldown.eq(0))
+    },
+    onPrestige() {
+        if (inExpertBossChallenge() && hasUpgrade('expert', 62))
+        return player.s_expert.cooldown = new Decimal(60),
+        player.expert.points = new Decimal(0),
+        player.expert.best = new Decimal(0),
+        player.expert.wing = player.expert.wing.add(tmp.s_expert.wingGain)
+        else return player.s_expert.cooldown = new Decimal(60),
+        player.expert.points = new Decimal(0),
+        player.expert.best = new Decimal(0)
+    },
+    resetDescription() {
+        return "Difficulty max for "
+    },
+    doReset(resettingLayer) {
+        if (layers[resettingLayer].row == 14) {
+            let kept = ["unlocked", "auto"]
+            if (hasMilestone('coop', 0)) {
+                kept.push("milestones")}
+            layerDataReset(this.layer, kept)
+        }
+        else if (layers[resettingLayer].row >= 15) return undefined
+    },
+
+    layerShown() { return hasNormalAchievement(192) },          // Returns a bool for if this layer's node should be visible in the tree.
+
+    upgrades: {
+        11: {
+            title: "Dangerous journey",
+            description: "588538x Wing gain.",
+            currencyDisplayName: "Wings",
+            currencyInternalName: "wing",
+            currencyLayer: "expert",
+            cost: new Decimal(100000000),
+            unlocked() {return hasUpgrade('expert', 62)},
+        },
+        12: {
+            title: "Skip skip skip",
+            description: "Record of SE Endless Clears powers Normal Endless Clears effect.",
+            cost: new Decimal(1.5e9),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.s_expert.best.max(1).root(8)
+                return eff
+            },
+            effectDisplay() { return "^"+format(upgradeEffect(this.layer, this.id)) },
+        },
+        13: {
+            title: "Meet something...",
+            description: "10x BRC gain but double Flaw gain.",
+            currencyDisplayName: "Cleared Courses",
+            currencyInternalName: "cc",
+            currencyLayer: "achievements",
+            cost: new Decimal("ee6.9e19"),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        14: {
+            title: "Tidal waves",
+            description: "Flaw provides a weak effect to BRC gain.",
+            cost: new Decimal(5e10),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.expert.flaw.max(1).root(2.25)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        15: {
+            title: "I'm burning!",
+            description: "Unlock lava.",
+            cost: new Decimal(3e11),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let LSI = d(0)
+                let lava = player.s_expert.lava
+                let inp = player.s_expert.lavaSpendInput
+                if (!(isDNaN(inp) || isDInfinity(inp) || inp.lt(0) || inp.gt(lava.div(10))))
+                LSI = player.s_expert.lavaSpendInput
+                let logbase = d(2)
+                let powbase1 = d(2.5)
+                if (hasSEendlessUpgrade(25)) logbase = logbase.sub(upgradeEffect('s_expert', 25))
+                if (hasSEendlessUpgrade(33)) powbase1 = d(3)
+                let eff = LSI.max(1).log(logbase).add(1).pow(powbase1).times(lava.div(LSI.max(1).times(10)).max(1).pow(1))
+                return eff
+            },
+        },
+        21: {
+            title: "Not so invincible",
+            description: "Lava effect^5 miltiplies Wing gain. (Doesn't require spending lava)",
+            cost: new Decimal(3e13),
+            unlocked() {return hasUpgrade(this.layer, 15)},
+            effect() {
+                let eff = upgradeEffect('s_expert', 15).pow(5)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        22: {
+            title: "1100 degree celsius",
+            description: "Lava effect^0.7 miltiplies BRC gain. (Doesn't require spending lava)",
+            cost: new Decimal(1e14),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = upgradeEffect('s_expert', 15).pow(0.7)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        23: {
+            title: "Grape juice",
+            description: "Unlock poison.",
+            cost: new Decimal(6e16),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        24: {
+            title: "Purple acid",
+            description: "Unlock a new way to beat Boom Booms automatically.",
+            currencyDisplayName: "Poison",
+            currencyInternalName: "poison",
+            currencyLayer: "s_expert",
+            cost: new Decimal(33),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        25: {
+            title: "Raising",
+            description: "Poison makes Lava effect formula better. (hardcap at -0.9)",
+            currencyDisplayName: "Poison",
+            currencyInternalName: "poison",
+            currencyLayer: "s_expert",
+            cost: new Decimal(150),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.s_expert.poison.max(0).root(2).div(24).min(0.9)
+                return eff
+            },
+            effectDisplay() { return "-"+format(upgradeEffect(this.layer, this.id))+" to log base" },
+        },
+        31: {
+            title: "Grape cheep cheeps",
+            description: "Unlock a poison effect.",
+            cost: new Decimal(3e20),
+            unlocked() {return hasUpgrade(this.layer, 25)},
+            effect() {
+                let eff = player.s_expert.poison.max(1).ssqrt().pow(1.5)
+                return eff
+            },
+        },
+        32: {
+            title: "Wing + huge + boss room",
+            description: "Roy's magic effect is powered based on its magic.",
+            cost: new Decimal(9.999e20),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.expert.roy_m.max(1).ssqrt().add(10).log(10)
+                return eff
+            },
+            effectDisplay() { return "^"+format(upgradeEffect(this.layer, this.id)) },
+        },
+        33: {
+            title: "Fire bubbles",
+            description: "Lava effect formula is better. The left powerer is increased to 3.",
+            cost: new Decimal(2e22),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        34: {
+            title: "Poison ball",
+            description: "Double lava gain, 4x Poison gain.",
+            cost: new Decimal(1e24),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        35: {
+            title: "Network play",
+            description: "Unlock a new layer on row 15.",
+            currencyDisplayName: "Lava",
+            currencyInternalName: "lava",
+            currencyLayer: "s_expert",
+            cost: new Decimal(3500),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        // Look in the upgrades docs to see what goes here!
+    },
+    milestones: {
+        0: {
+            requirementDescription: "1 Super Expert Endless Clear",
+            effectDescription: "10000x Iggy gain. (After Extra Magic effect)",
+            done() { return player.s_expert.points.gte(1) },
+        },
+        1: {
+            requirementDescription: "400 Super Expert Endless Clears",
+            effect() {
+                let mil = new Decimal(player.s_expert.milestones.length)
+                let eff = mil.times(0.1).add(1)
+                return eff
+            },
+            effectDescription() {return `CC in Expert Boss challenges powered based on your Super Expert Endless milestones you have.<br>
+            Currently: ^${format(milestoneEffect('s_expert', 1))}`},
+            done() { return player.s_expert.points.gte(400) },
+        },
+        2: {
+            requirementDescription: "5e50 Expert Endless Clear and 500000 Super Expert Endless Clear",
+            effectDescription: "Unlock Ludwig's minigame",
+            done() { return player.expert.points.gte(5e50) && player.s_expert.points.gte(500000)},
+        },
+        3: {
+            requirementDescription: "40,000,000 Super Expert Endless Clears",
+            effectDescription() {return "In early SMM1 100 Mario Challenges, there was no Super Expert difficulty.<br>This milestone still affacts 2nd SE Endless milestone effect."},
+            done() { return player.s_expert.points.gte(4e7) },
+        },
+        4: {
+            requirementDescription: "60,000,000 Super Expert Endless Clears",
+            effectDescription() {return "Nothing, but this milestone still affacts 2nd SE Endless milestone effect."},
+            done() { return player.s_expert.points.gte(6e7) },
+        },
+        5: {
+            requirementDescription: "80,000,000 Super Expert Endless Clears",
+            effectDescription() {return "Nothing, but this milestone still affacts 2nd SE Endless milestone effect."},
+            done() { return player.s_expert.points.gte(8e7) },
+        },
+        6: {
+            requirementDescription: "100,000,000 Super Expert Endless Clears",
+            effectDescription() {return "Autobuy 'Icxena challenging' but selling it will gain nothing."},
+            done() { return player.s_expert.points.gte(1e8) },
+        },
+        7: {
+            requirementDescription: "Get 300 Lava",
+            effectDescription() {return "Double Lava gain."},
+            done() { return player.s_expert.points.gte(1e8) },
+            unlocked() {return hasUpgrade(this.layer, 15)},
+        },
+        8: {
+            requirementDescription: "5e15 Super Expert Endless Clears",
+            effectDescription() {return "Auto click for Extra Magic 10 times per second in Challenge Larry."},
+            done() { return player.s_expert.points.gte(5e15) },
+            unlocked() {return hasSEendlessMilestone(7)},
+        },
+        9: {
+            requirementDescription: "1.5e16 Super Expert Endless Clears",
+            effectDescription() {return "Auto click for Extra Magic 10 times per second in Challenge Lemmy."},
+            done() { return player.s_expert.points.gte(1.5e16) },
+            unlocked() {return hasSEendlessMilestone(7)},
+        },
+        10: {
+            requirementDescription: "5e16 Super Expert Endless Clears",
+            effectDescription() {return "Auto click for Extra Magic 10 times per second in Challenge Wendy."},
+            done() { return player.s_expert.points.gte(5e16) },
+            unlocked() {return hasSEendlessMilestone(7)},
+        },
+        11: {
+            requirementDescription: "1e17 Super Expert Endless Clears",
+            effectDescription() {return "Auto click for Extra Magic 10 times per second in Challenge Iggy."},
+            done() { return player.s_expert.points.gte(1e17) },
+            unlocked() {return hasSEendlessMilestone(7)},
+        },
+        12: {
+            requirementDescription: "1.5e17 Super Expert Endless Clears",
+            effectDescription() {return "Auto click for Extra Magic 10 times per second in Challenge Morton."},
+            done() { return player.s_expert.points.gte(1.5e17) },
+            unlocked() {return hasSEendlessMilestone(7)},
+        },
+        13: {
+            requirementDescription: "2e17 Super Expert Endless Clears",
+            effectDescription() {return "Auto click for Extra Magic 10 times per second in Challenge Roy."},
+            done() { return player.s_expert.points.gte(2e17) },
+            unlocked() {return hasSEendlessMilestone(7)},
+        },
+        14: {
+            requirementDescription: "4e17 Super Expert Endless Clears",
+            effectDescription() {return "Auto click for Extra Magic 10 times per second in Challenge Ludwig."},
+            done() { return player.s_expert.points.gte(4e17) },
+            unlocked() {return hasSEendlessMilestone(7)},
+        },
+        15: {
+            requirementDescription: "1e21 Super Expert Endless Clears",
+            effectDescription() {return "Gain Condition Courses automatically."},
+            done() { return player.s_expert.points.gte(1e21) },
+            unlocked() {return hasSEendlessMilestone(7)},
+        },
+    },
+    clickables: {
+        11: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                if (player.s_expert.lavaSpending) d = "Disable Lava Spending and multiplier"
+                else d = "Enable Lava Spending and multiplier"
+                return d
+                },
+            canClick() {return true},
+            onClick() {
+                if (player.s_expert.lavaSpending) player.s_expert.lavaSpending = false
+                else if (player.s_expert.lavaSpending==false) player.s_expert.lavaSpending = true
+            },
+            unlocked() {return hasSEendlessUpgrade(15)},
+            style() {
+                return {'border-radius':'5%',
+                        'min-height':'50px',
+                        'width':'150px',
+                        'font-size':'15px'
+                }
+            },
+        },
+        21: {
+            title() {
+                let t = "Stomp!"
+                return t},
+            display() {
+                let d = "The classic attack"
+                return d
+                },
+            canClick() {return (player.s_expert.cooldownBoss.boom_boom.lte(0) && player.s_expert.AttackMode == 0 && player.subtabs.s_expert.bosses == "Boom Boom")
+                                || (player.s_expert.cooldownBoss.poom_poom.lte(0) && player.s_expert.AttackMode == 0 && player.subtabs.s_expert.bosses == "Poom Poom")
+                },
+            onClick() { 
+                if (player.s_expert.healthBoss.boom_boom[0].gt(0) && player.subtabs.s_expert.bosses == "Boom Boom") player.s_expert.healthBoss.boom_boom[0] = player.s_expert.healthBoss.boom_boom[0].sub(1),
+                player.s_expert.cooldownBoss.boom_boom = d(3)
+                if (player.s_expert.healthBoss.boom_boom[0].eq(0) && player.subtabs.s_expert.bosses == "Boom Boom") player.s_expert.boom_boom = player.s_expert.boom_boom.add(tmp.s_expert.multBoomBoom)
+                player.s_expert.healthBoss.boom_boom[1] = d(5)
+                
+                if (player.s_expert.healthBoss.poom_poom[0].gt(0) && player.subtabs.s_expert.bosses == "Poom Poom") player.s_expert.healthBoss.poom_poom[0] = player.s_expert.healthBoss.poom_poom[0].sub(1),
+                player.s_expert.cooldownBoss.poom_poom = d(6)
+                if (player.s_expert.healthBoss.poom_poom[0].eq(0) && player.subtabs.s_expert.bosses == "Poom Poom") player.s_expert.poom_poom = player.s_expert.poom_poom.add(tmp.s_expert.multPoomPoom)
+                player.s_expert.healthBoss.poom_poom[1] = d(5)
+            },
+            unlocked() {return hasSEendlessUpgrade(15)},
+            style() {
+                return {'border-radius':'5%',
+                        'min-height':'90px',
+                        'width':'90px',
+                }
+            },
+        },
+        22: {
+            title() {
+                let t = "Shoot!"
+                return t},
+            display() {
+                let d = "Fireball, bouncy balls..."
+                return d
+                },
+            canClick() {return player.s_expert.AttackMode == 1},
+            onClick() { 
+            },
+            unlocked() {return hasSEendlessUpgrade(24)},
+            style() {
+                return {'border-radius':'5%',
+                        'min-height':'90px',
+                        'width':'90px',
+                }
+            },
+        },
+        31: {
+            title() {
+                let t = ""
+                return t},
+            display() {
+                let d = ""
+                if (player.s_expert.AttackMode == 0) d = "Current Mode: Stomp<br>Click to change attack mode"
+                else if (player.s_expert.AttackMode == 1) d = "Current Mode: Shoot<br>Click to change attack mode"
+                return d
+                },
+            canClick() {return player.s_expert.cooldownSwitching.lte(0)},
+            onClick() { 
+                switchAttackMode()
+            },
+            unlocked() {return hasSEendlessUpgrade(24)},
+            style() {
+                return {'border-radius':'5%',
+                        'min-height':'50px',
+                        'width':'240px',
+                        'font-size':'15px'
+                }
+            },
+        },
+    },
+    multBoomBoom() {
+        let m = d(1)
+        if (hasSEendlessUpgrade(31)) m = m.times(upgradeEffect('s_expert', 31))
+        if (hasMilestone('coop', 0)) m = m.times(10)
+        return m
+    },
+    multPoomPoom() {
+        let m = d(1)
+        if (hasSEendlessUpgrade(31)) m = m.times(upgradeEffect('s_expert', 31))
+        if (hasMilestone('coop', 0)) m = m.times(10)
+        return m
+    },
+    wingGain() {
+        let w = player.expert.points.max(10).log(10).pow(2)
+        if (hasUpgrade('expert', 63)) w = w.times(upgradeEffect('expert', 63))
+        if (hasSEendlessUpgrade(11)) w = w.times(588538)
+        if (hasUpgrade('expert', 64)) w = w.times(upgradeEffect('expert', 64))
+        if (hasUpgrade('expert', 72)) w = w.times(expertBossMagicEffect('bossrush'))
+        if (hasUpgrade('expert', 72)) w = w.div(expertBossMagicEffect('flaw'))
+        if (hasSEendlessUpgrade(21)) w = w.times(upgradeEffect('s_expert', 21))
+        return w
+    },
+    lavaGain() {
+        let l = new Decimal(0)
+        if (player.easy.random_theme.eq(10)) l = new Decimal(1)
+        if (hasSEendlessMilestone(7)) l = l.times(2)
+        if (hasExpertEndlessUpgrade(74)) l = l.times(tmp.s_expert.effectBoomBoom)
+        if (hasSEendlessUpgrade(34)) l = l.times(2)
+        if (hasMilestone('coop', 0)) l = l.times(10)
+        return l
+    },
+    poisonGain() {
+        let l = new Decimal(0)
+        if (player.easy.random_theme.eq(7)) l = new Decimal(1)
+        if (hasExpertEndlessUpgrade(74)) l = l.times(tmp.s_expert.effectPoomPoom)
+        if (hasSEendlessUpgrade(34)) l = l.times(4)
+        if (hasMilestone('coop', 0)) l = l.times(10)
+        return l
+    },
+    effectBoomBoom() {
+        let eff = d(0)
+        if (hasExpertEndlessUpgrade(74)) eff = d(1)
+        eff = eff.times(player.s_expert.boom_boom.max(0).add(1).root(2.88))
+        return eff
+    },
+    effectPoomPoom() {
+        let eff = d(0)
+        if (hasExpertEndlessUpgrade(75)) eff = d(1)
+        eff = eff.times(player.s_expert.poom_poom.max(0).add(1).root(3.76))
+        return eff
+    },
+    update() {
+        let tick = new Decimal(0.05)
+        let cap = d(300)
+        let capP = d(300)
+
+        if (player.s_expert.cooldown.gt(0)) player.s_expert.cooldown = player.s_expert.cooldown.sub(tick)
+        if (player.s_expert.cooldown.lt(0)) player.s_expert.cooldown = new Decimal(0)
+        
+        if (player.easy.random_theme.eq(10) && hasSEendlessUpgrade(15) && player.s_expert.lava.lt(player.s_expert.lavacap)) player.s_expert.lava = player.s_expert.lava.add(tmp.s_expert.lavaGain.times(tick))
+        if (player.easy.random_theme.eq(7) && hasSEendlessUpgrade(23) && player.s_expert.poison.lt(player.s_expert.poisoncap)) player.s_expert.poison = player.s_expert.poison.add(tmp.s_expert.poisonGain.times(tick))
+        
+        if (hasExpertEndlessUpgrade(74)) cap = cap.times(tmp.s_expert.effectBoomBoom)
+        player.s_expert.lavacap = cap
+        if (hasExpertEndlessUpgrade(75)) capP = capP.times(tmp.s_expert.effectPoomPoom)
+        player.s_expert.poisoncap = capP
+
+        if (player.s_expert.lava.gte(player.s_expert.lavacap)) player.s_expert.lava = player.s_expert.lavacap
+        if (player.s_expert.poison.gte(player.s_expert.poisoncap)) player.s_expert.poison = player.s_expert.poisoncap
+
+        if (player.s_expert.lavaSpendInput.lte(player.s_expert.lava.div(10)) && player.s_expert.lavaSpendInput.gt(0) && player.s_expert.lavaSpending) player.s_expert.lava = player.s_expert.lava.sub(player.s_expert.lavaSpendInput.max(0).times(tick))
+        //使得输入框能输入decimal
+        if (player.s_expert.lavaSpendInput.mag == undefined) player.s_expert.lavaSpendInput = new Decimal(player.s_expert.lavaSpendInput)
+        if (isDInfinity(player.s_expert.lavaSpendInput) || isDNaN(player.s_expert.lavaSpendInput)) player.s_expert.lavaSpendInput = new Decimal(0)
+        if (player.s_expert.lavaSpendInput.lt(0) && hasSecretAchievement(23)) player.s_expert.lavaSpendInput = d(0)
+        if (player.s_expert.lavaSpendInput.gt(player.s_expert.lava.div(10))) player.s_expert.lavaSpendInput = player.s_expert.lava.div(10)
+        //奔奔碰碰BOSS逻辑
+        if (player.s_expert.AttackMode == 1 && player.s_expert.shot_period.eq(40) && player.s_expert.cooldownBoss.boom_boom.lte(0) && hasExpertEndlessUpgrade(74)) player.s_expert.healthBoss.boom_boom[1] = player.s_expert.healthBoss.boom_boom[1].sub(1)
+        if (player.s_expert.AttackMode == 1 && player.s_expert.shot_period.eq(40) && player.s_expert.cooldownBoss.poom_poom.lte(0) && hasExpertEndlessUpgrade(75)) player.s_expert.healthBoss.poom_poom[1] = player.s_expert.healthBoss.poom_poom[1].sub(1)
+        
+        if (player.s_expert.healthBoss.boom_boom[1].lte(0) && player.s_expert.healthBoss.boom_boom[0].gt(0)) player.s_expert.healthBoss.boom_boom[0] = player.s_expert.healthBoss.boom_boom[0].sub(1),
+        player.s_expert.healthBoss.boom_boom[1] = d(5),
+        player.s_expert.cooldownBoss.boom_boom = d(3)
+        
+        if (player.s_expert.healthBoss.poom_poom[1].lte(0) && player.s_expert.healthBoss.poom_poom[0].gt(0)) player.s_expert.healthBoss.poom_poom[0] = player.s_expert.healthBoss.poom_poom[0].sub(1),
+        player.s_expert.healthBoss.poom_poom[1] = d(5),
+        player.s_expert.cooldownBoss.poom_poom = d(6)
+        
+        if (player.s_expert.AttackMode == 1 && player.s_expert.healthBoss.boom_boom[0].lte(0)) player.s_expert.boom_boom = player.s_expert.boom_boom.add(tmp.s_expert.multBoomBoom)
+        if (player.s_expert.AttackMode == 1 && player.s_expert.healthBoss.poom_poom[0].lte(0)) player.s_expert.poom_poom = player.s_expert.poom_poom.add(tmp.s_expert.multPoomPoom)
+
+        if (player.s_expert.healthBoss.boom_boom[0].lte(0)) player.s_expert.healthBoss.boom_boom[0] = d(3)
+        if (player.s_expert.cooldownBoss.boom_boom.gt(0)) player.s_expert.cooldownBoss.boom_boom = player.s_expert.cooldownBoss.boom_boom.sub(tick)
+        if (player.s_expert.cooldownBoss.boom_boom.lt(0)) player.s_expert.cooldownBoss.boom_boom = d(0)
+
+        if (player.s_expert.healthBoss.poom_poom[0].lte(0)) player.s_expert.healthBoss.poom_poom[0] = d(3)
+        if (player.s_expert.cooldownBoss.poom_poom.gt(0)) player.s_expert.cooldownBoss.poom_poom = player.s_expert.cooldownBoss.poom_poom.sub(tick)
+        if (player.s_expert.cooldownBoss.poom_poom.lt(0)) player.s_expert.cooldownBoss.poom_poom = d(0)
+
+        if (player.s_expert.cooldownSwitching.gt(0)) player.s_expert.cooldownSwitching = player.s_expert.cooldownSwitching.sub(tick)
+        if (player.s_expert.cooldownSwitching.lt(0)) player.s_expert.cooldownSwitching = d(0)
+
+        if (player.s_expert.AttackMode == 1) player.s_expert.shot_period = player.s_expert.shot_period.add(1)
+        else player.s_expert.shot_period = d(1)
+        if (player.s_expert.shot_period.gt(40)) player.s_expert.shot_period = d(1)
+        },
+        bars: {
+            healthBoomBoom: {
+                direction: RIGHT,
+                width: 420,
+                height: 50,
+                display() {return `Boom Boom's health: ${formatWhole(player.s_expert.healthBoss.boom_boom[0])}/3 stacks, ${formatWhole(player.s_expert.healthBoss.boom_boom[1])}/5 ❤`},
+                progress() { return player.s_expert.healthBoss.boom_boom[0].sub(1).times(5).add(player.s_expert.healthBoss.boom_boom[1]).div(15) },
+                unlocked() {return hasSEendlessUpgrade(22)},
+                fillStyle() {return {"background-color":"#00ff00"}},
+                baseStyle() {return {"background-color":"#ff0000"}},
+                textStyle() {return {"color":"#000000"}}
+            },
+            healthPoomPoom: {
+                direction: RIGHT,
+                width: 420,
+                height: 50,
+                display() {return `Poom Poom's health: ${formatWhole(player.s_expert.healthBoss.poom_poom[0])}/3 stacks, ${formatWhole(player.s_expert.healthBoss.poom_poom[1])}/5 ❤`},
+                progress() { return player.s_expert.healthBoss.poom_poom[0].sub(1).times(5).add(player.s_expert.healthBoss.poom_poom[1]).div(15) },
+                unlocked() {return hasExpertEndlessUpgrade(75)},
+                fillStyle() {return {"background-color":"#00ff00"}},
+                baseStyle() {return {"background-color":"#ff0000"}},
+                textStyle() {return {"color":"#000000"}}
+            },
+        },
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        ["display-text", () => "There is a 1 minute cooldown for gaining Super Expert Endless Clears."],
+        ["display-text", () => `Cooldown: ${format(player.s_expert.cooldown, 1)}/60.0s.`],
+        ["display-text", () => `Row 14 doesn't reset row 13 but resets Expert Endless Clear amount.`],
+        ["display-text", () => `You have ` +format(player.expert.points) + ` Expert Endless Clears`],
+        ["display-text", () => `Your record of Super Expert Endless Clears is ` + format(player.s_expert.best)],
+        ["microtabs", "stuff"],
+        ["blank", "65px"],
+    ],
+    microtabs: {
+        stuff: {
+            "Upgrades": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    ["raw-html", () => `<h4 style="opacity:.5">There are 4 different difficulties of endless challenges. Super Expert endless is the fourth difficulty.<br>When you start a new run, you would have 30 lives. It's nearly impossible to playing it infinitely, but it's still possible to make the lives to max. <br>Many courses here has an insane difficulty. It requires your many advanced skills and more luck. <br>Having a gold Supert Endless medal is a symbol of master.`],
+                    ["upgrades", [1,2,3,4,5,6,7,8,9]]
+                ]
+            },
+            "Milestones": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    "milestones",
+                ]                
+            },
+            "Lava": {
+                unlocked() {return hasSEendlessUpgrade(15)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        return `You have ${textStyle_h2(format(player.s_expert.lava)+"/"+format(player.s_expert.lavacap), 'ffbf16')} Lava (+${format(tmp.s_expert.lavaGain)}/sec)<br>
+                        You can gain Lava when No Damage Challenge tab in Easy Endless has a random theme of castle<br>
+                        Lava cap is at ${format(player.s_expert.lavacap)}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        let logbase = d(2)
+                        let powbase1 = d(2.5)
+                        if (hasSEendlessUpgrade(25)) logbase = logbase.sub(upgradeEffect('s_expert', 25))
+                        if (hasSEendlessUpgrade(33)) powbase1 = d(3)
+                        return `Spending Lava to boost 2nd SE Endless milestone effect. The speed depends on your input<br>
+                        It can't be greater than your Lava amount/10 or below 0<br>
+                        You must have 10s of Lava that can spend or gain no reward<br>
+                        Currently: spending ${format(player.s_expert.lavaSpendInput)} Lava/sec<br>
+                        Formula: (log<sub>${format(logbase)}</sub>(x)+1)<sup>${format(powbase1)}</sup>·(y/10x)<br> (x is the input, y is amount of Lava)<br>
+                        You have a multiplier to Super Expert Endless Clears gain from Lava of ${textStyle_h2(format(upgradeEffect('s_expert', 15))+"x", 'ffbf16')}`
+                    }],
+                    ["text-input", "lavaSpendInput", { 
+                        "color": "var(--color)", 
+                        "width": "300px",
+                        "text-align": "left",
+                        "font-size": "20px",
+                        "border": "2px solid #ffffff", 
+                        "background": "var(--background)", 
+                    }],
+                    "blank",
+                    ["clickables", [1]]
+                ]                
+            },
+            "Poison": {
+                unlocked() {return hasSEendlessUpgrade(23)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        return `You have ${textStyle_h2(format(player.s_expert.poison)+"/"+format(player.s_expert.poisoncap), 'fc2bf0')} Poison (+${format(tmp.s_expert.poisonGain)}/sec)<br>
+                        You can gain Poison when No Damage Challenge tab in Easy Endless has a random theme of jungle (Fact: SM3DW style in SMM2 doesn't have its own night mode)<br>
+                        Poison cap is at ${format(player.s_expert.poisoncap)}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (hasSEendlessUpgrade(31))
+                        return `Your poison multiplies Boom Boom and Poom Poom gain by ${textStyle_h2(format(upgradeEffect('s_expert', 31))+"x", 'fc2bf0')}`
+                    }],
+                ]                
+            },
+            "More Bosses": {
+                unlocked() {return hasExpertEndlessUpgrade(74)},
+                content: [
+                    ["blank", "15px"],
+                    ["microtabs", "bosses"],
+                ]                
+            },
+        },
+        bosses: {
+            "Boom Boom": {
+                unlocked() {return hasExpertEndlessUpgrade(74)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        return `You have defeated ${textStyle_h2(formatWhole(player.s_expert.boom_boom), '6a4fae')} Boom Booms`
+                    }],
+                    ["display-text", function() {
+                        return `Fight against with Boom Booms, you should stomp on it 3 times to defeat it`
+                    }],
+                    "blank",
+                    ["bar", "healthBoomBoom"],
+                    "blank",
+                    ["display-text", function() {
+                        if (player.s_expert.cooldownBoss.boom_boom.gt(0))
+                        return `Boom Boom is in defensive stance, you can't stomp on it or get a damage<br>
+                        Cooldown: ${format(player.s_expert.cooldownBoss.boom_boom, 1)}/3.0s`
+                        else return `Boom Boom is in combat stance, stomping on it to hit for -1 stack!<br>
+                        FIGHT!`
+                    }],
+                    ["clickables", [2]],
+                    "blank",
+                    ["clickables", [3]],
+                    "blank",
+                    ["display-text", function() {
+                        if (hasSEendlessUpgrade(24)) return `Changing attack mode has a cooldown of 30 seconds<br>
+                        Cooldown: ${format(player.s_expert.cooldownSwitching, 1)}/30.0s<br><br>
+                        Shooting mode shoots fireball automatically, -1 ❤ per 2 seconds. And when Boom Boom's ❤ goes to 0, -1 stack and gets 5 ❤ back with its defensive stance`
+                    }],
+                    ["display-text", function() {
+                        return `You can beat ${format(tmp.s_expert.multBoomBoom)} Boom Booms once`
+                    }],
+                    ["display-text", function() {
+                        return `Your Boom Boom multiplies Lava gain and cap by ${textStyle_h2(format(tmp.s_expert.effectBoomBoom)+'x', '6a4fae')}`
+                    }],
+                    ["display-text", function() {
+                        if (hasExpertEndlessUpgrade(75))
+                        return `If you choose shooting mode you can both beat Boom Booms and Poom Pooms in the same time`
+                    }],
+                ]                
+            },
+            "Poom Poom": {
+                unlocked() {return hasExpertEndlessUpgrade(75)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        return `You have defeated ${textStyle_h2(formatWhole(player.s_expert.poom_poom), '6a4fae')} Poom Pooms`
+                    }],
+                    ["display-text", function() {
+                        return `Fight against with Poom Pooms, you should stomp on it 3 times to defeat it`
+                    }],
+                    "blank",
+                    ["bar", "healthPoomPoom"],
+                    "blank",
+                    ["display-text", function() {
+                        if (player.s_expert.cooldownBoss.poom_poom.gt(0))
+                        return `Poom Poom is hidden in the background, you can't stomp on it<br>
+                        Cooldown: ${format(player.s_expert.cooldownBoss.poom_poom, 1)}/6.0s`
+                        else return `Poom Poom is in combat stance, stomping on it to hit for -1 stack!<br>
+                        FIGHT!`
+                    }],
+                    ["clickables", [2]],
+                    "blank",
+                    ["clickables", [3]],
+                    "blank",
+                    ["display-text", function() {
+                        if (hasSEendlessUpgrade(24)) return `Changing attack mode has a cooldown of 30 seconds<br>
+                        Cooldown: ${format(player.s_expert.cooldownSwitching, 1)}/30.0s<br><br>
+                        Shooting mode shoots fireball automatically, -1 ❤ per 2 seconds. And when Poom Poom's ❤ goes to 0, -1 stack and gets 5 ❤ back with its skill of hidden in background`
+                    }],
+                    ["display-text", function() {
+                        return `You can beat ${format(tmp.s_expert.multPoomPoom)} Poom Pooms once`
+                    }],
+                    ["display-text", function() {
+                        return `Your Poom Poom multiplies Poison gain and cap by ${textStyle_h2(format(tmp.s_expert.effectPoomPoom)+'x', '6a4fae')}`
+                    }],
+                    ["display-text", function() {
+                        return `If you choose shooting mode you can both beat Boom Booms and Poom Pooms in the same time`
+                    }],
+                ]                
+            },
+        },
+    },
+})
+// 第二十八层：多人过关 (Multiplayer Co-op) Res: Co-op Clears
+addLayer("coop", {
+    startData() { return {                  // startData is a function that returns default data for a layer. 
+        unlocked: true,                     // You can add more variables here to add them to your layer.
+        points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+    }},
+
+    color: "#FFCF03",                       // The color for this layer, which affects many elements.
+    resource: "Multiplayer Co-op Clears",            // The name of this layer's main prestige resource.
+    row: 14,                                 // The row this layer is on (0 is the first row).
+    position: 0,
+    symbol: "Coop",
+
+    baseResource: "Mario",                 // The name of the resource your prestige gain is based on.
+    baseAmount() { return player.mario.points },  // A function to return the current amount of baseResource.
+
+    requires: new Decimal(1.4e28),              // The amount of the base needed to  gain 1 of the prestige currency.
+                                            // Also the amount required to unlock the layer.
+    canReset() {
+        return player.mario.points.gte(1.4e28) && player.expert.points.gte(1e102) && player.s_expert.points.gte(1e24)
+    },  
+                                            
+    type: "normal",                         // Determines the formula used for calculating prestige currency.
+    base: d(20),
+    exponent: 0.5,                          // "normal" prestige gain is (currency^exponent).
+
+    gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        let m = new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        return m
+    },
+    gainExp() {                             // Returns the exponent to your gain of the prestige resource.
+        return new Decimal(1)
+    },
+
+    layerShown() { return hasNormalAchievement(203) },          // Returns a bool for if this layer's node should be visible in the tree.
+
+    upgrades: {
+        // Look in the upgrades docs to see what goes here!
+    },
+    milestones: {
+        0: {
+            requirementDescription: "Get 1 Multiplayer Co-op Clear",
+            effectDescription: "10x Lava, Poison, Boom Booms and Poom Pooms gain and keep Super Expert Endless milestones on row 15 reset.",
+            done() { return player.coop.points.gte(1) },
+        },
+    },
+
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        ["display-text", () => `You only can reset for this layer after getting ${format(1e102)} Expert Endless Clears and ${format(1e24)} SE Endless Clears`],
+        ["display-text", () => `You have ` +format(player.mario.points) + ` Mario`],
+        ["display-text", () => `You have ` +format(player.expert.points) + ` Expert Endless Clears`],
+        ["display-text", () => `You have ` +format(player.s_expert.points) + ` Super Expert Endless Clears`],
+        ["display-text", () => `Your best amount of Multiplayer Co-op Clears is ` + format(player.coop.best)],
+        ["microtabs", "stuff"],
+        ["blank", "65px"],
+    ],
+    microtabs: {
+        stuff: {
+            "Upgrades": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    ["raw-html", () => `<h4 style="opacity:.5">Multiplayer Co-op is in Network Play. Meet other 3 players and cooperate to clear a course!`],
+                    ["upgrades", [1,2,3,4,5,6,7,8,9]]
+                ]
+            },
+            "Milestones": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    ["raw-html", () => `<h4 style="opacity:.5">Multiplayer Co-op layer resets Super Expert Endless layer, keeps Expert Endless layer.`],
+                    "milestones",
                 ]                
             }, 
         },
@@ -12000,19 +16378,21 @@ addLayer("normal", {
 
 
 
-// 第二十六层：困难耐力挑战
-// 第二十七层：超难耐力挑战
-// 第二十八层：多人过关
-// 第二十九层：多人对战
-// 第三十层：标准风格关卡
-// 第三十一层：跑酷关卡
-// 第三十二层：微操关卡
-// 第三十三层：Kaizo关卡
-// 第三十四层：时间杀关卡
-// 第三十五层：解谜关卡
-// 第三十六层：工艺关卡
-// 第三十七层：热垃圾关卡
-// 第三十八层：Maker Teams
-// 第三十九层：马造速通活动
-// 第四十层：谁是多人闸总王
-// 第四十一层：The End?
+
+
+
+// addLayer("coop",{})
+// 第二十九层：多人对战 (Multiplayer Versus) Res: Versus Rating
+// 第三十层：标准风格关卡 (Regular Design Courses)
+// 第三十一层：跑酷关卡 (Speedrun/Parkour Courses)
+// 第三十二层：微操关卡 (Precision Courses)
+// 第三十三层：Kaizo关卡 (Kaizo Courses)
+// 第三十四层：时间杀关卡 (Time Attack Courses)
+// 第三十五层：解谜关卡 (Puzzle Courses)
+// 第三十六层：工艺关卡 (Troll Courses)
+// 第三十七层：热垃圾关卡 (Hot Garbage Courses)
+// 第三十八层：工匠点数 (Maker Points)
+// 第三十九层：Maker Teams (#TeamShell, #TeamPrecision, #LetoSquad, #Team0%... etc)
+// 第四十层：马造速通活动 (SGDQ, AGDQ, TNA)
+// 第四十一层：谁是多人闸总王 (Online Versus Tournments)
+// 第四十二层：The End?
