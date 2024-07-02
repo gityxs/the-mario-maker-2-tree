@@ -173,6 +173,8 @@ var systemComponents = {
 			</tr> 
 			<tr>
                 <td><button class="opt" onclick="changeNotation()">Notation: {{ player.notation }}</button></td>
+				<td><button class="opt" onclick="changeEndgameShown()">Show Endgame (Spoiler): {{ options.endgameShown?"ON":"OFF" }}</button></td>
+				<td><button class="opt" onclick="">Placeholder</button></td>
 			</tr>
 
         </table>`
