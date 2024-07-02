@@ -12950,7 +12950,7 @@ addLayer("normal", {
         3: {
             requirementDescription: "1 month in 2nd Normal Endless upgrade",
             effectDescription: "Auto-Mario Courses also affact Normal Endless Clear.",
-            done() { return tmp.normal.upgrades[12].time.gte(2592000) },
+            done() { return tmp.normal.upgrades[12].time.gte(2592000) && hasUpgrade('normal', 12)},
         },
         4: {
             requirementDescription: "100 Auto-Mario Courses",
