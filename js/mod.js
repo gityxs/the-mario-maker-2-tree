@@ -13,17 +13,28 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.9 (2024/05/12)",
-	name: "So Cute! Toadette!",
+	num: "0.10 (2024/07/03)",
+	name: "Endless' Endgame",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>v0.10 (2024/07/03)</h3><br>
+		- Endgame: ee1.300e26 cleared courses and with 28th layer unlocked.<br>
+		- Added 3 layers and resources for them.<br>
+		- More upgrades, buyables, minigames... etc.<br>
+		- You can now overpower 8 milestones!<br>
+		- Added 13 achievements.<br>
+		- Added 1 secret achievement.<br>
+		- Statistics layer now displays every important resources.<br>
+		- You can show or hide endgame goal text. (Default is OFF)<br>
+		- If you modify devSpeed to greater than 1 your save will be marked for cheating. (Doesn't affact anything, you can play the game as normal with the mark)<br>
+		- Support BEAF notation.<br>
 	<h3>v0.9 (2024/05/12)</h3><br>
 		- Endgame: e1.000e500,000 cleared courses.<br>
 		- Added 3 layers and resources for them.<br>
 		- More upgrades, buyables, minigames... etc.<br>
 		- Added 1 theme.<br>
-		- Added 15 achievemnets.<br>
+		- Added 15 achievements.<br>
 		- Added secret achievements, here is 7 secret achievements now.<br>
 		- Support hyper-E and letter notations.<br>
 		- Extend Standard notation to 999th tier-8 illion.<br>
@@ -115,6 +126,10 @@ function canGenPoints(){
 }
 
 // Calculate points/sec!
+function inExpertBossChallenge() {
+	if (inChallenge('expert', 11) || inChallenge('expert', 12) || inChallenge('expert', 21) || inChallenge('expert', 22) || inChallenge('expert', 31) || inChallenge('expert', 32) || inChallenge('expert', 41)) return true
+}
+
 function getPointGen() {
 	if(!canGenPoints())
 		return new Decimal(0)
@@ -145,26 +160,61 @@ function getPointGen() {
 	else if (inChallenge('master_sword', 11) && hasUpgrade('master_sword', 45)) gain = gain.max(1).pow(1e-9).max(1)
 	else if (inChallenge('master_sword', 11)) gain = gain.max(1).pow(1e-10).max(1)
 	if (gain.gte(player.hardcap)) gain = new Decimal(player.hardcap)
-	return gain
+
+	//困难团boss挑战中的过关数获取
+	let gainInExpertBossChallenge = new Decimal(0)
+	gainInExpertBossChallenge = player.expert.points
+	if (hasUpgrade('expert', 14)) gainInExpertBossChallenge = gainInExpertBossChallenge.times(upgradeEffect('expert', 14))
+	if (hasUpgrade('expert', 31)) gainInExpertBossChallenge = gainInExpertBossChallenge.times(upgradeEffect('expert', 31))
+	if (hasUpgrade('expert', 42)) gainInExpertBossChallenge = gainInExpertBossChallenge.times(expertBossMagicEffect('morton'))
+	if (hasSEendlessMilestone(1)) gainInExpertBossChallenge = gainInExpertBossChallenge.pow(milestoneEffect('s_expert', 1))
+	if (hasUpgrade('super_acorn', 112)) gainInExpertBossChallenge = gainInExpertBossChallenge.times(upgradeEffect('super_acorn', 112))
+		//最终获取
+	if (!inExpertBossChallenge()) return gain
+	if (inExpertBossChallenge()) return gainInExpertBossChallenge
 }
 
 // You can add non-layer related variables that should to into "player" and be saved here, along with default values
 function addedPlayerData() { return {
+	notation: "Scientific",
 	lgpoints: new Decimal (0),
 	hardcap: new Decimal("e1.798e308"),
 	smm1: "RIP SMM1 2024 Apr 9th",
 	yu_ayasaki: "jangpu!",
 	last_first_clear_smm1: "Trimming the Herbs",
+	cheat: false,
+	devSpeed: 1,
 }}
 
 // Display extra things at the top of the page
+
+var cheat = false
+var cheat1 = false
+var cheat2 = false
+var cheat3 = false
+var cheat4 = false
+var cheat5 = false
+var cheat6 = false
+var cheat7 = false
+var cheat8 = false
+var cheat9 = false
+
 var displayThings = [
-	"<br>Endgame: e1e500000 Cleared Courses"	
+	function() {
+		let endgameText = `<br>Endgame: ${format("ee1.3e26")} Cleared Courses and the 28th layer unlocked<br>`
+		let e = ""
+		if (options.endgameShown) e = endgameText
+		if (!options.endgameShown) e = ""
+		let cheatText = "<h4 style='color: #ff0000; text-shadow: 0 0 10px #ff0000'>This Save is Cheated!</h4>"
+		if (!cheat) return e
+		if (cheat) return e + cheatText
+	}	
 ]
+
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("e1e500000"))
+	return player.points.gte(new Decimal("ee1.3e26")) && hasNormalAchievement(203)
 }
 
 
@@ -184,4 +234,20 @@ function maxTickLength() {
 // Use this if you need to undo inflation from an older version. If the version is older than the version that fixed the issue,
 // you can cap their current resources with this.
 function fixOldSave(oldVersion){
+}
+
+function textStyle_h2(text, color='ffffff') {
+	return `<h2 style='color: #${color}; text-shadow: 0 0 10px #${color}'>${text}</h2>`
+}
+
+function textStyle_h3(text, color='ffffff') {
+	return `<h3 style='color: #${color}; text-shadow: 0 0 10px #${color}'>${text}</h3>`
+}
+
+function textStyle_h4(text, color='ffffff') {
+	return `<h4 style='color: #${color}; text-shadow: 0 0 10px #${color}'>${text}</h4>`
+}
+
+function textStyle_b(text, color='ffffff') {
+	return `<b style='color: #${color}; text-shadow: 0 0 10px #${color}'>${text}</b>`
 }
