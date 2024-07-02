@@ -14,10 +14,11 @@ function getStartOptions() {
 		forceOneTab: false,
 		oldStyle: false,
 		tooltipForcing: true,
+		endgameShown: false,
 	}
 }
 
-let notations = ['Scientific','Engineering','Standard','Mixed Scientific','Mixed Engineering','Hyper-E','Letters']
+let notations = ['Scientific','Engineering','Standard','Mixed Scientific','Mixed Engineering','Hyper-E','Letters','BEAF']
 
 function changeNotation() {
 	player.notation = notations[(notations.indexOf(player.notation) + 1) % notations.length]
@@ -81,4 +82,8 @@ function milestoneShown(layer, id) {
 			break;
 	}
 	return false;
+}
+function changeEndgameShown() {
+	if (options.endgameShown) return options.endgameShown = false
+	if (!options.endgameShown) return options.endgameShown = true
 }
