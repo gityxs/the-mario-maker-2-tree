@@ -244,7 +244,7 @@ function standard(decimal, precision){
 	let t3 = t3illion.div(Decimal.pow(1e3,t4illion.sub(2))).floor().toNumber()
 	if (t3illion.lt(1e3)) t3 = t3illion.toNumber()
 	let t4 = t4illion.div(Decimal.pow(1e3,t5illion.sub(2))).floor().toNumber()
-    	if (t4illion.lt(1e3)) t4 = t4illion.toNumber()
+    if (t4illion.lt(1e3)) t4 = t4illion.toNumber()
 	let t5 = t5illion.div(Decimal.pow(1e3,t6illion.sub(2))).floor().toNumber()
 	if (t5illion.lt(1e3)) t5 = t5illion.toNumber()
 	let t6 = t6illion.div(Decimal.pow(1e3,t7illion.sub(2))).floor().toNumber()
@@ -341,6 +341,9 @@ function format(decimal, precision=3) {
 	else if (player.notation == 'Cancer') {
 		return letter(decimal, precision, ['😠', '🎂', '🎄', '💀', '🍆', '🐱', '🌈', '💯', '🍦', '🎃', '💋', '😂', '🌙', '⛔', '🐙', '💩', '❓', '☢', '🙈', '👍', '☂', '✌', '⚠', '❌', '😋', '⚡'])
 	}
+	else if (player.notation == 'BEAF') {
+		return formatBEAF(decimal)
+	}
 	else return formatSciEng(decimal, precision)
 }
 
@@ -388,11 +391,46 @@ function formatSciEng(decimal, precision) {
 	} else return regularFormat(decimal, precision)
 }
 
+function formatBEAF(decimal) {
+	decimal = new Decimal(decimal)
+	if (isNaN(decimal.sign)||isNaN(decimal.layer)||isNaN(decimal.mag)) {
+		player.hasNaN = true;
+		console.log(decimal)
+		Decimal(0)
+		for (i in player){
+			if (player[i] == undefined) continue
+			if (player[i].points != undefined) {
+				if (isNaN(player[i].points.mag)) console.log(i + "'s points are NaN")
+			}
+		}
+		
+		return "NaN"
+	}
+	if (decimal.mag == Number.POSITIVE_INFINITY) return "Infinity"
+	if (decimal.gte(1e-3) && decimal.lte(9e15)) return formatSciEng(decimal, 3)
+	if (decimal.gte(9e15) && decimal.lte("ee9")) return "{10, " + commaFormat(decimal.log(10), 4) + "}"
+	if (decimal.gte("ee9") && decimal.lte("ee12")) return "{10, " + commaFormat(decimal.log(10), 0) + "}"
+	if (decimal.gte("ee12") && decimal.lte("e9e15")) return "{10, " + formatSciEng(decimal.log(10), 3) + "}"
+	if (decimal.gte("e9e15") && decimal.lte("eee9")) return "{10, {10, " + commaFormat(decimal.log(10).log(10), 4) + "}}"
+	if (decimal.gte("eee9") && decimal.lte("eee12")) return "{10, {10, " + commaFormat(decimal.log(10).log(10), 0) + "}}"
+	if (decimal.gte("eee12") && decimal.lte("ee9e15")) return "{10, {10, " + formatSciEng(decimal.log(10).log(10), 3) + "}}"
+	if (decimal.gte("ee9e15") && decimal.lte("eeee9")) return "{10, {10, {10, " + commaFormat(decimal.log(10).log(10).log(10), 4) + "}}}"
+	if (decimal.gte("eeee9") && decimal.lte("eeee12")) return "{10, {10, {10, " + commaFormat(decimal.log(10).log(10).log(10), 0) + "}}}"
+	if (decimal.gte("eeee12") && decimal.lte("eee9e15")) return "{10, {10, {10, " + formatSciEng(decimal.log(10).log(10).log(10), 3) + "}}}"
+	if (decimal.gte("eee9e15") && decimal.lte("10^^1e9")) return "{10, " + commaFormat(decimal.slog(10), 4) + ", 2}"
+	if (decimal.gte("10^^1e9") && decimal.lte("10^^1e12")) return "{10, " + commaFormat(decimal.slog(10), 0) + ", 2}"
+	if (decimal.gte("10^^1e12") && decimal.lte("10^^9e15")) return "{10, " + formatSciEng(decimal.slog(10), 3) + ", 2}"
+	if (decimal.gte("10^^9e15") && decimal.lte("10^^1.79769313e308")) return "{10, {10, " + commaFormat(decimal.slog(10).log(10), 4) + "}, 2}"
+	if (decimal.abs().lt(1e-3) && decimal.abs().gt(0)) return "1/" + formatBEAF(decimal.recip())
+	if (decimal.lt(0)) return "-" + formatBEAF(decimal.neg())
+	if (decimal.eq(0)) return formatSciEng(0)
+}
 
 function formatWhole(decimal) {
     decimal = new Decimal(decimal)
     if (decimal.gte(1e9)) return format(decimal, 3)
     if (decimal.lte(0.99) && !decimal.eq(0)) return format(decimal, 3)
+	if (player.notation == 'BEAF' && decimal.lte(1e9) && decimal.gte(0.99)) return formatSciEng(decimal, 0)
     return format(decimal, 0)
 }
 
@@ -458,10 +496,10 @@ function formatTimeLong(s) {
 	if (years.gte("eee56") && years.lt("eee69")) return format(years.log10().log10().div(1e56)) + " new big bangs"
 	if (years.gte("ee120") && years.lt("ee129")) return format(years.log10().div(1e120)) + " big rips"
 	if (years.gte("ee9")) return format(mlt[0].div(arv1[id])) + " " + mverse +"verse ages"
-	let scale1 = [5.39121e-44,1e-30,1e-27,1e-24,1e-21,1e-18,1e-15,1e-12,1e-9,1e-6,0.001,1,60,3600,86400,31556952,31556952e3,31556952e9,31556952e40,31556952e100]
+	let scale1 = [5.39121e-44,1e-30,1e-27,1e-24,1e-21,1e-18,1e-15,1e-12,1e-9,1e-6,0.001,1,60,3600,86400,31556952,31556952e3,31556952e6,31556952e9,31556952e12,31556952e15,31556952e18,31556952e21,31556952e24,31556952e27,31556952e30,31556952e40,31556952e100]
 	let scale2 = [" Planck Times"," quectoseconds"," rontoseconds"," yoctoseconds"," zeptoseconds"," attoseconds"," femtoseconds"
 	," picoseconds"," nanoseconds"," microseconds"," milliseconds"," seconds"," minutes"
-	," hours", " days", " years", " millenia", " aeons", " degenerate eras", " black hole eras"]
+	," hours", " days", " years", " millenniums", " megaannums" ," gigaannums" ," teraannums" ," petaannums" ," exaannums" ," zettaannums" ," yottaannums" ," ronnaannums" ," quettaannums" ," degenerate eras", " black hole eras"]
 	let id2 = 0;
 		if (s.gte(scale1[scale1.length - 1])) id2 = scale1.length - 1;
 		else {
