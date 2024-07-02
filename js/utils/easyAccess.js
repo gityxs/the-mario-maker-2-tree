@@ -105,3 +105,7 @@ function buyableCanAfford(layer, id) {
 function buyableAuto(layer, id) {
 	return (tmp[layer].buyables[id].canAuto)
 }
+
+function milestoneOverpowered(layer, id) {
+	return (tmp[layer].milestones[id].overpowered)
+}
