@@ -15999,7 +15999,7 @@ addLayer("s_expert", {
     poisonGain() {
         let l = new Decimal(0)
         if (player.easy.random_theme.eq(7)) l = new Decimal(1)
-        if (hasExpertEndlessUpgrade(74)) l = l.times(tmp.s_expert.effectPoomPoom)
+        if (hasExpertEndlessUpgrade(75)) l = l.times(tmp.s_expert.effectPoomPoom)
         if (hasSEendlessUpgrade(34)) l = l.times(4)
         if (hasMilestone('coop', 0)) l = l.times(10)
         return l
