@@ -13,11 +13,18 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.10 (2024/07/03)",
-	name: "Endless' Endgame",
+	num: "0.11 (2024/10/31)",
+	name: "Network Play",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>v0.11 (2024/10/31)</h3><br>
+		- Endgame: ee1.300e156 cleared courses, unlock total 110 achievements.<br>
+		- Added 2 layers and resources for them.<br>
+		- You can reach 19th layer of Toad tier.<br>
+		- Added 12 achievements.<br>
+		- Make it looks better.<br>
+		- You can change how many OoMs shown in commas. (Only for scientific(mixed), engineering(mixed) and standard)<br>
 	<h3>v0.10 (2024/07/03)</h3><br>
 		- Endgame: ee1.300e26 cleared courses and with 28th layer unlocked.<br>
 		- Added 3 layers and resources for them.<br>
@@ -184,6 +191,8 @@ function addedPlayerData() { return {
 	last_first_clear_smm1: "Trimming the Herbs",
 	cheat: false,
 	devSpeed: 1,
+	maximumOoMsInCommas: 9,
+	devTest: d(0),
 }}
 
 // Display extra things at the top of the page
@@ -201,7 +210,7 @@ var cheat9 = false
 
 var displayThings = [
 	function() {
-		let endgameText = `<br>Endgame: ${format("ee1.3e26")} Cleared Courses and the 28th layer unlocked<br>`
+		let endgameText = `<br>Endgame: Get 110th Achievement, ~${format("ee1e156")} Cleared Courses<br>`
 		let e = ""
 		if (options.endgameShown) e = endgameText
 		if (!options.endgameShown) e = ""
@@ -214,9 +223,8 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("ee1.3e26")) && hasNormalAchievement(203)
+	return hasNormalAchievement(225)
 }
-
 
 
 // Less important things beyond this point!
@@ -236,18 +244,18 @@ function maxTickLength() {
 function fixOldSave(oldVersion){
 }
 
-function textStyle_h2(text, color='ffffff') {
-	return `<h2 style='color: #${color}; text-shadow: 0 0 10px #${color}'>${text}</h2>`
+function textStyle_h2(text, color='ffffff', shadowcolor=color) {
+	return `<h2 style='color: #${color}; text-shadow: 0 0 10px #${shadowcolor}'>${text}</h2>`
 }
 
 function textStyle_h3(text, color='ffffff') {
 	return `<h3 style='color: #${color}; text-shadow: 0 0 10px #${color}'>${text}</h3>`
 }
 
-function textStyle_h4(text, color='ffffff') {
-	return `<h4 style='color: #${color}; text-shadow: 0 0 10px #${color}'>${text}</h4>`
+function textStyle_h4(text, color='ffffff', shadowcolor=color) {
+	return `<h4 style='color: #${color}; text-shadow: 0 0 10px #${shadowcolor}'>${text}</h4>`
 }
 
-function textStyle_b(text, color='ffffff') {
-	return `<b style='color: #${color}; text-shadow: 0 0 10px #${color}'>${text}</b>`
+function textStyle_b(text, color='ffffff', shadowcolor=color) {
+	return `<b style='color: #${color}; text-shadow: 0 0 10px #${shadowcolor}'>${text}</b>`
 }
