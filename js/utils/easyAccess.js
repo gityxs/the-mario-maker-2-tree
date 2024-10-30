@@ -22,6 +22,10 @@ function challengeCompletions(layer, id) {
 	return (player[layer].challenges[id])
 }
 
+function challengeGoal(layer, id) {
+	return (tmp[layer].challenges[id].goal)
+}
+
 function getBuyableAmount(layer, id) {
 	return (player[layer].buyables[id])
 }
@@ -108,4 +112,8 @@ function buyableAuto(layer, id) {
 
 function milestoneOverpowered(layer, id) {
 	return (tmp[layer].milestones[id].overpowered)
+}
+
+function skillReward(id) {
+	return (tmp.versus.skillReward[id].reward)
 }
