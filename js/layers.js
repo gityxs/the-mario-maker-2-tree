@@ -2,11 +2,17 @@ decimalElephant = new Decimal(74751)
 decimalCrow = new Decimal(501761)
 decimalPi = new Decimal(3.141592653589793)
 decimalNatral = new Decimal(2.71828)
-decimalInfinity = new Decimal("1.79769313e308")
+decimalInfinity = new Decimal(Number.MAX_VALUE)
 decimalGoogol = new Decimal(1e100)
 decimalGoogolplex = new Decimal("ee100")
 decimalDecker = new Decimal("10^^10")
 decimalGiggol = new Decimal("10^^100")
+
+
+console.log("You opened the console. Do you want to cheat? I don't think it's good for you. Also, if you modify devSpeed to greater than 1 your save will be marked for cheating.")
+console.log("It depends on your consciousness, and no punishment on cheating. Feel free on playing this game!")
+console.log("%c[?]%c🍄----------The Mario Maker 2 Tree----------🍄%c[?]", "color:orange","","color:orange")
+
 function isDInfinity(decimal) {
     decimal = new Decimal(decimal)
     if (decimal.mag == Infinity || decimal.sign == Infinity || decimal.layer == Infinity)
@@ -32,7 +38,19 @@ function hasSecretAchievement(id) {
 addLayer("achievements", {
     name: "achievements",
     symbol: "🏆",
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         cc: new Decimal(0),
@@ -67,6 +85,7 @@ addLayer("achievements", {
         cheat8 = true,
         cheat9 = true
         player.achievements.cc = player.points
+        player.lgpoints = player.points.max(1).log(10)
     },
     achievements: {
         11: {
@@ -857,12 +876,108 @@ addLayer("achievements", {
                 return player.achievements.points = player.achievements.points.add("ee1.45e26")
             },
         },
+        204: {
+            name: "The top",
+            tooltip: "Get 1e30 Super Expert Endless Clears. <br> Reward: ee1e27 AP, you can keep Boom Booms and Poom Pooms amount of once beaten at least.",
+            done() {return player.s_expert.points.gte(1e30)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("ee1e27")
+            },
+        },
+        205: {
+            name: "Everyone's battle",
+            tooltip: "Unlock Multiplayer Versus layer. <br> Reward: ee1e28 AP",
+            done() {return hasUpgrade('coop', 15)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("ee1e28")
+            },
+        },
+        211: {
+            name: "Win an 1v1 first",
+            tooltip: "Reach Versus Rating 70. <br> Reward: ee1e31 AP",
+            done() {return player.versus.points.gte(75)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("ee1e31")
+            },
+        },
+        212: {
+            name: "Who's his mother?",
+            tooltip: "Complete challenge 'Bowser Jr.' 3 times. <br> Reward: ee1e34 AP, 5x lava gain.",
+            done() {return d(challengeCompletions('coop', 11)).gte(3)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("ee1e34")
+            },
+        },
+        213: {
+            name: "Ahh wooah!",
+            tooltip: "Complete challenge 'Bowser Jr.' 20 times. <br> Reward: ee1e37 AP",
+            done() {return d(challengeCompletions('coop', 11)).gte(20)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("ee1e37")
+            },
+        },
+        214: {
+            name: "Rank up!",
+            tooltip: "Reach Versus Rating 1000. <br> Reward: ee1e40 AP.",
+            done() {return player.versus.points.gte(1000)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("ee1e40")
+            },
+        },
+        215: {
+            name: "Ikillion",
+            tooltip: "Get ee3e60 Cleared Courses. <br> Reward: ee3e45 AP.",
+            done() {return player.points.gte('ee3e60')},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("ee3e45")
+            },
+        },
+        221: {
+            name: "I hate lags",
+            tooltip: "Player a VS comptition in lag. <br> Reward: ee5e50 AP.",
+            done() {return player.versus.lag.gte(1)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("ee5e50")
+            },
+        },
+        222: {
+            name: "One pow block, three Bowsers",
+            tooltip: "Get 60 Pow Blocks. <br> Reward: ee6e57 AP.",
+            done() {return player.s_expert.pow_block.gte(60)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("ee6e57")
+            },
+        },
+        223: {
+            name: "Googolduplex",
+            tooltip: "Get ee1e100 Cleared Courses. <br> Reward: ee6.8686e68 AP.",
+            done() {return player.points.gte("ee1e100")},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("ee6.8686e68")
+            },
+        },
+        224: {
+            name: "Coursebot",
+            tooltip: "Unlock Themed Course layer. <br> Reward: ee7.9797e79 AP.",
+            done() {return tmp.themed.layerShown},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("ee7.9797e79")
+            },
+        },
+        225: {
+            name: "Upload limit",
+            tooltip: "Upload 100 Themed Courses. <br> Reward: ee1e100 AP.",
+            done() {return player.themed.points.gte(100)},
+            onComplete() {
+                return player.achievements.points = player.achievements.points.add("ee1e100")
+            },
+        },
     },
     upgrades: {
         11: {
             title: "希望不会有BUG",
              description: "但愿吧。",
-            cost: new Decimal("10^^1666390"),
+            cost: new Decimal("e^501761 5.017"),
         },
     },
 })
@@ -870,7 +985,13 @@ addLayer("achievements", {
 addLayer("secret_achievements", {
     name: "secret achievements",
     symbol: "SAc",
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         secretnumber: new Decimal(0),
@@ -1014,7 +1135,13 @@ addLayer("stats", {
     name: "Statistics",
     symbol: "St",
     points: new Decimal(0),
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
     }},
@@ -1025,9 +1152,7 @@ addLayer("stats", {
     tooltip: "Statistics",
 
     layerShown() { return true },          // Returns a bool for if this layer's node should be visible in the tree.
-    update(lgpoints) {
-        player.lgpoints = player.points.max(1).log(10)
-    },
+
     tabFormat: [
         ["microtabs", "stuff"],
         ["blank", "65px"],
@@ -1059,9 +1184,16 @@ addLayer("stats", {
                         else 
                         return "If you wrote 3 numbers a second, it would take you "+ formatTimeLong(player.points.log(10).div(3)) + " to write down your Cleared Courses amount.<br>Also you can get a " + formatWhole(player.points.log(10).div(540).log(4)) + "-win streak in Versus Mode."
                     }],
-                ]
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, white, #cccccc)',
+                        'border-color':'white',
+                        'color':'black',
+                    }
+                },
             },
-            "Resources": {
+            "Currencies": {
                 unlocked() {return true},
                 content: [
                     ["blank", "15px"],
@@ -1468,15 +1600,63 @@ addLayer("stats", {
                         if (hasExpertEndlessUpgrade(75))
                         return `Poom Poom: ${textStyle_h4(format(player.s_expert.poom_poom),'6a4fae')}`
                     }],
+                    ["display-text", function() {
+                        if (player.versus.skill.gte(2.024e10))
+                        return `Pow Block: ${textStyle_h4(format(player.s_expert.pow_block),'7c83f6')}`
+                    }],
                     "blank",
                     ["display-text", function() {
                         if (tmp.coop.layerShown)
                         return `Multiplayer Co-op Clear: ${textStyle_h4(format(player.coop.points),'ffcf03')}`
                     }],
-                ]
+                    ["display-text", function() {
+                        if (hasUpgrade('coop', 23))
+                        return `Check Point: ${textStyle_h4(format(player.coop.check_point),'0a1416', 'ffffff')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        let ratingcolor = "ffffff"
+                        if (player.versus.points.gte(6000)) ratingcolor = "e9aca9"
+                        if (tmp.versus.layerShown)
+                        return `Versus Rating: ${textStyle_h4(format(player.versus.points)+" ("+versusRank(player.versus.points)+")", ratingcolor)}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('versus', 22))
+                        return `Total experience: ${textStyle_h4(format(player.versus.experienceTotal),'ffcf03')}`
+                    }],
+                    ["display-text", function() {
+                        if (player.toad.tierlayer.gte(13))
+                        return `VS Skill tries: ${textStyle_h4(format(player.versus.skill),'ffcf03')}`
+                    }],
+                    ["display-text", function() {
+                        if (player.toad.tierlayer.gte(15) && player.points.gte('ee3.25e79') || player.versus.lag.gt(0))
+                        return `Lag comptition played: ${textStyle_h4(format(player.versus.lag),'ffcf03')}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (tmp.themed.layerShown)
+                        return `Themed Courses: ${textStyle_h4(format(player.themed.points),'748bff')}`
+                    }],
+
+                    //开发者测试用，请不要将其显示
+                    ["display-text", function() {
+                        let test = format(player.devTest)
+                        return ""
+                    }],
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, red, orange, yellow, lime, cyan, blue, purple, magenta, pink)',
+                        'border-color':'#ffffff',
+                        'color':'black',
+                    }
+                }, 
             },
         },
     },
+    update() {
+        player.devTest = d(10).tetrate(d(player.coop.resetTime).div(1000).add(1))
+    }
 }),
 // 第一层：金币
 function pinkKeyCoinEffect(x) {
@@ -1486,7 +1666,13 @@ addLayer("coin", {
     name: "coin", // This is optional, only used in a few places, If absent it just uses the layer id.
     symbol: "C", // This appears on the layer's node. Default is the id with the first letter capitalized
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
-    startData() { return {
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {
         unlocked: true,
 		points: new Decimal(0),
         pink_key_coin: new Decimal(0),
@@ -1576,6 +1762,12 @@ addLayer("coin", {
                 }
             layerDataReset(this.layer, kept)
         }
+    },
+    componentStyles: {
+        "upgrade"() { return {'border-radius':'10%',
+                              'width':'150px',
+                              'min-height':'150px',
+        } }
     },
     upgrades: {
         11: {
@@ -1832,6 +2024,7 @@ addLayer("coin", {
                 content: [
                     ["blank", "15px"],
                     ["raw-html", () => `<h4 style="opacity:.5">Coin is the basic resource in 2D Mario game. <br> It never has been changed!`],
+                    "blank",
                     ["upgrades", [1,2,3,4,5,6,7,8,9]]
                 ]
                 
@@ -1842,7 +2035,14 @@ addLayer("coin", {
                     ["blank", "15px"],
                     ["display-text", () => "You have <h2 style='color: #ff746f; text-shadow: 0 0 10px #ff746f'>" + format(player.coin.pink_key_coin) + "</h2> Pink Key Coins, multiplying Coin gain by <h2 style='color: #ff746f; text-shadow: 0 0 10px #ff746f'> <br>" + format(player.coin.pink_key_coin.max(1).pow(1.5)) + "x</h2>.<br>"],
                     "buyables"
-                ]
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #ff746f, #c93e27)',
+                        'border-color':'#ff746f',
+                        'color':'black',
+                    }
+                },  
             },
             "Milestones": {
                 unlocked() {return true},
@@ -1859,7 +2059,13 @@ addLayer("super_mushroom", {
     name: "super_mushroom", // This is optional, only used in a few places, If absent it just uses the layer id.
     symbol: "SM", // This appears on the layer's node. Default is the id with the first letter capitalized
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
-    startData() { return {
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {
         unlocked: true,
 		points: new Decimal(0),
     }},
@@ -1906,6 +2112,13 @@ addLayer("super_mushroom", {
                 }
 
         layerDataReset(this.layer, kept)
+    }
+},
+    componentStyles: {
+        "upgrade"() { return {'border-radius':'10%',
+                              'width':'150px',
+                              'min-height':'150px',
+        } 
     }
 },
     upgrades: {
@@ -2029,6 +2242,7 @@ addLayer("super_mushroom", {
                 content: [
                     ["blank", "15px"],
                     ["raw-html", () => `<h4 style="opacity:.5">Super Mushroom upgrades are stronger! <br>Super Mushroom is a kind of Power-ups, first appearance is in SMB1 (1985).`],
+                    "blank",
                     ["upgrades", [1,2,3,4,5,6,7,8,9]]
                 ]
                 
@@ -2070,12 +2284,18 @@ addLayer("fire_flower", {
         */
       },
     effectDescription(){
-    return "multiplying coin gain by " + format(tmp[this.layer].effect)
+    return `multiplying coin gain by ${textStyle_h2(format(tmp[this.layer].effect)+"x", 'ff8d00')}`
     /*
       use format(num) whenever displaying a number
     */
-  },
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    },
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
     }},
@@ -2151,7 +2371,12 @@ addLayer("fire_flower", {
         }
     },
 
-    
+    componentStyles: {
+        "upgrade"() { return {'border-radius':'10%',
+                              'width':'150px',
+                              'min-height':'150px',
+        } }
+    },
     upgrades: {
         11: {
             title: "Press Y to fire attack",
@@ -2257,6 +2482,7 @@ addLayer("fire_flower", {
                 content: [
                     ["blank", "15px"],
                     ["raw-html", () => `<h4 style="opacity:.5">Fire Flower is the first kind of tier 2 power-ups. <br> It can fire attack.`],
+                    "blank",
                     ["upgrades", [1,2,3,4,5,6,7,8,9]]
                 ]
                 
@@ -2273,7 +2499,13 @@ addLayer("fire_flower", {
 })
 // 第四层：无敌星
 addLayer("invincible_star", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         opmtime: new Decimal(0),
@@ -2297,7 +2529,7 @@ addLayer("invincible_star", {
         */
       },
     effectDescription(){
-    return "multiplying cleared courses gain by " + format(tmp[this.layer].effect)
+    return `multiplying Cleared Courses gain by ${textStyle_h2(format(tmp[this.layer].effect)+"x", 'ffb15a')}`
     /*
       use format(num) whenever displaying a number
     */
@@ -2326,7 +2558,12 @@ addLayer("invincible_star", {
     hotkeys: [
         {key: "i", description: "I: Reset for Invincible Stars", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-
+    componentStyles: {
+        "upgrade"() { return {'border-radius':'10%',
+                              'width':'150px',
+                              'min-height':'150px',
+        } }
+    },
     canBuyMax() { return hasMilestone("invincible_star", 2) || hasAchievement('achievements', 61)},
 
     resetsNothing() {return hasAchievement("achievements", 44) || hasAchievement('achievements', 61)},
@@ -2566,7 +2803,13 @@ addLayer("invincible_star", {
 })
 // 第五层：1UP蘑菇
 addLayer("oneup_mushroom", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         sacrifice: new Decimal(0),
@@ -2886,14 +3129,27 @@ addLayer("oneup_mushroom", {
                     }],
                     "clickables",
                     "buyables",
-                ]              
+                ],
+                buttonStyle() {
+                    return {
+                        'background-color':'#9600b1',
+                        'border-color':'#84009d',
+                        'color':'white',
+                    }
+                },             
             },
         },
     },
 })
 // 第六层：弹力球之花
 addLayer("bouncy_ball_flower", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         bouncy_ball: new Decimal(0),
@@ -2981,21 +3237,18 @@ addLayer("bouncy_ball_flower", {
             description: "Unlock Bouncy Ball subtab.",
             cost: new Decimal(1),
             unlocked() {return true},
-            onPurchase() {return player.bouncy_ball_flower.upgrade_bought = player.bouncy_ball_flower.upgrade_bought.add(1)}
         },
         12: {
             title: "Two kinds of flowers",
             description: "Passive gain 100% Fire Flower per second.",
             cost: new Decimal(3),
-            unlocked() {return hasUpgrade('bouncy_ball_flower', 11)},
-            onPurchase() {return player.bouncy_ball_flower.upgrade_bought = player.bouncy_ball_flower.upgrade_bought.add(1)}
+            unlocked() {return hasUpgrade('bouncy_ball_flower', 11) && hasMilestone('bouncy_ball_flower', 2)},
         },
         13: {
             title: "Auto bouncy shots",
             description: "Autobuy 1st Bouncy Ball Flower buyable and buy max.",
             cost: new Decimal(15),
             unlocked() {return hasUpgrade('bouncy_ball_flower', 12)},
-            onPurchase() {return player.bouncy_ball_flower.upgrade_bought = player.bouncy_ball_flower.upgrade_bought.add(1)}
         },
         // Look in the upgrades docs to see what goes here!
         14: {
@@ -3007,49 +3260,42 @@ addLayer("bouncy_ball_flower", {
             return player.bouncy_ball_flower.bouncy_ball.max(0).add(10).log(10).div(45).add(1)
                 },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-            onPurchase() {return player.bouncy_ball_flower.upgrade_bought = player.bouncy_ball_flower.upgrade_bought.add(1)}
         },
         15: {
             title: "Bouncy Ball can't farm lives",
             description: "Unlock two 1UP Mushroom challenges.",
             cost: new Decimal(125),
             unlocked() {return hasUpgrade('bouncy_ball_flower', 14)},
-            onPurchase() {return player.bouncy_ball_flower.upgrade_bought = player.bouncy_ball_flower.upgrade_bought.add(1)}
         },
         21: {
             title: "Grayish-yellow style",
             description: "Double Bouncy Ball Flowers gain.",
             cost: new Decimal(2496),
             unlocked() {return hasChallenge("oneup_mushroom", 12)},
-            onPurchase() {return player.bouncy_ball_flower.upgrade_bought = player.bouncy_ball_flower.upgrade_bought.add(1)}
         },
         22: {
             title: "Mario's gray hat",
             description: "Triple Bouncy Ball Flowers gain.",
             cost: new Decimal(4992),
             unlocked() {return hasUpgrade('bouncy_ball_flower', 21)},
-            onPurchase() {return player.bouncy_ball_flower.upgrade_bought = player.bouncy_ball_flower.upgrade_bought.add(1)}
         },
         23: {
             title: "Luigi's gray hat",
             description: "Quadruple Bouncy Ball Flowers gain.",
             cost: new Decimal(14976),
             unlocked() {return hasUpgrade('bouncy_ball_flower', 22)},
-            onPurchase() {return player.bouncy_ball_flower.upgrade_bought = player.bouncy_ball_flower.upgrade_bought.add(1)}
         },
         24: {
             title: "Toad's gray head",
             description: "Quintuple Bouncy Ball Flowers gain.",
             cost: new Decimal(69904),
             unlocked() {return hasUpgrade('bouncy_ball_flower', 23)},
-            onPurchase() {return player.bouncy_ball_flower.upgrade_bought = player.bouncy_ball_flower.upgrade_bought.add(1)}
         },
         25: {
             title: "Toadette's gray braids",
             description: "Sextuple Bouncy Ball Flowers gain.",
             cost: new Decimal(510541),
             unlocked() {return hasUpgrade('bouncy_ball_flower', 24)},
-            onPurchase() {return player.bouncy_ball_flower.upgrade_bought = player.bouncy_ball_flower.upgrade_bought.add(1)}
         },
         31: {
             title: "Like reflection of light",
@@ -3057,38 +3303,33 @@ addLayer("bouncy_ball_flower", {
             cost: new Decimal(4200000),
             unlocked() {return hasUpgrade('bouncy_ball_flower', 25)},
             effect() {
-                return Decimal.pow(1.5, player.bouncy_ball_flower.upgrade_bought)
+                return Decimal.pow(1.5, d(player.bouncy_ball_flower.upgrades.length).min(15))
                     },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-            onPurchase() {return player.bouncy_ball_flower.upgrade_bought = player.bouncy_ball_flower.upgrade_bought.add(1)}
         },
         32: {
             title: "Get the key beside the corner",
             description: "Generate 1000% Bouncy Ball per second.",
             cost: new Decimal(300000000),
             unlocked() {return hasUpgrade('bouncy_ball_flower', 31)},
-            onPurchase() {return player.bouncy_ball_flower.upgrade_bought = player.bouncy_ball_flower.upgrade_bought.add(1)}
         },
         33: {
             title: "Defeat the boom-boom on the top of the screen",
             description: "Autobuy BBF buyables 2 and 3.",
             cost: new Decimal(410000000),
             unlocked() {return hasUpgrade('bouncy_ball_flower', 32)},
-            onPurchase() {return player.bouncy_ball_flower.upgrade_bought = player.bouncy_ball_flower.upgrade_bought.add(1)}
         },
         34: {
             title: "Is there a new kind of flowers?",
             description: "x510541 1UP Mushroom gain.",
             cost: new Decimal(600000000),
             unlocked() {return hasUpgrade('bouncy_ball_flower', 33)},
-            onPurchase() {return player.bouncy_ball_flower.upgrade_bought = player.bouncy_ball_flower.upgrade_bought.add(1)}
         },
         35: {
             title: "Yes. But it's too early for now",
             description: "Unlock a new layer.",
             cost: new Decimal(1e9),
             unlocked() {return hasUpgrade('bouncy_ball_flower', 34)},
-            onPurchase() {return player.bouncy_ball_flower.upgrade_bought = player.bouncy_ball_flower.upgrade_bought.add(1)}
         },
 },
     clickables: {
@@ -3227,14 +3468,27 @@ addLayer("bouncy_ball_flower", {
                     ["display-text", () => "You have <h2 style='color: #e4e4b2; text-shadow: 0 0 10px #e4e4b2'>" + format(player.bouncy_ball_flower.bouncy_ball) + "</h2> Bouncy Balls, multiplying Super Mushroom gain by <h2 style='color: #e4e4b2; text-shadow: 0 0 10px #e4e4b2'> <br>" + format(player.bouncy_ball_flower.bouncy_ball.max(1).pow(2.35)) + "x</h2>. (Before the exponentional calculation)"],
                     "clickables",
                     "buyables",
-                ]    
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #606040, #e4e4b2)',
+                        'border-color':'#606040',
+                        'color':'black',
+                    }
+                },    
             },
         },
     },
 })
 // 第七层：大蘑菇
 addLayer("big_mushroom", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),
         broken_brick: new Decimal(0), 
@@ -3455,9 +3709,16 @@ addLayer("big_mushroom", {
     },
     milestones: {
         0: {
-            requirementDescription: "Get 510 Broken Bricks",
-            effectDescription: "Unlock 2nd Big Mushroom upgrade.",
+            requirementDescription(){
+                let d = "Get 510 Broken Bricks"
+                if (hasUpgrade('super_acorn', 122)) d = d + " (Overpowered)"
+                return d},
+            effectDescription() {
+                let d = "Unlock 2nd Big Mushroom upgrade."
+                if (hasUpgrade('super_acorn', 122)) d = d + `<br>Overpowered effect: Boost Wing gain based on Big Mushroom<br>Currently: ${format(upgradeEffect('super_acorn', 122))}x`
+                return d},
             done() { return player.big_mushroom.broken_brick.gte(510) },
+            style() {if (hasUpgrade('super_acorn', 122)) return {"background-color":"#ffad00"}},
         },
         1: {
             requirementDescription: "Get 201906 Broken Bricks",
@@ -3537,14 +3798,27 @@ addLayer("big_mushroom", {
                     ["display-text", () => "You have <h2 style='color: #a05911; text-shadow: 0 0 10px #a05911'>" + format(player.big_mushroom.broken_brick) + "</h2> Broken Bricks, multiplying Big Mushroom gain by <h2 style='color: #a05911; text-shadow: 0 0 10px #a05911'> <br>" + format(player.big_mushroom.broken_brick.max(1).pow(0.1)) + "x</h2>. <br>You have <h2 style='color: #ffff80; text-shadow: 0 0 10px #ffff80'>" + format(player.big_mushroom.broken_hard_brick) + "</h2> Broken Hard Bricks, multiplying Broken Brick gain by <h2 style='color: #ffff80; text-shadow: 0 0 10px #ffff80'> <br>" + format(player.big_mushroom.broken_hard_brick.max(1).pow(1.75)) + "x</h2>. <br>You have <h2 style='color: #55dff8; text-shadow: 0 0 10px #55dff8'>" + format(player.big_mushroom.broken_ice_block) + "</h2> Broken Ice Blocks, multiplying Broken Hard Brick gain by <h2 style='color: #55dff8; text-shadow: 0 0 10px #55dff8'> <br>" + format(player.big_mushroom.broken_ice_block.max(1).pow(2.75)) + "x</h2>."],
                     "clickables",
                     "buyables",
-                ]    
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #a05911, #ffff80, #55dff8)',
+                        'color':'black',
+                    }
+                },     
             },
         },
     },
 })
 // 第八层：超级叶子
 addLayer("super_leaf", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { 
+        return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         slsp: new Decimal(0),
@@ -3558,7 +3832,7 @@ addLayer("super_leaf", {
         */
     },
     effectDescription(){
-        return "multiplying Cleared Courses gain by " + format(tmp[this.layer].effect)
+        return `multiplying Cleared Courses gain by ${textStyle_h2(format(tmp[this.layer].effect)+"x", 'f83a11')}`
         /*
         use format(num) whenever displaying a number
         */
@@ -4134,14 +4408,27 @@ addLayer("super_leaf", {
                     ["display-text", () => "You have <h2 style='color: #f83a11; text-shadow: 0 0 10px #f83a11'>" + format(player.super_leaf.slsp) + "</h2> SL Skill Points."],
                     "clickables",
                     ["upgrades", [20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35]]
-                ]    
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #f83a11, black)',
+                        'border-color':'#f83a11',
+                        'color':'white',
+                    }
+                },    
             },
         },
     },
 })
 // 第九层：斗篷羽毛
 addLayer("cape_feather", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         ce: new Decimal(0)
@@ -4447,14 +4734,27 @@ addLayer("cape_feather", {
                     ["blank", "15px"],
                     ["display-text", () =>"You have <h2 style='color: #fcbf02; text-shadow: 0 0 10px #fcbf02'>" + format(player.cape_feather.ce) + "</h2> Cape Essence.<br>You gain Cape Essence per second based on amount of Cape Feathers."],
                     "buyables",
-                ]    
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #fcbf02, #fcbf81)',
+                        'border-color':'#fcbf02',
+                        'color':'black',
+                    }
+                },    
             },
         },
     },
 })
 // 第十层：耀西蛋
 addLayer("yoshi_egg", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         yoshi: new Decimal(0),
@@ -4769,7 +5069,14 @@ addLayer("yoshi_egg", {
                     + "</h2> Red Yoshis."],
                     "clickables",
                     "buyables",
-                ] 
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #00d800, #00a000)',
+                        'border-color':'#00d800',
+                        'color':'black',
+                    }
+                }, 
             },   
             "Yoshi Effect": {
                 unlocked() {return hasMilestone('yoshi_egg', 0)},
@@ -4799,7 +5106,13 @@ addLayer("yoshi_egg", {
 })
 // 第十一层：螺旋桨蘑菇
 addLayer("propeller_mushroom", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
     }},
@@ -4825,7 +5138,7 @@ addLayer("propeller_mushroom", {
         */
     },
         effectDescription(){
-        return "multiplying Super Leaves and Yoshi Eggs gain by " + format(tmp[this.layer].effect)
+        return `multiplying Super Leaf and Yoshi gain by ${textStyle_h2(format(tmp[this.layer].effect)+"x", 'f45b00')}`
         /*
         use format(num) whenever displaying a number
         */
@@ -5084,7 +5397,13 @@ addLayer("propeller_mushroom", {
 })
 // 第十二层：超级铃铛
 addLayer("super_bell", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         dimone: new Decimal(0),
@@ -5372,14 +5691,27 @@ addLayer("super_bell", {
                     + "<br> You have " + format(player.super_bell.dimseven) + " 7th Super Bell Dimensions"
                     + "<br> You have " + format(player.super_bell.dimeight) + " 8th Super Bell Dimensions<br><br><br>"],
                     "buyables",
-                ]    
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #b6a017, #c7b24a)',
+                        'border-color':'#b6a017',
+                        'color':'black',
+                    }
+                },    
             },   
         },
     },
 })
 // 第十三层：超级锤子
 addLayer("super_hammer", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         characters_box: new Decimal(0),
@@ -5423,16 +5755,21 @@ addLayer("super_hammer", {
     },
     directMult() {                            // Returns your multiplier to your gain of the prestige resource.
         mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        let c = d("e8.1e1919")
+        if (hasSEendlessUpgrade(43)) c = c.pow(upgradeEffect('s_expert', 43))
         if (hasChallenge('super_hammer'), 12) mult = mult.times(challengeEffect('super_hammer', 12))
         if (hasUpgrade('super_hammer', 34)) mult = mult.times(upgradeEffect('super_hammer', 34))
         if (hasUpgrade('usa_mushroom', 11)) mult = mult.times(7000)
         if (hasUpgrade('usa_mushroom', 12)) mult = mult.times(upgradeEffect('usa_mushroom', 12))
-        if (player.super_hammer.points.gte("e8.1e1919")) mult = new Decimal(1)
+        if (player.super_hammer.points.gte(c)) mult = new Decimal(1)
         return mult
     },
 
-    softcap() {return new Decimal("e1.4e1145")},
-    softcapPower: 0,
+    softcap() {let c = new Decimal("e1.4e1145")
+        if (hasSEendlessUpgrade(43)) c = c.pow(upgradeEffect('s_expert', 43))
+        return c
+    },
+    softcapPower: d("e^114514 -1"),
 
     layerShown() { return hasAchievement('achievements', 94) },          // Returns a bool for if this layer's node should be visible in the tree.
 
@@ -5771,7 +6108,9 @@ addLayer("super_hammer", {
         if (inChallenge('super_hammer', 11) && hasChallenge('super_hammer', 11) || hasMilestone('master_sword', 7) && hasChallenge('super_hammer', 11)) player.super_hammer.characters_box = player.super_hammer.characters_box.add(player.invincible_star.points.times(multCB))
         if (hasMilestone('mario', 3) && player.super_hammer.buyables[13].lt(limitBoxtranscender)) player.super_hammer.buyables[13]=limitBoxtranscender
     
-        if (player.super_hammer.points.gte("e8.1e1919")) player.super_hammer.points = new Decimal("e8.1e1919")
+        let c = d("e8.1e1919")
+        if (hasSEendlessUpgrade(43)) c = c.pow(upgradeEffect('s_expert', 43))
+        if (player.super_hammer.points.gte(c)) player.super_hammer.points = c
     },
     tabFormat: [
         "main-display",
@@ -5781,11 +6120,13 @@ addLayer("super_hammer", {
         ["display-text", () => `Reset for Super Hammers gain's formula is 1e2039000·1e100<sup>x</sup>`],
         ["display-text",  function () {
             if (player.super_hammer.points.gte('e1.4e1145'))
-            return "Super Hammer hardcap is at " + format('e1.4e1145')
+            return "Super Hammer hardcap is at " + format(tmp.super_hammer.softcap)
         }],
         ["display-text",  function () {
+            let c = d("e8.1e1919")
+            if (hasSEendlessUpgrade(43)) c = c.pow(upgradeEffect('s_expert', 43))
             if (player.super_hammer.points.gte('e8.1e1919'))
-            return "Some multipliers can pass the hardcap, multipliers after the hardcap is disabled while your Super Hammer is over " + format('e8.1e1919')
+            return "Some multipliers can pass the hardcap, multipliers after the hardcap is disabled while your Super Hammer is over " + format(c)
         }],
         ["microtabs", "stuff"],
         ["blank", "65px"],
@@ -5829,14 +6170,27 @@ addLayer("super_hammer", {
                     }],
                     "challenges",
                     "buyables",
-                ]    
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #403739, #a0733c)',
+                        'border-color':'#a0733c',
+                        'color':'black',
+                    }
+                },    
             },   
         },
     },
 })
 // 第十四层：大师之剑
 addLayer("master_sword", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         links_bomb: new Decimal(0),         // 林克炸弹
@@ -6903,7 +7257,14 @@ addLayer("master_sword", {
                         return "You can detonate your bomb on Area " + formatWhole(player.master_sword.links_bomb_random)
                     }],
                     ["clickables", [1,2,3,4]]
-                ]    
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #2730b8, #4056ad)',
+                        'border-color':'#2730b8',
+                        'color':'white',
+                    }
+                },    
             },    
             "Temples": {
                 unlocked() {return hasUpgrade('master_sword', 33)},
@@ -6914,7 +7275,14 @@ addLayer("master_sword", {
                     }],
                     "challenges",
                     ["buyables", [1,2]],
-                ]    
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #107010, #e0cc00)',
+                        'border-color':'#107010',
+                        'color':'black',
+                    }
+                },
             },  
             "Hyrule Shield": {
                 unlocked() {return hasUpgrade('master_sword', 41)},
@@ -6924,7 +7292,14 @@ addLayer("master_sword", {
                         return "You have <h2 style='color: #2730b8; text-shadow: 0 0 10px #2730b8'>" + format(player.master_sword.hyrule_shield) + "</h2> Hyrule Shields, increase 'Precise bomb' base by <h2 style='color: #2730b8; text-shadow: 0 0 10px #2730b8'>+" + format(upgradeEffect('master_sword', 41) + "</h2>")
                     }],
                     ["clickables", [5]],
-                ]    
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #2730b8, #e0cc00)',
+                        'border-color':'#2730b8',
+                        'color':'white',
+                    }
+                },    
             },   
             "Link's Bow": {
                 unlocked() {return hasUpgrade('master_sword', 61)},
@@ -6940,7 +7315,14 @@ addLayer("master_sword", {
                         return "You have <h2 style='color: #2730b8; text-shadow: 0 0 10px #2730b8'>" + format(player.master_sword.ranged_kills) + "</h2> Ranged Kills, multiply Link's Bow gain by <h2 style='color: #2730b8; text-shadow: 0 0 10px #2730b8'>" + format(upgradeEffect('master_sword', 63)) + "x</h2>"
                     }],
                     ["clickables", [6]],
-                ]    
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #2730b8, #42b2fa)',
+                        'border-color':'#42b2fa',
+                        'color':'white',
+                    }
+                },    
             },   
             "Container": {
                 unlocked() {return hasUpgrade('master_sword', 72)},
@@ -6958,14 +7340,27 @@ addLayer("master_sword", {
                     }],
                     ["clickables", [7,8]],
                     ["buyables", [3,4]],
-                ]    
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #ff2a32, #00dd00)',
+                        'border-color':'#2730b8',
+                        'color':'black',
+                    }
+                },    
             }, 
         },
     },
 })
 // 第十五层：马力欧USA的蘑菇
 addLayer("usa_mushroom", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         grabs: new Decimal(0),
@@ -7467,14 +7862,27 @@ addLayer("usa_mushroom", {
                         return "You are grabbing <h2 style='color: #f93414; text-shadow: 0 0 10px #f93414'>" + format(player.usa_mushroom.grabs) + "</h2> Enemies, multiply Super Hammer gain by <h2 style='color: #f93414; text-shadow: 0 0 10px #f93414'>" + format(upgradeEffect('usa_mushroom', 12)) + "x</h2><br>Base Grabbing Enemy gain is based on SMB2 Mushroom. If your SMB2 Mushroom is 0, you can't gain any Grabbing Enemies."
                     }],
                     "buyables",
-                ]    
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'radial-gradient(#f93414 50%, #030f88)',
+                        'border-color':'#030f88',
+                        'color':'white',
+                    }
+                },    
             }, 
         },
     },
 })
 // 第十六层：青蛙装
 addLayer("frog_suit", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         swim_speed: new Decimal(0),
@@ -7586,7 +7994,7 @@ addLayer("frog_suit", {
                 if (hasUpgrade('frog_suit', 43)) dilateexp = new Decimal(0.25)                
                 swimfact = player.frog_suit.swim_speed
                 if (hasUpgrade('power_balloon', 24) || hasMilestone('boomerang_flower', 2)) swimfact = player.power_balloon.SSbest
-                rootfact = player.frog_suit.swim_speed.log(10).max(1).pow(dilateexp)
+                rootfact = player.frog_suit.swim_speed.max(1).log(10).max(1).pow(dilateexp)
                 if (hasUpgrade('power_balloon', 24) || hasMilestone('boomerang_flower', 2)) rootfact = player.power_balloon.SSbest.log(10).max(1).pow(dilateexp)
                 return swimfact.root(rootfact).max(1)
             },
@@ -7980,14 +8388,27 @@ addLayer("frog_suit", {
                     }],
                     "clickables",
                     "buyables",
-                ]    
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #24aa0c, #1f950a)',
+                        'border-color':'#24aa0c',
+                        'color':'black',
+                    }
+                },    
             }, 
         },
     },
 })
 // 第十七层：力量气球
 addLayer("power_balloon", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         resistance: new Decimal(1000000),
@@ -8011,7 +8432,7 @@ addLayer("power_balloon", {
         */
     },
         effectDescription(){
-        return "multiplying 'Box generator' base by x" + format(tmp[this.layer].effect)
+        return `multiplying "Box generator" base by ${textStyle_h2(format(tmp[this.layer].effect)+"x", 'ffff6e')}`
         /*
         use format(num) whenever displaying a number
         */
@@ -8398,14 +8819,29 @@ addLayer("power_balloon", {
                     }],
                     "clickables",
                     "buyables",
-                ]    
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #ffff6e, #bbbb43)',
+                        'border-color':'#ffff6e',
+                        'color':'black',
+                    }
+                },     
             }, 
         },
     },
 })
 // 第十八层：超级橡栗
 addLayer("super_acorn", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { 
+        if (player.subtabs.super_acorn.stuff == "Upgrades")
+        return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         strength: new Decimal(0),
@@ -8431,8 +8867,8 @@ addLayer("super_acorn", {
         effectDescription(){
         softcap = new Decimal(1e100)
         if (hasUpgrade('super_acorn', 25)) softcap = new Decimal("1e1000")
-        dis = "multiplying SMB2 Mushroom gain by x" + format(tmp[this.layer].effect)
-        if (tmp[this.layer].effect.gte(softcap)) dis = dis + "(softcapped)"
+        dis = `multiplying SMB2 Mushrioom gain by ${textStyle_h2(format(tmp[this.layer].effect)+"x", 'd74a19')}`
+        if (tmp[this.layer].effect.gte(softcap)) dis = dis + " (softcapped)"
         return dis
         /*
         use format(num) whenever displaying a number
@@ -8605,7 +9041,7 @@ addLayer("super_acorn", {
             tooltip: "Overpower 2nd Coin milestone",
             currencyDisplayName: "Coins",
             currencyInternalName: "points",
-            currencyLayer:"coin",
+            currencyLayer: "coin",
             cost: new Decimal("e6.7e55"),
             unlocked() {return hasUpgrade('super_acorn', 31) || hasUpgrade('boomerang_flower', 11)},
             style(){style = {'min-height':'180px',
@@ -8624,7 +9060,7 @@ addLayer("super_acorn", {
             tooltip: "Overpower 1st Super Mushroom milestone",
             currencyDisplayName: "Super Mushrooms",
             currencyInternalName: "points",
-            currencyLayer:"super_mushroom",
+            currencyLayer: "super_mushroom",
             cost: new Decimal("e2e56"),
             unlocked() {return hasUpgrade('super_acorn', 101)},
             effect() {
@@ -8646,7 +9082,7 @@ addLayer("super_acorn", {
             tooltip: "Overpower 1st Fire Flower milestone",
             currencyDisplayName: "Fire Flowers",
             currencyInternalName: "points",
-            currencyLayer:"fire_flower",
+            currencyLayer: "fire_flower",
             cost: new Decimal("e1.37e60"),
             unlocked() {return hasUpgrade('super_acorn', 102)},
             effect() {
@@ -8691,7 +9127,7 @@ addLayer("super_acorn", {
             tooltip: "Overpower 4th Invinsible Star milestone",
             currencyDisplayName: "Invinsible Stars",
             currencyInternalName: "points",
-            currencyLayer:"invincible_star",
+            currencyLayer: "invincible_star",
             cost: new Decimal("e3.15e15"),
             unlocked() {return expertBossMagicEffect('ludwig').gte(1)
             },
@@ -8716,7 +9152,7 @@ addLayer("super_acorn", {
             tooltip: "Overpower 2nd 1UP Mushroom milestone",
             currencyDisplayName: "1UP Mushrooms",
             currencyInternalName: "points",
-            currencyLayer:"oneup_mushroom",
+            currencyLayer: "oneup_mushroom",
             cost: new Decimal("ee9.6e16"),
             unlocked() {return expertBossMagicEffect('ludwig').gte(2)
             },
@@ -8740,7 +9176,7 @@ addLayer("super_acorn", {
             tooltip: "Overpower 1st Bouncy Ball Flower milestone",
             currencyDisplayName: "Bouncy Ball Flowers",
             currencyInternalName: "points",
-            currencyLayer:"bouncy_ball_flower",
+            currencyLayer: "bouncy_ball_flower",
             cost: new Decimal("ee1.25e24"),
             unlocked() {return expertBossMagicEffect('ludwig').gte(3)
             },
@@ -8757,6 +9193,30 @@ addLayer("super_acorn", {
                     'width':'180px','font-size':'18px',
                     'border-radius':'0%',
                     'background-color':'#606040'}
+                return style}
+        },
+        122: {
+            title: "SA-OPU8",
+            tooltip: "Overpower 1st Big Mushroom milestone",
+            currencyDisplayName: "Big Mushrooms",
+            currencyInternalName: "points",
+            currencyLayer: "big_mushroom",
+            cost: new Decimal("ee4.08e39"),
+            unlocked() {return expertBossMagicEffect('ludwig').gte(4)
+            },
+            effect() {
+                let eff = player.big_mushroom.points.max(10).log(10).max(10).log(10).root(1.33)
+                return eff
+            },
+            style(){style = {'min-height':'180px',
+                            'width':'180px',
+                            'font-size':'18px',
+                            'border-radius':'0%'}
+                    if (hasUpgrade(this.layer, 122)) 
+                    style = {'min-height':'180px',
+                    'width':'180px','font-size':'18px',
+                    'border-radius':'0%',
+                    'background-color':'#f7431d'}
                 return style}
         },
         // Look in the upgrades docs to see what goes here!
@@ -8948,21 +9408,41 @@ addLayer("super_acorn", {
                         return "You have is <h2 style='color: #d74a19; text-shadow: 0 0 10px #d74a19'>" + format(player.super_acorn.NSMBrosU) + "</h2> NSMBU Flying Power, which boosting Flying Strength gain by <h2 style='color: #d74a19; text-shadow: 0 0 10px #d74a19'>" + format(upgradeEffect('super_acorn', 24)) + "x</h2>"
                     }],
                     "buyables",
-                ]                
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #d74a19, #fbcf02)',
+                        'border-color':'#d74a19',
+                        'color':'black',
+                    }
+                },                
             }, 
             "SA Overpowers": {
                 unlocked() {return hasUpgrade('super_acorn', 31) || hasUpgrade('boomerang_flower', 11)},
                 content: [
                     ["blank", "15px"],
                     ["upgrades", [10,11,12]]
-                ]
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #ffad00, #7a5600)',
+                        'border-color':'#ffad00',
+                        'color':'black',
+                    }
+                },
             }, 
         },
     },
 })
 // 第十九层：回旋镖之花
 addLayer("boomerang_flower", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         boomerang: new Decimal(0),
@@ -9320,7 +9800,14 @@ addLayer("boomerang_flower", {
                         if (player.boomerang_flower.boomerang.gte(1e21)) return "You have unlocked 3rd Boomerang effect, it increases 'Exdaka expanding' base by <h2 style='color: #0097ef; text-shadow: 0 0 10px #0097ef'>+" + format(upgradeEffect('boomerang_flower', 23))
                     }],
                     "buyables",
-                ]                
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #0097ef, #eeeeee)',
+                        'border-color':'#0097ef',
+                        'color':'black',
+                    }
+                },                 
             }, 
             "Challenges": {
                 unlocked() {return hasUpgrade('luigi', 22)},
@@ -9334,7 +9821,13 @@ addLayer("boomerang_flower", {
 })
 // 第二十层：马力欧
 addLayer("mario", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         c_re: new Decimal(0),
@@ -9373,7 +9866,7 @@ addLayer("mario", {
         */
     },
     effectDescription(){
-        dis = "increasing 'Box transcender' base by +" + format(tmp[this.layer].effect)
+        dis = `increase "Box transcender" base by ${textStyle_h2("+"+format(tmp[this.layer].effect), 'ff0018')}`
         if (player[this.layer].points.gte(Msoftcap)) dis = dis + " (softcapped)"
         return dis
         /*
@@ -9406,6 +9899,8 @@ addLayer("mario", {
     directMult() {                            // Returns your multiplier to your gain of the prestige resource.
         mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
         if (hasUpgrade('luigi', 24)) mult = mult.times(upgradeEffect('luigi', 24))
+        if (hasUpgrade('s_expert', 42)) mult = mult.times(upgradeEffect('s_expert', 42))
+        if (hasUpgrade('coop', 31)) mult = mult.times(501761)
         return mult
     },
 
@@ -9654,7 +10149,7 @@ buyables: {
             let bulk = new Decimal(1)
             if (hasUpgrade('luigi', 32)) bulk = new Decimal(10)
             if (hasMilestone('toad', 1)) bulk = new Decimal(50)
-            player[this.layer].c_re = player[this.layer].c_re.sub(this.cost())
+            if (!this.canBuyMax()) player[this.layer].c_re = player[this.layer].c_re.sub(this.cost()),
             setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(bulk))
             if (this.canBuyMax()) this.buyMax()
         },
@@ -9681,7 +10176,7 @@ buyables: {
         canAfford() { return player[this.layer].c_re.gte(this.cost()) },
         buyMax() { return setBuyableAmount(this.layer, this.id, player[this.layer].c_re.div(1e24).max(10).log(10).max(1.2).log(1.2).floor().add(1))},
         buy() {
-            player[this.layer].c_re = player[this.layer].c_re.sub(this.cost())
+            if (!this.canBuyMax()) player[this.layer].c_re = player[this.layer].c_re.sub(this.cost()),
             setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             if (this.canBuyMax()) this.buyMax()
         },
@@ -9708,7 +10203,7 @@ buyables: {
         canAfford() { return player[this.layer].c_im.gte(this.cost()) },
         buyMax() { return setBuyableAmount(this.layer, this.id, player[this.layer].c_im.max(10).log(10).root(1.05).floor().add(2))},
         buy() {
-            player[this.layer].c_im = player[this.layer].c_im.sub(this.cost())
+            if (!this.canBuyMax()) player[this.layer].c_im = player[this.layer].c_im.sub(this.cost()),
             setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             if (this.canBuyMax()) this.buyMax()
         },
@@ -9894,14 +10389,27 @@ clickables: {
                     "blank",
                     "clickables",
                     "buyables",
-                ]                
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #ff0018, #ffffff)',
+                        'border-color':'#ff0018',
+                        'color':'black',
+                    }
+                },                
             },           
         },
     },
 })
 // 第二十一层：路易吉
 addLayer("luigi", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         c: new Decimal(0),
@@ -9937,7 +10445,7 @@ addLayer("luigi", {
         return eff
     },
     effectDescription(){
-        dis = "multiplying imaginary Mario cleared courses hardcap by " + format(tmp[this.layer].effect + "x")
+        dis = `multiplying imaginary Mario cleared courses hardcap by ${textStyle_h2(format(tmp[this.layer].effect)+"x", '5cb73d')}`
         let hardcap = new Decimal(2e10)
         if (hasChallenge('boomerang_flower', 11)) hardcap = hardcap.times(challengeEffect('boomerang_flower', 11))
         if (tmp[this.layer].effect.gte(hardcap)) dis = dis + " (hardcapped)"
@@ -10263,7 +10771,14 @@ addLayer("luigi", {
                     ],
                     "clickables",
                     "buyables",
-                ]                
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #5cb73d, #ffffff)',
+                        'border-color':'#5cb73d',
+                        'color':'black',
+                    }
+                },                 
             },           
         },
     },
@@ -10272,9 +10787,11 @@ addLayer("luigi", {
 function toadTierLayerDisplay (decimal, isCapital = true){
     decimal = new Decimal(decimal)
     let onesC = ["","","","","","","","Hept","Oct","Enne"]
-    let onesCc = ["","Me","Due","Trie","Tetre","Pente","Hexe","Hepte","Octe","Enne"]
+    let onesCc1 = ["","Me","Due","Trie","Tetre","Pente","Hexe","Hepte","Octe","Enne"]
+    let onesCc2 = ["","Me","Due","Tria","Tetra","Penta","Hexa","Hepta","Octa","Ennea"]
     let onesL = ["","","","","","","","hept","oct","enne"]
-    let onesLc = ["","me","due","trie","tetre","pente","hexe","hepte","octe","enne"]
+    let onesLc1 = ["","me","due","trie","tetre","pente","hexe","hepte","octe","enne"]
+    let onesLc2 = ["","me","due","tria","tetra","penta","hexa","hepta","octa","ennea"]
     let tensC = ["","Dec","Icos","Triacont","Tetracont","Pentacont","Hexacont","Heptacont","Octacont","Enneacont"]
     let tensL = ["","dec","icos","triacont","tetracont","pentacont","hexacont","heptacont","octacont","enneacont"]
     let hundsC = ["","Hect","Dohect","Triahect","Tetrahect","Pentahect","Hexahect","Heptahect","Octahect","Enneahect"]
@@ -10283,32 +10800,38 @@ function toadTierLayerDisplay (decimal, isCapital = true){
     let L11 = "endec"
     let C12 = "Dodec"
     let L12 = "dodec"
-    let C109 = "Enneahect"
-    let L109 = "enneahect"
     let a = "a"
     if (decimal.gte(1000)) return "Layer-"+formatWhole(decimal)
     let num = decimal.toNumber()
     if (num <= 9 && isCapital) return onesC[num]
     if (num <= 9 && !isCapital) return onesL[num]
-    if (num >= 10 && num <= 99 && isCapital && num != 11 && num !=12 && num%10 != 0) return onesCc[num%10]+tensL[Math.floor(num/10)]
-    if (num >= 10 && num <= 99 && !isCapital && num != 11) return onesLc[num%10]+tensL[Math.floor(num/10)]
+    if (num >= 10 && num <= 99 && isCapital && num != 11 && num !=12 && num%10 != 0) return onesCc2[num%10]+tensL[Math.floor(num/10)]
+    if (num >= 10 && num <= 99 && !isCapital && num != 11 && num !=12 && num%10 != 0) return onesLc2[num%10]+tensL[Math.floor(num/10)]
     if (num >= 10 && num <= 99 && isCapital && num%10 == 0) return tensC[Math.floor(num/10)]
+    if (num >= 10 && num <= 99 && !isCapital && num%10 == 0) return tensL[Math.floor(num/10)]
     if (num == 11 && isCapital) return C11
     if (num == 11 && !isCapital) return L11
     if (num == 12 && isCapital) return C12
     if (num == 12 && !isCapital) return L12
-    if (num >= 100 && num <= 999 && isCapital && num%100 != 11 && num%100 !=12 && num != 109 && num%100 != 0) return onesCc[num%10]+tensL[Math.floor(num/10)%10]+a+hundsL[Math.floor(num/100)]
-    if (num >= 100 && num <= 999 && !isCapital && num%100 != 11 && num%100 !=12 && num != 109 && num%100 != 0) return onesLc[num%10]+tensL[Math.floor(num/10)%10]+a+hundsL[Math.floor(num/100)]
+    if (num >= 100 && num <= 999 && isCapital && num%100 >=13) return onesCc2[num%10]+tensL[Math.floor(num/10)%10]+a+hundsL[Math.floor(num/100)]
+    if (num >= 100 && num <= 999 && !isCapital && num%100 >=13) return onesLc2[num%10]+tensL[Math.floor(num/10)%10]+a+hundsL[Math.floor(num/100)]
     if (num >= 100 && num <= 999 && isCapital && num%100 == 11) return C11+a+hundsL[Math.floor(num/100)]
     if (num >= 100 && num <= 999 && isCapital && num%100 == 12) return C12+a+hundsL[Math.floor(num/100)]
+    if (num >= 100 && num <= 999 && isCapital && num%100 >= 1 && num%100 <= 9) return onesCc1[num%100]+hundsL[Math.floor(num/100)]
     if (num >= 100 && num <= 999 && !isCapital && num%100 == 11) return L11+a+hundsL[Math.floor(num/100)]
     if (num >= 100 && num <= 999 && !isCapital && num%100 == 12) return L12+a+hundsL[Math.floor(num/100)]
+    if (num >= 100 && num <= 999 && !isCapital && num%100 >= 1 && num%100 <= 9) return onesLc1[num%100]+hundsL[Math.floor(num/100)]
     if (num >= 100 && num <= 999 && isCapital && num%100 == 0) return hundsC[Math.floor(num/100)]
-    if (num == 109 && isCapital) return C109
-    if (num == 109 && !isCapital) return L109
+    if (num >= 100 && num <= 999 && !isCapital && num%100 == 0) return hundsL[Math.floor(num/100)]
 }
 addLayer("toad", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         level: new Decimal(0),
@@ -11099,6 +11622,10 @@ addLayer("toad", {
         if (player.toad.tierlayer.lt(8)) player.toad.tierlayer_des = "At Toad oct 1, unlock Larry's minigame."
         else if (player.toad.tierlayer.lt(9)) player.toad.tierlayer_des = "At Toad enne 1, unlock Iggy's minigame."
         else if ((player.toad.tierlayer.lte(10) && player.toad.highest_tierlayer.lt(20)) || player.toad.tierlayer.lte(9)) player.toad.tierlayer_des = "At Toad dec 20, passive OSC generation is always activated."
+        else if ((player.toad.tierlayer.lte(11) && player.toad.highest_tierlayer.lt(222))|| player.toad.tierlayer.lte(10)) player.toad.tierlayer_des = "At Toad endec 222, Toad level 3 reward softcap is slightly weaker."
+        else if ((player.toad.tierlayer.lt(13))) player.toad.tierlayer_des = "At Toad triadec 1, unlock Versus Skills in MPVS layer."
+        else if ((player.toad.tierlayer.lt(15))) player.toad.tierlayer_des = "At Toad pentadec 1, unlock Lag in MPVS layer."
+        else if ((player.toad.tierlayer.lt(21))) player.toad.tierlayer_des = "At Toad meicos 1, unlock Batoko in MPVS layer (v0.12)."
 
         // 等级奖励
         let Tl1base = new Decimal(2)
@@ -11109,6 +11636,7 @@ addLayer("toad", {
         let Tl3softcapRoot = new Decimal(1.25)
         if (hasUpgrade('easy', 34)) Tl3softcapRoot = new Decimal(1.2)
         if (player.toad.supertier[0].gte(2434)) Tl3softcapRoot = new Decimal(1.165)
+        if ((player.toad.tierlayer.gte(11) && player.toad.highest_tierlayer.gte(222))||player.toad.tierlayer.gte(12)) Tl3softcapRoot = new Decimal(1.13)
         if (player.toad.level.gte(500)) player.toad.level_rew[1] = Decimal.pow(1e10,player.toad.level.max(500).sub(500).root(Tl3softcapRoot)).times("1e5000")  //3级奖励软上限
         player.toad.level_rew[2] = player.toad.points.max(1).root(5).min(decimalInfinity) //11级奖励      
         player.toad.level_rew[3] = player.luigi.points.max(1e10).log(1e10).pow(1.5).min(decimalInfinity) //66级奖励
@@ -11178,7 +11706,7 @@ addLayer("toad", {
         },
         4: {
             requirementDescription: "Get 199 Toad",
-            effectDescription: "You can buy max Mario buyables.",
+            effectDescription: "You can buy max Mario buyables and no longer spend the currency.",
             done() { return player.toad.points.gte(199) },
         },
         5: {
@@ -11236,7 +11764,14 @@ addLayer("toad", {
                 content: [
                     ["blank", "15px"],
                     ["buyables",[1,2,3,4,10]],
-                ]                
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #0047ff, #ffffff)',
+                        'border-color':'#0047ff',
+                        'color':'black',
+                    }
+                },                 
             },
             "Rewards": {
                 unlocked() {return hasUpgrade('toad', 13)},
@@ -11246,7 +11781,14 @@ addLayer("toad", {
                         return "Cleared Courses hardcap is at " + format(player.hardcap)}
                     ],
                     ["microtabs", "rewards"],
-                ]                
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #0047ff, #ffffff)',
+                        'border-color':'#0047ff',
+                        'color':'black',
+                    }
+                },                 
             },
             "Awaken": {
                 unlocked() {return hasAchievement('achievements', 154)},
@@ -11258,7 +11800,14 @@ addLayer("toad", {
                     ],
                     "clickables",
                     ["buyables",[11,12]]
-                ]                
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #ffca00, #ffd880)',
+                        'border-color':'#ffca00',
+                        'color':'black',
+                    }
+                },               
             },           
         },
         rewards:{
@@ -11440,6 +11989,22 @@ addLayer("toad", {
                         if ((player.toad.tierlayer.gte(10) && player.toad.highest_tierlayer.gte(20)) || player.toad.tierlayer.gte(11))
                         return "Toad dec 20: Passive OSC generation is always activated."}
                     ],
+                    ["display-text", function() {
+                        if ((player.toad.tierlayer.gte(11) && player.toad.highest_tierlayer.gte(222)) || player.toad.tierlayer.gte(12))
+                        return "Toad endec 222: Toad level 3 reward softcap is slightly weaker."}
+                    ],
+                    ["display-text", function() {
+                        if ((player.toad.tierlayer.gte(13)))
+                        return "Toad triadec 1: Unlock Versus Skills in MPVS layer."}
+                    ],
+                    ["display-text", function() {
+                        if ((player.toad.tierlayer.gte(15)))
+                        return "Toad pentadec 1: Unlock Lag in MPVS layer."}
+                    ],
+                    ["display-text", function() {
+                        if ((player.toad.tierlayer.gte(21)))
+                        return "Toad meicos 1: Unlock Batoko in MPVS layer."}
+                    ],
                 ]
             },
         }
@@ -11447,7 +12012,13 @@ addLayer("toad", {
 })
 // 第二十三层：奇诺比珂
 addLayer("toadette", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         crown: new Decimal(0),
@@ -11845,7 +12416,14 @@ addLayer("toadette", {
                     ["blank", "81900px"],
                     ["microtabs", "secret"],
                     ["blank", "41700px"],
-                ]                
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #ff4899, #ffffff)',
+                        'border-color':'#ff4899',
+                        'color':'black',
+                    }
+                },                
             },           
         },
         secret: {
@@ -11868,7 +12446,13 @@ function easyEndlessRandom() {
     player.easy.random_style = new Decimal(Math.random()).times(5).floor().add(1)
 }
 addLayer("easy", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         life: new Decimal(5),
@@ -12402,7 +12986,7 @@ addLayer("easy", {
             },
         },
         52: {
-            title: `<br><h4 style='color: #ffffff;font-family: "MARIO MAKER", "Lucida Console", "Courier New", monospace'>Square Goal</h4>`,
+            title: `Square Goal`,
             display() {
                 return ""
                 },
@@ -12416,7 +13000,9 @@ addLayer("easy", {
                 else return player.easy.no_dmg = protect, easyEndlessRandom()},
             unlocked() {return hasUpgrade('easy', 15)},
             style() {
-                    return {'background-color':"#070707"}
+                    return {'background-color':"#070707",
+                            'color':'white',
+                    }
             },
         },
         53: {
@@ -12624,7 +13210,14 @@ microtabs: {
                 ["display-text", function() {
                     return "In SM3DW style, the goal is a flag<br>In castle theme, the goal is an axe except SM3DW style"}
                 ],
-            ]                
+            ],
+            buttonStyle() {
+                return {
+                    'background':'linear-gradient(90deg, #2dbba4, #165d52)',
+                    'border-color':'#2dbba4',
+                    'color':'black',
+                }
+            },                
         },  
         "Free Clears": {
             unlocked() {return hasUpgrade('easy', 31)},
@@ -12641,14 +13234,27 @@ microtabs: {
                     return "You can gain " + formatWhole(gain) + " Free Clears this Easy Endless reset"}
                 ],
                 "buyables",
-            ]                
+            ],
+            buttonStyle() {
+                return {
+                    'background':'linear-gradient(90deg, #2dbba4, #165d52)',
+                    'border-color':'#2dbba4',
+                    'color':'black',
+                }
+            },                
         }, 
     },
 },
 })
 // 第二十五层：普通耐力挑战
 addLayer("normal", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         oneshot: new Decimal(0),
@@ -12658,6 +13264,7 @@ addLayer("normal", {
         auto_mario: new Decimal(0),
         semi_auto: new Decimal(0),
         condition_course: new Decimal(0),
+        OSCtabStyle: d(0),
     }},
 
     color: "#77A831",                       // The color for this layer, which affects many elements.
@@ -12693,6 +13300,8 @@ addLayer("normal", {
         if (hasMilestone('normal', 3)) mult = mult.times(clickableEffect('normal', 21))
         if (hasMilestone('expert', 0)) mult = mult.times(3)
         if (hasUpgrade('expert', 13)) mult = mult.times(expertBossMagicEffect('larry'))
+        if (hasUpgrade('versus', 231)) mult = mult.times(upgradeEffect('versus', 231))
+        if (hasUpgrade('versus', 234)) mult = mult.times('1e345')
         let gain = player.easy.points.max(1).div("1e641").max(1).log(1e10).times(mult).floor()
         return gain
     },
@@ -12706,6 +13315,8 @@ addLayer("normal", {
         if (hasMilestone('normal', 3)) mult = mult.times(clickableEffect('normal', 21))
         if (hasMilestone('expert', 0)) mult = mult.times(3)
         if (hasUpgrade('expert', 13)) mult = mult.times(expertBossMagicEffect('larry'))
+        if (hasUpgrade('versus', 231)) mult = mult.times(upgradeEffect('versus', 231))
+        if (hasUpgrade('versus', 234)) mult = mult.times('1e345')
         base = base.root(mult)
         let gain = tmp.normal.resetGain
         return Decimal.pow(base, gain).times("1e651").div(base.pow(mult.sub(1)))
@@ -12736,6 +13347,7 @@ addLayer("normal", {
         if (hasUpgrade('expert', 65)) eff = eff.pow(100)
         if (hasSEendlessUpgrade(12)) eff = eff.pow(upgradeEffect('s_expert', 12))
         if (hasUpgrade('super_acorn', 121)) eff = eff.pow(upgradeEffect('super_acorn', 121))
+        if (hasUpgrade('coop', 14)) eff = eff.pow(upgradeEffect('coop', 14))
         return eff
         /*
         you should use this.layer instead of <layerID>
@@ -12744,7 +13356,7 @@ addLayer("normal", {
         */
     },
         effectDescription(){
-        return "powering Cleared Courses gain by ^" + format(layerEffect('normal'))
+        return `powering Cleared Courses gain by ${textStyle_h2("^"+format(tmp[this.layer].effect), '77a831')}`
         /*
         use format(num) whenever displaying a number
         */
@@ -12779,7 +13391,7 @@ addLayer("normal", {
                 let time = new Decimal(player.normal.resetTime)
                 if (hasUpgrade(this.layer, 14)) time = time.add(3600)
                 if (hasUpgrade(this.layer, 15)) time = time.add(upgradeEffect(this.layer, 15))
-                if (time.lt(31556952000))
+                if (time.abs().lt(31556952000))
                 return "Normal Endless reset time multiplies Toad gain.<br>Time: "+formatTime(new Decimal(time))
                 else return "Normal Endless reset time multiplies Toad gain.<br>Time: "+formatTimeLong(new Decimal(time))},
             cost: new Decimal(10),
@@ -12789,8 +13401,9 @@ addLayer("normal", {
                 if (hasUpgrade(this.layer, 14)) time = time.add(3600)
                 if (hasUpgrade(this.layer, 15)) time = time.add(upgradeEffect(this.layer, 15))
                 let eff = Decimal.pow("1e100000", time.root(3))
-                if (time.lte(31556926080) && hasUpgrade(this.layer, 33)) eff = Decimal.pow("1e200000", time.root(3))
-                if (time.gte(31556926080) && hasUpgrade(this.layer, 33)) eff = Decimal.pow("1e100000", time.root(3)).times("5.49087e316008111")
+                if (time.lte(31556926080) && hasUpgrade(this.layer, 33)) eff = Decimal.pow("1e200000", time.max(1).root(3))
+                if (time.gte(31556926080) && hasUpgrade(this.layer, 33)) eff = Decimal.pow("1e100000", time.max(1).root(3)).times("5.49087e316008111")
+                if (hasUpgrade('coop', 32)) eff = eff.pow(25)
                 return eff
             },
             time() {
@@ -12826,7 +13439,7 @@ addLayer("normal", {
             effect() {
                 let power = new Decimal(3)
                 if (hasUpgrade(this.layer, 21)) power = power.div(2)
-                let eff = player.normal.oneshot.max(0).root(power).times(3600)
+                let eff = player.normal.oneshot.add(1).max(1).root(power).times(3600)
                 if (hasUpgrade(this.layer, 25)) eff = eff.times(clickableEffect('normal', 21))
                 if (hasUpgrade('expert', 45)) eff = eff.times(3)
                 return eff
@@ -12885,7 +13498,7 @@ addLayer("normal", {
             cost: new Decimal(1e15),
             unlocked() {return hasUpgrade(this.layer, 25)},
             effect() {
-                let eff = player.normal.upgrades.length
+                let eff = d(player.normal.upgrades.length).min(15)
                 eff = new Decimal(eff)
                 return eff
             },
@@ -12916,7 +13529,7 @@ addLayer("normal", {
             cost: new Decimal(2e24),
             unlocked() {return hasUpgrade(this.layer, 33)},
             effect() {
-                let eff = player.points.max(1).log(10).max(1).log(10).max(1).log(10)
+                let eff = player.points.max(1).log(10).max(1).log(10).max(10).log(10)
                 return eff
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x,<br>^"+format(upgradeEffect(this.layer, this.id))
@@ -12939,7 +13552,7 @@ addLayer("normal", {
         1: {
             requirementDescription: "100 One Shot Clears",
             effect() {return player.normal.oneshot.max(1)},
-            effectDescription(){return "One Shot Clears boosts Normal Endless CLears gain.<br>Currently: "+format(milestoneEffect('normal', 1))+"x"},
+            effectDescription(){return "One Shot Clears boosts Normal Endless Clears gain.<br>Currently: "+format(milestoneEffect('normal', 1))+"x"},
             done() { return player.normal.oneshot.gte(100) },
         },
         2: {
@@ -13051,10 +13664,16 @@ addLayer("normal", {
                 return player.normal.auto_mario.max(1).root(root)
             },
             style() {
-                    return {'width':"200px",
-                        'min-height':'200px',
-                        "border-radius":"5%"
-                    }
+                let s = {'width':"200px",
+                    'min-height':'200px',
+                    "border-radius":"5%",
+                }
+                if (this.canClick()) s = {'width':"200px",
+                    'min-height':'200px',
+                    "border-radius":"5%",
+                    'background':`linear-gradient(${formatWhole(player.normal.OSCtabStyle)}deg, #77a831, #3b5418)`,
+                }
+                return s
             },
         },
         22: {
@@ -13108,10 +13727,16 @@ addLayer("normal", {
                 return eff
             },
             style() {
-                    return {'width':"200px",
+                    let s = {'width':"200px",
                         'min-height':'200px',
-                        "border-radius":"5%"
+                        "border-radius":"5%",
                     }
+                    if (this.canClick()) s = {'width':"200px",
+                        'min-height':'200px',
+                        "border-radius":"5%",
+                        'background':`linear-gradient(${formatWhole(player.normal.OSCtabStyle)}deg, #77a831, #3b5418)`,
+                    }
+                    return s
             },
         },
     },
@@ -13122,6 +13747,7 @@ addLayer("normal", {
             display() { 
                 let baseGain = new Decimal(2)
                 let baseCost = new Decimal(2.5)
+                if (hasSEendlessUpgrade(44)) baseGain = baseGain.add(0.1)
                 let display = ` Multiply Auto-Mario Courses gain by ${format(baseGain)}x per every level. But loss ${format(baseCost)}x One Shot Clears per every level.<br>
                 level: ${formatWhole(player[this.layer].buyables[this.id])}<br>
                 Auto-Mario gain: ${format(this.effect())}x<br>
@@ -13150,6 +13776,7 @@ addLayer("normal", {
             },
             effect(x) {
                 let base = new Decimal(2)
+                if (hasSEendlessUpgrade(44)) base = base.add(0.1)
                 let effect = Decimal.pow(base,x)
                 return effect},
             loss() {
@@ -13171,6 +13798,7 @@ addLayer("normal", {
         if (hasMilestone('expert', 0)) OSmult = OSmult.times(3)
         if (hasUpgrade('expert', 12)) OSmult = OSmult.times(upgradeEffect('expert', 12))
         if (hasUpgrade('expert', 21)) OSmult = OSmult.times(upgradeEffect('expert', 21))
+        if (hasUpgrade('versus', 25)) OSmult = OSmult.times(25)
         OSmult = OSmult.floor()
         player.normal.oneshot_mult = OSmult
         if (player.normal.oneshot_mult.lt(1)) player.normal.oneshot_mult = new Decimal(1)
@@ -13197,7 +13825,12 @@ addLayer("normal", {
         if (hasMilestone('expert', 7)) player.normal.auto_mario = player.normal.auto_mario.add(gain.times(tick))
         
         if (hasSEendlessMilestone(15)) player.normal.condition_course = tmp.normal.clickables[22].gainCond
-        },
+        
+        if (inExpertBossChallenge() && player.expert.bestCCinChallenge.lt(player.points)) player.expert.bestCCinChallenge = player.points
+    
+        player.normal.OSCtabStyle = player.normal.OSCtabStyle.add(2)
+        if (player.normal.OSCtabStyle.gte(360)) player.normal.OSCtabStyle = d(0)
+    },
     automate() {
         if (hasSEendlessMilestone(6) && player.normal.auto_mario.gte(Decimal.pow(3, getBuyableAmount('normal', 11)))) 
         setBuyableAmount('normal', 11, player.normal.auto_mario.max(1).log(3).floor().add(1))
@@ -13233,7 +13866,7 @@ addLayer("normal", {
                     ["blank", "15px"],
                     ["display-text", function() {
                         let rew = formatTime(upgradeEffect('normal', 15))
-                        if (upgradeEffect('normal', 15).gte(31556952000)) rew = formatTimeLong(upgradeEffect('normal', 15))
+                        if (upgradeEffect('normal', 15).abs().gte(31556952000)) rew = formatTimeLong(upgradeEffect('normal', 15))
                         if (hasUpgrade('normal', 15))
                         return "You have cleared <h2 style='color: #77a831; text-shadow: 0 0 10px #77a831'>" + formatWhole(player.normal.oneshot) +"</h2> Normal Endless courses with only one attempt (One shot clears), adding <h2 style='color: #77a831; text-shadow: 0 0 10px #77a831'>" + rew + " </h2> to 2nd Normal Endless upgrade."}
                     ],
@@ -13259,7 +13892,14 @@ addLayer("normal", {
                     ["display-text", function() {
                         return "Cooldown: "+formatTime(player.normal.square_cooldown)}
                     ],
-                ]                
+                ],
+                buttonStyle() {
+                    return {
+                        'background':`linear-gradient(${formatWhole(player.normal.OSCtabStyle)}deg, #77a831, #3b5418)`,
+                        'border-color':'#77a831',
+                        'color':'black',
+                    }
+                },                
             }, 
             "Auto and Condition Courses": {
                 unlocked() {return hasUpgrade('normal', 25)},
@@ -13267,7 +13907,7 @@ addLayer("normal", {
                     ["blank", "15px"],
                     ["display-text", function() {
                         let rew = formatTime(upgradeEffect('normal', 15))
-                        if (upgradeEffect('normal', 15).gte(31556952000)) rew = formatTimeLong(upgradeEffect('normal', 15))
+                        if (upgradeEffect('normal', 15).abs().gte(31556952000)) rew = formatTimeLong(upgradeEffect('normal', 15))
                         if (hasUpgrade('normal', 15))
                         return "You have cleared <h2 style='color: #77a831; text-shadow: 0 0 10px #77a831'>" + formatWhole(player.normal.oneshot) +"</h2> Normal Endless courses with only one attempt (One shot clears), adding <h2 style='color: #77a831; text-shadow: 0 0 10px #77a831'>" + rew + " </h2> to 2nd Normal Endless upgrade."}
                     ],
@@ -13285,7 +13925,14 @@ addLayer("normal", {
                     ],
                     ["clickables",[2]],
                     "buyables",
-                ]                
+                ],
+                buttonStyle() {
+                    return {
+                        'background':`linear-gradient(90deg, #77a831, #3b5418)`,
+                        'border-color':'#77a831',
+                        'color':'black',
+                    }
+                },                
             }, 
         },
     },
@@ -13336,7 +13983,13 @@ function expertMinigameID(x) {
     return Math.floor(x/10)*5+x%10-5
 }
 addLayer("expert", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         skill: new Decimal(0),
@@ -13357,12 +14010,12 @@ addLayer("expert", {
         iggy_m: new Decimal(0),
         larry_m: new Decimal(0),
         wing: new Decimal(0),
-        heptboss_total: new Decimal(0),
         magic: new Decimal(0),
         magicBoost: new Decimal(100),
         minigameMagicPosition: [0, 0, 0],
         inChallengeTime: new Decimal(0),
         canGainBRCAndFlaw: false,
+        bestCCinChallenge: d(0),
     }},
 
     color: "#BE924F",                       // The color for this layer, which affects many elements.
@@ -13417,6 +14070,9 @@ addLayer("expert", {
         return new Decimal(1)
     },
 
+    autoPrestige() {return hasMilestone('coop', 3)},
+    resetsNothing() {return hasMilestone('coop', 3)},
+
     layerShown() { return hasAchievement('achievements', 182) },          // Returns a bool for if this layer's node should be visible in the tree.
     effect(){
         let exp = player.expert.points
@@ -13430,7 +14086,7 @@ addLayer("expert", {
         */
     },
     effectDescription(){
-        let des = "multiplying Semi-auto Courses gain by " + format(layerEffect('expert')) + "x"
+        let des = `multiplying Semi-auto Courses gain by ${textStyle_h2(format(tmp[this.layer].effect)+"x", 'be924f')}`
         if (player.expert.points.gte(8)) des = des + " (softcapped)"
         return des
         /*
@@ -13440,6 +14096,9 @@ addLayer("expert", {
     doReset() {
         return undefined
     },
+    hotkeys: [
+        {key: "E", description: "Shift+E: Reset for Expert Endless", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
     upgrades: {
         11: {
             title: "Start with 15 lives",
@@ -13603,6 +14262,7 @@ addLayer("expert", {
                 let base = new Decimal(100)
                 if (hasUpgrade(this.layer,this.id)) base = base.times(eff)
                 if (hasUpgrade(this.layer,52)) base = base.times(expertBossMagicEffect('roy'))
+                if (hasUpgrade('versus', 14)) base = base.times(upgradeEffect('versus', 14))
                 player.expert.magicBoost = base
                 return eff
             },
@@ -13825,7 +14485,7 @@ addLayer("expert", {
             },
             rewardDisplay() { 
                 return `Gain ${formatWhole(challengeEffect(this.layer, 11))} Larry on pressing "Complete" button<br>
-                Formula: log3((CC/700000)+1)^3`
+                Formula: log<sub>3</sub>((CC/700000)+1)<sup>3</sup>`
             },
             onEnter() {
                 player.points = new Decimal(1)
@@ -13845,7 +14505,9 @@ addLayer("expert", {
             },
             unlocked() {return hasUpgrade('expert', 13)},
             style: {'border-radius':'5%',
-                    'border-color':'#21f519'
+                    'border-color':'#21f519',
+                    'width':'320px',
+                    'min-height':'320px',
             },
         },
         12: {
@@ -13868,7 +14530,7 @@ addLayer("expert", {
             },
             rewardDisplay() { 
                 return `Gain ${formatWhole(challengeEffect(this.layer, 12))} Lemmy on pressing "Complete" button<br>
-                Formula: log3((CC/1e11)+1)^2.8`
+                Formula: log<sub>3</sub>((CC/1e11)+1)<sup>2.8</sup>`
             },
             onEnter() {
                 player.points = new Decimal(1)
@@ -13888,7 +14550,9 @@ addLayer("expert", {
             },
             unlocked() {return hasUpgrade('expert', 15)},
             style: {'border-radius':'5%',
-                    'border-color':'#fac215'
+                    'border-color':'#fac215',
+                    'width':'320px',
+                    'min-height':'320px',
             },
         },
         21: {
@@ -13911,7 +14575,7 @@ addLayer("expert", {
             },
             rewardDisplay() { 
                 return `Gain ${formatWhole(challengeEffect(this.layer, 21))} Wendy on pressing "Complete" button<br>
-                Formula: log4((CC/2.222e22)+1)^2.6`
+                Formula: log<sub>4</sub>((CC/2.222e22)+1)<sup>2.6</sup>`
             },
             onEnter() {
                 player.points = new Decimal(1)
@@ -13931,7 +14595,9 @@ addLayer("expert", {
             },
             unlocked() {return hasUpgrade('expert', 24)},
             style: {'border-radius':'5%',
-                    'border-color':'#ff0066'
+                    'border-color':'#ff0066',
+                    'width':'320px',
+                    'min-height':'320px',
             },
         },
         22: {
@@ -13955,7 +14621,7 @@ addLayer("expert", {
             },
             rewardDisplay() { 
                 return `Gain ${formatWhole(challengeEffect(this.layer, 22))} Iggy on pressing "Complete" button<br>
-                Formula: log10((CC/5e37)+1)^3.15`
+                Formula: lg((CC/5e37)+1)<sup>3.15</sup>`
             },
             onEnter() {
                 player.points = new Decimal(1)
@@ -13975,7 +14641,9 @@ addLayer("expert", {
             },
             unlocked() {return hasUpgrade('expert', 35)},
             style: {'border-radius':'5%',
-                    'border-color':'#003ad7'
+                    'border-color':'#003ad7',
+                    'width':'320px',
+                    'min-height':'320px',
             },
         },
         31: {
@@ -13998,7 +14666,7 @@ addLayer("expert", {
             },
             rewardDisplay() { 
                 return `Gain ${formatWhole(challengeEffect(this.layer, 31))} Morton on pressing "Complete" button<br>
-                Formula: log5((CC/5e47)+1)^2.65`
+                Formula: log<sub>5</sub>((CC/5e47)+1)<sup>2.65</sup>`
             },
             onEnter() {
                 player.points = new Decimal(1)
@@ -14018,7 +14686,9 @@ addLayer("expert", {
             },
             unlocked() {return hasUpgrade('expert', 42)},
             style: {'border-radius':'5%',
-                    'border-color':'#606060'
+                    'border-color':'#606060',
+                    'width':'320px',
+                    'min-height':'320px',
             },
         },
         32: {
@@ -14041,7 +14711,7 @@ addLayer("expert", {
             },
             rewardDisplay() { 
                 return `Gain ${formatWhole(challengeEffect(this.layer, 32))} Roy on pressing "Complete" button<br>
-                Formula: log4.6((CC/1e350)+1)^1.55`
+                Formula: log<sub>4.6</sub>((CC/1e350)+1)<sup>1.55</sup>`
             },
             onEnter() {
                 player.points = new Decimal(1)
@@ -14061,7 +14731,9 @@ addLayer("expert", {
             },
             unlocked() {return hasUpgrade('expert', 52)},
             style: {'border-radius':'5%',
-                    'border-color':'#ac009e'
+                    'border-color':'#ac009e',
+                    'width':'320px',
+                    'min-height':'320px',
             },
         },
         41: {
@@ -14073,7 +14745,7 @@ addLayer("expert", {
                 return player.points.gte("1e380")
             },
             rewardDescription() {
-                return "Meet a boss Roy, gain " + format("1e380") + " Cleared Courses and complete this challenge to defeat it. "
+                return "Meet a boss Ludwig, gain " + format("1e380") + " Cleared Courses and complete this challenge to defeat it. "
             },
             rewardEffect() {
                 let ludwigGain = decimalZero
@@ -14084,7 +14756,7 @@ addLayer("expert", {
             },
             rewardDisplay() { 
                 return `Gain ${formatWhole(challengeEffect(this.layer, 41))} Ludwig on pressing "Complete" button<br>
-                Formula: log5((CC/1e380)+1)^2`
+                Formula: log<sub>5</sub>((CC/1e380)+1)<sup>2</sup>`
             },
             onEnter() {
                 player.points = new Decimal(1)
@@ -14104,7 +14776,9 @@ addLayer("expert", {
             },
             unlocked() {return hasUpgrade('expert', 54)},
             style: {'border-radius':'5%',
-                    'border-color':'#07c6d9'
+                    'border-color':'#07c6d9',
+                    'width':'320px',
+                    'min-height':'320px',
             },
         },
     },
@@ -14157,6 +14831,7 @@ addLayer("expert", {
             if (hasSEendlessUpgrade(13)) mult = mult.times(10)
             if (hasSEendlessUpgrade(14)) mult = mult.times(upgradeEffect('s_expert', 14))
             if (hasSEendlessUpgrade(22)) mult = mult.times(upgradeEffect('s_expert', 22))
+            if (hasMilestone('versus', 4)) mult = mult.times(1000)
             if (player.expert.canGainBRCAndFlaw)
             return mult
             else return decimalZero
@@ -14164,6 +14839,8 @@ addLayer("expert", {
         flaw() {
             let mult = new Decimal(1)
             if (hasSEendlessUpgrade(13)) mult = mult.times(2)
+            if (hasMilestone('versus', 4)) mult = mult.times(10)
+            if (hasMilestone('themed', 5)) mult = d(0)
             if (player.expert.canGainBRCAndFlaw)
             return mult
             else return decimalZero
@@ -14198,6 +14875,7 @@ addLayer("expert", {
             let beforeSC = Decimal.pow(1.1, iggy.max(0))
             let SC = new Decimal(1e50)
             let afterSC = beforeSC.div(SC).log(2).add(1).pow(5).times(SC)
+            if (hasUpgrade('coop', 43)) afterSC = afterSC.pow(1.25)
             let eff = new Decimal(0)
             if (beforeSC.gte(SC)) eff = afterSC
             else eff = beforeSC
@@ -14206,6 +14884,7 @@ addLayer("expert", {
         morton() {
             let morton = player.expert.morton_m
             let eff = morton.max(0).add(1).pow(7)
+            if (hasUpgrade('coop', 42)) eff = eff.pow(100)
             return eff
         },
         roy() {
@@ -14217,7 +14896,7 @@ addLayer("expert", {
         },
         ludwig() {
             let ludwig = player.expert.ludwig_m
-            let eff = ludwig.max(0).add(1).log(100000).root(3)
+            let eff = ludwig.max(0).add(1).log(100000).root(3).min(4)
             return eff
         },
         bossrush() {
@@ -15357,6 +16036,8 @@ addLayer("expert", {
 
         if (hasUpgrade('expert', 72)) player.expert.boss_rush = player.expert.boss_rush.add(expertBossMagicGeneration('bossrush').times(tick)),
         player.expert.flaw = player.expert.flaw.add(expertBossMagicGeneration('flaw').times(tick))
+        if (player.expert.flaw.gte(100)) player.expert.flaw = d(0),
+        player.expert.boss_rush = d(0)
     
         if ((hasSEendlessMilestone(8) && inChallenge('expert', 11))
         || (hasSEendlessMilestone(9) && inChallenge('expert', 12))
@@ -15364,7 +16045,51 @@ addLayer("expert", {
         || (hasSEendlessMilestone(11) && inChallenge('expert', 22))
         || (hasSEendlessMilestone(12) && inChallenge('expert', 31))
         || (hasSEendlessMilestone(13) && inChallenge('expert', 32))
-        || (hasSEendlessMilestone(14) && inChallenge('expert', 41))) player.expert.magic = player.expert.magic.add(player.expert.magicBoost.div(2))
+        || (hasSEendlessMilestone(14) && inChallenge('expert', 41))
+        || (hasMilestone('versus', 5))) player.expert.magic = player.expert.magic.add(player.expert.magicBoost.div(2))
+    
+        if (hasMilestone('versus', 5)) {
+            if (inExpertBossChallenge() && player.points.gt(player.expert.bestCCinChallenge)) player.expert.bestCCinChallenge = player.points
+
+            let larryGain = player.expert.bestCCinChallenge.div(700000).max(1).times(3).log(3).pow(3)
+            if (player.expert.lemmy_b.gte(1)) larryGain = larryGain.times(expertBossMagicEffect('lemmy'))
+            if (hasUpgrade('expert', 33)) larryGain = larryGain.pow(upgradeEffect('expert', 33))
+            larryGain = larryGain.times(player.expert.magic.max(1).pow(1.25))
+            player.expert.larry = player.expert.larry.add(larryGain.div(10).times(tick))
+
+            let lemmyGain = player.expert.bestCCinChallenge.div(1e11).max(1).times(3).log(3).pow(2.8)
+            if (hasUpgrade('expert', 33)) lemmyGain = lemmyGain.pow(upgradeEffect('expert', 33))
+            lemmyGain = lemmyGain.times(player.expert.magic.max(1).pow(1.25))
+            player.expert.lemmy = player.expert.lemmy.add(lemmyGain.div(10).times(tick))
+
+            let wendyGain = player.expert.bestCCinChallenge.div(2.222e22).max(1).times(4).log(4).pow(2.6)
+            if (hasUpgrade('expert', 33)) wendyGain = wendyGain.pow(upgradeEffect('expert', 33))
+            wendyGain = wendyGain.times(player.expert.magic.max(1).pow(1.25))
+            player.expert.wendy = player.expert.wendy.add(wendyGain.div(10).times(tick))
+
+            let iggyGain = player.expert.bestCCinChallenge.div(5e37).max(1).times(10).log(10).pow(3.15)
+            if (hasUpgrade('expert', 33)) iggyGain = iggyGain.pow(upgradeEffect('expert', 33))
+            iggyGain = iggyGain.times(player.expert.magic.max(1).pow(1.25))
+            if (hasSEendlessMilestone(0)) iggyGain = iggyGain.times(10000)
+            player.expert.iggy = player.expert.iggy.add(iggyGain.div(10).times(tick))
+
+            let mortonGain = player.expert.bestCCinChallenge.div(5e47).max(1).times(5).log(5).pow(2.65)
+            if (hasUpgrade('expert', 33)) mortonGain = mortonGain.pow(upgradeEffect('expert', 33))
+            mortonGain = mortonGain.times(player.expert.magic.max(1).pow(1.25))
+            player.expert.morton = player.expert.morton.add(mortonGain.div(10).times(tick))
+
+            let royGain = player.expert.bestCCinChallenge.div("1e350").max(1).times(4.6).log(4.6).pow(1.55)
+            if (hasUpgrade('expert', 33)) royGain = royGain.pow(upgradeEffect('expert', 33))
+            royGain = royGain.times(player.expert.magic.max(1).pow(1.25))
+            player.expert.roy = player.expert.roy.add(royGain.div(10).times(tick))
+
+            let ludwigGain = player.expert.bestCCinChallenge.div("1e380").max(1).times(5).log(5).pow(2)
+            if (hasUpgrade('expert', 33)) ludwigGain = ludwigGain.pow(upgradeEffect('expert', 33))
+            ludwigGain = ludwigGain.times(player.expert.magic.max(1).pow(1.25))
+            player.expert.ludwig = player.expert.ludwig.add(ludwigGain.div(10).times(tick))
+        }
+
+        if (hasMilestone('themed', 6)) player.expert.wing = player.expert.wing.add(tmp.s_expert.wingGain.times(tick))
     },
     tabFormat: [
         "main-display",
@@ -15396,7 +16121,14 @@ addLayer("expert", {
                 content: [
                     ["blank", "15px"],
                     ["microtabs", "koopalings"],
-                ]
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #be924f, #5f4927)',
+                        'border-color':'#be924f',
+                        'color':'black',
+                    }
+                },
             },
         },
         koopalings: {
@@ -15404,6 +16136,10 @@ addLayer("expert", {
                 unlocked() {return hasUpgrade('expert', 13)},
                 content: [
                     ["blank", "15px"],
+                    ["display-text", function() {
+                        if (hasUpgrade('expert', 62))
+                        return `Your best amount Cleared Courses in Expert Boss challenges is ${formatWhole(player.expert.bestCCinChallenge)}`}
+                    ],
                     ["display-text", function() {
                         if (hasUpgrade('expert', 62))
                         return "You have <h2 style='color: #ffffff; text-shadow: 0 0 10px #ffffff'>" + formatWhole(player.expert.wing) +"</h2> Wings, multiplying all 7 koopalings' magic (balls) production by <h2 style='color: #ffffff; text-shadow: 0 0 10px #ffffff'>"+format(tmp.expert.magicMult)+"x</h2>"}
@@ -15434,7 +16170,14 @@ addLayer("expert", {
                         return "You defeated <h2 style='color: #07c6d9; text-shadow: 0 0 10px #07c6d9'>" + formatWhole(player.expert.ludwig) +"</h2> Ludwig, generating <h2 style='color: #07c6d9; text-shadow: 0 0 10px #07c6d9'>"+format(expertBossMagicGeneration("ludwig"))+"</h2> Ludwig's magic every second"}
                     ],
                     "challenges",
-                ]                
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #be924f, #5f4927)',
+                        'border-color':'#be924f',
+                        'color':'black',
+                    }
+                },                
             }, 
             "Rewards": {
                 unlocked() {return hasUpgrade('expert', 13)},
@@ -15461,9 +16204,16 @@ addLayer("expert", {
                         return "You have <h2 style='color: #ac009e; text-shadow: 0 0 10px #ac009e'>" + formatWhole(player.expert.roy_m) +"</h2> Roy's magic, multiplying Extra Magic gain by <h2 style='color: #ac009e; text-shadow: 0 0 10px #ac009e'>"+format(expertBossMagicEffect("roy"))+"x</h2>"}
                     ],
                     ["display-text", function() {
-                        return "You have <h2 style='color: #07c6d9; text-shadow: 0 0 10px #07c6d9'>" + formatWhole(player.expert.ludwig_m) +"</h2> Ludwig's magic, unlocking <h2 style='color: #07c6d9; text-shadow: 0 0 10px #07c6d9'>"+formatWhole(expertBossMagicEffect("ludwig").floor())+" </h2> more overpower milestone upgrade. Next unlock progress: <h2 style='color: #07c6d9; text-shadow: 0 0 10px #07c6d9'>" +formatPercent(expertBossMagicEffect("ludwig").toNumber()%1)+ "</h2>"}
+                        return "You have <h2 style='color: #07c6d9; text-shadow: 0 0 10px #07c6d9'>" + formatWhole(player.expert.ludwig_m) +"</h2> Ludwig's magic, unlocking <h2 style='color: #07c6d9; text-shadow: 0 0 10px #07c6d9'>"+formatWhole(expertBossMagicEffect("ludwig").floor())+" </h2> more overpower milestone upgrade. Next unlock progress: <h2 style='color: #07c6d9; text-shadow: 0 0 10px #07c6d9'>" +formatPercent(expertBossMagicEffect("ludwig").toNumber()%1)+ "</h2> (Max 4 unlocks)"}
                     ],
-                ]                
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #be924f, #5f4927)',
+                        'border-color':'#be924f',
+                        'color':'black',
+                    }
+                },                
             }, 
             "Minigames": {
                 unlocked() {return hasAchievement('achievements', 185)},
@@ -15500,7 +16250,14 @@ addLayer("expert", {
                     "blank",
                     ["clickables", [5]],
                     "blank",
-                ]                
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #be924f, #5f4927)',
+                        'border-color':'#be924f',
+                        'color':'black',
+                    }
+                },                
             }, 
             "Boss Rush and Flaw":{
                 unlocked() {return hasUpgrade('expert', 72)},
@@ -15512,8 +16269,20 @@ addLayer("expert", {
                     ["display-text", function() {
                         return "But you also have <h2 style='color: #be924f; text-shadow: 0 0 10px #be924f'>" + formatWhole(player.expert.flaw) +"</h2> Flaw (+"+format(expertBossMagicGeneration('flaw'))+"/sec), dividing Wing gain by <h2 style='color: #be924f; text-shadow: 0 0 10px #be924f'>/"+format(expertBossMagicEffect('flaw'))+"</h2>"}
                     ],
+                    "blank",
+                    ["display-text", function() {
+                        return "If your flaw is over 100, it'll reset your BRC and flaw mandatorily"}
+                    ],
+                    "blank",
                     ["clickables",[6]],
-                ]
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #be924f, #5f4927)',
+                        'border-color':'#be924f',
+                        'color':'black',
+                    }
+                },
             },
         },
     },
@@ -15532,7 +16301,14 @@ function switchAttackMode() {
     player.s_expert.cooldownSwitching = d(30) //0对应踩，1对应打火
 }
 addLayer("s_expert", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() {
+             return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
         cooldown: new Decimal(0),
@@ -15546,7 +16322,7 @@ addLayer("s_expert", {
             boom_boom: new Decimal(3),
             poom_poom: new Decimal(4),
         },
-        bowserJr: new Decimal(0),
+        resets: new Decimal(0),
         bowser: new Decimal(0),
         super_skill: new Decimal(0),
         lava: new Decimal(0),
@@ -15558,6 +16334,8 @@ addLayer("s_expert", {
         AttackMode: 0,
         cooldownSwitching: d(30),
         shot_period: d(1),
+        pow_block: d(0),
+        pow_block_cap: d(60),
     }},
 
     color: "#6A4FAE",                       // The color for this layer, which affects many elements.
@@ -15575,12 +16353,17 @@ addLayer("s_expert", {
 
     type: "normal",                         // Determines the formula used for calculating prestige currency.
     exponent: 0.2,                          // "normal" prestige gain is (currency^exponent).
-    base: new Decimal(10),
+    base: new Decimal(60),
 
     gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
         let mult = new Decimal(1)               // Factor in any bonuses multiplying gain here.
         if (hasUpgrade('super_acorn', 113)) mult = mult.times(upgradeEffect('super_acorn', 113))
         if (hasSEendlessUpgrade(15) && player.s_expert.lavaSpending) mult = mult.times(upgradeEffect('s_expert', 15).max(1))
+        if (hasMilestone('coop', 2)) mult = mult.times(5)
+        if (hasUpgrade('coop', 13)) mult = mult.times(upgradeEffect('coop', 13))
+        if (inChallenge('coop', 11)) mult = mult.div(Decimal.pow(1000, player.s_expert.resets.max(0)))
+        if (hasUpgrade('versus', 232)) mult = mult.times(upgradeEffect('versus', 232))
+        if (hasUpgrade('versus', 233)) mult = mult.times(1e40)
         return mult
     },
     gainExp() {                             // Returns the exponent to your gain of the prestige resource.
@@ -15591,14 +16374,20 @@ addLayer("s_expert", {
         return (player.expert.points.gte(1.5e25) && player.s_expert.cooldown.eq(0))
     },
     onPrestige() {
+        let cooldown = d(60)
+        let resetsGain = d(0)
+        if (inChallenge('coop', 11)) resetsGain = d(1)
+        if (hasMilestone('coop', 1)) cooldown = d(10)
         if (inExpertBossChallenge() && hasUpgrade('expert', 62))
-        return player.s_expert.cooldown = new Decimal(60),
+        return player.s_expert.cooldown = cooldown,
         player.expert.points = new Decimal(0),
         player.expert.best = new Decimal(0),
-        player.expert.wing = player.expert.wing.add(tmp.s_expert.wingGain)
-        else return player.s_expert.cooldown = new Decimal(60),
+        player.expert.wing = player.expert.wing.add(tmp.s_expert.wingGain),
+        player.s_expert.resets = player.s_expert.resets.add(resetsGain)
+        else return player.s_expert.cooldown = cooldown,
         player.expert.points = new Decimal(0),
-        player.expert.best = new Decimal(0)
+        player.expert.best = new Decimal(0),
+        player.s_expert.resets = player.s_expert.resets.add(resetsGain)
     },
     resetDescription() {
         return "Difficulty max for "
@@ -15608,11 +16397,26 @@ addLayer("s_expert", {
             let kept = ["unlocked", "auto"]
             if (hasMilestone('coop', 0)) {
                 kept.push("milestones")}
+                if (hasMilestone('versus', 3)) {
+                    kept.push("AttackMode")}
+                    if (hasMilestone('themed', 6)) {
+                        kept.push("lavaSpending")}
+            kept.push("pow_block")
             layerDataReset(this.layer, kept)
         }
         else if (layers[resettingLayer].row >= 15) return undefined
     },
+    autoUpgrade() {
+        return hasMilestone('versus', 2)
+    },
 
+    passiveGeneration() {
+        if (player.versus.skill.gte(3141592)) return 0.1
+    },
+
+    hotkeys: [
+        {key: "S", description: "Shift+S: Reset for Super Expert Endless", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
     layerShown() { return hasNormalAchievement(192) },          // Returns a bool for if this layer's node should be visible in the tree.
 
     upgrades: {
@@ -15665,13 +16469,25 @@ addLayer("s_expert", {
                 let LSI = d(0)
                 let lava = player.s_expert.lava
                 let inp = player.s_expert.lavaSpendInput
+                let rightside = LSI.max(1).times(10)
                 if (!(isDNaN(inp) || isDInfinity(inp) || inp.lt(0) || inp.gt(lava.div(10))))
                 LSI = player.s_expert.lavaSpendInput
                 let logbase = d(2)
                 let powbase1 = d(2.5)
+                let powbase1inc = d(2)
                 if (hasSEendlessUpgrade(25)) logbase = logbase.sub(upgradeEffect('s_expert', 25))
                 if (hasSEendlessUpgrade(33)) powbase1 = d(3)
-                let eff = LSI.max(1).log(logbase).add(1).pow(powbase1).times(lava.div(LSI.max(1).times(10)).max(1).pow(1))
+                if (hasUpgrade('coop', 12)) powbase1 = powbase1.add(0.5)
+                if (hasMilestone('versus', 0)) powbase1 = powbase1.add(0.35)
+                if (hasUpgrade('coop', 23)) powbase1 = powbase1.add(buyableEffect('coop', 11))
+
+                if (hasUpgrade('coop', 41)) powbase1inc = powbase1inc.add(0.5)
+
+                if (inChallenge('coop', 11)) powbase1 = d(powbase1inc)
+
+                if (hasUpgrade('versus', 261)) rightside = d(1)
+                logbase = logbase.max(1.1)
+                let eff = LSI.max(1).log(logbase).add(1).pow(powbase1).times(lava.div(rightside).max(1).pow(1))
                 return eff
             },
         },
@@ -15732,7 +16548,9 @@ addLayer("s_expert", {
             cost: new Decimal(3e20),
             unlocked() {return hasUpgrade(this.layer, 25)},
             effect() {
-                let eff = player.s_expert.poison.max(1).ssqrt().pow(1.5)
+                let eff = player.s_expert.poison.max(2).ssqrt().pow(1.5)
+                if (hasSEendlessUpgrade(45)) eff = eff.pow(2)
+                if (hasMilestone('versus', 2)) eff = eff.pow(1.5)
                 return eff
             },
         },
@@ -15766,6 +16584,49 @@ addLayer("s_expert", {
             currencyInternalName: "lava",
             currencyLayer: "s_expert",
             cost: new Decimal(3500),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        41: {
+            title: "Lava tsunami",
+            description: "5x Lava cap.",
+            currencyDisplayName: "Lava",
+            currencyInternalName: "lava",
+            currencyLayer: "s_expert",
+            cost: new Decimal(8000),
+            unlocked() {return hasUpgrade(this.layer, 35)},
+        },
+        42: {
+            title: "Glitched 1UPs",
+            description: "OoM^3s of CC multiplies Mario gain.",
+            cost: new Decimal(3e27),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.points.max("ee10").log(10).log(10).log(10)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        43: {
+            title: "Midair box jumps",
+            description: "Normal Endless Clears^10,000 powers Super Hammer hardcaps.",
+            cost: new Decimal(3e27),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.normal.points.max(1).pow(10000)
+                return eff
+            },
+            effectDisplay() { return "^"+format(upgradeEffect(this.layer, this.id)) },
+        },
+        44: {
+            title: "The true endless grinder",
+            description: "+0.1 to 'Icxena challenging' Auto-Mario gain base.",
+            cost: new Decimal(1e34),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        45: {
+            title: "Endless champion",
+            description: "Square 1st Poison effect, 1st Co-op upgrade also affacts Boss gain in shooting mode.",
+            cost: new Decimal(2e36),
             unlocked() {return hasUpgrade(this.layer, this.id-1)},
         },
         // Look in the upgrades docs to see what goes here!
@@ -15964,17 +16825,57 @@ addLayer("s_expert", {
                 }
             },
         },
+        41: {
+            title() {
+                let t = "Throw a Pow Block"
+                return t},
+            display() {
+                let d = ""
+                return d
+                },
+            canClick() {return player.s_expert.pow_block.gte(1)},
+            onClick() { 
+                player.s_expert.pow_block = player.s_expert.pow_block.sub(1),
+                player.s_expert.boom_boom = player.s_expert.boom_boom.add(tmp.s_expert.multBoomBoom),
+                player.s_expert.poom_poom = player.s_expert.poom_poom.add(tmp.s_expert.multPoomPoom)
+            },
+            unlocked() {return player.versus.skill.gte(2.024e10)},
+            style() {
+                return {'background':'linear-gradient(90deg, #7c83f6 0%, #1a1b64 20%, #1a1b64 80%, #7c83f6 100%)',
+                        'border-radius':'5%',
+                        'min-height':'120px',
+                        'width':'120px',
+                        'color':'white',
+                }
+            },
+        },
     },
     multBoomBoom() {
         let m = d(1)
         if (hasSEendlessUpgrade(31)) m = m.times(upgradeEffect('s_expert', 31))
         if (hasMilestone('coop', 0)) m = m.times(10)
+        if ((hasUpgrade('coop', 11) && player.s_expert.AttackMode == 0) || (hasUpgrade('coop', 11) && hasSEendlessUpgrade(45))) m = m.times(upgradeEffect('coop', 11))
+        if (hasUpgrade('versus', 12)) m = m.times(upgradeEffect('versus', 12))
+        if (hasUpgrade('versus', 211)) m = m.times(upgradeEffect('versus', 211))
+        if (hasUpgrade('coop', 44)) m = m.times(upgradeEffect('coop', 44))
+        if (player.versus.skill.gte(2.024e10)) m = m.pow(tmp.s_expert.powBlockEff)
         return m
     },
     multPoomPoom() {
         let m = d(1)
         if (hasSEendlessUpgrade(31)) m = m.times(upgradeEffect('s_expert', 31))
         if (hasMilestone('coop', 0)) m = m.times(10)
+        if ((hasUpgrade('coop', 11) && player.s_expert.AttackMode == 0) || (hasUpgrade('coop', 11) && hasSEendlessUpgrade(45))) m = m.times(upgradeEffect('coop', 11))
+        if (hasUpgrade('versus', 12)) m = m.times(upgradeEffect('versus', 12))
+        if (hasUpgrade('versus', 211)) m = m.times(upgradeEffect('versus', 211))
+        if (hasUpgrade('coop', 44)) m = m.times(upgradeEffect('coop', 44))
+        if (player.versus.skill.gte(2.024e10)) m = m.pow(tmp.s_expert.powBlockEff)
+        return m
+    },
+    multPowBlock() {
+        let m = d(1)
+        if (hasMilestone('versus', 9)) m = m.times(milestoneEffect('versus', 9))
+        if (player.versus.skill.gte(1.25e13)) m = m.times(5)
         return m
     },
     wingGain() {
@@ -15985,23 +16886,28 @@ addLayer("s_expert", {
         if (hasUpgrade('expert', 72)) w = w.times(expertBossMagicEffect('bossrush'))
         if (hasUpgrade('expert', 72)) w = w.div(expertBossMagicEffect('flaw'))
         if (hasSEendlessUpgrade(21)) w = w.times(upgradeEffect('s_expert', 21))
+        if (hasUpgrade('super_acorn', 122)) w = w.times(upgradeEffect('super_acorn', 122))
         return w
     },
     lavaGain() {
         let l = new Decimal(0)
-        if (player.easy.random_theme.eq(10)) l = new Decimal(1)
+        if (player.easy.random_theme.eq(10) || ((player.easy.random_theme.eq(10) || player.easy.random_theme.eq(7)) && hasMilestone('coop', 4))) l = new Decimal(1)
         if (hasSEendlessMilestone(7)) l = l.times(2)
         if (hasExpertEndlessUpgrade(74)) l = l.times(tmp.s_expert.effectBoomBoom)
         if (hasSEendlessUpgrade(34)) l = l.times(2)
         if (hasMilestone('coop', 0)) l = l.times(10)
+        if (hasNormalAchievement(212)) l = l.times(5)
+        if (hasUpgrade('versus', 221)) l = l.times(upgradeEffect('versus', 221))
         return l
     },
     poisonGain() {
         let l = new Decimal(0)
-        if (player.easy.random_theme.eq(7)) l = new Decimal(1)
+        if (player.easy.random_theme.eq(7) || ((player.easy.random_theme.eq(10) || player.easy.random_theme.eq(7)) && hasMilestone('coop', 4))) l = new Decimal(1)
         if (hasExpertEndlessUpgrade(75)) l = l.times(tmp.s_expert.effectPoomPoom)
         if (hasSEendlessUpgrade(34)) l = l.times(4)
         if (hasMilestone('coop', 0)) l = l.times(10)
+        if (hasUpgrade('versus', 15)) l = l.times(upgradeEffect('versus', 15))
+        if (hasUpgrade('versus', 222)) l = l.times(upgradeEffect('versus', 222))
         return l
     },
     effectBoomBoom() {
@@ -16024,12 +16930,18 @@ addLayer("s_expert", {
         if (player.s_expert.cooldown.gt(0)) player.s_expert.cooldown = player.s_expert.cooldown.sub(tick)
         if (player.s_expert.cooldown.lt(0)) player.s_expert.cooldown = new Decimal(0)
         
-        if (player.easy.random_theme.eq(10) && hasSEendlessUpgrade(15) && player.s_expert.lava.lt(player.s_expert.lavacap)) player.s_expert.lava = player.s_expert.lava.add(tmp.s_expert.lavaGain.times(tick))
-        if (player.easy.random_theme.eq(7) && hasSEendlessUpgrade(23) && player.s_expert.poison.lt(player.s_expert.poisoncap)) player.s_expert.poison = player.s_expert.poison.add(tmp.s_expert.poisonGain.times(tick))
+        if ((player.easy.random_theme.eq(10) && hasSEendlessUpgrade(15) && player.s_expert.lava.lt(player.s_expert.lavacap))
+            || ((player.easy.random_theme.eq(10) || player.easy.random_theme.eq(7)) && hasSEendlessUpgrade(15) && player.s_expert.lava.lt(player.s_expert.lavacap) && hasMilestone('coop', 4))) player.s_expert.lava = player.s_expert.lava.add(tmp.s_expert.lavaGain.times(tick))
+        if ((player.easy.random_theme.eq(7) && hasSEendlessUpgrade(23) && player.s_expert.poison.lt(player.s_expert.poisoncap))
+            || ((player.easy.random_theme.eq(10) || player.easy.random_theme.eq(7)) && hasSEendlessUpgrade(23) && player.s_expert.poison.lt(player.s_expert.poisoncap) && hasMilestone('coop', 4))) player.s_expert.poison = player.s_expert.poison.add(tmp.s_expert.poisonGain.times(tick))
         
         if (hasExpertEndlessUpgrade(74)) cap = cap.times(tmp.s_expert.effectBoomBoom)
+        if (hasSEendlessUpgrade(41)) cap = cap.times(5)
+        if (hasUpgrade('versus', 221)) cap = cap.times(upgradeEffect('versus', 221))
         player.s_expert.lavacap = cap
         if (hasExpertEndlessUpgrade(75)) capP = capP.times(tmp.s_expert.effectPoomPoom)
+        if (hasUpgrade('versus', 15)) capP = capP.times(upgradeEffect('versus', 15))
+        if (hasUpgrade('versus', 222)) capP = capP.times(upgradeEffect('versus', 222))
         player.s_expert.poisoncap = capP
 
         if (player.s_expert.lava.gte(player.s_expert.lavacap)) player.s_expert.lava = player.s_expert.lavacap
@@ -16041,6 +16953,8 @@ addLayer("s_expert", {
         if (isDInfinity(player.s_expert.lavaSpendInput) || isDNaN(player.s_expert.lavaSpendInput)) player.s_expert.lavaSpendInput = new Decimal(0)
         if (player.s_expert.lavaSpendInput.lt(0) && hasSecretAchievement(23)) player.s_expert.lavaSpendInput = d(0)
         if (player.s_expert.lavaSpendInput.gt(player.s_expert.lava.div(10))) player.s_expert.lavaSpendInput = player.s_expert.lava.div(10)
+
+        if (player.versus.skill.gte(1.25e13) && hasUpgrade('versus', 261)) player.s_expert.lavaSpendInput = player.s_expert.lava.div(10)
         //奔奔碰碰BOSS逻辑
         if (player.s_expert.AttackMode == 1 && player.s_expert.shot_period.eq(40) && player.s_expert.cooldownBoss.boom_boom.lte(0) && hasExpertEndlessUpgrade(74)) player.s_expert.healthBoss.boom_boom[1] = player.s_expert.healthBoss.boom_boom[1].sub(1)
         if (player.s_expert.AttackMode == 1 && player.s_expert.shot_period.eq(40) && player.s_expert.cooldownBoss.poom_poom.lte(0) && hasExpertEndlessUpgrade(75)) player.s_expert.healthBoss.poom_poom[1] = player.s_expert.healthBoss.poom_poom[1].sub(1)
@@ -16070,7 +16984,22 @@ addLayer("s_expert", {
         if (player.s_expert.AttackMode == 1) player.s_expert.shot_period = player.s_expert.shot_period.add(1)
         else player.s_expert.shot_period = d(1)
         if (player.s_expert.shot_period.gt(40)) player.s_expert.shot_period = d(1)
-        },
+
+        if (hasNormalAchievement(204)) {
+            if (player.s_expert.boom_boom.lt(tmp.s_expert.multBoomBoom)) player.s_expert.boom_boom = tmp.s_expert.multBoomBoom
+            if (player.s_expert.poom_poom.lt(tmp.s_expert.multPoomPoom)) player.s_expert.poom_poom = tmp.s_expert.multPoomPoom
+        }
+        //pow砖块
+        let pbk = player.s_expert.pow_block
+        let pbkc = d(60) //start
+        if (hasMilestone('versus', 9)) pbkc = pbkc.times(milestoneEffect('versus', 9))
+        if (player.versus.skill.gte(1.25e13)) pbkc = pbkc.times(5)
+        player.s_expert.pow_block_cap = pbkc
+        if (pbk.gt(pbkc)) {
+            player.s_expert.pow_block = pbkc
+        }
+        if (player.versus.skill.gte(2.024e10) && pbk.lt(pbkc)) player.s_expert.pow_block = player.s_expert.pow_block.add(tmp.s_expert.multPowBlock.times(tick))
+    },
         bars: {
             healthBoomBoom: {
                 direction: RIGHT,
@@ -16095,14 +17024,28 @@ addLayer("s_expert", {
                 textStyle() {return {"color":"#000000"}}
             },
         },
+        powBlockEff() {
+            let pbk = player.s_expert.pow_block
+            let eff = d(1)
+            eff = eff.add(pbk.max(0).add(4).ssqrt().sub(2).div(6))
+            if (hasUpgrade('versus', 43)) eff = eff.pow(2.5)
+            return eff
+        },
     tabFormat: [
         "main-display",
         "prestige-button",
         ["display-text", () => "There is a 1 minute cooldown for gaining Super Expert Endless Clears."],
-        ["display-text", () => `Cooldown: ${format(player.s_expert.cooldown, 1)}/60.0s.`],
+        ["display-text", function() {
+            let cooldown = d(60)
+            if (hasMilestone('coop', 1)) cooldown = d(10)
+            return `Cooldown: ${format(player.s_expert.cooldown, 1)}/${format(cooldown, 1)}s.`}],
         ["display-text", () => `Row 14 doesn't reset row 13 but resets Expert Endless Clear amount.`],
         ["display-text", () => `You have ` +format(player.expert.points) + ` Expert Endless Clears`],
         ["display-text", () => `Your record of Super Expert Endless Clears is ` + format(player.s_expert.best)],
+        ["display-text", function() {
+            if (inChallenge('coop', 11))
+            return `<br>You are in challenge "Bowser Jr." Super Expert Endless Clear gain is divided by /${format(Decimal.pow(1000, player.s_expert.resets.max(0)))}`
+        }],
         ["microtabs", "stuff"],
         ["blank", "65px"],
     ],
@@ -16136,13 +17079,23 @@ addLayer("s_expert", {
                     ["display-text", function() {
                         let logbase = d(2)
                         let powbase1 = d(2.5)
+                        let powbase1inc = d(2)
                         if (hasSEendlessUpgrade(25)) logbase = logbase.sub(upgradeEffect('s_expert', 25))
                         if (hasSEendlessUpgrade(33)) powbase1 = d(3)
+                        if (hasUpgrade('coop', 12)) powbase1 = powbase1.add(0.5)
+                        if (hasMilestone('versus', 0)) powbase1 = powbase1.add(0.35)
+                        if (hasUpgrade('coop', 23)) powbase1 = powbase1.add(buyableEffect('coop', 11))
+
+                        if (hasUpgrade('coop', 41)) powbase1inc = powbase1inc.add(0.5)
+                        if (inChallenge('coop', 11)) powbase1 = d(powbase1inc) //挑战削弱
+
+                        let rightside = "(y/10x)"
+                        if (hasUpgrade('versus', 261)) rightside = "y"
                         return `Spending Lava to boost 2nd SE Endless milestone effect. The speed depends on your input<br>
                         It can't be greater than your Lava amount/10 or below 0<br>
                         You must have 10s of Lava that can spend or gain no reward<br>
                         Currently: spending ${format(player.s_expert.lavaSpendInput)} Lava/sec<br>
-                        Formula: (log<sub>${format(logbase)}</sub>(x)+1)<sup>${format(powbase1)}</sup>·(y/10x)<br> (x is the input, y is amount of Lava)<br>
+                        Formula: (log<sub>${format(logbase)}</sub>(x)+1)<sup>${format(powbase1)}</sup>·${rightside}<br> (x is the input, y is amount of Lava)<br>
                         You have a multiplier to Super Expert Endless Clears gain from Lava of ${textStyle_h2(format(upgradeEffect('s_expert', 15))+"x", 'ffbf16')}`
                     }],
                     ["text-input", "lavaSpendInput", { 
@@ -16154,8 +17107,15 @@ addLayer("s_expert", {
                         "background": "var(--background)", 
                     }],
                     "blank",
-                    ["clickables", [1]]
-                ]                
+                    ["clickables", [1]],
+                ], 
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #ffbf16, #d25524)',
+                        'border-color':'#ffbf16',
+                        'color':'black',
+                    }
+                },            
             },
             "Poison": {
                 unlocked() {return hasSEendlessUpgrade(23)},
@@ -16171,14 +17131,28 @@ addLayer("s_expert", {
                         if (hasSEendlessUpgrade(31))
                         return `Your poison multiplies Boom Boom and Poom Poom gain by ${textStyle_h2(format(upgradeEffect('s_expert', 31))+"x", 'fc2bf0')}`
                     }],
-                ]                
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #fc2bf0, #6f1ea0)',
+                        'border-color':'#fc2bd0',
+                        'color':'black',
+                    }
+                },               
             },
             "More Bosses": {
                 unlocked() {return hasExpertEndlessUpgrade(74)},
                 content: [
                     ["blank", "15px"],
                     ["microtabs", "bosses"],
-                ]                
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #6a4fae, #372757)',
+                        'border-color':'#6a4fae',
+                        'color':'white',
+                    }
+                },                
             },
         },
         bosses: {
@@ -16221,7 +17195,14 @@ addLayer("s_expert", {
                         if (hasExpertEndlessUpgrade(75))
                         return `If you choose shooting mode you can both beat Boom Booms and Poom Pooms in the same time`
                     }],
-                ]                
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #6a4fae, #372757)',
+                        'border-color':'#6a4fae',
+                        'color':'white',
+                    }
+                },                 
             },
             "Poom Poom": {
                 unlocked() {return hasExpertEndlessUpgrade(75)},
@@ -16261,16 +17242,61 @@ addLayer("s_expert", {
                     ["display-text", function() {
                         return `If you choose shooting mode you can both beat Boom Booms and Poom Pooms in the same time`
                     }],
-                ]                
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #6a4fae, #372757)',
+                        'border-color':'#6a4fae',
+                        'color':'white',
+                    }
+                },                 
+            },
+            "Pow Block": {
+                unlocked() {return player.versus.skill.gte(2.024e10)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        return `You have ${textStyle_h2(formatWhole(player.s_expert.pow_block)+"/"+formatWhole(player.s_expert.pow_block_cap) ,'7c83f6')} Pow Blocks (+${formatWhole(tmp.s_expert.multPowBlock)}/sec) (Keep on reset)`
+                    }],
+                    ["display-text", function() {
+                        return `Your Pow Block powers S.E. layer Bosses gain by ${textStyle_h2("^"+format(tmp.s_expert.powBlockEff) ,'7c83f6')}`
+                    }],
+                    ["display-text", function() {
+                        return `Pow Block can defeat Bosses instantly and provide a boost to S.E. layer Bosses gain`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        return `You have defeated ${textStyle_h2(formatWhole(player.s_expert.boom_boom), '6a4fae')} Boom Booms (+${format(tmp.s_expert.multBoomBoom)}/throw)`
+                    }],
+                    ["display-text", function() {
+                        return `You have defeated ${textStyle_h2(formatWhole(player.s_expert.poom_poom), '6a4fae')} Poom Pooms (+${format(tmp.s_expert.multPoomPoom)}/throw)`
+                    }],
+                    ["clickables", [4]],
+                ],
+                buttonStyle() {
+                    return {
+                        'background':'linear-gradient(90deg, #7c83f6 0%, #1a1b64 20%, #1a1b64 80%, #7c83f6 100%)',
+                        'border-color':'#1a1a64',
+                        'color':'white',
+                    }
+                },                 
             },
         },
     },
 })
 // 第二十八层：多人过关 (Multiplayer Co-op) Res: Co-op Clears
 addLayer("coop", {
-    startData() { return {                  // startData is a function that returns default data for a layer. 
+    componentStyles: {
+    "upgrade"() { return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
         unlocked: true,                     // You can add more variables here to add them to your layer.
         points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+        check_point: d(0),
+        cpt: d(0),
     }},
 
     color: "#FFCF03",                       // The color for this layer, which affects many elements.
@@ -16282,27 +17308,297 @@ addLayer("coop", {
     baseResource: "Mario",                 // The name of the resource your prestige gain is based on.
     baseAmount() { return player.mario.points },  // A function to return the current amount of baseResource.
 
-    requires: new Decimal(1.4e28),              // The amount of the base needed to  gain 1 of the prestige currency.
+    requires: new Decimal(1e28),              // The amount of the base needed to  gain 1 of the prestige currency.
                                             // Also the amount required to unlock the layer.
     canReset() {
-        return player.mario.points.gte(1.4e28) && player.expert.points.gte(1e102) && player.s_expert.points.gte(1e24)
+        return player.mario.points.gte(1e28) && player.expert.points.gte(1e102) && player.s_expert.points.gte(1e24)
     },  
                                             
     type: "normal",                         // Determines the formula used for calculating prestige currency.
-    base: d(20),
-    exponent: 0.5,                          // "normal" prestige gain is (currency^exponent).
+    exponent: 0.23137821315975915,                          // "normal" prestige gain is (currency^exponent).
 
     gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
         let m = new Decimal(1)               // Factor in any bonuses multiplying gain here.
+        if (hasUpgrade('versus', 11)) m = m.times(upgradeEffect('versus', 11))
+        if (hasUpgrade('coop', 21)) m = m.times(upgradeEffect('coop', 21))
+        if (hasUpgrade('coop', 33)) m = m.times(upgradeEffect('coop', 33))
+        if (hasUpgrade('versus', 24)) m = m.times(upgradeEffect('versus', 24))
+        if (player.versus.lag.gte(1)) m = m.times(tmp.versus.lagEff)
+        if (hasMilestone('coop', 5)) m = m.times(50)
         return m
     },
     gainExp() {                             // Returns the exponent to your gain of the prestige resource.
         return new Decimal(1)
     },
 
+    onPrestige() {
+        if (hasUpgrade('coop', 22)) player.coop.check_point = player.coop.check_point.add(tmp.coop.cpGain)
+        if (player.versus.respec) {player.versus.respec = false
+            player.versus.upgrades.length
+            for(let i = 0; i < player.versus.upgrades.length; i++) { 
+                if (+player.versus.upgrades[i] > 200) { 
+                    player.versus.upgrades.splice(i, 1); 
+                    i--; 
+                }
+            }
+            player.versus.experienceSpent = d(0)
+            player.versus.experience = player.versus.experienceTotal
+        }
+    },
+
+    doReset(resettingLayer) {
+        if (layers[resettingLayer].row >= 15) {
+            let kept = ["unlocked", "auto"]
+            if (hasMilestone('themed', 5)) {
+                kept.push("milestones")}
+            layerDataReset(this.layer, kept)
+        }
+    },
+
+    hotkeys: [
+        {key: "o", description: "O: Reset for Multiplayer Co-op Clears", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
     layerShown() { return hasNormalAchievement(203) },          // Returns a bool for if this layer's node should be visible in the tree.
 
+    passiveGeneration() {
+        return hasMilestone('themed', 1)
+    },
+
     upgrades: {
+        11: {
+            title: "Cooperate",
+            description: "Beat more Bosses by stomping based on best amount of Co-op Clears. (Hardcap at 1000x)",
+            cost: new Decimal(7),
+            unlocked() {return true},
+            effect() {
+                let eff = Decimal.pow(10, player.coop.best.times(3).add(1).max(1).log(10).root(0.75)).min(1000)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        12: {
+            title: "Time up retry",
+            description: "+0.5 to Lava effect left powerer. (to 3.5)",
+            cost: new Decimal(20),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        13: {
+            title: "Players are CPs",
+            description: "Multiply Super Expert Clears gain based on Multiplayer Co-op Clears.",
+            currencyDisplayName: "Cleared Courses",
+            currencyInternalName: "cc",
+            currencyLayer: "achievements",
+            cost: new Decimal("ee3.6e27"),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.coop.points.max(1).pow(1.5)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        14: {
+            title: "We can clear this!",
+            description: "1st Poison effect powers Normal Endless Clears effect but weaker.",
+            currencyDisplayName: "Cleared Courses",
+            currencyInternalName: "cc",
+            currencyLayer: "achievements",
+            cost: new Decimal("ee1.5e28"),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = upgradeEffect('s_expert', 31).max(1).root(2)
+                return eff
+            },
+            effectDisplay() { return "^"+format(upgradeEffect(this.layer, this.id)) },
+        },
+        15: {
+            title: "Another mode",
+            description: "Unlock Multiplayer Versus layer",
+            cost: new Decimal(680),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        21: {
+            title: "Co-op speedrunning",
+            description: "Co-op Clear gain is boosted by itself",
+            cost: new Decimal(10000),
+            unlocked() {return hasUpgrade(this.layer, 15)},
+            effect() {
+                let eff = player.coop.points.max(0).add(10).log(10)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        22: {
+            title: "3s Invincible",
+            description: "Unlock Check Points.",
+            cost: new Decimal(50000),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        23: {
+            title: "Retry from the CP",
+            description: "Unlock a new buyable.",
+            currencyDisplayName: "Check Points",
+            currencyInternalName: "check_point",
+            currencyLayer: "coop",
+            cost: new Decimal(20),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        24: {
+            title: "Cooperate to stomp",
+            description: "Unlock another Check Point buyable.",
+            cost: new Decimal(1234567),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        25: {
+            title: "Advanced coopeartion",
+            description: "Unlock a challenge.",
+            cost: new Decimal(2.111e9),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        31: {
+            title: "T-jumps become easy",
+            description: "501,761x Mario gain.",
+            currencyDisplayName: "Cleared Courses",
+            currencyInternalName: "cc",
+            currencyLayer: "achievements",
+            cost: new Decimal("ee3.4567e33"),
+            unlocked() {return hasUpgrade(this.layer, 25)},
+        },
+        32: {
+            title: "No landing is easy",
+            description: "2nd Normal Endless upgrade effect is stronger.",
+            currencyDisplayName: "Cleared Courses",
+            currencyInternalName: "cc",
+            currencyLayer: "achievements",
+            cost: new Decimal("ee1e34"),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        33: {
+            title: "No damage is easy",
+            description: "Mario<sup>0.05</sup> multiplies Co-op Clears gain.",
+            currencyDisplayName: "Cleared Courses",
+            currencyInternalName: "cc",
+            currencyLayer: "achievements",
+            cost: new Decimal("ee3.3666e36"),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.mario.points.max(1).pow(0.05)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        34: {
+            title: "Poison lake",
+            description: "Unlock factor B to gain more Versus Rating.",
+            currencyDisplayName: "Poison",
+            currencyInternalName: "poison",
+            currencyLayer: "s_expert",
+            cost: new Decimal(10000000),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        35: {
+            title: "Not so challenging",
+            description: "+15 to Bowser Jr. completion limit.",
+            currencyDisplayName: "Super Expert Endless Clears in challenge Bowser Jr.",
+            currencyInternalName: "points",
+            currencyLayer: "s_expert",
+            canAfford() {return inChallenge('coop', 11)},
+            cost: new Decimal(1.6e60),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        41: {
+            title: "Bigger Bowser Jr.",
+            description: "Lava effect left powerer is 2.5 in challenge Bowser Jr.",
+            currencyDisplayName: "Super Expert Endless Clears in challenge Bowser Jr.",
+            currencyInternalName: "points",
+            currencyLayer: "s_expert",
+            canAfford() {return inChallenge('coop', 11)},
+            cost: new Decimal(5e62),
+            unlocked() {return hasUpgrade(this.layer, 35)},
+        },
+        42: {
+            title: "Co-op with friends",
+            description: "Morton's magic is ^100 effective.",
+            currencyDisplayName: "Cleared Courses",
+            currencyInternalName: "cc",
+            currencyLayer: "achievements",
+            cost: new Decimal("ee3.1415e58"),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        43: {
+            title: "18th MP Co-op upgrade",
+            description: "Iggy's magic is ^1.25 effective.",
+            currencyDisplayName: "Cleared Courses",
+            currencyInternalName: "cc",
+            currencyLayer: "achievements",
+            cost: new Decimal("ee1.5e60"),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        44: {
+            title: "Co-op God",
+            description: "Versus Rating provides an effect to Bosses gain in S.E. layer.",
+            currencyDisplayName: "Cleared Courses",
+            currencyInternalName: "cc",
+            currencyLayer: "achievements",
+            cost: new Decimal("ee1e64"),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = Decimal.pow(10, player.versus.points.div(200).max(0))
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        45: {
+            title: "Play together!",
+            description: `Square "Skill: Grab players" effect.`,
+            currencyDisplayName: "Cleared Courses",
+            currencyInternalName: "cc",
+            currencyLayer: "achievements",
+            cost: new Decimal("ee1.5e60"),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        51: {
+            title: "Simulate 2v2 battle",
+            description: "ln(Lag)<sup>2</sup>boosts Lag itself.",
+            cost: new Decimal(2e37),
+            unlocked() {return hasUpgrade(this.layer, 45)},
+            effect() {
+                let eff = player.versus.lag.max(decimalNatral).ln().max(1).pow(2)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        52: {
+            title: "Something is impossible",
+            description: "Unlock 4th way to gain experience.",
+            cost: new Decimal(5e39),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        53: {
+            title: "Good for finding hidden blocks",
+            description: "Double experience gain from VS rating.",
+            cost: new Decimal(1e47),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        54: {
+            title: "Accelerate before start",
+            description: "lg(Check Point) multiplies Lag gain.",
+            cost: new Decimal(1e54),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.coop.check_point.max(10).log(10).max(1)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        55: {
+            title: "Perfect start",
+            description: "Mult of experience gain from CC is doubled.",
+            currencyDisplayName: "Cleared Courses",
+            currencyInternalName: "cc",
+            currencyLayer: "achievements",
+            cost: new Decimal("ee1e91"),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
         // Look in the upgrades docs to see what goes here!
     },
     milestones: {
@@ -16311,6 +17607,178 @@ addLayer("coop", {
             effectDescription: "10x Lava, Poison, Boom Booms and Poom Pooms gain and keep Super Expert Endless milestones on row 15 reset.",
             done() { return player.coop.points.gte(1) },
         },
+        1: {
+            requirementDescription: "Get 2 Multiplayer Co-op Clears",
+            effectDescription: "Super Expert Endless resets' cooldown is 10s instead of 60s.",
+            done() { return player.coop.points.gte(2) },
+        },
+        2: {
+            requirementDescription: "Get 3 Multiplayer Co-op Clears",
+            effectDescription: "5x Super Expert Endless Clears gain.",
+            done() { return player.coop.points.gte(3) },
+        },
+        3: {
+            requirementDescription: "Get 5 Multiplayer Co-op Clears",
+            effectDescription: "Auto prestige for Expert Endless Clears and it resets nothing.",
+            done() { return player.coop.points.gte(5) },
+        },
+        4: {
+            requirementDescription: "Get 7 Multiplayer Co-op Clears",
+            effectDescription: "If the NDMG tab in Easy Endless layer theme is jungle or castle, both gain Lava and Poison at same time.",
+            done() { return player.coop.points.gte(7) },
+        },
+        5: {
+            requirementDescription: "Get 1e40 Multiplayer Co-op Clears",
+            effectDescription: "50x Co-op Clears gain.",
+            done() { return player.coop.points.gte(1e40) },
+        },
+    },
+    buyables: {
+        11: {
+            title: "Shared Conditions",
+            cost(x) { return new Decimal(4.88).pow(Decimal.pow(x, 1.025)) },
+            display() { 
+                let free = new Decimal(0)
+                if (hasUpgrade('versus', 21)) free = free.add(upgradeEffect('versus', 21))
+                let base = d(0.2)
+                if (hasUpgrade('versus', 31)) base = base.add(0.05)
+                let freedis = ""
+                if (free.gt(0)) freedis = `+${formatWhole(free)}`
+                let display = ` Increase Lava effect left powerer. <br>
+                base: ${format(base)}<br>
+                level: ${formatWhole(player[this.layer].buyables[this.id])}${freedis}<br>
+                Effect: +${format(this.effect())}<br>
+                Cost: ${format(this.cost())} Check Points`
+                return display}, 
+            canAfford() { return player[this.layer].check_point.gte(this.cost()) },
+            buyMax() {return setBuyableAmount('coop', 11, player.coop.check_point.max(4.88).log(4.88).root(1.025).floor().add(1))},
+            canBuyMax() { return hasMilestone('themed', 4)},
+            buy() {
+                if (!this.canBuyMax()) player[this.layer].check_point = player[this.layer].check_point.sub(this.cost()),
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                if (this.canBuyMax()) this.buyMax()
+            },
+            effect(x) {
+                let free = new Decimal(0)
+                if (hasUpgrade('versus', 21)) free = free.add(upgradeEffect('versus', 21))
+                let base = d(0.2)
+                if (hasUpgrade('versus', 31)) base = base.add(0.05)
+                let softcap = d(5)
+                let effect = base.times(x.add(free))
+                return effect},
+            unlocked() {return hasUpgrade('coop', 23)},           
+        },
+        12: {
+            title: "Visible Condition Progress",
+            cost(x) { return new Decimal(10).pow(Decimal.pow(x, 1.01)) },
+            display() { 
+                let free = new Decimal(0)
+                if (hasUpgrade('versus', 23)) free = free.add(5)
+                let base = d(3)
+                if (hasUpgrade('versus', 32)) base = base.add(upgradeEffect('versus', 32))
+                let freedis = ""
+                if (free.gt(0)) freedis = `+${formatWhole(free)}`
+                let softcapAmt = d(200)
+                let softcap = ""
+                if (getBuyableAmount('coop', 12).gte(softcapAmt)) softcap = " (softcapped)"
+                let display = ` Multiply Check Point gain. <br>
+                base: ${format(base)}<br>
+                level: ${formatWhole(player[this.layer].buyables[this.id])}${freedis}<br>
+                Effect: ${format(this.effect())}x${softcap}<br>
+                Cost: ${format(this.cost())} Check Points`
+                return display}, 
+            canAfford() { return player[this.layer].check_point.gte(this.cost()) },
+            buyMax() {return setBuyableAmount('coop', 12, player.coop.check_point.max(10).log(10).root(1.01).floor().add(1))},
+            canBuyMax() { return hasMilestone('themed', 4)},
+            buy() {
+                if (!this.canBuyMax()) player[this.layer].check_point = player[this.layer].check_point.sub(this.cost()),
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                if (this.canBuyMax()) this.buyMax()
+            },
+            effect(x) {
+                let free = new Decimal(0)
+                if (hasUpgrade('versus', 23)) free = free.add(5)
+                let base = d(3)
+                if (hasUpgrade('versus', 32)) base = base.add(upgradeEffect('versus', 32))
+                let softcap = d(200)
+                let effect = base.pow(x.add(free))
+                if (x.gte(softcap)) effect = base.pow(d(200).add(free)).times(base.max(1).sqrt().pow(x.sub(200).max(0)))
+                return effect},
+            unlocked() {return hasUpgrade('coop', 24)},           
+        },
+    },
+    challenges: {
+        11: {
+            name: "Bowser Jr.",
+            challengeDescription() {
+                let base = d(2)
+                if (hasUpgrade('coop', 41)) base = base.add(0.5)
+                return `Lava effect left powerer is always ${format(base)}, divide SE Endless Clears gain based on your S.E. layer resets.`
+            },
+            goal() {
+                let comps = d(player.coop.challenges[11])
+                return Decimal.pow(1000, comps).times(1.6e45)
+            },
+            goalDescription() {return `Reach ${format(challengeGoal('coop', 11))} S.E. Endless Clears.<br>Goal Formula: 1000<sup>x</sup>·1.6e45
+            <br>Completions: ${formatWhole(challengeCompletions('coop', 11))}/${formatWhole(this.completionLimit())}`},
+            completionLimit() {
+                let l = d(5)
+                if (hasUpgrade('coop', 35)) l = l.add(15)
+                if (hasUpgrade('themed', 11)) l = l.add(20)
+                return l
+            },
+            canComplete: function() {
+                return player.s_expert.points.gte(challengeGoal('coop', 11))
+            },
+            rewardDescription() {
+                let base = d(10)
+                if (hasUpgrade('versus', 223)) base = base.add(upgradeEffect('versus', 223))
+                return `Multiply Check Point gain by ${format(base)} per each completion.`
+            },
+            rewardEffect() {
+                let base = d(10)
+                if (hasUpgrade('versus', 223)) base = base.add(upgradeEffect('versus', 223))
+                let comps = d(player.coop.challenges[11])
+                let eff = Decimal.pow(base, comps)
+                return eff
+            },
+            rewardDisplay() { 
+                return `${format(challengeEffect(this.layer, 11))}x`
+            },
+            onComplete() {
+                let bulk = 1
+                let bulkR = 0
+                if (hasMilestone('themed', 3)) bulk = 5,
+                bulkR = 4
+                if (player.coop.challenges[11] + bulk <= this.completionLimit().toNumber()) 
+                return player.coop.challenges[11] = player.coop.challenges[11] + bulkR
+                else return player.coop.challenges[11] = this.completionLimit().toNumber()       
+            },
+            unlocked() {return hasUpgrade('coop', 25)},
+            style() {
+                    if (inChallenge('coop', 11) && !tmp.coop.challenges[11].canComplete)
+                    return {
+                    'background-color':'#6a4fae',
+                    'border-radius':'5%',}
+                    else return {'border-radius':'5%'}
+            }
+        }
+    },
+    cpGain() {
+        let m = d(1)
+        if (hasMilestone('versus', 1)) m = m.times(3)
+        if (hasUpgrade('coop', 24)) m = m.times(buyableEffect('coop', 12))
+        if (hasUpgrade('versus', 13)) m = m.times(upgradeEffect('versus', 13))
+        if (hasUpgrade('coop', 15)) m = m.times(challengeEffect('coop', 11))
+        if (hasUpgrade('versus', 35)) m = m.times(upgradeEffect('versus', 35))
+        if (hasUpgrade('versus', 42)) m = m.times(upgradeEffect('versus', 42))
+        if (hasMilestone('themed', 2)) m = m.times(10)
+        return m
+    },
+
+    update() {
+        let tick = d(0.05)
+        if (hasMilestone('themed', 4)) player.coop.check_point = player.coop.check_point.add(tmp.coop.cpGain.times(tick))
     },
 
     tabFormat: [
@@ -16339,6 +17807,1530 @@ addLayer("coop", {
                 content: [
                     ["blank", "15px"],
                     ["raw-html", () => `<h4 style="opacity:.5">Multiplayer Co-op layer resets Super Expert Endless layer, keeps Expert Endless layer.`],
+                    "milestones",
+                ]                
+            }, 
+            "Check Point": {
+                unlocked() {return hasUpgrade('coop', 22)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        return `You have ${textStyle_h2(formatWhole(player.coop.check_point), '0a1416', 'ffffff')} Check Points`
+                    }],
+                    ["display-text", function() {
+                        return `You can gain ${formatWhole(tmp.coop.cpGain)} Check Points this MP Co-op reset`
+                    }],
+                    "buyables",
+                ],
+                buttonStyle() {
+                    return {
+                        'background':`linear-gradient(90deg, #0a1416, #ffcf03)`,
+                        'border-color':'#ffcf03',
+                        'color':'white',
+                    }
+                },               
+            }, 
+            "Challenges": {
+                unlocked() {return hasUpgrade('coop', 25)},
+                content: [
+                    ["blank", "15px"],
+                    "challenges",
+                ]                
+            }, 
+        },
+    },
+})
+// 第二十九层：多人对战 (Multiplayer Versus) Res: Versus Rating
+function versusRank(rating) {
+    rating = d(rating)
+    if (rating.lt(1000) && rating.gte(0)) return "D"
+    if (rating.lt(2000) && rating.gte(1000)) return "C"
+    if (rating.lt(3000) && rating.gte(2000)) return "B"
+    if (rating.lt(4000) && rating.gte(3000)) return "A"
+    if (rating.lt(5000) && rating.gte(4000)) return "S"
+    if (rating.lte(8000) && rating.gte(5000)) return "S<sup>+</sup>" //6000分红名 (Rating 6000: Pink S+)
+}
+function hasFirst3RowsResearch() {
+    return hasUpgrade('versus', 211) && hasUpgrade('versus', 221) && hasUpgrade('versus', 222) && hasUpgrade('versus', 231) && hasUpgrade('versus', 232) && hasUpgrade('versus', 233) && hasUpgrade('versus', 234)
+}
+addLayer("versus", {
+    componentStyles: {
+    "upgrade"() { 
+        if (player.subtabs.versus.stuff == 'Upgrades')
+        return {'border-radius':'10%',
+                          'width':'150px',
+                          'min-height':'150px',
+    } }
+},
+startData() { return {                  // startData is a function that returns default data for a layer. 
+        unlocked: true,                     // You can add more variables here to add them to your layer.
+        points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+        luck: d(0),
+        experienceTotal: d(0),
+        experienceBest: d(0),
+        experienceSpent: d(0),
+        experience: d(0),
+        respec: false,
+        skill: d(0),
+        skillLearning: false,
+        skillLearningProgress: d(0),
+        lag: d(0),
+        bad_player: d(0),
+        disconnected: d(0),
+        batoko: d(0), //四人图，公平图
+    }},
+
+    color: "#FFCF03",                       // The color for this layer, which affects many elements.
+    resource: "Versus Rating",            // The name of this layer's main prestige resource.
+    row: 14,                                 // The row this layer is on (0 is the first row).
+    position: 1,
+    branches: ['coop'],
+    symbol: "VS",
+    tooltip() {return `Versus Rating: ${formatWhole(player.versus.points)}<br>Rank: ${versusRank(player.versus.points)}`},
+
+    baseResource: "points",                 // The name of the resource your prestige gain is based on.
+    baseAmount() { return player.points },  // A function to return the current amount of baseResource.
+
+    requires: new Decimal(10),              // The amount of the base needed to  gain 1 of the prestige currency.
+                                            // Also the amount required to unlock the layer.
+
+    type: "none",                         // Determines the formula used for calculating prestige currency.
+    exponent: 0.5,                          // "normal" prestige gain is (currency^exponent).
+
+    gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        return new Decimal(1)               // Factor in any bonuses multiplying gain here.
+    },
+    gainExp() {                             // Returns the exponent to your gain of the prestige resource.
+        return new Decimal(1)
+    },
+
+    layerShown() { return hasNormalAchievement(205) },          // Returns a bool for if this layer's node should be visible in the tree.
+
+
+    doReset() {
+        return undefined
+    },
+    upgrades: {
+        11: {
+            title: "Meet the competition",
+            description: "(Versus Rating+1)<sup>2</sup> multiplies MP Co-op Clears gain",
+            cost: new Decimal(2),
+            unlocked() {return true},
+            effect() {
+                let eff = player.versus.points.max(0).add(1).pow(2)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        12: {
+            title: "4 results",
+            description: "(Versus Rating+1)<sup>1.25</sup> multiplies Bosses in S.E. layer gain.",
+            cost: new Decimal(60),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.versus.points.max(0).add(1).pow(1.25)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        13: {
+            title: "One winner",
+            description: "<sup>3</sup>√(Versus Rating+1) multiplies Check Point gain.",
+            cost: new Decimal(120),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.versus.points.max(0).add(1).cbrt()
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        14: {
+            title: "Let's start over!",
+            description: "(Versus Rating PB+1)<sup>5</sup> multiplies Extra Magic gain.",
+            cost: new Decimal(211),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.versus.best.max(0).add(1).pow(5)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        15: {
+            title: "Don't disconnect",
+            description: "(Versus Rating+1)<sup>0.6</sup> multiplies Poison gain and cap.",
+            cost: new Decimal(213),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.versus.best.max(0).add(1).pow(0.6)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        21: {
+            title: "Goombas on slopes",
+            description: `Bowser Jr. completions provide free levels to "Shared Conditions".`,
+            cost: new Decimal(217),
+            unlocked() {return hasUpgrade(this.layer, 15)},
+            effect() {
+                let eff = d(challengeCompletions('coop', 11))
+                return eff
+            },
+            effectDisplay() { return "+"+formatWhole(upgradeEffect(this.layer, this.id)) },
+        },
+        22: {
+            title: "Research skills",
+            description: `Unlock Researches.`,
+            cost: new Decimal(257),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        23: {
+            title: "You win!",
+            description: `Add 5 free level to "Visible Condition Progress".`,
+            cost: new Decimal(424),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        24: {
+            title: "Win streak",
+            description: `lg(Check Point)<sup>3</sup> multiplies MP Co-op Clears gain.`,
+            cost: new Decimal(432),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.coop.check_point.max(10).log(10).pow(3)
+                return eff
+            },
+            effectDisplay() { return formatWhole(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        25: {
+            title: "A soft loss",
+            description: `25x OSC gain.`,
+            cost: new Decimal(472),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        31: {
+            title: "On/off switches",
+            description: `+0.05 "Shared Conditions" base.`,
+            cost: new Decimal(860),
+            unlocked() {return hasUpgrade(this.layer, 25)},
+        },
+        32: {
+            title: "Storm",
+            description() {return `"Visible Condition Progress" level slightly increase its base. (excluding free levels)`},
+            cost: new Decimal(2150),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = getBuyableAmount('coop', 12).max(0).div(50)
+                if (eff.gte(4)) eff = eff.sub(3).pow(0.55).add(3)
+                return eff
+            },
+            effectDisplay() { 
+                let d = "+"+format(upgradeEffect(this.layer, this.id)) 
+                if (upgradeEffect(this.layer, this.id).gte(4)) d = d + " (softcapped)"
+                return d
+            },
+        },
+        33: {
+            title: "Donuts",
+            description: `Hardcap of factor A is increased to 3000.`,
+            currencyDisplayName: "Cleared Courses",
+            currencyInternalName: "cc",
+            currencyLayer: "achievements",
+            cost: new Decimal("ee5e74"),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        34: {
+            title: "Horizontal trampoline",
+            description: `Total experience amount multiplies Lag gain.`,
+            currencyDisplayName: "Cleared Courses",
+            currencyInternalName: "cc",
+            currencyLayer: "achievements",
+            cost: new Decimal("ee1e80"),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.versus.experienceTotal.max(1)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        35: {
+            title: "Vertical trampoline",
+            description: `Gain an extra multiplier for Check Points.`,
+            cost: new Decimal(2624),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = d(262400)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        41: {
+            title: "1-second invincible",
+            description: "lg(Check Point) multiplies skill tries gain.",
+            cost: new Decimal(2636),
+            unlocked() {return hasUpgrade(this.layer, 35)},
+            effect() {
+                let eff = player.coop.check_point.max(10).log(10).max(1)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        42: {
+            title: "Check point softlocked",
+            description: "Versus Rating PB past 3000 boosts Check Points gain.",
+            currencyDisplayName: "Cleared Courses",
+            currencyInternalName: "cc",
+            currencyLayer: "achievements",
+            cost: new Decimal("ee2e92"),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.versus.best.max(3000).sub(2999).pow(3.65)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        43: {
+            title: "Flag goal please...",
+            description: "Pow Blocks effect ^2.5.",
+            currencyDisplayName: "Cleared Courses",
+            currencyInternalName: "cc",
+            currencyLayer: "achievements",
+            cost: new Decimal("ee2.6e108"),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        44: {
+            title: "+40 per win",
+            description: "Versus Rating boosts skill tries gain after Rank A.",
+            currencyDisplayName: "Cleared Courses",
+            currencyInternalName: "cc",
+            currencyLayer: "achievements",
+            cost: new Decimal("ee2.7e131"),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+            effect() {
+                let eff = player.versus.points.max(3000).sub(2999).pow(d(2).add(player.versus.points.max(3000).sub(2999).div(100)))
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        // Look in the upgrades docs to see what goes here!
+        // 研究 researches:
+        211: {
+            fullDisplay: "1-1",
+            cost: new Decimal(0),
+            canAfford() { return player.versus.experience.gte(1) },
+            onPurchase() { return player.versus.experienceSpent = player.versus.experienceSpent.add(1) },
+            effect() { 
+                let eff = player.versus.experienceTotal.max(0).add(1).pow(10)
+                return eff
+            },
+            tooltip() { 
+                let t = `Total experience multiplies Two Bosses in S.E. layer.<br><br>
+                        Cost: 1 experience<br><br>
+                        Currently: ${format(this.effect())}x`
+                return t
+                    },
+            unlocked() {return hasUpgrade(this.layer, 22)},
+            style() {
+                let color = '#000000'
+                if (hasUpgrade(this.layer, this.id)) color = '#ffcf03'
+                let s = {
+                    'border-radius':'0%',
+                    'border-color':'#ffffff',
+                    'background-color':color,
+                    'font-size':'20px',
+                    'color':'#ffffff',
+                    'min-height':'60px',
+                    'width':'60px',
+                }
+                return s
+            }, 
+        },
+        221: {
+            fullDisplay: "2-1",
+            cost: new Decimal(0),
+            branches: [211],
+            canAfford() { return player.versus.experience.gte(2) },
+            onPurchase() { return player.versus.experienceSpent = player.versus.experienceSpent.add(2) },
+            effect() { 
+                let eff = player.s_expert.lava.max(decimalNatral).ln()
+                return eff
+            },
+            tooltip() { 
+                let t = `ln(Lava) multiplies Lava gain and cap.<br><br>
+                        Cost: 2 experience<br><br>
+                        Currently: ${format(this.effect())}x`
+                return t
+                    },
+            unlocked() {return hasUpgrade(this.layer, 211)},
+            style() {
+                let color = '#000000'
+                if (hasUpgrade(this.layer, this.id)) color = '#ffcf03'
+                let s = {
+                    'border-radius':'0%',
+                    'border-color':'#ffffff',
+                    'background-color':color,
+                    'font-size':'20px',
+                    'color':'#ffffff',
+                    'min-height':'60px',
+                    'width':'60px',
+                }
+                return s
+            }, 
+        },
+        222: {
+            fullDisplay: "2-2",
+            cost: new Decimal(0),
+            branches: [211],
+            canAfford() { return player.versus.experience.gte(2) },
+            onPurchase() { return player.versus.experienceSpent = player.versus.experienceSpent.add(2) },
+            effect() { 
+                let eff = player.s_expert.poison.max(decimalNatral).ln()
+                return eff
+            },
+            tooltip() { 
+                let t = `ln(Poison) multiplies Poison gain and cap.<br><br>
+                        Cost: 2 experience<br><br>
+                        Currently: ${format(this.effect())}x`
+                return t
+                    },
+            unlocked() {return hasUpgrade(this.layer, 211)},
+            style() {
+                let color = '#000000'
+                if (hasUpgrade(this.layer, this.id)) color = '#ffcf03'
+                let s = {
+                    'border-radius':'0%',
+                    'border-color':'#ffffff',
+                    'background-color':color,
+                    'font-size':'20px',
+                    'color':'#ffffff',
+                    'min-height':'60px',
+                    'width':'60px',
+                }
+                return s
+            }, 
+        },
+        223: {
+            fullDisplay: "2-3",
+            cost: new Decimal(0),
+            branches: [211],
+            canAfford() { return player.versus.experience.gte(5) },
+            onPurchase() { return player.versus.experienceSpent = player.versus.experienceSpent.add(5) },
+            effect() { 
+                let eff = player.toad.tierlayer.max(0).div(2)
+                return eff
+            },
+            tooltip() { 
+                let t = `Toad layers of tier increases "Bowser Jr." reward base.<br><br>
+                        Cost: 5 experience<br><br>
+                        Currently: +${format(this.effect())}`
+                return t
+                    },
+            unlocked() {return hasUpgrade(this.layer, 211)},
+            style() {
+                let color = '#000000'
+                if (hasUpgrade(this.layer, this.id)) color = '#ffcf03'
+                let s = {
+                    'border-radius':'0%',
+                    'border-color':'#ffffff',
+                    'background-color':color,
+                    'font-size':'20px',
+                    'color':'#ffffff',
+                    'min-height':'60px',
+                    'width':'60px',
+                }
+                return s
+            }, 
+        },
+        231: {
+            fullDisplay: "3-1",
+            cost: new Decimal(0),
+            branches: [221],
+            canAfford() { return player.versus.experience.gte(6) },
+            onPurchase() { return player.versus.experienceSpent = player.versus.experienceSpent.add(6) },
+            effect() { 
+                let eff = getBuyableAmount('easy', 12).max(1).pow(10)
+                return eff
+            },
+            tooltip() { 
+                let t = `"Ikyota challenging" level provides an effect to Normal Endless Clears again.<br><br>
+                        Cost: 6 experience<br><br>
+                        Currently: ${format(this.effect())}x`
+                return t
+                    },
+            unlocked() {return hasUpgrade(this.layer, 221)},
+            style() {
+                let color = '#000000'
+                if (hasUpgrade(this.layer, this.id)) color = '#ffcf03'
+                let s = {
+                    'border-radius':'0%',
+                    'border-color':'#ffffff',
+                    'background-color':color,
+                    'font-size':'20px',
+                    'color':'#ffffff',
+                    'min-height':'60px',
+                    'width':'60px',
+                }
+                return s
+            }, 
+        },
+        232: {
+            fullDisplay: "3-2",
+            cost: new Decimal(0),
+            branches: [222],
+            canAfford() { return player.versus.experience.gte(6) },
+            onPurchase() { return player.versus.experienceSpent = player.versus.experienceSpent.add(6) },
+            effect() { 
+                let eff = getBuyableAmount('easy', 12).max(1).pow(0.9)
+                return eff
+            },
+            tooltip() { 
+                let t = `"Ikyota challenging" level provides an effect to Super Expert Endless Clears again.<br><br>
+                        Cost: 6 experience<br><br>
+                        Currently: ${format(this.effect())}x`
+                return t
+                    },
+            unlocked() {return hasUpgrade(this.layer, 222)},
+            style() {
+                let color = '#000000'
+                if (hasUpgrade(this.layer, this.id)) color = '#ffcf03'
+                let s = {
+                    'border-radius':'0%',
+                    'border-color':'#ffffff',
+                    'background-color':color,
+                    'font-size':'20px',
+                    'color':'#ffffff',
+                    'min-height':'60px',
+                    'width':'60px',
+                }
+                return s
+            }, 
+        },
+        233: {
+            fullDisplay: "3-3",
+            cost: new Decimal(0),
+            branches: [222],
+            canAfford() { return player.versus.experience.gte(8) },
+            onPurchase() { return player.versus.experienceSpent = player.versus.experienceSpent.add(8) },
+            effect() { 
+                let eff = getBuyableAmount('easy', 12).max(1).pow(0.9)
+                return eff
+            },
+            tooltip() { 
+                let t = `1e40x Super Expert Endless Clears again.<br><br>
+                        Cost: 8 experience<br>`
+                return t
+                    },
+            unlocked() {return hasUpgrade(this.layer, 222)},
+            style() {
+                let color = '#000000'
+                if (hasUpgrade(this.layer, this.id)) color = '#ffcf03'
+                let s = {
+                    'border-radius':'0%',
+                    'border-color':'#ffffff',
+                    'background-color':color,
+                    'font-size':'20px',
+                    'color':'#ffffff',
+                    'min-height':'60px',
+                    'width':'60px',
+                }
+                return s
+            }, 
+        },
+        234: {
+            fullDisplay: "3-4",
+            cost: new Decimal(0),
+            branches: [223],
+            canAfford() { return player.versus.experience.gte(5) },
+            onPurchase() { return player.versus.experienceSpent = player.versus.experienceSpent.add(5) },
+            effect() { 
+            },
+            tooltip() { 
+                let t = `1e345x Normal Endless Clears again.<br><br>
+                        Cost: 5 experience<br>`
+                return t
+                    },
+            unlocked() {return hasUpgrade(this.layer, 223)},
+            style() {
+                let color = '#000000'
+                if (hasUpgrade(this.layer, this.id)) color = '#ffcf03'
+                let s = {
+                    'border-radius':'0%',
+                    'border-color':'#ffffff',
+                    'background-color':color,
+                    'font-size':'20px',
+                    'color':'#ffffff',
+                    'min-height':'60px',
+                    'width':'60px',
+                }
+                return s
+            }, 
+        },
+        241: {
+            fullDisplay: "4-1",
+            cost: new Decimal(0),
+            branches: [231, 232, 233, 234],
+            canAfford() { return player.versus.experience.gte(9) },
+            onPurchase() { return player.versus.experienceSpent = player.versus.experienceSpent.add(9) },
+            effect() { 
+            },
+            tooltip() { 
+                let t = `Unlock factor D for Versus Rating.<br><br>
+                        Cost: 9 experience<br>`
+                return t
+                    },
+            unlocked() {return hasUpgrade(this.layer, 231) && hasUpgrade(this.layer, 232) && hasUpgrade(this.layer, 233) && hasUpgrade(this.layer, 234)},
+            style() {
+                let color = '#000000'
+                if (hasUpgrade(this.layer, this.id)) color = '#ffcf03'
+                let s = {
+                    'border-radius':'0%',
+                    'border-color':'#ffffff',
+                    'background-color':color,
+                    'font-size':'20px',
+                    'color':'#ffffff',
+                    'min-height':'60px',
+                    'width':'60px',
+                }
+                return s
+            }, 
+        },
+        251: {
+            fullDisplay: "5-1",
+            cost: new Decimal(0),
+            branches: [241],
+            canAfford() { return player.versus.experience.gte(15) },
+            onPurchase() { return player.versus.experienceSpent = player.versus.experienceSpent.add(15) },
+            effect() { 
+            },
+            tooltip() { 
+                let t = `Add 5000 to D.<br><br>
+                        Cost: 15 experience<br>`
+                return t
+                    },
+            unlocked() {return hasUpgrade(this.layer, 241)},
+            style() {
+                let color = '#000000'
+                if (hasUpgrade(this.layer, this.id)) color = '#ffcf03'
+                let s = {
+                    'border-radius':'0%',
+                    'border-color':'#ffffff',
+                    'background-color':color,
+                    'font-size':'20px',
+                    'color':'#ffffff',
+                    'min-height':'60px',
+                    'width':'60px',
+                }
+                return s
+            }, 
+        },
+        252: {
+            fullDisplay: "5-2",
+            cost: new Decimal(0),
+            branches: [241],
+            canAfford() { return player.versus.experience.gte(12) },
+            onPurchase() { return player.versus.experienceSpent = player.versus.experienceSpent.add(12) },
+            effect() { 
+            },
+            tooltip() { 
+                let t = `Add 3000 to D.<br><br>
+                        Cost: 12 experience<br>`
+                return t
+                    },
+            unlocked() {return hasUpgrade(this.layer, 241)},
+            style() {
+                let color = '#000000'
+                if (hasUpgrade(this.layer, this.id)) color = '#ffcf03'
+                let s = {
+                    'border-radius':'0%',
+                    'border-color':'#ffffff',
+                    'background-color':color,
+                    'font-size':'20px',
+                    'color':'#ffffff',
+                    'min-height':'60px',
+                    'width':'60px',
+                }
+                return s
+            }, 
+        },
+        253: {
+            fullDisplay: "5-3",
+            cost: new Decimal(0),
+            branches: [241],
+            canAfford() { return player.versus.experience.gte(10) },
+            onPurchase() { return player.versus.experienceSpent = player.versus.experienceSpent.add(10) },
+            effect() { 
+            },
+            tooltip() { 
+                let t = `Add 2000 to D.<br><br>
+                        Cost: 10 experience<br>`
+                return t
+                    },
+            unlocked() {return hasUpgrade(this.layer, 241)},
+            style() {
+                let color = '#000000'
+                if (hasUpgrade(this.layer, this.id)) color = '#ffcf03'
+                let s = {
+                    'border-radius':'0%',
+                    'border-color':'#ffffff',
+                    'background-color':color,
+                    'font-size':'20px',
+                    'color':'#ffffff',
+                    'min-height':'60px',
+                    'width':'60px',
+                }
+                return s
+            }, 
+        },
+        261: {
+            fullDisplay: "6-1",
+            cost: new Decimal(0),
+            branches: [251, 252, 253],
+            canAfford() { return player.versus.experience.gte(9) },
+            onPurchase() { return player.versus.experienceSpent = player.versus.experienceSpent.add(9) },
+            effect() { 
+            },
+            tooltip() { 
+                let t = `Lava effect formula right side is y instead of y/10x.<br><br>
+                        Cost: 9 experience<br>`
+                return t
+                    },
+            unlocked() {return hasUpgrade(this.layer, 251) || hasUpgrade(this.layer, 252) || hasUpgrade(this.layer, 253)},
+            style() {
+                let color = '#000000'
+                if (hasUpgrade(this.layer, this.id)) color = '#ffcf03'
+                let s = {
+                    'border-radius':'0%',
+                    'border-color':'#ffffff',
+                    'background-color':color,
+                    'font-size':'20px',
+                    'color':'#ffffff',
+                    'min-height':'60px',
+                    'width':'60px',
+                }
+                return s
+            }, 
+        },
+        262: {
+            fullDisplay: "6-2",
+            cost: new Decimal(0),
+            branches: [251, 252, 253],
+            canAfford() { return player.versus.experience.gte(14) },
+            onPurchase() { return player.versus.experienceSpent = player.versus.experienceSpent.add(14) },
+            effect() { 
+                let eff = player.versus.experienceTotal.max(0).add(1).pow(1.25)
+                return eff
+            },
+            tooltip() { 
+                let t = `Total experience boost lag comptition played gain.<br><br>
+                        Cost: 14 experience<br><br>
+                        Currently: ${format(this.effect())}x`
+                return t
+                    },
+            unlocked() {return hasUpgrade(this.layer, 251) || hasUpgrade(this.layer, 252) || hasUpgrade(this.layer, 253)},
+            style() {
+                let color = '#000000'
+                if (hasUpgrade(this.layer, this.id)) color = '#ffcf03'
+                let s = {
+                    'border-radius':'0%',
+                    'border-color':'#ffffff',
+                    'background-color':color,
+                    'font-size':'20px',
+                    'color':'#ffffff',
+                    'min-height':'60px',
+                    'width':'60px',
+                }
+                return s
+            }, 
+        },
+        271: {
+            fullDisplay: "7-1",
+            cost: new Decimal(0),
+            branches: [261, 262],
+            canAfford() { return player.versus.experience.gte(45) && player.themed.points.gte(100) },
+            onPurchase() { return player.versus.experienceSpent = player.versus.experienceSpent.add(45),
+                player.themed.points = player.themed.points.sub(100)
+             },
+            effect() { 
+                let eff = player.versus.experienceTotal.max(0).add(1).pow(1.25)
+                return eff
+            },
+            tooltip() { 
+                let tc = "???"
+                if (tmp.themed.layerShown) tc = "Themed Clears"
+                let t = `Add 30000 to D.<br><br>
+                        Cost: 45 experience and 100 ${tc}<br><br>
+                        Currently: ${format(this.effect())}x`
+                return t
+                    },
+            unlocked() {return hasUpgrade(this.layer, 261) || hasUpgrade(this.layer, 262)},
+            style() {
+                let color = '#000000'
+                if (hasUpgrade(this.layer, this.id)) color = '#748bff'
+                let s = {
+                    'border-radius':'0%',
+                    'border-color':'#ffffff',
+                    'background-color':color,
+                    'font-size':'20px',
+                    'color':'#ffffff',
+                    'min-height':'60px',
+                    'width':'60px',
+                }
+                return s
+            }, 
+        },
+    },
+    buyables: {
+        11: {
+            title: "",
+            cost(x) { let c = (x.add(1)).times(200) 
+                    if (x.gte(40)) c = d(Infinity)
+                    return c
+            },
+            purchaseLimit() { return d(40) },
+            mult() {
+                let m = d(1)
+                if (hasUpgrade('coop', 53)) m = m.times(2)
+                return m
+            },
+            display() { 
+                let display = ` Gain experience from VS Rating. <br>
+                Bought: ${formatWhole(player[this.layer].buyables[this.id])}/40<br>
+                Mult: ${formatWhole(tmp.versus.buyables[11].mult)}<br>
+                Cost: ${formatWhole(this.cost())} VS Rating`
+                return display}, 
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            unlocked() {return hasUpgrade('versus', 22)},    
+            style() {
+                let s = {
+                    'border-radius':'0%',
+                    'max-height':'100px',
+                    'border-color':'#ffffff'
+                }
+                return s
+            },       
+        },
+        12: {
+            title: "",
+            cost(x) { let c = Decimal.pow(100000, x.max(0)).times(1e16)
+                    return c
+            },
+            mult() {
+                let m = d(1)
+                return m
+            },
+            display() { 
+                let display = ` Gain experience from MP Co-op Clears. <br>
+                Bought: ${formatWhole(player[this.layer].buyables[this.id])}<br>
+                Mult: ${formatWhole(tmp.versus.buyables[12].mult)}<br>
+                Cost: ${formatWhole(this.cost())} Coop Clears`
+                return display}, 
+            canAfford() { return player.coop.points.gte(this.cost()) },
+            buy() {
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            unlocked() {return hasUpgrade('versus', 22)},    
+            style() {
+                let s = {
+                    'border-radius':'0%',
+                    'max-height':'100px',
+                    'border-color':'#ffffff'
+                }
+                return s
+            },       
+        },
+        13: {
+            title: "",
+            cost(x) { let c = Decimal.pow(10, Decimal.pow(10, Decimal.pow(1e15, x.max(0)).times(1e42)))
+                    return c
+            },
+            mult() {
+                let m = d(1)
+                if (hasUpgrade('coop', 55)) m = m.times(2)
+                return m
+            },
+            display() { 
+                let display = ` Gain experience from Cleared Courses. <br>
+                Bought: ${formatWhole(player[this.layer].buyables[this.id])}<br>
+                Mult: ${formatWhole(tmp.versus.buyables[13].mult)}<br>
+                Cost: ${formatWhole(this.cost())} Cleared Courses`
+                return display}, 
+            canAfford() { return player.points.gte(this.cost()) },
+            buy() {
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            unlocked() {return hasUpgrade('versus', 22)},    
+            style() {
+                let s = {
+                    'border-radius':'0%',
+                    'max-height':'100px',
+                    'border-color':'#ffffff'
+                }
+                return s
+            },       
+        },
+        14: {
+            title: "",
+            cost(x) { let c = Decimal.pow(3, x.max(0).add(1).pow(1.2))
+                    return c
+            },
+            mult() {
+                let m = d(1)
+                return m
+            },
+            display() { 
+                let display = ` Gain experience from your lag competition played. <br>
+                Bought: ${formatWhole(player[this.layer].buyables[this.id])}<br>
+                Mult: ${formatWhole(tmp.versus.buyables[14].mult)}<br>
+                Cost: ${format(this.cost())} lag competition played`
+                return display}, 
+            canAfford() { return player.versus.lag.gte(this.cost()) },
+            buy() {
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            unlocked() {return hasUpgrade('coop', 52) || tmp.themed.layerShown},    
+            style() {
+                let s = {
+                    'border-radius':'0%',
+                    'max-height':'100px',
+                    'border-color':'#ffffff'
+                }
+                return s
+            },       
+        },
+    },
+    clickables: {
+        11: {
+            display() {
+                return "Respec Research on next MP Co-op reset"
+            },
+            unlocked() {
+                return hasUpgrade("versus", 22)
+            },
+            canClick() {
+                return true
+            },
+            onClick() {
+                if (player.versus.respec) player.versus.respec = false
+                else player.versus.respec = true
+            },
+            style() {
+                let color = '#ffcf03'
+                if (!player.versus.respec) color = '#bf8f8f'
+                let s = {'min-height':'30px',
+                    'width':'480px',
+                    'border-radius':'0%',
+                    'font-size':"20px",
+                    'background-color':color}
+                    return s
+                },
+        },
+        21: {
+            display() {
+                return "Start to learn VS Skills!"
+            },
+            unlocked() {
+                return player.toad.tierlayer.gte(13)
+            },
+            canClick() {
+                return !player.versus.skillLearning
+            },
+            onClick() {
+                return player.versus.skillLearning = true
+            },
+            style() {
+                let s = {'min-height':'30px',
+                    'width':'240px',
+                    'border-radius':'5%',
+                    'font-size':"15px",}
+                    return s
+                },
+        },
+    },
+    milestones: {
+        0: {
+            requirementDescription: "Versus Rating: 1",
+            effectDescription: "+0.35 to Lava effect left powerer (to 3.85).",
+            done() { return player.versus.points.gte(1) },
+        },
+        1: {
+            requirementDescription: "Versus Rating: 12",
+            effectDescription: "Triple Check Point gain.",
+            done() { return player.versus.points.gte(12) },
+            unlocked() { return hasUpgrade('coop', 22) },
+        },
+        2: {
+            requirementDescription: "First Win - Versus Rating: 210",
+            effectDescription: "Autobuy S.E. layer upgrades and ^1.5 Poison effect.",
+            done() { return player.versus.points.gte(210) },
+            unlocked() { return hasUpgrade('coop', 22) },
+        },
+        3: {
+            requirementDescription: "Versus Rating: 222",
+            effectDescription: "Keep attack mode in S.E. layer on row 15 reset.",
+            done() { return player.versus.points.gte(222) },
+            unlocked() { return hasUpgrade('coop', 22) },
+        },
+        4: {
+            requirementDescription: "Versus Rating: 444",
+            effectDescription: "1000x BRC gain but 10x Flaw gain.",
+            done() { return player.versus.points.gte(444) },
+            unlocked() { return hasUpgrade('coop', 22) },
+        },
+        5: {
+            requirementDescription: "Versus Rank C",
+            effectDescription: "Unlock Best Cleared Courses in Expert Boss challenges and Passive generate 10% of Koopaling Bosses based on that.<br>Also, you auto click 10 times for Extra Magic outside of the challenges.",
+            done() { return player.versus.points.gte(1000) },
+            unlocked() { return hasUpgrade('coop', 22) },
+        },
+        6: {
+            requirementDescription: "Played 30000 lag competitions",
+            effectDescription: "You can try to learn VS skill once in 3s instead of 10s.",
+            done() { return player.versus.lag.gte(30000) },
+            unlocked() { return player.toad.tierlayer.gte(15) && player.points.gte('ee3.25e79') || player.versus.lag.gt(0) },
+        },
+        7: {
+            requirementDescription: "Played 100000 lag competitions",
+            effectDescription: "You can try to learn VS skill once in 1s instead of 3s.",
+            done() { return player.versus.lag.gte(100000) },
+            unlocked() { return player.toad.tierlayer.gte(15) && player.points.gte('ee3.25e79') || player.versus.lag.gt(0) },
+        },
+        8: {
+            requirementDescription: "Purchased first 3 rows of research at same time",
+            effectDescription() {
+                return `All row 15 milestones you have multiplies skill tries and Lag gain.<br>Currently: ${format(milestoneEffect(this.layer, 8))}x`},
+            done() { return hasFirst3RowsResearch() },
+            unlocked() { return player.toad.tierlayer.gte(15) && player.points.gte('ee3.25e79') || player.versus.lag.gt(0) },
+            effect() { 
+                let eff = d(player.coop.milestones.length + player.versus.milestones.length)
+                return eff
+            },
+        },
+        9: {
+            requirementDescription: "Versus Rank A",
+            effectDescription() {
+                return `Versus Rating PB past 3000 boosts Pow Block gain and cap.<br>Currently: ${format(milestoneEffect(this.layer, 9))}x`},
+            done() { return player.versus.points.gte(3000) },
+            unlocked() { return player.versus.skill.gte(2.024e10) || player.s_expert.pow_block.gt(0) },
+            effect() { 
+                let eff = player.versus.best.max(3000).sub(2999).pow(1.145)
+                return eff
+            },
+        },
+        10: {
+            requirementDescription: "Versus Rating: 3017",
+            effectDescription: "Unlock a new layer on row 16.",
+            done() { return player.versus.points.gte(3017) },
+            unlocked() { return player.versus.skill.gte(2.024e10) || player.s_expert.pow_block.gt(0) },
+        },
+    },
+    bars: {
+        skillLearning: {
+            direction: RIGHT,
+            width: 420,
+            height: 50,
+            display() {return `Progress: ${formatPercent(player.versus.skillLearningProgress)}`},
+            progress() { return player.versus.skillLearningProgress },
+            unlocked() {return player.toad.tierlayer.gte(13)},
+            fillStyle() {return {"background-color":"#ffcf03"}},
+            baseStyle() {return {"background-color":"rgba(0,0,0,0)"}},
+        },
+    },
+    ratingGain: {
+        fromCC() {
+            let rating = d(0)
+            let cc = player.points
+            let Ahc = d(2000)
+            if (hasUpgrade('versus', 33)) Ahc = d(3000)
+            if (cc.gte("ee1.5e29") && cc.lte("ee3.15e31")) rating = rating.add(cc.max("1e10").log(10).log(10).div(1.5e29).floor().min(210))
+            else if (cc.gte("ee3.15e31")) rating = rating.add(cc.max("1e10").log(10).log(10).div(3.15e31).pow(0.1).add(209).floor().min(Ahc))
+            
+            return rating
+        },
+        fromM() {
+            let rating = d(0)
+            let mario = player.mario.points
+            if (hasUpgrade('coop', 34)) {
+                if (mario.gte(2e46)) rating = mario.max(2e46).div(2e45).sub(10).pow(0.3).floor().min(200)
+            }
+            return rating
+        },
+        fromSkill() {
+            let rating = d(0)
+            let skill = player.versus.skill
+            if (player.versus.skill.gte(5)) rating = skill.max(1).root(2).floor().min(3000)
+            return rating
+        },
+        fromExpRes() {
+            let rating = d(0)
+            let exp = player.versus.experienceTotal.max(0)
+            let researchEff = d(0)
+            if (hasUpgrade('versus', 251)) researchEff = researchEff.add(5000)
+            if (hasUpgrade('versus', 252)) researchEff = researchEff.add(3000)
+            if (hasUpgrade('versus', 253)) researchEff = researchEff.add(2000)
+            if (hasUpgrade('versus', 271)) researchEff = researchEff.add(30000)
+            if (hasUpgrade('versus', 241)) rating = exp.times(20).add(researchEff)
+            return rating
+        },
+        result() {
+            let base = tmp.versus.ratingGain.fromCC.add(tmp.versus.ratingGain.fromM).add(tmp.versus.ratingGain.fromSkill).add(tmp.versus.ratingGain.fromExpRes)
+            let rating = base
+            if (rating.gte(1000)) rating = base.sub(1000).div(3).add(1000).floor().min(2000)
+            if (rating.gte(2000)) rating = base.sub(4000).pow(0.8).add(2000).floor().min(3000)
+            if (rating.gte(3000)) rating = base.sub(10000).max(0).root(3).add(3000).floor().min(4000)
+            return rating
+        },
+    },
+    skillMult() {
+        let m = d(1)
+        if (player.versus.skill.gte(18)) m = m.times(skillReward(1))
+        if (player.versus.skill.gte(225)) m = m.times(225)
+        if (hasMilestone('versus', 8)) m = m.times(milestoneEffect('versus', 8))
+        if (hasUpgrade('versus', 41)) m = m.times(upgradeEffect('versus', 41))
+        if (hasUpgrade('versus', 44)) m = m.times(upgradeEffect('versus', 44))
+        return m
+    },
+    lagMult() {
+        let m = d(1)
+        if (hasUpgrade('coop', 51)) m = m.times(upgradeEffect('coop', 51))
+        if (hasUpgrade('versus', 34)) m = m.times(upgradeEffect('versus', 34))
+        if (hasMilestone('versus', 8)) m = m.times(milestoneEffect('versus', 8))
+        if (hasUpgrade('coop', 54)) m = m.times(upgradeEffect('coop', 54))
+        if (hasUpgrade('versus', 262)) m = m.times(upgradeEffect('versus', 262))
+        if (hasMilestone('versus', 10)) m = m.times(layerEffect('themed'))
+        if (hasMilestone('themed', 0)) m = m.times(2.46)
+        return m
+    },
+    lagEff() {
+        let eff = player.versus.lag.add(1).max(1).pow(2.024)
+        return eff
+    },
+    disconnectedMult() {
+        let m = d(1)
+        return m
+    },
+    skillReward: {
+        0: {
+            reward() {return "unlock C factor"}
+        },
+        1: {
+            reward() {
+                let eff = player.versus.points.max(1).root(2)
+                if (hasUpgrade('coop', 45)) eff = eff.pow(2)
+                return eff
+            }
+        },
+        2: {
+            reward() {return "225x skill learing tries"}
+        },
+        3: {
+            reward() {return "Passive gain 10% Super Expert Endless Clears every second"}
+        },
+        4: {
+            reward() {return "Unlock Pow Block subtab in S.E. layer More Bosses tab"}
+        },
+        5: {
+            reward() {return "Your lava spend input is auto update as lava amount/10 after purchasing Reasaerch 6-1 and 5x Pow Block gain and cap"}
+        },
+    },
+    update() {
+        let tick = d(0.05)
+
+        if (tmp.versus.layerShown) player.versus.points = tmp.versus.ratingGain.result
+        else player.versus.points = d(0)
+        if (player.versus.points.gt(player.versus.best)) player.versus.best = player.versus.points
+
+        if (hasUpgrade('versus', 11)) player.versus.experienceTotal = (getBuyableAmount('versus', 11).times(tmp.versus.buyables[11].mult)).add(getBuyableAmount('versus', 12).times(tmp.versus.buyables[12].mult)).add(getBuyableAmount('versus', 13).times(tmp.versus.buyables[13].mult)).add(getBuyableAmount('versus', 14).times(tmp.versus.buyables[14].mult)),
+        player.versus.experience = player.versus.experienceTotal.max(player.versus.experienceBest).sub(player.versus.experienceSpent)
+
+        if (player.versus.experienceBest.lt(player.versus.experienceTotal)) player.versus.experienceBest = player.versus.experienceTotal
+
+        //skill
+        let time = d(10)
+        if (hasMilestone('versus', 6)) time = d(3)
+        if (hasMilestone('versus', 7)) time = d(1)
+        if (player.versus.skillLearning) player.versus.skillLearningProgress = player.versus.skillLearningProgress.add(tick.div(time))
+        if (player.versus.skillLearningProgress.gte(1)) {
+            player.versus.skillLearningProgress = d(0)
+            player.versus.skillLearning = false
+            player.versus.skill = player.versus.skill.add(tmp.versus.skillMult)
+            if (player.toad.tierlayer.gte(15) && player.points.gte('ee3.25e79') || player.versus.lag.gt(0)) player.versus.lag = player.versus.lag.add(tmp.versus.lagMult)
+        }
+    },
+    tabFormat: [
+        ["display-text", function() {
+            let ratingcolor = "ffffff"
+            if (player.versus.points.gte(6000)) ratingcolor = "e9aca9"
+            return `Your Versus Rating is ${textStyle_h2(formatWhole(player.versus.points), ratingcolor)}, earned Rank ${textStyle_h2(versusRank(player.versus.points), ratingcolor)}`
+        }],
+        "blank",
+        ["display-text", () => `Multiplayer Versus layer doesn't do reset`],
+        ["display-text", () => `You can keep your rating when buying VS upgrades that cost Versus Rating`],
+        ["display-text", () => `Your Versus Rating PB is ${formatWhole(player.versus.best)}`],
+        ["microtabs", "stuff"],
+        ["blank", "65px"],
+    ],
+    microtabs: {
+        stuff: {
+            "Upgrades": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    ["raw-html", () => `<h4 style="opacity:.5">Battle with other players in Multiplayer Versus! The first player reached the goal will win!`],
+                    ["upgrades", [1,2,3,4,5,6,7,8,9]]
+                ]
+            },
+            "Milestones": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    "milestones",
+                ]                
+            }, 
+            "VS Rating Stats": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"], 
+                    ["display-text", function() {
+                        let Ahc = d(2000)
+                        if (hasUpgrade('versus', 33)) Ahc = d(3000)
+                        if (player.points.lte("ee3.15e31")) return `A = floor(lg(lg(Cleared Courses))/1.5e29) = ${formatWhole(tmp.versus.ratingGain.fromCC)} (Softcap at 210)`
+                        else if (player.points.gte("ee3.15e31")) return `A = floor((lg(lg(Cleared Courses))/3.15e31)<sup>0.1</sup>+209) = ${formatWhole(tmp.versus.ratingGain.fromCC)} (Softcap at 210, hardcap at ${formatWhole(Ahc)})`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('coop', 34)) return `B = floor(min((Mario/2e45-10)<sup>0.3</sup>, 200)) = ${formatWhole(tmp.versus.ratingGain.fromM)}`
+                    }],
+                    ["display-text", function() {
+                        if (player.versus.skill.gte(5)) return `C = floor(min(√(Skill tries)), 3000) = ${formatWhole(tmp.versus.ratingGain.fromSkill)}`
+                    }],
+                    ["display-text", function() {
+                        if (hasUpgrade('versus', 241)) return `D = Total experience·20+Research effect = ${formatWhole(tmp.versus.ratingGain.fromExpRes)}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        let B = ""
+                        let C = ""
+                        let D = ""
+                        let E = ""
+                        let F = ""
+                        let G = ""
+                        let H = ""
+                        if (hasUpgrade('coop', 34)) B = "+B"
+                        if (player.versus.skill.gte(5)) C = "+C"
+                        if (hasUpgrade('versus', 241)) D = "+D"
+                        let formula = "RB"
+                        if (player.versus.points.gte(1000)) formula = "(RB-1000)/3+1000      (Softcapped because you reached rank C)"
+                        if (player.versus.points.gte(2000)) formula = "(RB-4000)<sup>0.8</sup> + 2000      (Softcapped^2 because you reached rank B)"
+                        if (player.versus.points.gte(3000)) formula = "<sup>3</sup>√(RB-10000) + 3000      (Softcapped^3 because you reached rank A)"
+                        return `Rating base (RB) formula = A${B}${C}${D}${E}${F}${G}${H}<br>
+                        Rating: ${formula}`
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        return `Rating gain: ${formatWhole(player.versus.points)}
+                        <br><br>Versus Rating always has a hardcap of 8000, it's also the maximum rating in SMM2 VS`
+                    }],
+                ],              
+            }, 
+            "Researches": {
+                unlocked() {return hasUpgrade('versus', 22)},
+                content: [
+                    ["blank", "15px"],
+                    ["clickables", [1]],
+                    ["display-text", function() {
+                        return `You have ${textStyle_h2(formatWhole(player.versus.experience)+'/'+formatWhole(player.versus.experienceTotal.max(player.versus.experienceBest)), 'ffcf03')} experience`
+                    }],
+                    ["display-text", function() {
+                        if (tmp.themed.layerShown) return `You keep your best total experience on reset for researches, but effects based on total experience are now based on current total experience<br>
+                        Your current total experience is ${formatWhole(player.versus.experienceTotal)}`
+                    }],
+                    "blank",
+                    "buyables",
+                    "blank",
+                    ["row",[["upgrade", 211], "blank", ["display-text", function() {if (tmp.versus.upgrades[211].unlocked) return '<h4 style="opacity:.5">Research row 1'}]]],
+                    "blank",
+                    ["row",[["upgrade", 221], "blank", ["upgrade", 222], "blank", ["upgrade", 223], "blank", ["display-text", function() {if (tmp.versus.upgrades[221].unlocked || tmp.versus.upgrades[222].unlocked || tmp.versus.upgrades[223].unlocked)return '<h4 style="opacity:.5">Research row 2'}]]],
+                    "blank",
+                    ["row",[["upgrade", 231], "blank", ["upgrade", 232], "blank", ["upgrade", 233], "blank", ["upgrade", 234], "blank", ["display-text", function() {if (tmp.versus.upgrades[231].unlocked || tmp.versus.upgrades[232].unlocked || tmp.versus.upgrades[233].unlocked || tmp.versus.upgrades[234].unlocked) return '<h4 style="opacity:.5">Research row 3'}]]],
+                    "blank",
+                    ["row",[["upgrade", 241], "blank", ["display-text", function() {if (tmp.versus.upgrades[241].unlocked) return '<h4 style="opacity:.5">Research row 4'}]]],
+                    "blank",
+                    ["display-text", function() {
+                        let t = ""
+                        if (!(hasUpgrade('versus', 231) && hasUpgrade('versus', 232) && hasUpgrade('versus', 233) && hasUpgrade('versus', 234))) t = "You should buy everything at Research row 3 to unlock Reaearch row 4!"
+                        return t
+                    }],
+                    ["row",[["upgrade", 251], "blank", ["upgrade", 252], "blank", ["upgrade", 253], "blank", ["display-text", function() {if (tmp.versus.upgrades[251].unlocked || tmp.versus.upgrades[252].unlocked || tmp.versus.upgrades[253].unlocked) return '<h4 style="opacity:.5">Research row 5'}]]],
+                    "blank",
+                    ["row",[["upgrade", 261], "blank", ["upgrade", 262], "blank", ["display-text", function() {if (tmp.versus.upgrades[261].unlocked || tmp.versus.upgrades[262].unlocked) return '<h4 style="opacity:.5">Research row 6'}]]],
+                    "blank",
+                    ["row",[["upgrade", 271], "blank", ["display-text", function() {if (tmp.versus.upgrades[271]) return '<h4 style="opacity:.5">Research row 7'}]]],
+                ],
+                buttonStyle() {
+                    return {
+                        'background':`linear-gradient(90deg, #ffcf03, white)`,
+                        'border-color':'#ffcf03',
+                        'color':'black',
+                    }
+                },                
+            },
+            "VS Skills": {
+                unlocked() {return player.toad.tierlayer.gte(13)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        return `You tried to learn VS skills ${textStyle_h2(formatWhole(player.versus.skill), 'ffcf03')} times`
+                    }],
+                    ["bar", "skillLearning"],
+                    "blank",
+                    ["clickables", [2]],
+                    "blank",
+                    ["display-text", function() {
+                        return `You can gain ${formatWhole(tmp.versus.skillMult)} times of try once`
+                    }],
+                    "blank",
+                    ["h-line", "600px"],
+                    "blank",
+                    ["display-text", function() {
+                        return `Skill: Fast starting<br>Requies ${textStyle_h2(formatWhole(5), 'ffcf03')} tries`
+                    }],
+                    ["display-text", function() {
+                        if (player.versus.skill.gte(5)) return `reward: unlock factor C to gain Versus Rating`
+                    }],
+                    "blank",
+                    ["h-line", function() {
+                        if (player.versus.skill.gte(5)) return "600px"
+                        else return "0px"
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (player.versus.skill.gte(5)) return `Skill: Grab players<br>Requies ${textStyle_h2(formatWhole(18), 'ffcf03')} tries`
+                    }],
+                    ["display-text", function() {
+                        if (player.versus.skill.gte(18)) return `reward: Versus Rating boosts skill tries gain<br>
+                        Currently: ${format(skillReward(1))}x`
+                    }],
+                    "blank",
+                    ["h-line", function() {
+                        if (player.versus.skill.gte(18)) return "600px"
+                        else return "0px"
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (player.versus.skill.gte(18)) return `Skill: Stomp other players<br>Requies ${textStyle_h2(formatWhole(225), 'ffcf03')} tries`
+                    }],
+                    ["display-text", function() {
+                        if (player.versus.skill.gte(225)) return `reward: 225x skill learning tries gain`
+                    }],
+                    "blank",
+                    ["h-line", function() {
+                        if (player.versus.skill.gte(225)) return "600px"
+                        else return "0px"
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (player.versus.skill.gte(225)) return `Skill: Find the real way<br>Requies ${textStyle_h2(formatWhole(3141592), 'ffcf03')} tries`
+                    }],
+                    ["display-text", function() {
+                        if (player.versus.skill.gte(3141592)) return `reward: Passive gain 10% Super Expert Endless Clears every second`
+                    }],
+                    "blank",
+                    ["h-line", function() {
+                        if (player.versus.skill.gte(3141592)) return "600px"
+                        else return "0px"
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (player.versus.skill.gte(3141592)) return `Skill: Avoid piranhas from pipes (especially yellow and red pipes)<br>Requies ${textStyle_h2(formatWhole(2.024e10), 'ffcf03')} tries`
+                    }],
+                    ["display-text", function() {
+                        if (player.versus.skill.gte(2.024e10)) return `reward: Unlock Pow Block subtab in S.E. layer More Bosses tab`
+                    }],
+                    "blank",
+                    ["h-line", function() {
+                        if (player.versus.skill.gte(2.024e10)) return "600px"
+                        else return "0px"
+                    }],
+                    "blank",
+                    ["display-text", function() {
+                        if (player.versus.skill.gte(2.024e10)) return `Skill: Accelerate to max speed and keep it to the goal<br>Requies ${textStyle_h2(formatWhole(1.25e13), 'ffcf03')} tries`
+                    }],
+                    ["display-text", function() {
+                        if (player.versus.skill.gte(1.25e13)) return `reward: Your lava spend input is auto update as lava amount/10 after purchasing Reasaerch 6-1 and 5x Pow Block gain and cap`
+                    }],
+                    "blank",
+                    ["h-line", function() {
+                        if (player.versus.skill.gte(1.25e13)) return "600px"
+                        else return "0px"
+                    }],
+                    "blank",
+                ],
+                buttonStyle() {
+                    return {
+                        'background':`linear-gradient(90deg, #ffcf03, white)`,
+                        'border-color':'#ffcf03',
+                        'color':'black',
+                    }
+                },
+            },
+            "Lag": {
+                unlocked() {return player.toad.tierlayer.gte(15)},
+                content: [
+                    ["blank", "15px"],
+                    ["display-text", function() {
+                        if (player.points.lt('ee3.25e79') && player.versus.lag.lte(0))
+                        return `Reach ${format('ee3.25e79')} Cleared Courses to start to play in lag competitions`
+                        else return `You have played ${textStyle_h2(formatWhole(player.versus.lag), 'ffcf03')} versus competition in lag, Co-op Clears gain is multiplied by ${textStyle_h2(format(tmp.versus.lagEff)+"x", 'ffcf03')}<br>
+                        You will meet ${formatWhole(tmp.versus.lagMult)} lag comptitions when try to learn VS skills`
+                    }],
+                    "blank",
+                    ["bar", "skillLearning"],
+                    "blank",
+                    ["clickables", [2]],
+                    "blank",
+                    ["display-text", function() {return '<i><h4 style="opacity:.5">Lag is annoying, but we must face it</i>'}]
+                    ],
+                buttonStyle() {
+                    return {
+                        'background':`linear-gradient(90deg, #ffcf03, white)`,
+                        'border-color':'#ffcf03',
+                        'color':'black',
+                    }
+                },                
+            },
+        },
+    },
+})
+// 第三十层：标准风格关卡 (Themed Courses)
+addLayer("themed", {
+    componentStyles: {
+        "upgrade"() { return {'border-radius':'10%',
+                              'width':'150px',
+                              'min-height':'150px',
+        } }
+    },
+    startData() { return {                  // startData is a function that returns default data for a layer. 
+        unlocked: true,                     // You can add more variables here to add them to your layer.
+        points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+        w11: d(0),
+    }},
+
+    color: "#748BFF",                       // The color for this layer, which affects many elements.
+    resource: "Themed Courses",            // The name of this layer's main prestige resource.
+    row: 15,                                 // The row this layer is on (0 is the first row).
+    symbol: "Th",
+
+    baseResource: "Super Expert Endless Clears",                 // The name of the resource your prestige gain is based on.
+    baseAmount() { return player.s_expert.points },  // A function to return the current amount of baseResource.
+
+    requires: new Decimal("2e748"),              // The amount of the base needed to  gain 1 of the prestige currency.
+                                            // Also the amount required to unlock the layer.
+
+    type: "normal",                         // Determines the formula used for calculating prestige currency.
+    exponent: 0.0078,                          // "normal" prestige gain is (currency^exponent).
+
+    gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        let m = d(1)
+        return m               // Factor in any bonuses multiplying gain here.
+    },
+    gainExp() {                             // Returns the exponent to your gain of the prestige resource.
+        let e = d(1)
+        return e
+    },
+
+    effect() {
+        let eff = player.themed.points.max(0).add(1).pow(1.5)
+        let softcap = d(1e60)
+        return eff
+    },
+
+    onPrestige() {
+        return player.s_expert.points = d(0)
+    },
+
+    layerShown() { return hasMilestone('versus', 10) },          // Returns a bool for if this layer's node should be visible in the tree.
+
+    upgrades: {
+        11: {
+            title: "Make it your way",
+            description: "+20 to Bowser Jr. max completion.",
+            cost: new Decimal(7),
+            unlocked() {return true},
+        },
+        12: {
+            title: "Play it your way",
+            description: "Current Endgame.",
+            cost: new Decimal(100),
+            unlocked() {return hasUpgrade(this.layer, this.id-1)},
+        },
+        // Look in the upgrades docs to see what goes here!
+    },
+    milestones: {
+        0: {
+            requirementDescription: "Upload 1 Themed Course",
+            effectDescription: "Gain 2.46x more lag competitions played.",
+            done() { return player.themed.points.gte(1) },
+        },
+        1: {
+            requirementDescription: "Upload 2 Themed Courses",
+            effectDescription: "Passive gain 100% of Multiplayer Co-op Clears gain per second.",
+            done() { return player.themed.points.gte(2) },
+        },
+        2: {
+            requirementDescription: "Upload 3 Themed Courses",
+            effectDescription: "10x Check Points gain.",
+            done() { return player.themed.points.gte(3) },
+        },
+        3: {
+            requirementDescription: "Upload 6 Themed Courses",
+            effectDescription: "You can gain 5 completions while you complete challenge Bowser Jr.",
+            done() { return player.themed.points.gte(6) },
+        },
+        4: {
+            requirementDescription: "Upload 20 Themed Courses",
+            effectDescription: "Passive gain 100% Check Points per second and buy max MP Co-op buyables.",
+            done() { return player.themed.points.gte(20) },
+        },
+        5: {
+            requirementDescription: "Upload 30 Themed Courses",
+            effectDescription: "You no longer gain any Flaw and keep MP Co-op milestones on layer 16 reset.",
+            done() { return player.themed.points.gte(30) },
+        },
+        6: {
+            requirementDescription: "Upload 60 Themed Courses",
+            effectDescription: "Passive gain 100% Wings per second and you can keep spending lava on reset.",
+            done() { return player.themed.points.gte(60) },
+        },
+    },
+    tabFormat: [
+        ["display-text", function() {
+            let bef1e1000 = "You have uploaded"
+            if (player.themed.points.gte("1e1000")) bef1e1000 = ""
+            return `${bef1e1000} ${textStyle_h2(formatWhole(player.themed.points), '748bff')} Themed Courses, multipliying lag comptitions played by ${textStyle_h2(format(layerEffect('themed'))+"x", '748bff')}`
+        }],
+        "blank",
+        "prestige-button",
+        ["display-text", () => `Themed Course layer only reset Multiplayer Co-op layer and S.E. Endless Clears amount.`],
+        ["display-text", () => `You keep everything in Multiplayer Versus layer.`],
+        ["display-text", () => `Your have ${formatWhole(player.s_expert.points)} Super Expert Endless Clears`],
+        ["display-text", () => `Your best amount of Themed Courses is ${formatWhole(player.themed.best)}`],
+        ["microtabs", "stuff"],
+        ["blank", "65px"],
+    ],
+    microtabs: {
+        stuff: {
+            "Upgrades": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
+                    ["raw-html", () => `<h4 style="opacity:.5">Tag "Themed" is for Nintendo-like design courses. <br>Oh, too many SMB1 World 1-1 here...`],
+                    ["upgrades", [1,2,3,4,5,6,7,8,9]]
+                ]
+            },
+            "Milestones": {
+                unlocked() {return true},
+                content: [
+                    ["blank", "15px"],
                     "milestones",
                 ]                
             }, 
@@ -16374,16 +19366,6 @@ addLayer("coop", {
 
 
 
-
-
-
-
-
-
-
-// addLayer("coop",{})
-// 第二十九层：多人对战 (Multiplayer Versus) Res: Versus Rating
-// 第三十层：标准风格关卡 (Regular Design Courses)
 // 第三十一层：跑酷关卡 (Speedrun/Parkour Courses)
 // 第三十二层：微操关卡 (Precision Courses)
 // 第三十三层：Kaizo关卡 (Kaizo Courses)
