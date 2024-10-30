@@ -15,6 +15,7 @@ function getStartOptions() {
 		oldStyle: false,
 		tooltipForcing: true,
 		endgameShown: false,
+		maximumOoMsInCommas: 9,
 	}
 }
 
@@ -22,6 +23,12 @@ let notations = ['Scientific','Engineering','Standard','Mixed Scientific','Mixed
 
 function changeNotation() {
 	player.notation = notations[(notations.indexOf(player.notation) + 1) % notations.length]
+}
+
+function changeMaximumOoMsInCommas() {
+	if (options.maximumOoMsInCommas != 15) options.maximumOoMsInCommas = options.maximumOoMsInCommas + 3
+	else if (options.maximumOoMsInCommas == 15) options.maximumOoMsInCommas = 3
+	player.maximumOoMsInCommas = options.maximumOoMsInCommas
 }
 
 function toggleOpt(name) {
