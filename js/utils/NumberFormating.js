@@ -1,9 +1,13 @@
 //来源：病毒树
 //From: The Plague Tree
+
 function slog(x){
 	return x.slog(10)
 }
 
+function maxCommas() {
+	return Decimal.pow(10, player.maximumOoMsInCommas)
+}
 
 function addCommas(s){
 	if (s.length <= 3) return s
@@ -37,7 +41,7 @@ function exponentialFormat(num, precision) {
 		}
 	}
 	let start = ""
-	if (e.abs().lt(1e9)) {
+	if (e.abs().lt(maxCommas())) {
 		if (player.notation == 'Engineering' || player.notation == 'Mixed Engineering') {
 			if (m.toStringWithDecimalPlaces(precision) == 1000) {
 				m = new Decimal(1)
@@ -50,7 +54,8 @@ function exponentialFormat(num, precision) {
 				e = e.add(1)
 			}
 		}
-		start = m.toStringWithDecimalPlaces(precision)
+		if (e.lt(1e9)) start = m.toStringWithDecimalPlaces(precision)
+		else start = ""
 	}
 	
 	let end = e.toStringWithDecimalPlaces(0)
@@ -88,7 +93,7 @@ function sumValues(x) {
 }
 
 function t1format(x,mult=false,y) {
-	let ills = ['','M','B','T','Qa','Qt','Sx','Sp','Oc','No']
+	let ills = ['K','M','B','T','Qa','Qt','Sx','Sp','Oc','No']
 	let t1ones = ["","U","D","T","Qa","Qt","Sx","Sp","Oc","No"]
 	if (mult && y>0 && x<10) t1ones = ["","","D","T","Qa","Qt","Sx","Sp","Oc","No"]
 	let t1tens = ["","Dc","Vg","Tg","Qd","Qi","Se","St","Og","Nn"]
@@ -134,20 +139,23 @@ function t3format(x,mult=false,y,z) {
 }
 
 function t4format(x,m,mult=false,y) {
-	let t4ills = ["","aL","eJ","iJ","AsT","uN","rM","oV","oL","eT","O","aX","uP","rS","lT","ET","eV","yP","OmN","OuT","aRr"]
-	if (mult && y>0 && x<10) t4ills = ["","","eJ","iJ","AsT","uN","rM","oV","oL","eT","O","aX","uP","rS","lT","ET","eV","yP","OmN","OuT","aRr"]
-    let t4ones = ["","aRraL","aRreJ","aRriJ","aRrAst","aRruN","aRrrM","aRroV","aRroL","aRreT"]
+	let t4ills = ["","aL","eJ","iJ","AsT","uN","rM","oV","oL","eT","O","aX","uP","rS","lT","eT","eV","yP","OmN","uT","aRr"]
+	if (mult && y>0 && x<10) t4ills = ["","","eJ","iJ","AsT","uN","rM","oV","oL","eT","O","aX","uP","rS","lT","eT","eV","yP","OmN","OuT","aRr"]
+    if (m>=2) t4ills[15] = "etT"
+	let t4ones = ["","aRraL","aRreJ","aRriJ","aRrAst","aRruN","aRrrM","aRroV","aRroL","aRreT"]
 	let t4thirty_ones = ["aRr","aRraL","aRreJ","aRriJ","aRrAst","aRruN","aRrrM","aRroV","aRroL","aRreT"]
-    let t4tens = ["","","B","G","A","L","F","J","S","Be"]
-	let t4hunds = ["","HuT","Mut","Gut","Aut","Lut","Fut","Jut","Sut","But"]
-	let t4m = ["","K","M","G","","L","F","J","S","B","Gl","G","S","V","M","M","X","H","","","B"]
-	if (mult && y>0 && x<10) t4m = ["","","M","G","","L","F","J","S","B","Gl","G","S","V","M","M","X","H","","","B"]
+    let t4tens = ["","","B","G","AsT","LuN","FrM","JoV","SoL","BeT"]
+	if (m>=2 || x>100) t4tens = ["","","","oG","AsT","uN","rM","oV","oL","eT"]
+	let t4hunds = ["","HuT","MuT","GuT","AsTuT","LuT","FuT","JuT","SuT","BuT"]
+	let t4m = ["","K","M","G","","L","F","J","S","B","Gl","G","S","V","M","M","X","H","","O","B"]
+	if (mult && y>0 && x<10) t4m = ["","","M","G","","L","F","J","S","B","Gl","G","S","V","M","M","X","H","","O","B"]
 	let t4f = t4ills[x]
 	if (m<2) t4f = t4m[x]+t4f
-    if (x>20&&x<30) t4f = t4tens[Math.floor(x/10)%10]+t4ones[x%10]
+    if (x>20&&x<30&&m<2) t4f = t4tens[Math.floor(x/10)%10]+t4ones[x%10]
+	if (x>20&&x<30&&m>=2) t4f = t4ones[x%10]
 	if (x>=30&&x<100) t4f = t4tens[Math.floor(x/10)%10]+t4thirty_ones[x%10]
 	if (x>=100&&x<1000&&x%100<=20) t4f = t4hunds[Math.floor(x/100)%10]+t4ills[Math.floor(x%100)]
-	if (x>=100&&x<1000&&x%100>20&&x%100<30) t4f = t4hunds[Math.floor(x/100)%10]+t4tens[Math.floor(x/10)%10]+t4ones[x%10]
+	if (x>=100&&x<1000&&x%100>20&&x%100<30) t4f = t4hunds[Math.floor(x/100)%10]+t4thirty_ones[x%10]
 	if (x>=100&&x<1000&&x%100>30) t4f = t4hunds[Math.floor(x/100)%10]+t4tens[Math.floor(x/10)%10]+t4thirty_ones[x%10]
 	return t4f
 }
@@ -222,13 +230,13 @@ function standard(decimal, precision){
 		if (slog.gte(100)) return Decimal.pow(10, slog.sub(slog.floor())).toStringWithDecimalPlaces(3) + "F" + commaFormat(slog.floor(), 0)
 		else return Decimal.pow(10, slog.sub(slog.floor())).toStringWithDecimalPlaces(4) + "F" + commaFormat(slog.floor(), 0)
 	}
-	let illion = decimal.log10().div(3).floor().sub(1)
+	let illion = decimal.max(1).log10().div(3).floor().sub(1)
 	let m = decimal.div(Decimal.pow(1e3,illion.add(1)))
 	if (m.toStringWithDecimalPlaces(precision) == 1000) {
 		m = new Decimal(1)
 		illion = illion.add(1)
 	}
-	if (decimal.log10().lt(1e9)) m = m.toStringWithDecimalPlaces(precision)+' '
+	if (decimal.max(1).log10().lt(1e10)) m = m.toStringWithDecimalPlaces(precision)+' '
 	else m = ''
 	let t2illion = illion.max(1).log10().div(3).floor()
 	let t3illion = t2illion.max(1).log10().div(3).floor()
@@ -267,7 +275,7 @@ function standard(decimal, precision){
 	if (t6illion.gte(1e6)) st += ((t6%1e3>0)?(".-"+t6format(t6%1e3,true,t7-2)+t7format(t7-2,t6%1e3)):'')
 	if (t7illion.gte(1e3)) st = t7format(Math.floor(t7/1e6),1,true,t8)+t8format(t8,Math.floor(t7/1e6))+((Math.floor(t7/1e3)%1e3>0)?(",-"+t7format(Math.floor(t7/1e3)%1e3,1,true,t8-1)+t8format(t8-1,(t7/1e3)%1e3)):'')
 	if (t7illion.gte(1e6)) st += ((t7%1e3>0)?(",-"+t7format(t7%1e3,1,true,t8-2)+t8format(t8-2,t7%1e3)):'')
-	if (decimal.mag >= 1e9 || (decimal.layer>0 && decimal.mag>=0))return m+st
+	if (decimal.mag >= maxCommas() || (decimal.layer>0 && decimal.mag>=0))return m+st
 	if (decimal.mag >= 1e3) return commaFormat(decimal, 0)
 	if (decimal.mag >= 0.001) return regularFormat(decimal, precision)
 	if (decimal.sign!=0) return '1/'+standard(decimal.recip(),precision)
@@ -282,9 +290,9 @@ function hyperEformat(decimal, precision) {
 	if (mag.gte(1e6)) m = commaFormat(mag,0)
 	let e = commaFormat(s.floor().sub(1),0)
 	if (s.gte(1e9)) e = formatWhole(s.floor())
-	if (decimal.layer >= 1e10) return hyperEformat(s,precision)+'#2'
-	if (decimal.layer >= 1e9) return 'E1#'+e
-	if ((decimal.layer > 0 && decimal.mag>0) || decimal.mag >= 1e10) return 'E'+m+'#'+e
+	if (decimal.layer >= maxCommas().toNumber()) return hyperEformat(s,precision)+'#2'
+	// if (decimal.layer >= 1e9) return 'E1#'+e
+	if ((decimal.layer > 0 && decimal.mag>0) || decimal.mag >= maxCommas().toNumber()) return 'E'+m+'#'+e
 	if (decimal.mag >= 1e3) return commaFormat(decimal, 0)
 	if (decimal.mag >= 0.001) return regularFormat(decimal, precision)
 	if (decimal.mag >= 1/9e15) return '1/'+standard(decimal.recip(),precision)
@@ -371,16 +379,16 @@ function formatSciEng(decimal, precision) {
 		else exponentialFormat(decimal, precision)
 	}
 	if (decimal.mag == Number.POSITIVE_INFINITY) return "Infinity"
-	if (decimal.layer > 3 || (decimal.mag >= 1e10 && decimal.layer == 3)) {
+	if (decimal.layer > 4 || (decimal.mag >= 9e15 && decimal.layer == 4)) {
 		var slog = decimal.slog()
 		if (slog.gte(1e9)) return "F" + formatWhole(slog.floor())
 		if (slog.gte(100)) return Decimal.pow(10, slog.sub(slog.floor())).toStringWithDecimalPlaces(3) + "F" + commaFormat(slog.floor(), 0)
 		else return Decimal.pow(10, slog.sub(slog.floor())).toStringWithDecimalPlaces(4) + "F" + commaFormat(slog.floor(), 0)
 	} else if (decimal.layer > 2 || (Math.abs(decimal.mag) > 308 && decimal.layer == 2)) {
 		return "e" + format(decimal.log10(), precision)
-	} else if (decimal.layer > 1 || (Math.abs(decimal.mag) >= 1e12 && decimal.layer == 1)) {
+	} else if (decimal.layer > 1 || (Math.abs(decimal.mag) >= maxCommas().toNumber() && decimal.layer == 1)) {
 		return "e" + format(decimal.log10(), 4)
-	} else if (decimal.layer > 0 || decimal.mag >= 1e9) {
+	} else if (decimal.layer > 0 || decimal.mag >= maxCommas().toNumber()) {
 		return exponentialFormat(decimal, precision)
 	} else if (decimal.mag >= 1000) {
 		return commaFormat(decimal, 0)
@@ -421,14 +429,18 @@ function formatBEAF(decimal) {
 	if (decimal.gte("10^^1e9") && decimal.lte("10^^1e12")) return "{10, " + commaFormat(decimal.slog(10), 0) + ", 2}"
 	if (decimal.gte("10^^1e12") && decimal.lte("10^^9e15")) return "{10, " + formatSciEng(decimal.slog(10), 3) + ", 2}"
 	if (decimal.gte("10^^9e15") && decimal.lte("10^^1.79769313e308")) return "{10, {10, " + commaFormat(decimal.slog(10).log(10), 4) + "}, 2}"
-	if (decimal.abs().lt(1e-3) && decimal.abs().gt(0)) return "1/" + formatBEAF(decimal.recip())
+	if (decimal.abs().lt(1e-3) && decimal.abs().gt(0)) return formatBEAF(decimal.recip())+"<sup>-1</sup>"
 	if (decimal.lt(0)) return "-" + formatBEAF(decimal.neg())
-	if (decimal.eq(0)) return formatSciEng(0)
+	if (decimal.eq(0)) return "0"
+}
+
+function AS6KweirdNotation() {
+
 }
 
 function formatWhole(decimal) {
     decimal = new Decimal(decimal)
-    if (decimal.gte(1e9)) return format(decimal, 3)
+    if (decimal.gte(maxCommas())) return format(decimal, 3)
     if (decimal.lte(0.99) && !decimal.eq(0)) return format(decimal, 3)
 	if (player.notation == 'BEAF' && decimal.lte(1e9) && decimal.gte(0.99)) return formatSciEng(decimal, 0)
     return format(decimal, 0)
@@ -441,11 +453,14 @@ function formatPercent(decimal, boost) {
 }
 
 function formatTime(s) {
-	if (s < 60) return format(s) + "s"
-    else if (s < 3600) return formatWhole(Math.floor(s / 60)) + "m " + format(s % 60) + "s"
-    else if (s < 86400) return formatWhole(Math.floor(s / 3600)) + "h " + formatWhole(Math.floor(s / 60) % 60) + "m " + format(s % 60) + "s"
-    else if (s < 31536000) return formatWhole(Math.floor(s / 86400) % 365) + "d " + formatWhole(Math.floor(s / 3600) % 24) + "h " + formatWhole(Math.floor(s / 60) % 60) + "m " + format(s % 60) + "s"
-    else return formatWhole(Math.floor(s / 31536000)) + "y " + formatWhole(Math.floor(s / 86400) % 365) + "d " + formatWhole(Math.floor(s / 3600) % 24) + "h " + formatWhole(Math.floor(s / 60) % 60) + "m " + format(s % 60) + "s"
+	let Ds = new Decimal(s)
+	let Ns = Ds.toNumber()
+	if (Ds.lt(60)) return format(Ds) + "s"
+    else if (Ds.lt(3600)) return formatWhole(Math.floor(Ns / 60)) + "m " + format(Ns % 60) + "s"
+    else if (Ds.lt(86400)) return formatWhole(Math.floor(Ns / 3600)) + "h " + formatWhole(Math.floor(Ns / 60) % 60) + "m " + format(Ns % 60) + "s"
+    else if (Ds.lt(31536000)) return formatWhole(Math.floor(Ns / 86400) % 365) + "d " + formatWhole(Math.floor(Ns / 3600) % 24) + "h " + formatWhole(Math.floor(Ns / 60) % 60) + "m " + format(Ns % 60) + "s"
+    else if (Ds.lt(31536000000)) return formatWhole(Math.floor(Ns / 31536000)) + "y " + formatWhole(Math.floor(Ns / 86400) % 365) + "d " + formatWhole(Math.floor(Ns / 3600) % 24) + "h " + formatWhole(Math.floor(Ns / 60) % 60) + "m " + format(Ns % 60) + "s"
+	else return formatWhole(Ds.div(31536000)) + "y"
 }
 function verse(x) {
 	s = Decimal.slog(new Decimal(x)).sub(Decimal.log10(9))
@@ -478,6 +493,7 @@ function verseShort(x) {
 function formatTimeLong(s) {
 	s = new Decimal(s)
 	let years = s.div(31556952)
+	if (years.gte("6pt9")) return format(Decimal.slog(years).pow10().div(9e6)) + " omniverse ages"
 	let mlt = verse(years)
 	let arv1 = [1,1e15,1e30,1e45,1e60,1e75,1e90,1e105,1e120,1e135]
 	let arv2 = ["","mega","giga","tera","peta","exa","zetta","yotta","ronna","quetta"]
@@ -492,10 +508,9 @@ function formatTimeLong(s) {
 		mverse = arv2[id]
 		if (arv2[id]=="") mverse = "multi"
 	}
-	if (years.gte("6pt9")) return format(Decimal.slog(years).pow10().div(9e6)) + " omniverse ages"
 	if (years.gte("eee56") && years.lt("eee69")) return format(years.log10().log10().div(1e56)) + " new big bangs"
 	if (years.gte("ee120") && years.lt("ee129")) return format(years.log10().div(1e120)) + " big rips"
-	if (years.gte("ee9")) return format(mlt[0].div(arv1[id])) + " " + mverse +"verse ages"
+	if (years.gte("ee9") && years.lt("6pt9")) return format(mlt[0].div(arv1[id])) + " " + mverse +"verse ages"
 	let scale1 = [5.39121e-44,1e-30,1e-27,1e-24,1e-21,1e-18,1e-15,1e-12,1e-9,1e-6,0.001,1,60,3600,86400,31556952,31556952e3,31556952e6,31556952e9,31556952e12,31556952e15,31556952e18,31556952e21,31556952e24,31556952e27,31556952e30,31556952e40,31556952e100]
 	let scale2 = [" Planck Times"," quectoseconds"," rontoseconds"," yoctoseconds"," zeptoseconds"," attoseconds"," femtoseconds"
 	," picoseconds"," nanoseconds"," microseconds"," milliseconds"," seconds"," minutes"
@@ -507,6 +522,7 @@ function formatTimeLong(s) {
 			if (id2 > 0) id2--;
 		}
 	return format(s.div(scale1[id2])) + scale2[id2]
+	
 }
 function pluralize(n,singular,plural,round=false) {
 	n = new Decimal(n)
